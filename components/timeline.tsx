@@ -1,4 +1,5 @@
 "use client"
+
 import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import { Check } from "lucide-react"
@@ -7,7 +8,7 @@ export default function ProfessionalTimeline() {
   const steps = [
     {
       title: "Discovery",
-      description: "Understanding your vision and goals through comprehensive research .",
+      description: "Understanding your vision and goals through comprehensive research.",
       duration: "1-2 weeks",
       number: "01",
     },
@@ -19,21 +20,15 @@ export default function ProfessionalTimeline() {
     },
     {
       title: "Development",
-      description: "Building with clean, scalable code using modern technologies.",
+      description: "Building with clean, scalable code using modern technologies with thorough testing.",
       duration: "4-6 weeks",
       number: "03",
-    },
-    {
-      title: "Testing",
-      description: "Ensuring flawless performance across all devices and scenarios.",
-      duration: "1-2 weeks",
-      number: "04",
     },
     {
       title: "Launch",
       description: "Seamless deployment with ongoing support for continued success.",
       duration: "Ongoing",
-      number: "05",
+      number: "04",
     },
   ]
 
@@ -46,7 +41,6 @@ export default function ProfessionalTimeline() {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768)
     }
-
     checkMobile()
     window.addEventListener("resize", checkMobile)
     return () => window.removeEventListener("resize", checkMobile)
@@ -169,9 +163,7 @@ export default function ProfessionalTimeline() {
                           {step.duration}
                         </span>
                       </div>
-
                       <p className="text-sm text-gray-600 leading-relaxed mb-3">{step.description}</p>
-
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
                           <span className="text-xs font-medium text-gray-500">
@@ -265,7 +257,7 @@ export default function ProfessionalTimeline() {
 
           {/* Timeline Steps */}
           <div className="relative z-40 py-16">
-            <div className="grid grid-cols-5 gap-8 lg:gap-16">
+            <div className="grid grid-cols-4 gap-8 lg:gap-16">
               {steps.map((step, index) => {
                 const isBelow = index % 2 !== 0
                 const isActive = index === currentStep

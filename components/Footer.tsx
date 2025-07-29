@@ -19,16 +19,15 @@ export default function Footer() {
           {/* Left Side */}
           <div className="space-y-6">
             <h3 className="text-lg font-medium text-gray-300">
-              LOOKING FOR A DIGITAL MARKETING AGENCY WITH THE BEST VALUE?
+              Need a results-driven digital marketing agency?
             </h3>
             <p className="text-gray-400 text-sm">
-              We provide innovative digital solutions to help you succeed. Connect with us today to start something
-              amazing.
+              Let’s create impactful solutions together. Reach out today.
             </p>
 
             {/* Newsletter */}
             <div>
-              <h4 className="text-sm font-semibold text-gray-300 mb-2 uppercase">Subscribe to our newsletter</h4>
+              <h4 className="text-sm font-semibold text-gray-300 mb-2 uppercase">Stay Updated</h4>
               <div className="flex items-center bg-white rounded-full p-1 max-w-md">
                 <input
                   type="email"
@@ -47,15 +46,6 @@ export default function Footer() {
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <Plus size={16} className="text-[#cf21c3]" />
-                <span className="font-semibold">Phone</span>
-              </div>
-              <p>+1 (555) 123-4567</p>
-              <p>+44 20 7123 4567</p>
-            </div>
-
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <Plus size={16} className="text-[#cf21c3]" />
                 <span className="font-semibold">Email</span>
               </div>
               <p>hello@kayidigital.com</p>
@@ -70,16 +60,6 @@ export default function Footer() {
               <p>New York, USA</p>
               <p>London, UK</p>
               <p>Dubai, UAE</p>
-            </div>
-
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <Plus size={16} className="text-[#cf21c3]" />
-                <span className="font-semibold">Services</span>
-              </div>
-              <p>Digital Marketing</p>
-              <p>Web Development</p>
-              <p>Brand Strategy</p>
             </div>
           </div>
         </div>

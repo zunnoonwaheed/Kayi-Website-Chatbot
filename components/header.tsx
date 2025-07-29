@@ -19,7 +19,6 @@ export default function Header() {
     { name: "Portfolio", targetClass: ".portfolio" },
     { name: "Testimonials", targetClass: ".testimonials" },
     { name: "Contact", targetClass: ".contact" },
-    // ✅ Removed { name: "Contact Page", href: "/contact-page" }
   ];
 
   const scrollToSection = (selector: string) => {
@@ -39,7 +38,7 @@ export default function Header() {
               key={i}
               href={item.href}
               onClick={() => setIsSheetOpen(false)}
-              className="hover:text-gray-800 transition-colors font-normal text-[16px]"
+              className="hover:text-gray-800 transition-colors font-normal text-[13px] md:text-[13px]"
             >
               {item.name}
             </Link>
@@ -51,7 +50,7 @@ export default function Header() {
             <button
               key={i}
               onClick={() => scrollToSection(item.targetClass!)}
-              className="hover:text-gray-800 transition-colors font-normal text-[16px]"
+              className="hover:text-gray-800 transition-colors font-normal text-[13px] md:text-[13px]"
             >
               {item.name}
             </button>
@@ -62,7 +61,7 @@ export default function Header() {
           <Link
             key={i}
             href={`/#${item.targetClass?.replace(".", "")}`}
-            className="hover:text-gray-800 transition-colors font-normal text-[16px]"
+            className="hover:text-gray-800 transition-colors font-normal text-[13px] md:text-[13px]"
           >
             {item.name}
           </Link>
@@ -72,61 +71,61 @@ export default function Header() {
   );
 
   return (
-    <header className="flex items-center justify-between px-4 md:px-6 lg:px-12 py-3 bg-[#f8f8f8] sticky top-0 z-50 shadow-sm">
+    <header className="flex items-center justify-between px-3 md:px-5 lg:px-8 py-1 bg-[#f8f8f8] sticky top-0 z-50 shadow-sm">
       {/* Logo */}
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-2">
         <Link href="/" className="flex items-center gap-2">
           <Image
             src="/images/kayi-logo-white.png"
             alt="Kayi Digital Logo"
-            width={150}
-            height={40}
+            width={85} // Smaller width
+            height={24}
             className="h-auto"
           />
         </Link>
       </div>
 
       {/* Center Nav Links */}
-      <nav className="hidden lg:flex items-center gap-10 text-black absolute left-1/2 transform -translate-x-1/2">
+      <nav className="hidden lg:flex items-center gap-4 text-black absolute left-1/2 transform -translate-x-1/2">
         {navLinks}
       </nav>
 
       {/* Right-side Buttons */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-1.5">
         <Link
           href="https://calendly.com/saadalii/kayidigital"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Button className="hidden md:block bg-black text-white px-8 py-3 text-[15px] font-normal rounded-full shadow hover:shadow-md hover:bg-black/90 transition-all">
+          <Button className="hidden md:block bg-black text-white px-4 py-1 text-[12px] font-semibold rounded-full shadow hover:shadow-md hover:bg-black/90 transition-all">
             Book a Call
           </Button>
         </Link>
 
-        {/* Mobile Sheet */}
+        {/* Mobile Menu */}
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetTrigger asChild className="lg:hidden">
             <Button variant="ghost" size="icon" className="text-black">
-              <Menu className="h-6 w-6" />
+              <Menu className="h-5 w-5" />
               <span className="sr-only">Toggle Menu</span>
             </Button>
           </SheetTrigger>
 
           <SheetContent
             side="right"
-            className="w-[250px] sm:w-[300px] bg-white text-black flex flex-col"
+            className="w-[220px] sm:w-[260px] bg-white text-black flex flex-col"
           >
-            <nav className="flex flex-col gap-6 text-lg font-light pt-8">
+            <nav className="flex flex-col gap-4 text-sm font-light pt-6">
               {navLinks}
             </nav>
 
-            <div className="mt-auto pt-8">
+            <div className="mt-auto pt-6">
               <Link
                 href="https://calendly.com/saadalii/kayidigital"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button className="w-full bg-black text-white px-8 py-3 text-[15px] font-normal rounded-full shadow hover:shadow-md hover:bg-black/90 transition-all">
+                <Button className="w-full bg-black text-white px-4 py-1.5 text-[12px] font-semibold rounded-full shadow hover:shadow-md hover:bg-black/90 transition-all">
                   Book a Call
                 </Button>
               </Link>
