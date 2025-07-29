@@ -136,22 +136,17 @@ export default function SuccessStoriesSection() {
 
   return (
     <section className="py-10 md:py-24 px-4 bg-white relative overflow-hidden">
-      {" "}
-      {/* Reduced py-16 to py-10 for mobile */}
       {/* Background Pattern - Adjusted opacity for white background */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-50"></div>
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-100/20 to-purple-100/20 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-br from-purple-100/20 to-pink-100/20 rounded-full blur-3xl"></div>
       </div>
+
       <div className="max-w-7xl mx-auto relative">
         {/* Header */}
         <div className="text-center mb-8 md:mb-20">
-          {" "}
-          {/* Reduced mb-12 to mb-8 for mobile */}
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-black mb-6 md:mb-8 tracking-tight">
-            Our Success   Stories
-
+            Our Success Stories
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-light px-4 md:px-0">
             Discover how we've helped businesses transform their digital presence and achieve remarkable growth through
@@ -162,16 +157,12 @@ export default function SuccessStoriesSection() {
 
         {/* Filter Section */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8 md:mb-16">
-          {" "}
-          {/* Reduced gap-8 to gap-6 and mb-12 to mb-8 for mobile */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
                 className="min-w-[240px] justify-between bg-white/90 backdrop-blur-sm border border-gray-300 hover:border-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl rounded-2xl h-11 md:h-14 font-semibold text-gray-700 hover:text-gray-900"
               >
-                {" "}
-                {/* Reduced h-12 to h-11 for mobile */}
                 <span className="flex items-center gap-3">
                   <Code className="w-4 h-4" />
                   {selectedCategory}
@@ -190,8 +181,6 @@ export default function SuccessStoriesSection() {
                     value={category}
                     className="cursor-pointer rounded-xl mx-2 my-1 font-semibold text-gray-700 hover:text-gray-900 py-2.5"
                   >
-                    {" "}
-                    {/* Reduced py-3 to py-2.5 */}
                     {category}
                   </DropdownMenuRadioItem>
                 ))}
@@ -206,8 +195,6 @@ export default function SuccessStoriesSection() {
             expandedCard ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
           }`}
         >
-          {" "}
-          {/* Reduced gap-6 to gap-4 for mobile */}
           {filteredProjects.map((project) => {
             const isExpanded = expandedCard === project.id
             const isHidden = expandedCard && !isExpanded
@@ -236,8 +223,6 @@ export default function SuccessStoriesSection() {
                         : "h-40 md:h-64 w-full"
                     }`}
                   >
-                    {" "}
-                    {/* Reduced h-48 to h-40 for mobile */}
                     <img
                       src={project.image || "/placeholder.svg"}
                       alt={project.title}
@@ -250,118 +235,90 @@ export default function SuccessStoriesSection() {
 
                   {/* Content Section */}
                   <div className={`p-4 md:p-8 flex-1 flex flex-col ${isExpanded ? "w-full md:w-3/5" : "w-full"}`}>
-                    {" "}
-                    {/* Reduced p-6 to p-4 for mobile */}
-                    {/* Client Info */}
-                    <div className="flex items-center gap-3 mb-3 text-xs">
-                      {" "}
-                      {/* Reduced gap-4 to gap-3 and mb-4 to mb-3 */}
-                      <div className="flex items-center gap-1">
-                        <div className="w-1.5 h-1.5 bg-gray-900 rounded-full"></div>
-                        <span className="font-semibold text-gray-600 uppercase tracking-wider">{project.client}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <div className="w-1.5 h-1.5 bg-gray-900 rounded-full"></div>
-                        <span className="font-semibold text-gray-600">{project.duration}</span>
-                      </div>
-                    </div>
                     <h3 className="text-lg md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors duration-300">
-                      {" "}
-                      {/* Reduced text-xl to text-lg and mb-3 to mb-2 */}
                       {project.title}
                     </h3>
                     <h4 className="text-sm md:text-lg font-semibold text-gray-600 mb-3 line-clamp-2">
-                      {" "}
-                      {/* Reduced text-base to text-sm and mb-4 to mb-3 */}
                       {project.subtitle}
                     </h4>
+
                     {/* Dynamic Description */}
                     <div
                       className={`transition-all duration-500 overflow-hidden ${
                         isExpanded ? "max-h-full" : "max-h-[72px]"
                       }`}
                     >
-                      {" "}
-                      {/* Adjusted max-h-20 to max-h-[72px] for 3 lines of text */}
                       <p
                         className={`text-xs md:text-base text-gray-600 leading-relaxed mb-4 font-light flex-1 ${!isExpanded ? "line-clamp-3" : ""}`}
                       >
-                        {" "}
-                        {/* Reduced text-sm to text-xs and mb-6 to mb-4 */}
                         {isExpanded ? project.expandedDescription : project.description}
                       </p>
+
                       {/* Technologies - Enhanced */}
                       {isExpanded && (
                         <div className="mb-4 animate-in fade-in duration-300">
-                          {" "}
-                          {/* Reduced mb-6 to mb-4 */}
                           <h5 className="font-bold text-gray-900 mb-2 text-sm uppercase tracking-wider">
-                            {" "}
-                            {/* Reduced mb-3 to mb-2 */}
                             Technologies Used:
                           </h5>
                           <div className="flex flex-wrap gap-1.5">
-                            {" "}
-                            {/* Reduced gap-2 to gap-1.5 */}
                             {project.technologies.map((tech) => (
                               <span
                                 key={tech}
                                 className="px-2.5 py-0.5 bg-gray-100 text-gray-800 text-xs rounded-full font-semibold border border-gray-200"
                               >
-                                {" "}
-                                {/* Reduced px-3 py-1 to px-2.5 py-0.5 and text-sm to text-xs */}
                                 {tech}
                               </span>
                             ))}
                           </div>
                         </div>
                       )}
+
                       {isExpanded && (
                         <div className="mb-4 animate-in fade-in duration-500">
-                          {" "}
-                          {/* Reduced mb-6 to mb-4 */}
                           <h5 className="font-bold text-gray-900 mb-2 text-sm uppercase tracking-wider">
-                            {" "}
-                            {/* Reduced mb-3 to mb-2 */}
                             Key Results:
                           </h5>
                           <div className="grid gap-1.5">
-                            {" "}
-                            {/* Reduced gap-2 to gap-1.5 */}
                             {project.results.map((result) => (
                               <div key={result} className="flex items-center gap-2">
-                                {" "}
-                                {/* Reduced gap-3 to gap-2 */}
                                 <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                                <span className="text-gray-700 font-semibold text-xs">{result}</span>{" "}
-                                {/* Reduced text-sm to text-xs */}
+                                <span className="text-gray-700 font-semibold text-xs">{result}</span>
                               </div>
                             ))}
                           </div>
                         </div>
                       )}
                     </div>
+
                     {/* Action Section */}
                     <div className="flex items-center justify-between pt-3 border-t border-gray-200 mt-auto">
-                      {" "}
-                      {/* Reduced pt-4 to pt-3 */}
                       <div className="flex items-center gap-1.5">
-                        {" "}
-                        {/* Reduced gap-2 to gap-1.5 */}
-                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                        <span className="text-xs font-bold text-gray-900 uppercase tracking-wider">Success</span>
+                        <div className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></div>
+                        <span className="text-xs font-bold text-gray-900 uppercase tracking-wider">In Progress</span>
                       </div>
                       <Button
                         onClick={() => handleReadMore(project.id)}
-                        variant="ghost"
-                        size="sm"
-                        className="text-gray-900 hover:text-gray-700 font-semibold group/btn text-xs"
+                        variant={isExpanded ? "default" : "ghost"}
+                        size={isExpanded ? "lg" : "sm"}
+                        className={`font-bold group/btn transition-all duration-300 ${
+                          isExpanded
+                            ? "bg-[#cf21c3] text-white hover:bg-[#b91c9e] px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] text-sm tracking-wide border border-[#cf21c3]/20"
+                            : "text-gray-900 hover:text-gray-700 text-xs"
+                        }`}
                       >
-                        {" "}
-                        {/* Reduced text-sm to text-xs */}
-                        {isExpanded ? "Read Less" : "Read More"}
-                        <ArrowRight className="w-3 h-3 ml-1.5 transition-transform group-hover/btn:translate-x-1" />{" "}
-                        {/* Reduced w-4 h-4 to w-3 h-3 and ml-2 to ml-1.5 */}
+                        {isExpanded ? (
+                          <span className="flex items-center gap-2">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                            </svg>
+                            Back to All Projects
+                          </span>
+                        ) : (
+                          <>
+                            Read More
+                            <ArrowRight className="w-3 h-3 ml-1.5 transition-transform group-hover/btn:translate-x-1" />
+                          </>
+                        )}
                       </Button>
                     </div>
                   </div>
@@ -374,18 +331,11 @@ export default function SuccessStoriesSection() {
         {/* Empty State */}
         {filteredProjects.length === 0 && (
           <div className="text-center py-16">
-            {" "}
-            {/* Reduced py-20 to py-16 */}
             <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 border border-gray-200">
-              {" "}
-              {/* Reduced w-32 h-32 to w-24 h-24 and mb-8 to mb-6 */}
-              <Code className="w-10 h-10 text-gray-400" /> {/* Reduced w-12 h-12 to w-10 h-10 */}
+              <Code className="w-10 h-10 text-gray-400" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-3">No Projects Found</h3>{" "}
-            {/* Reduced text-3xl to text-2xl and mb-4 to mb-3 */}
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">No Projects Found</h3>
             <p className="text-base text-gray-600 max-w-md mx-auto font-light">
-              {" "}
-              {/* Reduced text-lg to text-base */}
               No projects found in the selected category. Try selecting a different filter to explore our work.
             </p>
           </div>

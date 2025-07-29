@@ -26,7 +26,10 @@ export default function ContactSection() {
   }, [state])
 
   return (
-    <section className="py-8 md:py-16 px-4 bg-white relative overflow-hidden min-h-screen flex items-center">
+    <section
+      id="contact-section"
+      className="py-8 md:py-16 px-4 bg-white relative overflow-hidden min-h-screen flex items-center"
+    >
       <div className="max-w-7xl mx-auto w-full">
         {/* Header */}
         <div className="text-center mb-8 md:mb-16">

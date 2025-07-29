@@ -103,34 +103,6 @@ export default function ServicesSection() {
                     </p>
                   </div>
 
-                  {/* Learn More - Hidden on mobile, visible on hover for desktop */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{
-                      opacity: hoveredIndex === index ? 1 : 0,
-                      x: hoveredIndex === index ? 0 : -20,
-                    }}
-                    transition={{ duration: 0.3 }}
-                    className="hidden md:flex items-center text-black font-semibold group-hover:text-gray-800 mt-3 lg:mt-4"
-                  >
-                    <span className="mr-2 text-sm lg:text-base">Learn More</span>
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      className="transform group-hover:translate-x-1 transition-transform duration-300"
-                    >
-                      <path
-                        d="M7 17L17 7M17 7H7M17 7V17"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </motion.div>
-
                   {/* Outline on Hover */}
                   <div className="absolute inset-0 rounded-2xl md:rounded-3xl border-2 border-transparent group-hover:border-[#cf21c3] transition-all duration-500 opacity-0 group-hover:opacity-100" />
                 </div>
@@ -149,32 +121,6 @@ export default function ServicesSection() {
             )
           })}
         </div>
-
-        {/* CTA Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="group relative inline-flex items-center px-8 py-3 md:px-10 md:py-4 lg:px-12 lg:py-4 bg-black text-white font-bold rounded-full shadow-lg hover:shadow-xl md:hover:shadow-2xl transition-all duration-300 overflow-hidden text-sm md:text-base"
-          >
-            <span className="relative z-10 mr-2 md:mr-3">Start Your Project</span>
-            <motion.svg
-              className="w-4 h-4 md:w-5 md:h-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </motion.svg>
-            <div className="absolute inset-0 bg-[#cf21c3] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
-          </motion.button>
-        </motion.div>
       </div>
     </section>
   )
