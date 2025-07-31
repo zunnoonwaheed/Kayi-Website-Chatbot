@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="text-center mb-10">
           <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">CONTACT US</h2>
           <p className="text-gray-400 text-base max-w-xl mx-auto">
-            Let’s talk about how we can grow your business through digital marketing.
+            Stop googling 'how to grow my business at 3am' and just talk to us instead.
           </p>
         </div>
 
@@ -18,12 +18,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
           {/* Left Side */}
           <div className="space-y-6">
-            <h3 className="text-lg font-medium text-gray-300">
-              Need a results-driven digital marketing agency?
-            </h3>
-            <p className="text-gray-400 text-sm">
-              Let’s create impactful solutions together. Reach out today.
-            </p>
+            <h3 className="text-lg font-medium text-gray-300">Need a results-driven digital marketing agency?</h3>
+            <p className="text-gray-400 text-sm">Let's create impactful solutions together. Reach out today.</p>
 
             {/* Newsletter */}
             <div>
@@ -51,7 +47,6 @@ export default function Footer() {
               <p>hello@kayidigital.com</p>
               <p>support@kayidigital.com</p>
             </div>
-
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <Plus size={16} className="text-[#cf21c3]" />
@@ -69,33 +64,81 @@ export default function Footer() {
           <div>
             <h4 className="text-gray-300 font-semibold mb-3 uppercase text-xs">Company</h4>
             <ul className="space-y-2">
-              <li><Link href="#" className="hover:text-white">Home</Link></li>
-              <li><Link href="#" className="hover:text-white">About Us</Link></li>
-              <li><Link href="#" className="hover:text-white">Careers</Link></li>
+              <li>
+                <Link href="#" className="hover:text-white">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-white">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-white">
+                  Careers
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
             <h4 className="text-gray-300 font-semibold mb-3 uppercase text-xs">Services</h4>
             <ul className="space-y-2">
-              <li><Link href="#" className="hover:text-white">Portfolio</Link></li>
-              <li><Link href="#" className="hover:text-white">Services</Link></li>
-              <li><Link href="#" className="hover:text-white">Testimonials</Link></li>
+              <li>
+                <Link href="#" className="hover:text-white">
+                  Portfolio
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-white">
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-white">
+                  Testimonials
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
             <h4 className="text-gray-300 font-semibold mb-3 uppercase text-xs">Support</h4>
             <ul className="space-y-2">
-              <li><Link href="#" className="hover:text-white">Contact</Link></li>
-              <li><Link href="#" className="hover:text-white">Privacy Policy</Link></li>
-              <li><Link href="#" className="hover:text-white">Terms of Service</Link></li>
+              <li>
+                <Link href="#" className="hover:text-white">
+                  Contact
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-white">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-white">
+                  Terms of Service
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
             <h4 className="text-gray-300 font-semibold mb-3 uppercase text-xs">Follow Us</h4>
             <ul className="space-y-2">
-              <li><Link href="#" className="hover:text-white">LinkedIn</Link></li>
-              <li><Link href="#" className="hover:text-white">Twitter</Link></li>
-              <li><Link href="#" className="hover:text-white">Instagram</Link></li>
+              <li>
+                <Link href="#" className="hover:text-white">
+                  LinkedIn
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-white">
+                  Twitter
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-white">
+                  Instagram
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

@@ -2,30 +2,32 @@
 
 import { motion } from "framer-motion"
 import { useState } from "react"
-import { TagIcon, PaintBrushIcon, DevicePhoneMobileIcon, CpuChipIcon } from "@heroicons/react/24/outline"
+import { CpuChipIcon, ChartBarIcon, CodeBracketIcon, UserGroupIcon } from "@heroicons/react/24/outline"
 
 const services = [
   {
-    title: "BRAND IDENTITY",
+    title: "BUSINESS AUTOMATION",
     description:
-      "Craft unique, eye-catching brands that distinctively elevate your business profile and market presence.",
-    icon: TagIcon,
-  },
-  {
-    title: "UX/UI DESIGN",
-    description:
-      "Develop easy-to-use, engaging interfaces with deep user research to ensure satisfaction and usability.",
-    icon: PaintBrushIcon,
-  },
-  {
-    title: "WEB DEVELOPMENT",
-    description: "Build reliable digital products meticulously tailored to meet contemporary business needs.",
-    icon: DevicePhoneMobileIcon,
-  },
-  {
-    title: "AI & AUTOMATION",
-    description: "Integrate advanced AI solutions to automate processes, and deliver personalized experiences.",
+      "Stop doing the same tasks over and over. We build systems that handle the boring stuff automatically.",
     icon: CpuChipIcon,
+  },
+  {
+    title: "PERFORMANCE MARKETING",
+    description:
+      "Your marketing budget deserves better than guesswork. We only spend money on things that actually work.",
+    icon: ChartBarIcon,
+  },
+  {
+    title: "TAILORED SOFTWARES",
+    description:
+      "Off-the-shelf solutions never fit right. We build exactly what your business needs, nothing more, nothing less.",
+    icon: CodeBracketIcon,
+  },
+  {
+    title: "CUSTOM BUSINESS OUTSOURCING",
+    description:
+      "Why hire full-time when you can get exactly the help you need, exactly when you need it, without the overhead?",
+    icon: UserGroupIcon,
   },
 ]
 
@@ -59,12 +61,13 @@ export default function ServicesSection() {
             viewport={{ once: true }}
             className="text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4 md:px-0"
           >
-            Transforming ideas into digital excellence with our comprehensive suite of cutting-edge services
+            Everything your business needs to grow and scale under one roof - no more juggling multiple vendors or
+            wondering who's responsible
           </motion.p>
         </motion.div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mb-8 md:mb-12 lg:mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mb-12">
           {services.map((service, index) => {
             const Icon = service.icon
             return (
@@ -120,6 +123,18 @@ export default function ServicesSection() {
               </motion.div>
             )
           })}
+        </div>
+
+        {/* CTA Button */}
+        <div className="text-center">
+          <a
+            href="https://calendly.com/saadalii/kayidigital"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-[#cf21c3] text-white font-semibold text-sm md:text-base px-6 py-3 rounded-full shadow-md hover:bg-[#b91aad] transition-all duration-300"
+          >
+            Book a Free Consultation
+          </a>
         </div>
       </div>
     </section>

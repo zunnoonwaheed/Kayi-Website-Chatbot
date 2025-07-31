@@ -4,7 +4,16 @@ import Image from "next/image"
 import { TypewriterEffect } from "./typewriter-effect"
 
 export default function HeroSection() {
-  const typingWords = ["Growth."]
+  const typingWords = [
+    "Growth.",
+    "Results.",
+    "Revenue.",
+    "Success.",
+    "Performance.",
+    "Scaling.",
+    "Profit.",
+    "Impact.",
+  ]
 
   const scrollToContact = () => {
     const contactSection = document.getElementById("contact-section")
@@ -22,17 +31,15 @@ export default function HeroSection() {
         {/* Main Headline */}
         <div className="mb-6 md:mb-8">
           <h1 className="font-normal text-black leading-tight text-3xl md:text-5xl lg:text-6xl xl:text-7xl mb-4 md:mb-6">
-            The Digital Marketing Agency
-            <br />
-            Obsessed With{" "}
+            Everything Your Business Needs For{" "}
             <span className="inline-block">
               <TypewriterEffect words={typingWords} />
             </span>
           </h1>
           <p className="text-gray-600 text-base md:text-xl lg:text-2xl max-w-4xl mx-auto leading-snug md:leading-relaxed">
-            We turn marketing budgets into predictable revenue streams
+            Your business growth should feel predictable, not like a gamble.
             <br className="hidden sm:block" />
-            for businesses tired of guesswork and empty promises.
+            We partner with companies who want real results they can count on.
           </p>
         </div>
 

@@ -34,7 +34,7 @@ export default function ContactSection() {
         {/* Header */}
         <div className="text-center mb-8 md:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-8">
-            Have a project in mind? 👋
+            Have A Project In Mind? 👋
           </h2>
           {/* Animated Arrow */}
           <div className="flex justify-center mb-6 md:mb-8">

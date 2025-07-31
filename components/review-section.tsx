@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { useEffect, useState } from "react"
+import { Button } from "@/components/ui/button"
 
 const allCards = [
   {
@@ -15,11 +16,11 @@ const allCards = [
   },
   {
     type: "image",
-    name: "Lina M.",
+    name: "Sarah",
     role: "Product Lead",
     company: "StartUp Ventures",
     testimonial: "Found my ideal remote role with competitive compensation and great work-life balance.",
-    imageUrl: "./images/T1.jpg",
+    imageUrl: "./images/kayi8.jpeg",
   },
   {
     type: "text",
@@ -32,12 +33,12 @@ const allCards = [
   },
   {
     type: "image",
-    name: "Sarah J.",
+    name: "Alishba",
     role: "Senior Frontend Developer",
     company: "TechCorp Inc.",
     testimonial:
       "The matching process was incredibly efficient – within 72 hours I was interviewing for perfect-fit roles.",
-    imageUrl: "./images/T2.jpg",
+    imageUrl: "./images/kayi6.jpeg",
   },
   {
     type: "text",
@@ -51,12 +52,12 @@ const allCards = [
   },
   {
     type: "image",
-    name: "Alex K.",
+    name: "Ahmed",
     role: "UX Design Director",
     company: "DesignHub",
     testimonial:
       "The platform helped me negotiate better rates and build long-term client relationships that transformed my freelance career.",
-    imageUrl: "./images/T3.jpg",
+    imageUrl: "./images/kayi7.jpeg",
     tall: true,
   },
 ]
@@ -112,6 +113,22 @@ export default function ReviewsSection() {
               )}
             </div>
           ))}
+        </div>
+
+        {/* CTA Section */}
+        <div className="text-center mt-16 md:mt-24">
+          <Button
+            asChild
+            className="bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold px-8 py-6 rounded-full text-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300"
+          >
+            <a 
+              href="https://calendly.com/saadalii/kayidigital" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              Book a Free Consultation
+            </a>
+          </Button>
         </div>
       </div>
     </section>
