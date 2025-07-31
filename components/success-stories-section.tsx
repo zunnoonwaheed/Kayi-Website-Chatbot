@@ -40,7 +40,7 @@ const projects: Project[] = [
     expandedDescription:
       "Cover Up Paints wanted to elevate their social media presence to better reflect their premium paint brand. We developed a cohesive visual strategy with consistent colors, fonts, and styling that strengthened their brand recognition. The new aesthetic helped their content stand out and better connect with their target audience.",
     image: "./images/kayi-suc2.jpeg",
-    expandedImage: "./images/kayisuc1.jpeg",
+    expandedImage: "./images/kayi-suc1.jpeg",
     category: "Brand Identity & Design",
     icon: <Palette className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
