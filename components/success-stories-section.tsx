@@ -125,7 +125,7 @@ const projects: Project[] = [
       "We developed Mirakl as a complete skincare and antibacterial towel brand from concept to market. Our comprehensive approach included creating their logo and brand identity, designing product packaging that stands out on shelves, building their e-commerce website, and managing their social media presence.",
     expandedDescription:
       "We developed Mirakl as a complete skincare and antibacterial towel brand from concept to market. Our comprehensive approach included creating their logo and brand identity, designing product packaging that stands out on shelves, building their e-commerce website, and managing their social media presence. We established their brand positioning in the health and wellness market.",
-    image: "./images/kayi5.jpeg",
+    image: "./images/kayi-suc5.jpeg",
     expandedImage: "./images/kayi-success3.jpeg",
     category: "Brand Identity & Design",
     icon: <Leaf className="w-6 h-6" />,

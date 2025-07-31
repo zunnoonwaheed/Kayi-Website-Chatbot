@@ -57,7 +57,7 @@ const allCards = [
     company: "DesignHub",
     testimonial:
       "The platform helped me negotiate better rates and build long-term client relationships that transformed my freelance career.",
-    imageUrl: "./images/kayi7.jpeg",
+    imageUrl: "./images/kayi-rev1.jpeg",
     tall: true,
   },
 ]
