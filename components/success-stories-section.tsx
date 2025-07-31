@@ -19,6 +19,7 @@ interface Project {
   description: string
   expandedDescription: string
   image: string
+  expandedImage: string
   category: string
   icon: React.ReactNode
   color: string
@@ -39,6 +40,7 @@ const projects: Project[] = [
     expandedDescription:
       "Cover Up Paints wanted to elevate their social media presence to better reflect their premium paint brand. We developed a cohesive visual strategy with consistent colors, fonts, and styling that strengthened their brand recognition. The new aesthetic helped their content stand out and better connect with their target audience.",
     image: "./images/kayi1.jpeg",
+    expandedImage: "./images/kayi1.jpeg",
     category: "Brand Identity & Design",
     icon: <Palette className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
@@ -57,6 +59,7 @@ const projects: Project[] = [
     expandedDescription:
       "We built Rejuuv from the ground up, creating everything from their brand identity to their complete e-commerce platform. This included designing their logo and visual identity, developing a custom Shopify store, managing their social media presence, and running targeted marketing campaigns. We also handled product photography and lifestyle content creation to showcase their beauty and wellness products.",
     image: "./images/kayi2.jpeg",
+    expandedImage: "./images/kayi-success1.jpeg",
     category: "E-commerce Development",
     icon: <ShoppingBag className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
@@ -80,6 +83,7 @@ const projects: Project[] = [
     expandedDescription:
       "PEL Paints wanted to enhance their social media presence to better showcase their paint brand and products. We created a series of professional social media posts with consistent branding that highlighted their paint solutions and quality. The content helped establish their digital presence and improved engagement with their target customers.",
     image: "./images/kayi3.jpeg",
+    expandedImage: "./images/kayi-success2.jpeg",
     category: "SEO & Content Marketing",
     icon: <Zap className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
@@ -98,6 +102,7 @@ const projects: Project[] = [
     expandedDescription:
       "We built Saint Draper from the ground up as a leather brand specializing in wallets and card holders. Our work included creating their complete brand identity and logo design, developing stunning 3D product models for marketing, and managing their social media presence. We established their brand positioning in the quality leather goods market with sophisticated visual content.",
     image: "./images/kayi4.jpeg",
+    expandedImage: "./images/kayi-success4.jpeg",
     category: "Brand Identity & Design",
     icon: <Rocket className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
@@ -121,6 +126,7 @@ const projects: Project[] = [
     expandedDescription:
       "We developed Mirakl as a complete skincare and antibacterial towel brand from concept to market. Our comprehensive approach included creating their logo and brand identity, designing product packaging that stands out on shelves, building their e-commerce website, and managing their social media presence. We established their brand positioning in the health and wellness market.",
     image: "./images/kayi5.jpeg",
+    expandedImage: "./images/kayi-success3.jpeg",
     category: "Brand Identity & Design",
     icon: <Leaf className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
@@ -254,7 +260,7 @@ export default function SuccessStoriesSection() {
                     }`}
                   >
                     <img
-                      src={project.image || "/placeholder.svg"}
+                      src={isExpanded ? project.expandedImage : project.image || "/placeholder.svg"}
                       alt={project.title}
                       className={`w-full h-full object-cover transition-transform duration-700 ${
                         isExpanded ? "rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none" : "rounded-t-3xl"
