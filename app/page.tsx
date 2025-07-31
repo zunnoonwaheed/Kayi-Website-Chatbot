@@ -1,3 +1,5 @@
+// app/page.tsx
+
 import Link from "next/link"
 import Header from "@/components/header"
 import HeroSection from "@/components/hero-section"
@@ -42,25 +44,7 @@ export default function Home() {
           <ContactSection />
 
           <div className="text-center mt-8">
-            {/* LANDOBT CHATBOT SCRIPT */}
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.addEventListener("DOMContentLoaded", function () {
-                    var s = document.createElement("script");
-                    s.type = "text/javascript";
-                    s.async = true;
-                    s.src = "https://static.landbot.io/landbot-widget/landbot-widget.min.js";
-                    s.onload = function () {
-                      var myLandbot = new Landbot.Livechat({
-                        configUrl: "https://storage.googleapis.com/landbot.online/v3/H-3073111-YIEN7UJVFSUPGNNG/index.json",
-                      });
-                    };
-                    document.body.appendChild(s);
-                  });
-                `,
-              }}
-            ></script>
+            
           </div>
         </section>
       </main>
