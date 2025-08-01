@@ -18,9 +18,9 @@ const services = [
     icon: ChartBarIcon,
   },
   {
-    title: "TAILORED SOFTWARES",
+    title: "WEB DEVELOPMENT & MOBILE APPS",
     description:
-      "Off-the-shelf solutions never fit right. We build exactly what your business needs, nothing more, nothing less.",
+      "Off-the-shelf tools don’t cut it. We build custom web and mobile apps tailored to your business—fast, functional, and ready to grow.",
     icon: CodeBracketIcon,
   },
   {

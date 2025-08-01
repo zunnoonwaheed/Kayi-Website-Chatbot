@@ -20,7 +20,7 @@ interface Project {
   expandedDescription: string
   image: string
   expandedImage: string
-  category: string
+  categories: string[] // Changed to array to support multiple categories
   icon: React.ReactNode
   color: string
   technologies: string[]
@@ -41,14 +41,14 @@ const projects: Project[] = [
       "Cover Up Paints wanted to elevate their social media presence to better reflect their premium paint brand. We developed a cohesive visual strategy with consistent colors, fonts, and styling that strengthened their brand recognition. The new aesthetic helped their content stand out and better connect with their target audience.",
     image: "./images/kayi-suc2.jpeg",
     expandedImage: "./images/kayi-suc1.jpeg",
-    category: "Brand Identity & Design",
+    categories: ["Performance Marketing", "Brand Identity & Design", "SEO & Content Marketing"],
     icon: <Palette className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
     technologies: ["Canva", "Adobe Photoshop", "Instagram", "Facebook"],
     results: ["65% More Engagement", "40% Follower Growth", "Consistent Brand Look"],
     duration: "1 month",
     client: "Cover Up Paints Ltd.",
-    status: "COMPLETED",
+    status: "ONGOING",
   },
   {
     id: "rejuuv-beauty",
@@ -60,10 +60,10 @@ const projects: Project[] = [
       "We built Rejuuv from the ground up, creating everything from their brand identity to their complete e-commerce platform. This included designing their logo and visual identity, developing a custom Shopify store, managing their social media presence, and running targeted marketing campaigns. We also handled product photography and lifestyle content creation to showcase their beauty and wellness products.",
     image: "./images/kayi2.jpeg",
     expandedImage: "./images/kayi-success1.jpeg",
-    category: "E-commerce Development",
+    categories: ["E-commerce Development", "Mobile App Development"],
     icon: <ShoppingBag className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
-    technologies: ["Shopify Plus", "Adobe Creative Suite", "Instagram & Facebook", "Facebook Ads"],
+    technologies: ["Shopify Plus", "React Native", "Firebase", "Facebook Ads"],
     results: [
       "5000+ Products Sold",
       "85% Customer Satisfaction",
@@ -72,79 +72,79 @@ const projects: Project[] = [
     ],
     duration: "4 months - Ongoing",
     client: "Rejuuv Beauty",
-    status: "Ongoing",
+    status: "ONGOING",
   },
   {
     id: "pel-paints",
     title: "PEL Paints",
-    subtitle: "Social Media Content Creation",
+    subtitle: "Web Development & CRM Integration",
     description:
-      "PEL Paints wanted to enhance their social media presence to better showcase their paint brand and products. We created a series of professional social media posts with consistent branding that highlighted their paint solutions and quality.",
+      "PEL Paints wanted to enhance their digital presence with a modern website and integrate it with a comprehensive CRM system. We created a professional website with custom CRM functionality that streamlined their customer management and sales processes.",
     expandedDescription:
-      "PEL Paints wanted to enhance their social media presence to better showcase their paint brand and products. We created a series of professional social media posts with consistent branding that highlighted their paint solutions and quality. The content helped establish their digital presence and improved engagement with their target customers.",
+      "PEL Paints wanted to enhance their digital presence with a modern website and integrate it with a comprehensive CRM system. We created a professional website with custom CRM functionality that streamlined their customer management and sales processes. The solution included lead tracking, automated follow-ups, and detailed analytics dashboard.",
     image: "./images/kayi3.jpeg",
     expandedImage: "./images/kayi-success2.jpeg",
-    category: "SEO & Content Marketing",
+    categories: ["Web Development", "CRM & Sales Systems"],
     icon: <Zap className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
-    technologies: ["Canva", "Adobe Photoshop", "Instagram", "Facebook"],
-    results: ["55% More Engagement", "35% Follower Growth", "Professional Brand Image"],
+    technologies: ["React", "Node.js", "Salesforce API", "MongoDB"],
+    results: ["55% More Engagement", "35% Lead Conversion Increase", "Professional Brand Image"],
     duration: "1 month",
     client: "PEL Paints",
-    status: "Completed",
+    status: "ONGOING",
   },
   {
     id: "saint-draper",
     title: "SAINT DRAPER",
-    subtitle: "Luxury Leather Brand Development",
+    subtitle: "AI-Powered Business Automation & Custom Software",
     description:
-      "We built Saint Draper from the ground up as a leather brand specializing in wallets and card holders. Our work included creating their complete brand identity and logo design, developing stunning 3D product models for marketing, and managing their social media presence.",
+      "We built Saint Draper's complete business automation system with custom software solutions and AI integration. The system handles inventory management, customer service automation, and predictive analytics for business optimization.",
     expandedDescription:
-      "We built Saint Draper from the ground up as a leather brand specializing in wallets and card holders. Our work included creating their complete brand identity and logo design, developing stunning 3D product models for marketing, and managing their social media presence. We established their brand positioning in the quality leather goods market with sophisticated visual content.",
+      "We built Saint Draper's complete business automation system with custom software solutions and AI integration. The system handles inventory management, customer service automation, and predictive analytics for business optimization. We developed custom algorithms for demand forecasting and automated workflows that reduced manual processes by 80%.",
     image: "./images/kayi4.jpeg",
     expandedImage: "./images/kayi-success4.jpeg",
-    category: "Brand Identity & Design",
+    categories: ["Business Automation", "AI & Automation Tools", "Custom Software Solutions"],
     icon: <Rocket className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
-    technologies: ["Blender 3D", "Adobe Creative Suite", "Instagram & Facebook", "Brand Design Tools"],
+    technologies: ["Python", "TensorFlow", "Custom APIs", "Machine Learning"],
     results: [
       "Complete Brand Launch",
-      "180% Social Engagement",
-      "Quality Market Positioning",
-      "3D Product Visualization",
+      "180% Process Efficiency",
+      "AI-Powered Automation",
+      "Custom Software Integration",
     ],
     duration: "4 months",
     client: "Saint Draper",
-    status: "COMPLETED",
+    status: "ONGOING",
   },
   {
     id: "mirakl",
     title: "MIRAKL",
-    subtitle: "Complete Brand & Product Development",
+    subtitle: "Complete Business Outsourcing Solutions",
     description:
-      "We developed Mirakl as a complete skincare and antibacterial towel brand from concept to market. Our comprehensive approach included creating their logo and brand identity, designing product packaging that stands out on shelves, building their e-commerce website, and managing their social media presence.",
+      "We provided comprehensive business outsourcing services for Mirakl, handling their customer service, order processing, digital marketing, and administrative tasks. This allowed them to focus on core business growth while we managed operations.",
     expandedDescription:
-      "We developed Mirakl as a complete skincare and antibacterial towel brand from concept to market. Our comprehensive approach included creating their logo and brand identity, designing product packaging that stands out on shelves, building their e-commerce website, and managing their social media presence. We established their brand positioning in the health and wellness market.",
+      "We provided comprehensive business outsourcing services for Mirakl, handling their customer service, order processing, digital marketing, and administrative tasks. This allowed them to focus on core business growth while we managed operations. Our dedicated team became an extension of their business, providing 24/7 support across multiple channels and maintaining their brand standards.",
     image: "./images/kayi-suc5.jpeg",
     expandedImage: "./images/kayi-success3.jpeg",
-    category: "Brand Identity & Design",
+    categories: ["Business Outsourcing"],
     icon: <Leaf className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
-    technologies: ["Adobe Creative Suite", "WordPress", "Instagram & Facebook", "Packaging Design"],
+    technologies: ["Zendesk", "Shopify", "Social Media Management", "Process Automation"],
     results: [
       "Complete Brand Launch",
-      "Professional Packaging Design",
-      "Strong Online Presence",
-      "Market Ready Products",
+      "Professional Operations Management",
+      "24/7 Customer Support",
+      "60% Cost Reduction",
     ],
     duration: "3 months",
     client: "Mirakl",
-    status: "COMPLETED",
+    status: "ONGOING",
   },
 ]
 
 const categories = [
-  "All Projects",
+  "Latest Projects",
   "Business Automation",
   "Performance Marketing",
   "Web Development",
@@ -159,12 +159,14 @@ const categories = [
 ]
 
 export default function SuccessStoriesSection() {
-  const [selectedCategory, setSelectedCategory] = useState("All Projects")
+  const [selectedCategory, setSelectedCategory] = useState("Latest Projects")
   const [expandedCard, setExpandedCard] = useState<string | null>(null)
   const [hoveredCard, setHoveredCard] = useState<string | null>(null)
 
   const filteredProjects =
-    selectedCategory === "All Projects" ? projects : projects.filter((project) => project.category === selectedCategory)
+    selectedCategory === "Latest Projects"
+      ? projects
+      : projects.filter((project) => project.categories.includes(selectedCategory))
 
   const handleReadMore = (projectId: string) => {
     setExpandedCard(expandedCard === projectId ? null : projectId)
@@ -333,13 +335,14 @@ export default function SuccessStoriesSection() {
                       <div className="flex items-center gap-1.5">
                         <div
                           className={`w-1.5 h-1.5 rounded-full ${
-                            project.status === "Ongoing" ? "bg-yellow-500" : "bg-green-500"
+                            project.status === "ONGOING" ? "bg-yellow-500" : "bg-green-500"
                           }`}
                         ></div>
                         <span className="text-xs font-bold text-gray-900 uppercase tracking-wider">
                           {project.status}
                         </span>
                       </div>
+
                       <Button
                         onClick={() => handleReadMore(project.id)}
                         variant={isExpanded ? "default" : "ghost"}
