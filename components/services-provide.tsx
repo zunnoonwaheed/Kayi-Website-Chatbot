@@ -133,7 +133,7 @@ export default function ServicesSection() {
             rel="noopener noreferrer"
             className="inline-block bg-[#cf21c3] text-white font-semibold text-sm md:text-base px-6 py-3 rounded-full shadow-md hover:bg-[#b91aad] transition-all duration-300"
           >
-            Book a Free Consultation
+            Talk to an Expert
           </a>
         </div>
       </div>

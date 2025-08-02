@@ -126,7 +126,7 @@ export default function ReviewsSection() {
               target="_blank" 
               rel="noopener noreferrer"
             >
-              Book a Free Consultation
+              Ask Us Anything
             </a>
           </Button>
         </div>

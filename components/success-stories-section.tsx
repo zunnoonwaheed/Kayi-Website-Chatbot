@@ -395,7 +395,7 @@ export default function SuccessStoriesSection() {
             className="bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold px-8 py-6 rounded-full text-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300"
           >
             <a href="https://calendly.com/saadalii/kayidigital" target="_blank" rel="noopener noreferrer">
-              Book a Free Consultation
+            Start Your Journey
             </a>
           </Button>
         </div>
