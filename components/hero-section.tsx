@@ -1,4 +1,5 @@
 "use client"
+
 import { useEffect, useState } from "react"
 
 interface TypewriterEffectProps {
@@ -38,7 +39,7 @@ function TypewriterEffect({ words, className = "" }: TypewriterEffectProps) {
 
   return (
     <span
-      className={`bg-gradient-to-r from-[#cf21c3] to-[#e879f9] bg-clip-text text-transparent font-bold ${className}`}
+      className={`inline-block min-w-[320px] sm:min-w-[400px] lg:min-w-[480px] xl:min-w-[520px] bg-gradient-to-r from-[#cf21c3] to-[#e879f9] bg-clip-text text-transparent font-bold ${className}`}
       style={{
         fontWeight: "800",
       }}
@@ -49,121 +50,180 @@ function TypewriterEffect({ words, className = "" }: TypewriterEffectProps) {
 }
 
 export default function HeroSection() {
-  const typingWords = ["Growth.", "Results.", "Revenue.", "Success.", "Performance.", "Scaling.", "Profit.", "Impact."]
-
-  const scrollToContact = () => {
-    const contactSection = document.getElementById("contact-section")
-    if (contactSection) {
-      contactSection.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      })
-    }
-  }
+  const typingWords = ["Digital World", "Future", "Innovation", "Success"]
 
   return (
-    <section className="relative h-auto md:min-h-screen pt-6 md:pt-24 lg:pt-32 pb-0 px-0 md:px-4 lg:px-8 overflow-hidden flex items-center bg-white">
-      {/* Clean Gradient Background - Like Reference Image */}
-      <div className="absolute inset-0 z-0">
-        {/* Main bottom gradient glow - exactly like the reference */}
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[900px] h-[450px] bg-gradient-radial from-[#cf21c3]/35 via-[#e879f9]/20 to-transparent rounded-full blur-3xl animate-glow"></div>
-
-        {/* Inner intense glow for more definition */}
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[600px] h-[300px] bg-gradient-radial from-[#cf21c3]/50 via-[#e879f9]/25 to-transparent rounded-full blur-2xl animate-glow-inner"></div>
+    <div id="hero-section" className="min-h-screen bg-white relative overflow-hidden">
+      {/* Enhanced Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 right-20 w-72 h-72 bg-gradient-to-r from-purple-300/20 to-pink-300/20 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-r from-blue-300/15 to-purple-300/15 rounded-full blur-3xl animate-float-delayed"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-purple-200/20 via-pink-200/10 to-transparent rounded-full blur-3xl animate-pulse"></div>
       </div>
 
-      <div className="container mx-auto px-0 md:px-4 lg:px-8 z-10 flex flex-col items-center text-center max-w-6xl relative">
-        {/* Main Headline */}
-        <div className="mb-6 md:mb-8">
-          <h1 className="font-light text-black leading-tight text-3xl md:text-5xl lg:text-6xl xl:text-7xl mb-4 md:mb-6">
-            Everything Your Business Needs For{" "}
-            <span className="inline-block">
-              <TypewriterEffect words={typingWords} />
-            </span>
-          </h1>
-          <p className="text-gray-600 text-base md:text-xl lg:text-2xl max-w-4xl mx-auto leading-snug md:leading-relaxed px-4 md:px-0">
-            Your business growth should feel predictable, not like a gamble.
-            <br className="hidden sm:block" />
-            We partner with companies who want real results they can count on.
-          </p>
+      {/* Main Hero Content */}
+      <div className="flex flex-col lg:flex-row items-center justify-between px-4 sm:px-6 lg:px-12 pt-8 sm:pt-12 lg:pt-20 relative z-10 gap-8 lg:gap-12">
+        {/* Left Content */}
+        <div className="w-full lg:w-1/2 text-center lg:text-left order-2 lg:order-1">
+          <div className="mb-6 sm:mb-8">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-black leading-tight mb-4 sm:mb-6">
+              Building
+              <br />
+              Brands for the{" "}
+              <span className="block">
+                <TypewriterEffect words={typingWords} />
+              </span>
+            </h1>
+
+            <p className="text-gray-600 text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+              We help brands grow through innovative design, cutting-edge development, and strategic digital marketing.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 mb-8 sm:mb-12 justify-center lg:justify-start">
+            <button className="bg-black text-white px-6 sm:px-8 py-3 rounded-full hover:bg-gray-800 hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-xl">
+              Let's do this
+            </button>
+          </div>
+
+          {/* Service Tags - Mobile Optimized */}
+          <div className="bg-black/95 backdrop-blur-sm rounded-3xl p-4 sm:p-6 max-w-sm mx-auto lg:mx-0 shadow-2xl">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3">
+              <span className="bg-white text-black px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium text-center hover:scale-105 transition-transform duration-200">
+                UI/UX Design
+              </span>
+              <span className="border border-gray-600 text-white px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium text-center hover:scale-105 transition-transform duration-200">
+                Web Design
+              </span>
+              <span className="border border-gray-600 text-white px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium text-center hover:scale-105 transition-transform duration-200">
+                Social Media
+              </span>
+              <span className="bg-gradient-to-r from-[#cf21c3] to-[#e879f9] text-white px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium text-center hover:scale-105 transition-transform duration-200 shadow-lg">
+                Mobile Apps
+              </span>
+              <span className="border border-gray-600 text-white px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium text-center hover:scale-105 transition-transform duration-200">
+                E-commerce
+              </span>
+              <span className="bg-white text-black px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium text-center hover:scale-105 transition-transform duration-200">
+                Analytics
+              </span>
+            </div>
+          </div>
         </div>
 
-        {/* Contact Button */}
-        <div className="flex justify-center mb-6 md:mb-8">
-          <button
-            onClick={scrollToContact}
-            className="relative border-2 border-black rounded-full px-6 py-2 md:px-8 md:py-3 text-base md:text-lg font-medium hover:bg-[#cf21c3] hover:text-white hover:border-[#cf21c3] transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-[#cf21c3]/25 group overflow-hidden"
-          >
-            <span className="relative z-10">Contact us</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#cf21c3] to-[#e879f9] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </button>
-        </div>
+        {/* Right Content */}
+        <div className="w-full lg:w-1/2 relative order-1 lg:order-2">
+          {/* Central Badge */}
+          <div className="absolute top-4 sm:top-8 left-1/2 transform -translate-x-1/2 z-20">
+            <div className="bg-black rounded-full p-3 sm:p-4 border-4 border-white shadow-2xl hover:scale-110 transition-transform duration-300">
+              <div className="text-white text-xs font-bold text-center">
+                <div>DISCOVER THE</div>
+                <div className="text-purple-400">MAGIC OF UX</div>
+              </div>
+            </div>
+          </div>
 
-        {/* Trusted by text */}
-        <p className="text-gray-600 text-sm md:text-lg mb-8 md:mb-12">Trusted by 80+ Brands Globally</p>
+          {/* Main Image Container */}
+          <div className="relative group">
+            <div className="bg-gradient-to-br from-purple-400 via-purple-500 to-pink-500 rounded-3xl p-6 sm:p-8 lg:p-12 shadow-2xl hover:shadow-3xl transition-all duration-500 group-hover:scale-105">
+              <div className="relative overflow-hidden rounded-2xl">
+                <img
+                  src="https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                  alt="Person using VR headset in digital world"
+                  className="w-full h-auto rounded-2xl transform group-hover:scale-110 transition-transform duration-700"
+                  loading="eager"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
+              </div>
+            </div>
 
-        {/* Statistics Section */}
-        <div className="w-full bg-white/90 backdrop-blur-sm border border-gray-100 rounded-3xl py-6 px-4 md:py-10 md:px-12 shadow-xl shadow-gray-200/50 mb-10 md:mb-16 relative overflow-hidden hover:shadow-2xl hover:shadow-[#cf21c3]/10 transition-all duration-500">
-          <div className="grid grid-cols-3 gap-4 md:gap-12 w-full max-w-4xl mx-auto relative z-10">
-            <div className="text-center group">
-              <div className="text-3xl md:text-6xl font-light bg-gradient-to-r from-[#cf21c3] to-[#e879f9] bg-clip-text text-transparent mb-1 md:mb-2 group-hover:scale-110 transition-all duration-300 drop-shadow-sm">
-                $3M
+            {/* Floating Elements */}
+            <div className="absolute -top-4 -right-4 w-8 h-8 bg-yellow-400 rounded-full animate-bounce shadow-lg"></div>
+            <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-blue-400 rounded-full animate-bounce delay-300 shadow-lg"></div>
+          </div>
+
+          {/* Enhanced Stats Card */}
+          <div className="absolute -bottom-4 sm:bottom-0 -right-2 sm:right-0 bg-black/95 backdrop-blur-sm rounded-3xl p-4 sm:p-6 text-white min-w-[180px] sm:min-w-[200px] shadow-2xl border border-gray-800">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-[#cf21c3] to-[#e879f9] bg-clip-text text-transparent animate-number-glow">
+                  5100+
+                </div>
+                <div className="text-gray-400 text-xs sm:text-sm">New Users</div>
               </div>
-              <div className="text-gray-600 text-xs md:text-lg group-hover:text-gray-800 transition-colors duration-300">
-                Rev Generated
+              <div className="flex -space-x-2">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Andrzej_Person_Kancelaria_Senatu.jpg/1200px-Andrzej_Person_Kancelaria_Senatu.jpg"
+                  alt="User 1"
+                  className="w-6 sm:w-8 h-6 sm:h-8 rounded-full border-2 border-black hover:scale-110 transition-transform duration-200"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+                  alt="User 2"
+                  className="w-6 sm:w-8 h-6 sm:h-8 rounded-full border-2 border-black hover:scale-110 transition-transform duration-200"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+                  alt="User 3"
+                  className="w-6 sm:w-8 h-6 sm:h-8 rounded-full border-2 border-black hover:scale-110 transition-transform duration-200"
+                />
               </div>
             </div>
-            <div className="text-center group">
-              <div className="text-3xl md:text-6xl font-light bg-gradient-to-r from-[#cf21c3] to-[#e879f9] bg-clip-text text-transparent mb-1 md:mb-2 group-hover:scale-110 transition-all duration-300 drop-shadow-sm">
-                1,000 +
-              </div>
-              <div className="text-gray-600 text-xs md:text-lg group-hover:text-gray-800 transition-colors duration-300">
-                Ads Created
-              </div>
-            </div>
-            <div className="text-center group">
-              <div className="text-3xl md:text-6xl font-light bg-gradient-to-r from-[#cf21c3] to-[#e879f9] bg-clip-text text-transparent mb-1 md:mb-2 group-hover:scale-110 transition-all duration-300 drop-shadow-sm">
-                80 +
-              </div>
-              <div className="text-gray-600 text-xs md:text-lg group-hover:text-gray-800 transition-colors duration-300">
-                Brands
-              </div>
-            </div>
+            <button className="bg-gradient-to-r from-[#cf21c3] to-[#e879f9] text-white px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-medium w-full hover:shadow-lg hover:shadow-purple-500/25 hover:scale-105 transition-all duration-300">
+              Join now
+            </button>
           </div>
         </div>
       </div>
 
       <style jsx>{`
-        @keyframes glow {
-          0%, 100% {
-            opacity: 0.6;
-            transform: translateX(-50%) scale(1);
-          }
-          50% {
-            opacity: 0.8;
-            transform: translateX(-50%) scale(1.1);
-          }
-        }
-        @keyframes glow-inner {
-          0%, 100% {
-            opacity: 0.7;
-            transform: translateX(-50%) scale(1);
-          }
-          50% {
-            opacity: 1;
-            transform: translateX(-50%) scale(1.05);
-          }
-        }
-        .animate-glow {
-          animation: glow 6s ease-in-out infinite;
-        }
-        .animate-glow-inner {
-          animation: glow-inner 4s ease-in-out infinite;
-        }
         .bg-gradient-radial {
           background: radial-gradient(circle, var(--tw-gradient-stops));
         }
+        
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-20px);
+          }
+        }
+        
+        @keyframes float-delayed {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-30px);
+          }
+        }
+        
+        @keyframes number-glow {
+          0%, 100% {
+            filter: brightness(1);
+          }
+          50% {
+            filter: brightness(1.2);
+          }
+        }
+        
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        
+        .animate-float-delayed {
+          animation: float-delayed 8s ease-in-out infinite;
+        }
+        
+        .animate-number-glow {
+          animation: number-glow 2s ease-in-out infinite;
+        }
+        
+        .hover\:shadow-3xl:hover {
+          box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
+        }
       `}</style>
-    </section>
+    </div>
   )
 }

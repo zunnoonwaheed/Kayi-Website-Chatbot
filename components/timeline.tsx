@@ -55,7 +55,6 @@ export default function ProfessionalTimeline() {
 
   useEffect(() => {
     if (isMobile) return
-
     const updatePositions = () => {
       const positions = dotRefs.current.map((dot) => {
         if (dot) {
@@ -67,7 +66,6 @@ export default function ProfessionalTimeline() {
       })
       setDotX(positions)
     }
-
     updatePositions()
     window.addEventListener("resize", updatePositions)
     return () => window.removeEventListener("resize", updatePositions)
@@ -80,21 +78,20 @@ export default function ProfessionalTimeline() {
   // Mobile Layout
   if (isMobile) {
     return (
-      <section className="py-12 px-4 bg-white">
+      <section id="our-process-section" className="py-12 px-4 bg-white">
         <div className="max-w-lg mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-              <h2 className="text-3xl font-light mb-3 text-gray-700">
+              <h2 className="text-4xl font-light mb-3 text-gray-700">
                 <span className="font-semibold text-[#000000]">Our Process</span>
               </h2>
-              <p className="text-sm text-gray-600">
-                From initial discovery to ongoing optimization, we guide your business through proven systems that
-                deliver sustainable growth
+              <p className="text-lg text-gray-600">
+                From initial discovery to ongoing <span className="font-bold">optimization</span>, we guide your
+                business through <span className="font-bold">proven systems</span> that deliver sustainable growth
               </p>
             </motion.div>
           </div>
-
           {/* Mobile Timeline */}
           <div className="relative">
             <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200" />
@@ -105,12 +102,10 @@ export default function ProfessionalTimeline() {
               }}
               transition={{ duration: 0.8, ease: "easeInOut" }}
             />
-
             <div className="space-y-8">
               {steps.map((step, index) => {
                 const isActive = index === currentStep
                 const isCompleted = index < currentStep
-
                 return (
                   <motion.div
                     key={index}
@@ -139,7 +134,6 @@ export default function ProfessionalTimeline() {
                         )}
                       </div>
                     </motion.div>
-
                     <motion.div
                       animate={{ scale: isActive ? 1.02 : 1 }}
                       transition={{ duration: 0.3 }}
@@ -189,7 +183,6 @@ export default function ProfessionalTimeline() {
               })}
             </div>
           </div>
-
           {/* Mobile Navigation Dots */}
           <div className="flex justify-center mt-8 gap-2">
             {steps.map((_, index) => (
@@ -206,7 +199,6 @@ export default function ProfessionalTimeline() {
               />
             ))}
           </div>
-
           {/* CTA Button */}
           <div className="flex justify-center mt-12">
             <a
@@ -225,23 +217,21 @@ export default function ProfessionalTimeline() {
 
   // Desktop Layout
   return (
-    <section className="py-20 px-6 bg-white">
+    <section id="our-process-section" className="py-20 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <h2 className="text-4xl lg:text-6xl font-light mb-3 text-gray-700">
               <span className="font-semibold text-[#000000]">Our Process</span>
             </h2>
-            <p className="text-base text-gray-600 max-w-xl mx-auto">
-              From initial discovery to ongoing optimization, we guide your business through proven systems that deliver
-              sustainable growth
+            <p className="text-lg text-gray-600 max-w-xl mx-auto">
+              From initial discovery to ongoing <span className="font-bold">optimization</span>, we guide your business
+              through <span className="font-bold">proven systems</span> that deliver sustainable growth
             </p>
           </motion.div>
         </div>
-
         <div className="timeline-container relative">
           <div className="absolute top-1/2 left-0 right-0 h-px bg-gray-200 transform -translate-y-1/2 z-10" />
-
           {dotX.length > 0 && (
             <>
               <motion.div
@@ -259,14 +249,12 @@ export default function ProfessionalTimeline() {
               />
             </>
           )}
-
           <div className="relative z-40 py-16">
             <div className="grid grid-cols-4 gap-8 lg:gap-16">
               {steps.map((step, index) => {
                 const isBelow = index % 2 !== 0
                 const isActive = index === currentStep
                 const isCompleted = index < currentStep
-
                 const Card = (
                   <motion.div
                     initial={{ opacity: 0, y: isBelow ? 20 : -20, scale: 0.95 }}
@@ -312,7 +300,6 @@ export default function ProfessionalTimeline() {
                     </div>
                   </motion.div>
                 )
-
                 return (
                   <div key={index} className="relative flex flex-col items-center">
                     {!isBelow && (
@@ -324,7 +311,6 @@ export default function ProfessionalTimeline() {
                         />
                       </div>
                     )}
-
                     <motion.div
                       ref={(el) => (dotRefs.current[index] = el)}
                       onClick={() => handleStepClick(index)}
@@ -350,7 +336,6 @@ export default function ProfessionalTimeline() {
                         )}
                       </div>
                     </motion.div>
-
                     {isBelow && (
                       <div className="mt-20 lg:mt-40">
                         <motion.div
@@ -366,7 +351,6 @@ export default function ProfessionalTimeline() {
             </div>
           </div>
         </div>
-
         {/* Dots Navigation */}
         <div className="flex justify-center mt-12 gap-2">
           {steps.map((_, index) => (
@@ -383,7 +367,6 @@ export default function ProfessionalTimeline() {
             />
           ))}
         </div>
-
         {/* CTA Button */}
         <div className="flex justify-center mt-12">
           <a

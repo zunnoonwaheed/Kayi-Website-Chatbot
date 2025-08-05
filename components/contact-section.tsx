@@ -1,9 +1,9 @@
 "use client"
-
 import { useEffect, useState } from "react"
 import { useActionState } from "react"
 import { submitContactForm } from "./actions/contact-actions"
 import { CheckCircle, Loader2 } from "lucide-react"
+import Image from "next/image" // Import Image component
 
 export default function ContactSection() {
   const [isVisible, setIsVisible] = useState(false)
@@ -27,7 +27,7 @@ export default function ContactSection() {
 
   return (
     <section
-      id="contact-section"
+      id="have-a-project-in-mind-section" // Added ID for scrolling
       className="py-8 md:py-16 px-4 bg-white relative overflow-hidden min-h-screen flex items-center"
     >
       <div className="max-w-7xl mx-auto w-full">
@@ -39,14 +39,14 @@ export default function ContactSection() {
           {/* Animated Arrow */}
           <div className="flex justify-center mb-6 md:mb-8">
             <div
-              className={`transition-all duration-1000 ${
-                isVisible ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
-              }`}
+              className={`transition-all duration-1000 ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"}`}
             >
               <div className="relative">
-                <img
+                <Image
                   src="/images/purple-arrow.png"
                   alt="Decorative arrow pointing to form"
+                  width={128} // Added width
+                  height={96} // Added height
                   className="w-24 md:w-32 h-20 md:h-24 object-contain animate-bounce"
                   style={{
                     filter: "grayscale(100%)",
@@ -58,7 +58,6 @@ export default function ContactSection() {
             </div>
           </div>
         </div>
-
         {/* Form Section */}
         <div className="flex flex-col lg:flex-row items-center justify-center gap-6 max-w-6xl mx-auto">
           {/* Phone Mockup */}
@@ -67,12 +66,17 @@ export default function ContactSection() {
               <div className="w-full h-full bg-black rounded-[3rem] flex items-center justify-center relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-gray-800/20 to-gray-900/20 rounded-[3rem]"></div>
                 <div className="relative z-10 flex items-center justify-center">
-                  <img src="/images/logo.png" alt="Kayi Digital Logo" className="w-30 h-30 object-contain" />
+                  <Image
+                    src="/images/logo.png"
+                    alt="Kayi Digital Logo"
+                    width={120} // Added width
+                    height={120} // Added height
+                    className="w-30 h-30 object-contain"
+                  />
                 </div>
               </div>
             </div>
           </div>
-
           {/* Form */}
           <div className="relative w-full max-w-[750px]">
             <div className="relative w-full mb-6 md:mb-8">
@@ -98,14 +102,12 @@ export default function ContactSection() {
                       </div>
                     </div>
                   )}
-
                   {/* Error Message */}
                   {state && !state.success && (
                     <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
                       <p className="text-red-800 text-sm">{state.message}</p>
                     </div>
                   )}
-
                   <form action={formAction} className="space-y-3 md:space-y-4 relative z-10 h-full flex flex-col">
                     <div className="group">
                       <input
@@ -117,7 +119,6 @@ export default function ContactSection() {
                         className="w-full px-4 md:px-5 py-3 md:py-4 border border-gray-300 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-[#cf21c3] bg-gray-50/50 backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed"
                       />
                     </div>
-
                     <div className="group">
                       <input
                         type="email"
@@ -128,7 +129,6 @@ export default function ContactSection() {
                         className="w-full px-4 md:px-5 py-3 md:py-4 border border-gray-300 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-[#cf21c3] bg-gray-50/50 backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed"
                       />
                     </div>
-
                     <div className="group relative">
                       <select
                         name="topic"
@@ -150,7 +150,6 @@ export default function ContactSection() {
                         </svg>
                       </div>
                     </div>
-
                     <div className="group">
                       <input
                         type="text"
@@ -160,7 +159,6 @@ export default function ContactSection() {
                         className="w-full px-4 md:px-5 py-3 md:py-4 border border-gray-300 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-[#cf21c3] bg-gray-50/50 backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed"
                       />
                     </div>
-
                     <div className="group flex-1">
                       <textarea
                         name="description"
@@ -171,7 +169,6 @@ export default function ContactSection() {
                         className="w-full h-full px-4 md:px-5 py-3 md:py-4 border border-gray-300 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-[#cf21c3] resize-none bg-gray-50/50 backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed"
                       />
                     </div>
-
                     <div className="pt-2 md:pt-4">
                       <button
                         type="submit"
@@ -180,8 +177,7 @@ export default function ContactSection() {
                       >
                         {isPending ? (
                           <span className="flex items-center justify-center gap-2">
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                            Sending...
+                            <Loader2 className="w-4 h-4 animate-spin" /> Sending...
                           </span>
                         ) : (
                           <span className="relative z-10 text-sm md:text-base">Submit</span>
