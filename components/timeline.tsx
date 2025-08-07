@@ -1,9 +1,7 @@
 "use client"
-
 import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
-import { Check } from "lucide-react"
-
+import { Check } from 'lucide-react'
 export default function ProfessionalTimeline() {
   const steps = [
     {
@@ -14,7 +12,7 @@ export default function ProfessionalTimeline() {
     },
     {
       title: "Strategy",
-      description: "We map out exactly how we're going to get you there.",
+    description: "We map out exactly how we're going to get you there.",
       duration: "2-3 weeks",
       number: "02",
     },
@@ -31,12 +29,10 @@ export default function ProfessionalTimeline() {
       number: "04",
     },
   ]
-
   const [currentStep, setCurrentStep] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
   const dotRefs = useRef<(HTMLDivElement | null)[]>([])
   const [dotX, setDotX] = useState<number[]>([])
-
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768)
@@ -45,14 +41,12 @@ export default function ProfessionalTimeline() {
     window.addEventListener("resize", checkMobile)
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentStep((prev) => (prev + 1) % steps.length)
     }, 3000)
     return () => clearInterval(interval)
   }, [steps.length])
-
   useEffect(() => {
     if (isMobile) return
     const updatePositions = () => {
@@ -70,16 +64,23 @@ export default function ProfessionalTimeline() {
     window.addEventListener("resize", updatePositions)
     return () => window.removeEventListener("resize", updatePositions)
   }, [isMobile])
-
   const handleStepClick = (index: number) => {
     setCurrentStep(index)
   }
-
   // Mobile Layout
   if (isMobile) {
     return (
-      <section id="our-process-section" className="py-12 px-4 bg-white">
-        <div className="max-w-lg mx-auto">
+      <section id="our-process-section" className="py-12 px-4 bg-white relative overflow-hidden">
+        {/* Subtle Background Effects for Mobile */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Animated gradient orbs - smaller and less intense */}
+          <div className="absolute top-10 left-10 w-48 h-48 bg-gradient-to-r from-pink-500/15 to-[#cf21c3]/10 rounded-full blur-2xl animate-pulse"></div>
+          <div className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-l from-[#cf21c3]/10 to-pink-400/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: "1s" }}></div>
+          {/* Floating particles effect */}
+          <div className="absolute top-20 left-1/2 w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce opacity-40" style={{ animationDelay: "0.2s" }}></div>
+          <div className="absolute top-40 right-1/3 w-1 h-1 bg-[#cf21c3] rounded-full animate-bounce opacity-50" style={{ animationDelay: "1.5s" }}></div>
+        </div>
+        <div className="max-w-lg mx-auto relative z-10">
           {/* Header */}
           <div className="text-center mb-12">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
@@ -214,11 +215,19 @@ export default function ProfessionalTimeline() {
       </section>
     )
   }
-
   // Desktop Layout
   return (
-    <section id="our-process-section" className="py-20 px-6 bg-white">
-      <div className="max-w-7xl mx-auto">
+    <section id="our-process-section" className="py-20 px-6 bg-white relative overflow-hidden">
+      {/* Subtle Background Effects for Desktop */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Animated gradient orbs - smaller and less intense */}
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-pink-500/15 to-[#cf21c3]/10 rounded-full blur-2xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-56 h-56 bg-gradient-to-l from-[#cf21c3]/10 to-pink-400/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: "1s" }}></div>
+        {/* Floating particles effect */}
+        <div className="absolute top-20 left-1/2 w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce opacity-40" style={{ animationDelay: "0.2s" }}></div>
+        <div className="absolute top-40 right-1/3 w-1 h-1 bg-[#cf21c3] rounded-full animate-bounce opacity-50" style={{ animationDelay: "1.5s" }}></div>
+      </div>
+      <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <h2 className="text-4xl lg:text-6xl font-light mb-3 text-gray-700">
@@ -260,7 +269,7 @@ export default function ProfessionalTimeline() {
                     initial={{ opacity: 0, y: isBelow ? 20 : -20, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: isActive ? 1.02 : 1 }}
                     transition={{ duration: 0.5 }}
-                    className={`w-full max-w-xs p-5 bg-white rounded-lg shadow-md border transition-all duration-500 ${
+                    className={`w-full max-w-xs p-5 bg-white rounded-lg shadow-sm border transition-all duration-500 ${
                       isActive ? "border-[#cf21c3]/30 shadow-lg" : "border-gray-200 hover:shadow-lg"
                     }`}
                   >
@@ -283,7 +292,9 @@ export default function ProfessionalTimeline() {
                         <span className="text-xs font-medium text-gray-500">
                           {isCompleted ? "Completed" : isActive ? "In Progress" : "Upcoming"}
                         </span>
-                        <span className="text-xs text-gray-400">{isCompleted ? "100%" : isActive ? "70%" : "0%"}</span>
+                        <span className="text-xs text-gray-400">
+                          {isCompleted ? "100%" : isActive ? "70%" : "0%"}
+                        </span>
                       </div>
                       <div className="h-1 bg-gray-100 rounded-full overflow-hidden">
                         <motion.div
@@ -305,10 +316,7 @@ export default function ProfessionalTimeline() {
                     {!isBelow && (
                       <div className="mb-20 lg:mb-40">
                         {Card}
-                        <motion.div
-                          className="w-px h-8 mx-auto"
-                          animate={{ backgroundColor: isActive ? "#cf21c3" : "#d1d5db" }}
-                        />
+                        <motion.div className="w-px h-8 mx-auto" animate={{ backgroundColor: isActive ? "#cf21c3" : "#d1d5db" }} />
                       </div>
                     )}
                     <motion.div
@@ -338,10 +346,7 @@ export default function ProfessionalTimeline() {
                     </motion.div>
                     {isBelow && (
                       <div className="mt-20 lg:mt-40">
-                        <motion.div
-                          className="w-px h-8 mx-auto"
-                          animate={{ backgroundColor: isActive ? "#cf21c3" : "#d1d5db" }}
-                        />
+                        <motion.div className="w-px h-8 mx-auto" animate={{ backgroundColor: isActive ? "#cf21c3" : "#d1d5db" }} />
                         {Card}
                       </div>
                     )}
