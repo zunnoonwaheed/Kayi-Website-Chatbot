@@ -78,11 +78,6 @@ export default function Home() {
         </section>
       </main>
       <Footer />
-
-      {/* Chatbot Status Indicator (you can remove this after testing) */}
-      <div className="fixed bottom-4 left-4 z-40 bg-blue-500 text-white px-3 py-2 rounded-lg text-sm shadow-lg">
-        💬 Chatbot should appear in bottom-right corner
-      </div>
     </div>
   )
 }
