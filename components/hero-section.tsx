@@ -1,5 +1,4 @@
 "use client"
-
 import { useEffect, useState } from "react"
 import Link from "next/link" // Import Link for the button
 
@@ -60,22 +59,23 @@ export default function HeroSection() {
         <div className="absolute bottom-20 left-20 w-96 h-96 rounded-full"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"></div>
       </div>
-
       {/* Main Hero Content */}
-      <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between pt-8 sm:pt-12 lg:pt-20 relative z-10 gap-8 lg:gap-16 px-4 md:px-6">
+      <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between pt-8 sm:pt-12 lg:pt-20 relative z-10 gap-4 lg:gap-0 px-4 md:px-6">
         {/* Left Content (Text) */}
-        <div className="w-full lg:w-[45%] text-center lg:text-left order-1 lg:order-1">
+        <div className="w-full lg:w-[35%] text-center lg:text-left order-1 lg:order-1">
           <div className="mb-6 sm:mb-8">
             {/* Corrected headline for 3 lines with typewriter effect inline on the third line */}
             {/* Adjusted text size for mobile to be larger */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl font-bold text-black leading-tight mb-4 sm:mb-6">
-              Everything Your<br />
-              Business Needs<br />
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-4xl xl:text-5xl font-bold text-black leading-tight mb-4 sm:mb-6">
+              Everything Your
+              <br />
+              Business Needs
+              <br />
               For <TypewriterEffect words={typingWords} />
             </h1>
             <p className="text-gray-600 text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-              Your business growth should feel predictable, not like a gamble. We partner with companies who want real results
-              they can count on.
+              Your business growth should feel predictable, not like a gamble. We partner with companies who want real
+              results they can count on.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 mb-8 sm:mb-12 justify-center lg:justify-start">
@@ -113,9 +113,8 @@ export default function HeroSection() {
             </div>
           </div>
         </div>
-
         {/* Right Content (Image) */}
-        <div className="w-full lg:w-[60%] relative order-2 lg:order-2">
+        <div className="w-full lg:w-[65%] relative order-2 lg:order-2">
           {/* Central Badge - Removed hover effects */}
           <div className="absolute top-4 sm:top-8 left-1/2 transform -translate-x-1/2 z-20">
             <div className="bg-black rounded-full p-3 sm:p-4 border-4 border-white shadow-2xl">
@@ -129,14 +128,14 @@ export default function HeroSection() {
           <div className="relative">
             {/* Desktop Image */}
             <img
-              src="/images/vr_desktop.jpeg" // Removed query
+              src="/images/hero_banner_desk.jpg" // Removed query
               alt="Person using VR headset in digital world (Desktop)"
               className="w-full h-auto hidden lg:block"
               loading="eager"
             />
             {/* Mobile Image */}
             <img
-              src="/images/vr_mobile.jpeg" // Removed query
+              src="/images/hero_banner_mobile.jpg" // Removed query
               alt="Person using VR headset in digital world (Mobile)"
               className="w-full h-auto block lg:hidden"
               loading="eager"
@@ -144,13 +143,11 @@ export default function HeroSection() {
             {/* Removed Floating Elements */}
           </div>
           {/* Enhanced Stats Card - Removed animations and gradients */}
-          <div className="absolute -bottom-4 sm:bottom-0 -right-2 sm:right-0 bg-black/95 rounded-3xl p-4 sm:p-6 text-white min-w-[180px] sm:min-w-[200px] shadow-2xl border border-gray-800">
+          <div className="absolute bottom-4 right-4 sm:bottom-0 sm:right-4 lg:right-0 bg-black/95 rounded-3xl p-4 sm:p-6 text-white min-w-[180px] sm:min-w-[200px] shadow-2xl border border-gray-800">
             <div className="flex items-center justify-between mb-4">
               <div>
                 {/* Changed gradient and animation to solid black */}
-                <div className="text-2xl sm:text-3xl font-bold text-white">
-                  5100+
-                </div>
+                <div className="text-2xl sm:text-3xl font-bold text-white">80+</div>
                 <div className="text-gray-400 text-xs sm:text-sm">New Users</div>
               </div>
               <div className="flex -space-x-2">

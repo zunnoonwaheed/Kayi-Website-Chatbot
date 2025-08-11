@@ -10,13 +10,12 @@ import SuccessStoriesSection from "@/components/success-stories-section"
 import ReviewsSection from "@/components/review-section"
 import ContactSection from "@/components/contact-section"
 import Footer from "@/components/Footer"
+import KayiChatbot from "@/components/kayi-chatbot" // ✅ Import your chatbot
 
 export default function Home() {
   useEffect(() => {
-    // Ensure Landbot initializes on the homepage
     const initializeLandbot = () => {
       if (typeof window !== "undefined" && (window as any).Landbot) {
-        // Check if Landbot widget already exists
         const existingWidget =
           document.querySelector(".landbot-widget") ||
           document.querySelector("[data-landbot]") ||
@@ -26,7 +25,8 @@ export default function Home() {
           try {
             console.log("🏠 Initializing Landbot on Kayi Digital homepage...")
             ;new (window as any).Landbot.Livechat({
-              configUrl: "https://storage.googleapis.com/landbot.online/v3/H-3074586-M13ISOMDG5UFG08S/index.json",
+              configUrl:
+                "https://storage.googleapis.com/landbot.online/v3/H-3074586-M13ISOMDG5UFG08S/index.json",
             })
             console.log("✅ Landbot chatbot initialized successfully on homepage!")
           } catch (error) {
@@ -41,10 +41,7 @@ export default function Home() {
       }
     }
 
-    // Try to initialize immediately
     initializeLandbot()
-
-    // Also try after page is fully loaded
     const timer = setTimeout(initializeLandbot, 2000)
 
     return () => clearTimeout(timer)
@@ -77,6 +74,10 @@ export default function Home() {
           <div className="text-center mt-8"></div>
         </section>
       </main>
+
+      {/* ✅ Chatbot widget added */}
+      <KayiChatbot />
+
       <Footer />
     </div>
   )

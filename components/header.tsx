@@ -1,5 +1,4 @@
 "use client"
-
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -11,7 +10,6 @@ import { usePathname } from "next/navigation"
 export default function Header() {
   const [isSheetOpen, setIsSheetOpen] = useState(false)
   const pathname = usePathname()
-
   const menuItems = [
     { name: "Home", targetClass: ".home", href: "/" },
     { name: "Our Process", targetClass: ".aboutus" },
@@ -20,7 +18,6 @@ export default function Header() {
     { name: "Testimonials", targetClass: ".testimonials" },
     { name: "Contact", targetClass: ".contact" },
   ]
-
   const scrollToSection = (selector: string) => {
     const section = document.querySelector(selector)
     if (section) {
@@ -28,7 +25,6 @@ export default function Header() {
       setIsSheetOpen(false)
     }
   }
-
   const navLinks = (
     <>
       {menuItems.map((item, i) => {
@@ -67,7 +63,6 @@ export default function Header() {
       })}
     </>
   )
-
   return (
     <header className="flex items-center justify-between px-3 md:px-5 lg:px-8 py-1 bg-[#f8f8f8] sticky top-0 z-50 shadow-sm">
       {/* Logo */}
@@ -76,18 +71,16 @@ export default function Header() {
           <Image
             src="/images/kayi-logo-white.png"
             alt="Kayi Digital Logo"
-            width={85} // Smaller width
-            height={24}
+            width={100} // Increased width for desktop
+            height={28} // Increased height for desktop
             className="h-auto"
           />
         </Link>
       </div>
-
       {/* Center Nav Links */}
       <nav className="hidden lg:flex items-center gap-4 text-black absolute left-1/2 transform -translate-x-1/2">
         {navLinks}
       </nav>
-
       {/* Right-side Buttons */}
       <div className="flex items-center gap-1.5">
         <Link href="https://calendly.com/saadalii/kayidigital" target="_blank" rel="noopener noreferrer">
@@ -95,7 +88,6 @@ export default function Header() {
             Book a Call
           </Button>
         </Link>
-
         {/* Mobile Menu */}
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetTrigger asChild className="lg:hidden">
@@ -115,7 +107,6 @@ export default function Header() {
                 className="h-auto"
               />
             </div>
-
             {/* Navigation Links */}
             <nav className="flex flex-col gap-6 text-center">
               {menuItems.map((item, i) => {
@@ -154,7 +145,6 @@ export default function Header() {
                 )
               })}
             </nav>
-
             {/* Call to Action Button */}
             <div className="mt-auto pt-8">
               <Link href="https://calendly.com/saadalii/kayidigital" target="_blank" rel="noopener noreferrer">

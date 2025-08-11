@@ -1,5 +1,4 @@
 "use client"
-
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
@@ -80,9 +79,9 @@ export default function ReviewsSection() {
   const cardsToRender = isMobile ? mobileCards : allCards
 
   return (
-    <section id="why-teams-choose-us-section" className="py-10 px-4 bg-white">
+    <section id="why-teams-choose-us-section" className="py-16 px-4 bg-gray-50">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-8 md:mb-20">
+        <div className="text-center mb-12 md:mb-24">
           {" "}
           {/* Parent div with text-center */}
           <h2 className="text-4xl lg:text-6xl font-light mb-3 text-gray-700 tracking-tight">
@@ -124,7 +123,7 @@ export default function ReviewsSection() {
             className="bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold px-8 py-6 rounded-full text-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300"
           >
             <a href="https://calendly.com/saadalii/kayidigital" target="_blank" rel="noopener noreferrer">
-            Start a conversation
+              Start a conversation
             </a>
           </Button>
         </div>
@@ -146,9 +145,7 @@ function CardWithImage({
   imageUrl: string
 }) {
   return (
-    <div
-      className="bg-white rounded-2xl overflow-hidden flex flex-col h-full shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 group p-6 text-center items-center justify-center min-h-[300px]" // Adjusted classes
-    >
+    <div className="bg-white rounded-2xl overflow-hidden flex flex-col h-full shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 group p-8 text-center items-center justify-center min-h-[300px] hover:-translate-y-2 hover:scale-[1.01]">
       {/* Headshot Section */}
       <div className="w-24 h-24 rounded-full overflow-hidden relative mx-auto mb-4">
         <Image
@@ -157,7 +154,6 @@ function CardWithImage({
           fill
           sizes="96px" // Fixed size for headshot
           className="object-cover object-center"
-          style={{ objectPosition: "center 20%" }}
         />
       </div>
       {/* Content Section */}
@@ -188,7 +184,7 @@ function CardText({
 }) {
   return (
     <div
-      className={`bg-gradient-to-br ${gradient} p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full relative overflow-hidden group min-h-[300px]`}
+      className={`bg-gradient-to-br ${gradient} p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full relative overflow-hidden group min-h-[300px] hover:-translate-y-2 hover:scale-[1.01]`}
     >
       {/* Circular and oval shapes in background */}
       <div className="absolute inset-0 opacity-25">
