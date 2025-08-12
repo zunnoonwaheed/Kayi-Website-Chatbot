@@ -100,6 +100,14 @@ export default function Footer() {
                   Have A Project In Mind?
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/admin/dashboard"
+                  className="hover:text-[#cf21c3] transition-colors opacity-70 hover:opacity-100"
+                >
+                  Dashboard
+                </Link>
+              </li>
             </ul>
           </div>
           {/* Services */}

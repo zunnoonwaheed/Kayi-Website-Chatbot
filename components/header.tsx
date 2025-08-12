@@ -83,7 +83,7 @@ export default function Header() {
       </nav>
       {/* Right-side Buttons */}
       <div className="flex items-center gap-1.5">
-        <Link href="https://calendly.com/saadalii/kayidigital" target="_blank" rel="noopener noreferrer">
+        <Link href="/book-call">
           <Button className="hidden md:block bg-black text-white px-4 py-1 text-[12px] font-semibold rounded-full shadow hover:shadow-md hover:bg-black/90 transition-all">
             Book a Call
           </Button>
@@ -147,7 +147,7 @@ export default function Header() {
             </nav>
             {/* Call to Action Button */}
             <div className="mt-auto pt-8">
-              <Link href="https://calendly.com/saadalii/kayidigital" target="_blank" rel="noopener noreferrer">
+              <Link href="/book-call">
                 <Button
                   onClick={() => setIsSheetOpen(false)}
                   className="w-full bg-[#cf21c3] text-white px-6 py-3 text-sm font-semibold rounded-full shadow-lg hover:shadow-xl hover:bg-[#b91db0] transition-all transform hover:scale-[1.02]"
