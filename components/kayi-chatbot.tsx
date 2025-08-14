@@ -1,29 +1,20 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import {
-  MessageCircle,
-  RotateCcw,
-  Loader2,
-  Clock,
-  Calendar,
-  Phone,
-  Sparkles,
-  ArrowRight,
-  CheckCircle,
-  Send,
-  AlertCircle,
-} from "lucide-react"
+import { X, RotateCcw, Edit2, Check, ArrowRight } from "lucide-react"
+import { MessageCircle, Clock, Calendar, Phone, Sparkles, CheckCircle, Send, AlertCircle } from "lucide-react"
 
 interface ChatMessage {
   id: string
   type: "bot" | "user"
   message: string
   timestamp: Date
+  stepId?: number
+  isEditable?: boolean
 }
 
 interface ChatData {
@@ -37,342 +28,126 @@ interface ChatData {
   timeSlot?: string
 }
 
-interface DetailedResponse {
-  question: string
-  answer: string
-  score: number
-  quality: string
-  rationale: string
-}
-
 const questions = [
   {
     id: "name",
     question: "Awesome! Let's start simple - what should I call you?",
-    type: "text" as const,
-    placeholder: "Enter your name",
+    type: "text",
+    placeholder: "Enter your name...",
+    field: "name" as keyof ChatData,
   },
   {
     id: "whatsapp",
-    question:
-      "Nice to meet you, [NAME]! What's your WhatsApp number?\n(Even if you don't have WhatsApp active on this number, it would work fine!)",
-    type: "tel" as const,
-    placeholder: "Enter your WhatsApp number with country code",
+    question: "Great to meet you! What's your WhatsApp number so we can stay connected?",
+    type: "tel",
+    placeholder: "Enter your WhatsApp number...",
+    field: "whatsapp" as keyof ChatData,
   },
   {
     id: "email",
     question: "Perfect! And your email address?",
-    type: "email" as const,
-    placeholder: "Enter your email address",
+    type: "email",
+    placeholder: "Enter your email address...",
+    field: "email" as keyof ChatData,
   },
   {
     id: "service",
-    question:
-      "We offer complete digital solutions for businesses.\n\nWhich service area are you most interested in right now?",
-    type: "select" as const,
+    question: "Now, which service are you most interested in exploring?",
+    type: "select",
+    field: "service" as keyof ChatData,
     options: [
-      "Social Media Management",
-      "Performance Marketing",
-      "Business Automation",
-      "Software Development",
-      "Digital Marketing & Ads",
-      "SEO & Content Marketing",
-      "Complete Digital Package",
-      "Not sure - can someone help me with this?",
+      "Social Media Marketing",
+      "Search Engine Optimization (SEO)",
+      "Pay-Per-Click Advertising (PPC)",
+      "Content Marketing",
+      "Email Marketing",
+      "Website Development",
+      "Brand Strategy & Design",
+      "Marketing Analytics & Reporting",
+      "E-commerce Solutions",
+      "Lead Generation",
+      "Other (please specify in next step)",
     ],
   },
   {
     id: "challenge",
-    question:
-      "What's the biggest challenge or problem you're trying to solve right now? I want to make sure we tackle what's really holding your business back.\n\nJust describe it in 2-3 lines - the more specific, the better I can help!",
-    type: "textarea" as const,
-    placeholder: "Describe your biggest challenge in 2-3 lines...",
+    question: "What's your biggest challenge with digital marketing right now?",
+    type: "textarea",
+    placeholder: "Tell us about your main digital marketing challenge...",
+    field: "challenge" as keyof ChatData,
   },
   {
     id: "timeline",
-    question: "Got it! And what's your ideal timeline for this project?",
-    type: "select" as const,
-    options: ["Less than 1 week", "1-2 weeks", "1-3 months", "3+ months", "Other/Flexible"],
+    question: "When are you looking to get started?",
+    type: "select",
+    field: "timeline" as keyof ChatData,
+    options: ["Immediately", "Within 1 month", "Within 3 months", "Within 6 months", "Just exploring options"],
   },
   {
     id: "budget",
-    question:
-      "One last thing - let's talk numbers! 💰\nWhat budget range are you working with?\n\n(Don't worry, I'm not here to judge your wallet - just want to make sure I recommend the perfect solution that fits!)",
-    type: "select" as const,
-    options: ["Under $1K", "$1K-$5K", "$5K-$10K", "$10K+", "I would prefer discussing this over a call!"],
+    question: "What's your monthly budget range for digital marketing?",
+    type: "select",
+    field: "budget" as keyof ChatData,
+    options: [
+      "Under $1,000",
+      "$1,000 - $2,500",
+      "$2,500 - $5,000",
+      "$5,000 - $10,000",
+      "$10,000 - $25,000",
+      "Over $25,000",
+      "I need help determining this",
+    ],
   },
 ]
 
-const calculateScore = (
-  timeline: string,
-  budget: string,
-): { score: number; quality: string; rationale: string; budgetCategory: string; timelineTag: string } => {
-  let timelineScore = 0
-  let budgetScore = 0
-  let rationale = ""
-  let budgetCategory = ""
-  let timelineTag = ""
-
-  switch (timeline) {
-    case "Less than 1 week":
-      timelineScore = 90
-      timelineTag = "urgent_red"
-      rationale += "Urgent timeline shows immediate business need and decision-making authority. "
-      break
-    case "1-2 weeks":
-      timelineScore = 85
-      timelineTag = "urgent_red"
-      rationale += "Short timeline indicates strong commitment and readiness to move forward. "
-      break
-    case "1-3 months":
-      timelineScore = 70
-      timelineTag = "comfortable_green"
-      rationale += "Realistic timeline allows for proper planning and quality delivery. "
-      break
-    case "3+ months":
-      timelineScore = 60
-      timelineTag = "comfortable_green"
-      rationale += "Extended timeline allows for thorough planning but shows lower urgency. "
-      break
-    case "Other/Flexible":
-      timelineScore = 50
-      timelineTag = "flexible_yellow"
-      rationale += "Flexible timeline shows openness but needs clarification on urgency. "
-      break
-  }
-
-  switch (budget) {
-    case "Under $1K":
-      budgetScore = 30
-      budgetCategory = "below_avg"
-      rationale += "Limited budget restricts service options to basic packages."
-      break
-    case "$1K-$5K":
-      budgetScore = 60
-      budgetCategory = "avg"
-      rationale += "Moderate budget allows for essential digital services and growth strategies."
-      break
-    case "$5K-$10K":
-      budgetScore = 85
-      budgetCategory = "above_avg"
-      rationale += "Strong budget range enables comprehensive solutions and measurable results."
-      break
-    case "$10K+":
-      budgetScore = 95
-      budgetCategory = "above_avg"
-      rationale += "Excellent budget allows for premium services, advanced strategies, and maximum ROI."
-      break
-    case "I would prefer discussing this over a call!":
-      budgetScore = 80
-      budgetCategory = "N/A"
-      rationale += "Willingness to discuss budget shows serious intent and potential for higher investment."
-      break
-  }
-
-  const totalScore = Math.round((timelineScore + budgetScore) / 2)
-
-  let quality = ""
-  if (totalScore >= 85) quality = "above_avg"
-  else if (totalScore >= 60) quality = "avg"
-  else quality = "below_avg"
-
-  return { score: totalScore, quality, rationale, budgetCategory, timelineTag }
-}
-
-const validateInput = (value: string, type: string, fieldName: string) => {
-  const trimmedValue = value.trim()
-
-  if (!trimmedValue) {
-    return { isValid: false, error: `${fieldName} is required` }
-  }
-
-  switch (type) {
+const validateField = (field: keyof ChatData, value: string): string => {
+  switch (field) {
+    case "name":
+      if (!value.trim()) return "Please enter your name"
+      if (value.trim().length < 2) return "Name must be at least 2 characters"
+      return ""
+    case "whatsapp":
+      if (!value.trim()) return "Please enter your WhatsApp number"
+      const phoneRegex = /^[+]?[1-9][\d]{0,15}$/
+      if (!phoneRegex.test(value.replace(/\s+/g, ""))) return "Please enter a valid phone number"
+      return ""
     case "email":
+      if (!value.trim()) return "Please enter your email address"
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      if (!emailRegex.test(trimmedValue)) {
-        return { isValid: false, error: "Please enter a valid email address" }
-      }
-      break
-
-    case "tel":
-      const phoneRegex = /^[+]?[0-9\s\-()]{10,}$/
-      if (!phoneRegex.test(trimmedValue.replace(/\s/g, ""))) {
-        return {
-          isValid: false,
-          error: "Oops, looks like you didn't enter your country code correctly. Shall we try one more time?",
-        }
-      }
-      break
-
-    case "text":
-      if (trimmedValue.length < 2) {
-        return { isValid: false, error: "Please provide a valid name" }
-      }
-      break
-
-    case "textarea":
-      if (trimmedValue.length < 10) {
-        return { isValid: false, error: "Please provide more details (at least 10 characters)" }
-      }
-      break
+      if (!emailRegex.test(value)) return "Please enter a valid email address"
+      return ""
+    case "service":
+    case "timeline":
+    case "budget":
+      if (!value.trim()) return "Please select an option"
+      return ""
+    case "challenge":
+      if (!value.trim()) return "Please describe your challenge"
+      if (value.trim().length < 10) return "Please provide more details (at least 10 characters)"
+      return ""
+    default:
+      return ""
   }
-
-  return { isValid: true, error: null }
 }
 
-const saveToLocalStorage = async (data: ChatData): Promise<boolean> => {
+const saveToLocalStorage = async (data: ChatData) => {
   try {
-    const existingData = JSON.parse(localStorage.getItem("kayi-chatbot-leads") || "[]")
-
-    const isDuplicate = existingData.some((lead: any) => {
-      if (lead.email === data.email) {
-        const timeDiff = Math.abs(new Date().getTime() - new Date(lead.timestamp).getTime())
-        const isRecentDuplicate = timeDiff < 86400000 // 24 hours
-
-        const isSameData =
-          lead.service === data.service &&
-          lead.challenge === data.challenge &&
-          lead.timeline === data.timeline &&
-          lead.budget === data.budget
-
-        return isRecentDuplicate || isSameData
-      }
-      return false
-    })
-
-    if (isDuplicate) {
-      console.log("Duplicate lead detected, skipping save")
-      return true
-    }
-
-    const scoreData = calculateScore(data.timeline, data.budget)
-
-    const responses: DetailedResponse[] = [
-      {
-        question: "What's your ideal timeline for this project?",
-        answer: data.timeline,
-        score: Math.round(scoreData.score * 0.5),
-        quality: scoreData.quality,
-        rationale: scoreData.rationale.split(".")[0] + ".",
-      },
-      {
-        question: "What budget range are you working with?",
-        answer: data.budget,
-        score: Math.round(scoreData.score * 0.5),
-        quality: scoreData.quality,
-        rationale: scoreData.rationale.split(".")[1] + "." || "Budget evaluation shows investment readiness.",
-      },
-    ]
-
-    let qualificationStatus = "QUALIFIED"
-    let qualificationTag = "QUALIFIED"
-
-    // Check if only basic credentials provided (name, email, whatsapp)
-    if (!data.service || !data.challenge || !data.timeline || !data.budget) {
-      qualificationStatus = "UNQUALIFIED"
-      qualificationTag = "UNQUALIFIED"
-    }
-    // Check if user is unsure about services
-    else if (data.service === "Not sure - can someone help me with this?") {
-      qualificationStatus = "UNQUAL AND UNSURE"
-      qualificationTag = "UNQUAL AND UNSURE"
-    }
-    // Check if everything filled except budget
-    else if (!data.budget && data.service && data.challenge && data.timeline) {
-      qualificationStatus = "QUALIFIED"
-      qualificationTag = "QUALIFIED"
-    }
-    // Full form completed
-    else if (data.service && data.challenge && data.timeline && data.budget) {
-      qualificationStatus = "QUALIFIED"
-      qualificationTag = "QUALIFIED"
-    }
-
-    const uniqueId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
-
-    const leadData = {
-      ...data,
-      responses,
-      totalScore: scoreData.score,
-      overallQuality: scoreData.quality,
-      qualificationStatus: qualificationTag,
-      qualificationTag,
-      // Admin panel expects these exact field names and formats
-      budget: scoreData.budgetCategory, // Show category: below_avg, avg, above_avg, N/A
-      timeline: scoreData.timelineTag, // Show tag: urgent_red, comfortable_green, flexible_yellow
-      status: qualificationTag, // Show qualification as status: QUALIFIED, UNQUALIFIED, UNQUAL AND UNSURE
-      timestamp: new Date().toISOString(),
-      id: uniqueId,
-      // Keep original selections for reference
-      budgetRange: data.budget,
-      timelineRange: data.timeline,
-      budgetCategory: scoreData.budgetCategory,
-      timelineTag: scoreData.timelineTag,
-    }
-
-    const updatedData = [...existingData, leadData]
-    localStorage.setItem("kayi-chatbot-leads", JSON.stringify(updatedData))
-
-    return true
+    localStorage.setItem("chatbot-data", JSON.stringify(data))
   } catch (error) {
     console.error("Error saving to localStorage:", error)
-    return false
   }
 }
 
-const savePartialData = async (data: Partial<ChatData>, reason: string): Promise<boolean> => {
+const savePartialData = async (data: ChatData, reason: string) => {
   try {
-    const existingData = JSON.parse(localStorage.getItem("kayi-chatbot-leads") || "[]")
-
-    const isDuplicate = existingData.some((lead: any) => {
-      if (lead.email === data.email) {
-        const timeDiff = Math.abs(new Date().getTime() - new Date(lead.timestamp).getTime())
-        return timeDiff < 3600000
-      }
-      return false
-    })
-
-    if (isDuplicate) {
-      console.log("Duplicate partial lead detected, skipping save")
-      return true
-    }
-
-    const uniqueId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
-
-    let qualificationTag = "UNQUALIFIED" // Default for partial data
-
-    // If user provided basic credentials only
-    if (data.name && data.email && data.whatsapp && !data.service) {
-      qualificationTag = "UNQUALIFIED"
-    }
-    // If user was unsure about services
-    else if (data.service === "Not sure - can someone help me with this?") {
-      qualificationTag = "UNQUAL AND UNSURE"
-    }
-
-    const partialLead = {
+    const partialData = {
       ...data,
-      status: qualificationTag, // Show qualification tag as status
-      qualificationStatus: qualificationTag,
-      qualificationTag,
-      reason: reason,
-      budget: "Not provided", // Simple format for partial leads
-      timeline: "Not provided", // Simple format for partial leads
-      budgetCategory: "Not provided",
-      timelineTag: "Not provided",
+      reason,
       timestamp: new Date().toISOString(),
-      id: uniqueId,
-      totalScore: 0,
-      overallQuality: "Pending",
-      responses: [],
     }
-
-    const updatedData = [...existingData, partialLead]
-    localStorage.setItem("kayi-chatbot-leads", JSON.stringify(updatedData))
-    return true
+    localStorage.setItem("chatbot-partial", JSON.stringify(partialData))
   } catch (error) {
     console.error("Error saving partial data:", error)
-    return false
   }
 }
 
@@ -400,36 +175,88 @@ export default function KayiChatbot() {
   const [showContactInfo, setShowContactInfo] = useState(false)
   const [isTyping, setIsTyping] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  const [customTime, setCustomTime] = useState("")
+  const [showCustomTimeInput, setShowCustomTimeInput] = useState(false)
+  const [hasReachedTimeline, setHasReachedTimeline] = useState(false)
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("")
+  const [showTimeSlots, setShowTimeSlots] = useState(false)
+  const [showCalendlyButton, setShowCalendlyButton] = useState(false)
+  const [showContinueFromEdit, setShowContinueFromEdit] = useState(false) // Declare the variable
+
+  const [editingMessageId, setEditingMessageId] = useState<string | null>(null)
+  const [editingValue, setEditingValue] = useState("")
+  const [editingSelectValue, setEditingSelectValue] = useState("")
+  const [isEditMode, setIsEditMode] = useState(false)
+  const [editingStep, setEditingStep] = useState<number | null>(null)
+
+  const [originalStep, setOriginalStep] = useState<number>(-1) // Track where user was before editing
+  const [editHistory, setEditHistory] = useState<{ stepId: number; originalValue: string }[]>([]) // Track edit history
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false) // Track animated success popup
+
+  const messagesEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (isOpen && messages.length === 0) {
-      const currentTime = new Date().getHours()
-      let greeting = "Good Morning"
-      if (currentTime >= 12 && currentTime < 17) greeting = "Good Afternoon"
-      else if (currentTime >= 17) greeting = "Good Evening"
-
-      setMessages([
-        {
-          id: "1",
-          type: "bot",
-          message: `${greeting}!
-
-I'm ZoeBot from Kayi Digital, your business growth assistant.
-
-Before we explore how to transform your online presence, are you comfortable sharing a few quick details so I can personalize this for you?`,
-          timestamp: new Date(),
-        },
-      ])
+    // Load saved state from localStorage
+    const savedState = localStorage.getItem("chatbot-state")
+    if (savedState) {
+      try {
+        const parsedState = JSON.parse(savedState)
+        setMessages(parsedState.messages || [])
+        setChatData(parsedState.chatData || {})
+        setCurrentStep(parsedState.currentStep || 0)
+        setIsCompleted(parsedState.isCompleted || false)
+        setShowCalendar(parsedState.showCalendar || false)
+        setHasReachedTimeline(parsedState.hasReachedTimeline || false)
+      } catch (error) {
+        console.error("Error loading chat state:", error)
+      }
     }
-  }, [isOpen])
 
-  const addMessage = (type: "bot" | "user", message: string) => {
+    localStorage.removeItem("chatbot-state")
+    localStorage.removeItem("chatState")
+
+    // Reset all state to initial values
+    setMessages([])
+    setChatData({
+      name: "",
+      whatsapp: "",
+      email: "",
+      service: "",
+      challenge: "",
+      timeline: "",
+      budget: "",
+    })
+    setCurrentStep(-1)
+    setIsCompleted(false)
+    setShowCalendar(false)
+    setHasReachedTimeline(false)
+    setShowContinueQuestion(false)
+    setShowCallbackOptions(false)
+    setShowWhatsAppConnect(false)
+    setShowContactInfo(false)
+
+    // Always show initial greeting on component mount
+    setTimeout(() => {
+      addMessage(
+        "bot",
+        "Good Afternoon! I'm ZoeBot from Kayi Digital, your business growth assistant. Before we explore how to transform your online presence, are you comfortable sharing a few quick details so I can personalize this for you?",
+      )
+    }, 500)
+  }, [])
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [messages])
+
+  const addMessage = (type: "bot" | "user", message: string, stepId?: number) => {
     const newMessage: ChatMessage = {
       id: Date.now().toString(),
       type,
       message,
       timestamp: new Date(),
+      stepId, // Track which step this message belongs to
+      isEditable: type === "user" && stepId !== undefined, // Mark user messages as editable
     }
     setMessages((prev) => [...prev, newMessage])
   }
@@ -440,6 +267,90 @@ Before we explore how to transform your online presence, are you comfortable sha
       setIsTyping(false)
       callback()
     }, delay)
+  }
+
+  const handleEditMessage = (messageId: string, stepId: number) => {
+    const message = messages.find((m) => m.id === messageId)
+    if (!message) return
+
+    // Store original position if not already editing
+    if (!isEditMode) {
+      setOriginalStep(currentStep)
+    }
+
+    setEditingMessageId(messageId)
+    setEditingStep(stepId)
+    setIsEditMode(true)
+
+    const question = questions[stepId]
+    const currentValue = chatData[question.field]
+
+    // Store original value for history
+    setEditHistory((prev) => [...prev.filter((h) => h.stepId !== stepId), { stepId, originalValue: currentValue }])
+
+    if (question.type === "select") {
+      setEditingSelectValue(currentValue)
+    } else {
+      setEditingValue(currentValue)
+    }
+  }
+
+  const handleSaveEdit = () => {
+    if (editingStep === null || !editingMessageId) return
+
+    const question = questions[editingStep]
+    const newValue = question.type === "select" ? editingSelectValue : editingValue
+
+    // Validate the new value
+    const error = validateField(question.field, newValue)
+    if (error) {
+      setValidationError(error)
+      return
+    }
+
+    // Update chat data
+    const updatedData = { ...chatData, [question.field]: newValue }
+    setChatData(updatedData)
+
+    // Update the message
+    setMessages((prev) => prev.map((msg) => (msg.id === editingMessageId ? { ...msg, message: newValue } : msg)))
+
+    setShowSuccessPopup(true)
+    setTimeout(() => setShowSuccessPopup(false), 2000)
+
+    // Clear editing state
+    setEditingMessageId(null)
+    setEditingStep(null)
+    setIsEditMode(false)
+    setEditingValue("")
+    setEditingSelectValue("")
+    setValidationError("")
+
+    setOriginalStep(-1)
+  }
+
+  const handleCancelEdit = () => {
+    // Restore original value if it exists
+    if (editingStep !== null) {
+      const originalEdit = editHistory.find((h) => h.stepId === editingStep)
+      if (originalEdit) {
+        const question = questions[editingStep]
+        const restoredData = { ...chatData, [question.field]: originalEdit.originalValue }
+        setChatData(restoredData)
+      }
+    }
+
+    setEditingMessageId(null)
+    setEditingStep(null)
+    setIsEditMode(false)
+    setEditingValue("")
+    setEditingSelectValue("")
+    setValidationError("")
+
+    // Remove from edit history
+    if (editingStep !== null) {
+      setEditHistory((prev) => prev.filter((h) => h.stepId !== editingStep))
+    }
   }
 
   const handleConsent = (consent: boolean) => {
@@ -523,8 +434,12 @@ Feel free to reach out whenever you're ready. Have a great day!`,
     addMessage("user", option)
 
     if (option === "Yes, connect me to WhatsApp") {
+      // Redirect to WhatsApp with the phone number
+      const whatsappUrl = `https://wa.me/923090613822?text=Hi, I'm interested in your digital marketing services. I came from your website chatbot.`
+      window.open(whatsappUrl, "_blank")
+
       simulateTyping(() => {
-        addMessage("bot", "+92 309 0613822")
+        addMessage("bot", "Great! I've opened WhatsApp for you. You can now chat with our team directly!")
         setIsCompleted(true)
       })
     } else {
@@ -557,94 +472,85 @@ Feel free to reach out whenever you're ready. Have a great day!`,
     simulateTyping(() => {
       addMessage(
         "bot",
-        `Perfect! I've scheduled our call for ${timeSlot}. You'll receive a confirmation shortly. Looking forward to speaking with you!`,
+        "Perfect! I've noted your preferred time slot. Our team will reach out to you accordingly. Thank you for your time!",
       )
       setIsCompleted(true)
+      setShowCalendlyButton(true) // Show Calendly button after time slot selection
     })
-    setShowCalendar(false)
+    setShowTimeSlots(false)
   }
 
+  const currentQuestion = currentStep >= 0 ? questions[currentStep] : null
+
   const handleSubmit = async (value: string) => {
-    if ((!value.trim() && !selectValue) || isSubmitting) return
+    if (!currentQuestion) return
 
-    const finalValue = selectValue || value
-    const currentQuestion = questions[currentStep]
-    const fieldName = currentQuestion.id
+    const finalValue = currentQuestion.type === "select" ? selectValue : value
+    const error = validateField(currentQuestion.field, finalValue)
 
-    const validation = validateInput(finalValue, currentQuestion.type, fieldName)
-
-    if (!validation.isValid) {
-      setValidationError(validation.error || "Invalid input")
-      setTimeout(() => {
-        addMessage("bot", `${validation.error}`)
-      }, 300)
+    if (error) {
+      setValidationError(error)
       return
     }
 
     setValidationError("")
-    addMessage("user", finalValue)
+    addMessage("user", finalValue, currentStep) // Pass stepId to make message editable
 
-    const updatedData = { ...chatData, [currentQuestion.id]: finalValue }
+    const updatedData = { ...chatData, [currentQuestion.field]: finalValue }
     setChatData(updatedData)
-
-    if (currentStep === 2) {
-      await savePartialData(updatedData, "User completed basic credentials")
-    }
-
-    if (currentStep === 3 && finalValue === "Not sure - can someone help me with this?") {
-      await savePartialData(updatedData, "User unsure about services - callback requested")
-
-      simulateTyping(() => {
-        addMessage(
-          "bot",
-          "Sure thing, that sounds good too. What time slot works the best for you?\n\nI'll ask my colleague to get back to you accordingly!",
-        )
-        setShowCallbackOptions(true)
-      })
-      return
-    }
-
-    if (currentStep === 2) {
-      simulateTyping(() => {
-        addMessage(
-          "bot",
-          `Thanks ${updatedData.name}!
-
-Quick question - do you have 2-3 minutes more right now to chat about your project?
-
-I'd love to understand what you're looking for so I can point you in the right direction.`,
-        )
-        setShowContinueQuestion(true)
-      })
-    } else if (currentStep < questions.length - 1) {
-      simulateTyping(() => {
-        setCurrentStep((prev) => prev + 1)
-        const nextQuestion = questions[currentStep + 1].question.replace("[NAME]", updatedData.name)
-        addMessage("bot", nextQuestion)
-      })
-    } else {
-      setIsSubmitting(true)
-      setTimeout(async () => {
-        const saveSuccess = await saveToLocalStorage(updatedData)
-        if (saveSuccess) {
-          setIsSubmitting(false)
-          simulateTyping(() => {
-            addMessage(
-              "bot",
-              "Perfect! Thanks for all the details. Please book your preferred time slot using our calendar:\n\n🗓️ http://calendly.com/saadalii/kayidigital\n\nI'll see you there!",
-            )
-            setIsCompleted(true)
-          })
-        }
-      }, 1000)
-    }
 
     setInputValue("")
     setSelectValue("")
+
+    if (currentStep === 2) {
+      simulateTyping(() => {
+        addMessage(
+          "bot",
+          `Thanks ${updatedData.name}! I've got your contact details. Now, before we dive into the exciting stuff, are you ready to continue, or would you prefer to schedule a call for later?`,
+        )
+        setShowContinueQuestion(true)
+      })
+    } else if (currentStep === 5) {
+      setHasReachedTimeline(true)
+      simulateTyping(() => {
+        setCurrentStep(6)
+        addMessage("bot", questions[6].question)
+      })
+    } else if (currentStep === 6) {
+      setIsSubmitting(true)
+      await saveToLocalStorage(updatedData)
+
+      simulateTyping(() => {
+        addMessage(
+          "bot",
+          `Fantastic! Based on what you've shared:
+
+✨ **Your Profile:**
+• Name: ${updatedData.name}
+• Service Interest: ${updatedData.service}
+• Timeline: ${updatedData.timeline}
+• Budget Range: ${updatedData.budget}
+
+🎯 **Next Steps:**
+Our team will review your requirements and reach out within 24 hours with a customized strategy proposal.
+
+Would you like to schedule a quick 15-minute discovery call to discuss your goals in detail?`,
+        )
+        setIsCompleted(true)
+        setShowCalendlyButton(true) // Show Calendly button when completed
+        setIsSubmitting(false)
+      }, 2000)
+    } else {
+      simulateTyping(() => {
+        setCurrentStep(currentStep + 1)
+        if (currentStep + 1 < questions.length) {
+          addMessage("bot", questions[currentStep + 1].question)
+        }
+      })
+    }
   }
 
   const resetChat = () => {
-    setCurrentStep(-1)
     setMessages([])
     setChatData({
       name: "",
@@ -655,65 +561,127 @@ I'd love to understand what you're looking for so I can point you in the right d
       timeline: "",
       budget: "",
     })
-    setInputValue("")
-    setSelectValue("")
+    setCurrentStep(-1)
     setIsCompleted(false)
-    setIsSubmitting(false)
-    setValidationError("")
+    setShowCalendar(false)
+    setHasReachedTimeline(false)
     setShowContinueQuestion(false)
     setShowCallbackOptions(false)
     setShowWhatsAppConnect(false)
     setShowContactInfo(false)
-    setIsTyping(false)
-    setShowCalendar(false)
-    setSelectedTimeSlot("")
+    setShowCalendlyButton(false)
+    setEditingMessageId(null)
+    setEditingStep(null)
+    setIsEditMode(false)
+    setEditingValue("")
+    setEditingSelectValue("")
+    setOriginalStep(-1)
+    setEditHistory([])
+    setShowContinueFromEdit(false)
+
+    setTimeout(() => {
+      addMessage(
+        "bot",
+        "Good Afternoon! I'm ZoeBot from Kayi Digital, your business growth assistant. Before we explore how to transform your online presence, are you comfortable sharing a few quick details so I can personalize this for you?",
+      )
+    }, 500)
   }
 
-  const currentQuestion = currentStep >= 0 ? questions[currentStep] : null
-
   const CalendarSelector = () => {
-    const today = new Date()
-    const timeSlots = []
+    const [customHour, setCustomHour] = useState("09")
+    const [customMinute, setCustomMinute] = useState("00")
+    const [customAmPm, setCustomAmPm] = useState("AM")
 
-    // Generate next 7 days with time slots
-    for (let i = 0; i < 7; i++) {
-      const date = new Date(today)
-      date.setDate(today.getDate() + i)
-
-      const daySlots = ["09:00 AM", "10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"]
-
-      daySlots.forEach((time) => {
-        timeSlots.push({
-          date: date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }),
-          time: time,
-          fullDate: `${date.toLocaleDateString()} at ${time}`,
-        })
-      })
-    }
+    const timeSlots = [
+      "9:00 AM - 10:00 AM",
+      "10:00 AM - 11:00 AM",
+      "11:00 AM - 12:00 PM",
+      "2:00 PM - 3:00 PM",
+      "3:00 PM - 4:00 PM",
+      "4:00 PM - 5:00 PM",
+    ]
 
     return (
       <div className="space-y-4">
         <div className="text-center">
-          <h3 className="font-semibold text-lg text-gray-800 mb-2">📅 Select Your Preferred Time Slot</h3>
+          <h3 className="font-semibold text-lg text-gray-800 mb-4">Select Your Preferred Time Slot</h3>
         </div>
-        <div className="grid grid-cols-1 gap-2 max-h-60 overflow-y-auto">
-          {timeSlots.slice(0, 21).map((slot, index) => (
+
+        <div className="grid grid-cols-1 gap-3">
+          {timeSlots.map((slot) => (
             <Button
-              key={index}
-              onClick={() => handleTimeSlotSelect(slot.fullDate)}
+              key={slot}
+              onClick={() => handleTimeSlotSelect(slot)}
               variant="outline"
-              className="w-full text-left justify-start border-[#cf21c3]/30 hover:border-[#cf21c3]/50 hover:bg-[#cf21c3]/10 py-3 rounded-xl transition-all duration-200"
+              className="w-full border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 hover:bg-[#cf21c3]/10 py-3 rounded-xl font-medium transition-all duration-300"
             >
-              <div className="flex items-center gap-3">
-                <Calendar className="w-4 h-4 text-[#cf21c3]" />
-                <div>
-                  <div className="font-medium text-gray-800">{slot.date}</div>
-                  <div className="text-sm text-gray-600">{slot.time}</div>
-                </div>
-              </div>
+              <Clock className="w-4 h-4 mr-2" />
+              {slot}
             </Button>
           ))}
         </div>
+
+        <div className="text-center">
+          <Button
+            onClick={() => setShowCustomTimeInput(!showCustomTimeInput)}
+            variant="ghost"
+            className="text-[#cf21c3] hover:bg-[#cf21c3]/10 font-medium"
+          >
+            {showCustomTimeInput ? "Hide Custom Time" : "Select Custom Time"}
+          </Button>
+        </div>
+
+        {showCustomTimeInput && (
+          <div className="space-y-4 p-4 bg-gray-50 rounded-xl">
+            <h4 className="font-medium text-gray-700">Custom Time Selection</h4>
+            <div className="flex gap-2 items-center justify-center">
+              <Select value={customHour} onValueChange={setCustomHour}>
+                <SelectTrigger className="w-20">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {Array.from({ length: 12 }, (_, i) => {
+                    const hour = (i + 1).toString().padStart(2, "0")
+                    return (
+                      <SelectItem key={hour} value={hour}>
+                        {hour}
+                      </SelectItem>
+                    )
+                  })}
+                </SelectContent>
+              </Select>
+              <span className="text-lg font-bold">:</span>
+              <Select value={customMinute} onValueChange={setCustomMinute}>
+                <SelectTrigger className="w-20">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="00">00</SelectItem>
+                  <SelectItem value="15">15</SelectItem>
+                  <SelectItem value="30">30</SelectItem>
+                  <SelectItem value="45">45</SelectItem>
+                </SelectContent>
+              </Select>
+              <Select value={customAmPm} onValueChange={setCustomAmPm}>
+                <SelectTrigger className="w-20">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="AM">AM</SelectItem>
+                  <SelectItem value="PM">PM</SelectItem>
+                </SelectContent>
+              </Select>
+              {customHour && customMinute && customAmPm && (
+                <button
+                  onClick={() => handleTimeSlotSelect(`${customHour}:${customMinute} ${customAmPm}`)}
+                  className="ml-2 px-4 py-2 bg-[#cf21c3] text-white rounded-lg hover:bg-[#b91c9e] transition-colors"
+                >
+                  Confirm Time: {customHour}:{customMinute} {customAmPm}
+                </button>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     )
   }
@@ -733,90 +701,214 @@ I'd love to understand what you're looking for so I can point you in the right d
 
       {isOpen && (
         <div className="fixed bottom-24 right-6 w-[420px] md:w-[480px] h-[600px] md:h-[650px] bg-white rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden border border-gray-200">
-          <div className="bg-gradient-to-r from-[#cf21c3] to-[#cf21c3]/80 text-white p-4 flex items-center justify-between">
-            <div className="flex items-center space-x-3">
+          <div className="flex items-center justify-between p-4 bg-gradient-to-r from-[#cf21c3] to-[#cf21c3]/80 text-white rounded-t-2xl">
+            <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                <MessageCircle className="w-6 h-6" />
+                <MessageCircle className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-semibold text-lg">ZoeBot</h3>
-                <p className="text-sm opacity-90">Digital Marketing Assistant</p>
+                <h3 className="font-bold text-lg">ZoeBot</h3>
+                <p className="text-sm text-white/90">Digital Marketing Assistant</p>
               </div>
             </div>
-            <Button onClick={resetChat} variant="ghost" size="sm" className="text-white hover:bg-white/20 rounded-full">
-              <RotateCcw className="w-4 h-4" />
-            </Button>
+            <div className="flex items-center gap-2">
+              {isEditMode && (
+                <div className="flex items-center gap-1 bg-white/20 px-3 py-1 rounded-full">
+                  <Edit2 className="w-3 h-3" />
+                  <span className="text-xs font-medium">Editing Mode</span>
+                </div>
+              )}
+              {editHistory.length > 0 && !isEditMode && (
+                <div className="flex items-center gap-1 bg-blue-500/20 px-2 py-1 rounded-full">
+                  <span className="text-xs font-medium">
+                    {editHistory.length} edit{editHistory.length > 1 ? "s" : ""}
+                  </span>
+                </div>
+              )}
+              <Button
+                onClick={resetChat}
+                variant="ghost"
+                size="sm"
+                className="text-white hover:bg-white/20 rounded-full"
+                title="Start New Chat"
+              >
+                <RotateCcw className="w-4 h-4" />
+              </Button>
+              <Button
+                onClick={() => setIsOpen(false)}
+                variant="ghost"
+                size="sm"
+                className="text-white hover:bg-white/20 rounded-full"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50/30">
             {messages.map((message) => (
               <div key={message.id} className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}>
                 <div
-                  className={`max-w-[85%] p-4 rounded-2xl ${
+                  className={`max-w-[85%] p-4 rounded-2xl relative group ${
                     message.type === "user"
                       ? "bg-gradient-to-r from-[#cf21c3] to-[#cf21c3]/80 text-white shadow-md"
                       : "bg-white text-gray-800 border border-[#cf21c3]/20 shadow-sm"
                   }`}
                 >
                   <div className="whitespace-pre-wrap text-sm leading-relaxed">{message.message}</div>
+                  {message.isEditable && message.stepId !== undefined && !isEditMode && (
+                    <button
+                      onClick={() => handleEditMessage(message.id, message.stepId!)}
+                      className="absolute -top-2 -right-2 w-8 h-8 bg-white text-[#cf21c3] rounded-full shadow-lg opacity-80 hover:opacity-100 group-hover:opacity-100 transition-all duration-200 flex items-center justify-center hover:bg-gray-50 hover:scale-110 border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/60"
+                      title="Edit this response"
+                    >
+                      <Edit2 className="w-4 h-4" />
+                    </button>
+                  )}
+                  {editHistory.some((h) => h.stepId === message.stepId) && (
+                    <div
+                      className="absolute -bottom-1 -right-1 w-3 h-3 bg-blue-500 rounded-full border-2 border-white"
+                      title="This response was edited"
+                    />
+                  )}
                 </div>
               </div>
             ))}
-
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-white text-gray-800 p-4 rounded-2xl border border-[#cf21c3]/20 shadow-sm">
-                  <Loader2 className="w-4 h-4 animate-spin text-[#cf21c3]" />
+                <div className="bg-gray-100 rounded-2xl px-4 py-2 max-w-xs">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                    <div
+                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                      style={{ animationDelay: "0.1s" }}
+                    ></div>
+                    <div
+                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                      style={{ animationDelay: "0.2s" }}
+                    ></div>
+                  </div>
                 </div>
               </div>
             )}
+            <div ref={messagesEndRef} />
           </div>
 
-          {currentStep === -1 && !isCompleted && !showWhatsAppConnect && (
-            <div className="p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-4">
-              <Button
-                onClick={() => handleConsent(true)}
-                className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0"
-              >
-                <span className="flex items-center justify-center gap-3">
-                  <Sparkles className="w-5 h-5" />
-                  Yes, I'm in
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                </span>
-              </Button>
-              <Button
-                onClick={() => handleConsent(false)}
-                variant="outline"
-                className="w-full border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 hover:bg-[#cf21c3]/10 py-4 rounded-2xl font-semibold transition-all duration-300 text-gray-700"
-              >
-                No, I wanna stay anonymous 👻
-              </Button>
+          {isEditMode && editingStep !== null && (
+            <div className="p-6 border-t border-[#cf21c3]/20 bg-gradient-to-r from-blue-50/50 to-purple-50/50 backdrop-blur-sm">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 bg-[#cf21c3]/10 rounded-full flex items-center justify-center">
+                  <Edit2 className="w-4 h-4 text-[#cf21c3]" />
+                </div>
+                <div>
+                  <span className="text-sm font-semibold text-[#cf21c3]">Editing Response</span>
+                  <p className="text-xs text-gray-600">
+                    Step {editingStep + 1} of {questions.length}
+                  </p>
+                </div>
+              </div>
+
+              {validationError && (
+                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-2xl flex items-center gap-3 animate-in slide-in-from-top-2 duration-200">
+                  <AlertCircle className="w-4 h-4 text-red-600" />
+                  <span className="text-red-700 text-sm font-medium">{validationError}</span>
+                </div>
+              )}
+
+              <div className="space-y-4">
+                <div className="text-sm text-gray-700 font-medium mb-3">{questions[editingStep].question}</div>
+
+                {questions[editingStep].type === "select" ? (
+                  <Select value={editingSelectValue} onValueChange={setEditingSelectValue}>
+                    <SelectTrigger className="flex-1 border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-xl py-4 transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 focus:border-[#cf21c3] bg-white/80 backdrop-blur-sm">
+                      <SelectValue placeholder="Select an option..." />
+                    </SelectTrigger>
+                    <SelectContent className="rounded-2xl border-2 border-[#cf21c3]/20 shadow-2xl bg-white/95 backdrop-blur-sm">
+                      {questions[editingStep].options?.map((option) => (
+                        <SelectItem
+                          key={option}
+                          value={option}
+                          className="rounded-xl hover:bg-[#cf21c3]/10 transition-colors duration-200 py-3 font-medium"
+                        >
+                          {option}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                ) : questions[editingStep].type === "textarea" ? (
+                  <Textarea
+                    placeholder={questions[editingStep].placeholder}
+                    value={editingValue}
+                    onChange={(e) => {
+                      setEditingValue(e.target.value)
+                      if (validationError) setValidationError("")
+                    }}
+                    className="min-h-[100px] border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 resize-none p-4 bg-white/80 font-medium backdrop-blur-sm"
+                  />
+                ) : (
+                  <Input
+                    type={questions[editingStep].type || "text"}
+                    placeholder={questions[editingStep].placeholder}
+                    value={editingValue}
+                    onChange={(e) => {
+                      setEditingValue(e.target.value)
+                      if (validationError) setValidationError("")
+                    }}
+                    onKeyPress={(e) => e.key === "Enter" && handleSubmit(editingValue)}
+                    className="flex-1 border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl py-4 transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 bg-white/80 font-medium backdrop-blur-sm"
+                  />
+                )}
+
+                <div className="flex gap-3">
+                  <Button
+                    onClick={handleSaveEdit}
+                    className="flex-1 bg-[#cf21c3] hover:bg-[#b91c9e] text-white rounded-xl font-semibold py-3 shadow-lg hover:shadow-xl transition-all duration-200"
+                    disabled={questions[editingStep].type === "select" ? !editingSelectValue : !editingValue.trim()}
+                  >
+                    <Check className="w-4 h-4 mr-2" />
+                    Save Changes
+                  </Button>
+                  <Button
+                    onClick={handleCancelEdit}
+                    variant="outline"
+                    className="border-2 border-gray-300 hover:border-gray-400 rounded-xl bg-white/80 backdrop-blur-sm font-medium py-3"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
             </div>
           )}
 
-          {showContinueQuestion && (
+          {showContinueQuestion && !isEditMode && (
             <div className="p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-4">
-              <Button
-                onClick={() => handleContinueQuestion("Yes, I'm in!")}
-                className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0"
-              >
-                <span className="flex items-center justify-center gap-3">
-                  <Sparkles className="w-5 h-5" />
-                  Yes, I'm in!
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                </span>
-              </Button>
-              <Button
-                onClick={() => handleContinueQuestion("Not right now, call me later")}
-                variant="outline"
-                className="w-full border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 hover:bg-[#cf21c3]/10 py-4 rounded-2xl font-semibold transition-all duration-300 text-gray-700"
-              >
-                Not right now, call me later
-              </Button>
+              <div className="text-center mb-4">
+                <h4 className="font-semibold text-gray-800 mb-2">Where would you like to continue?</h4>
+              </div>
+
+              <div className="space-y-3">
+                <Button
+                  onClick={() => handleContinueQuestion("Yes, I'm in!")}
+                  className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0"
+                >
+                  <span className="flex items-center justify-center gap-3">
+                    <Sparkles className="w-5 h-5" />
+                    Yes, I'm in!
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  </span>
+                </Button>
+                <Button
+                  onClick={() => handleContinueQuestion("Not right now, call me later")}
+                  variant="outline"
+                  className="w-full border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 hover:bg-[#cf21c3]/10 py-4 rounded-2xl font-semibold transition-all duration-300 text-gray-700"
+                >
+                  Not right now, call me later
+                </Button>
+              </div>
             </div>
           )}
 
-          {showCallbackOptions && (
+          {showCallbackOptions && !isEditMode && (
             <div className="p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-4">
               <Button
                 onClick={() => handleCallbackOption("I am available in the next hour")}
@@ -845,7 +937,7 @@ I'd love to understand what you're looking for so I can point you in the right d
             </div>
           )}
 
-          {showWhatsAppConnect && (
+          {showWhatsAppConnect && !isEditMode && (
             <div className="p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-4">
               <Button
                 onClick={() => handleWhatsAppConnect("Yes, connect me to WhatsApp")}
@@ -866,9 +958,31 @@ I'd love to understand what you're looking for so I can point you in the right d
             </div>
           )}
 
-          {showCalendar && (
+          {showCalendar && !isEditMode && (
             <div className="p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm">
               <CalendarSelector />
+            </div>
+          )}
+
+          {currentStep === -1 && !isCompleted && !showWhatsAppConnect && !isEditMode && (
+            <div className="p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-4">
+              <Button
+                onClick={() => handleConsent(true)}
+                className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0"
+              >
+                <span className="flex items-center justify-center gap-3">
+                  <Sparkles className="w-5 h-5" />
+                  Yes, I'm in
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                </span>
+              </Button>
+              <Button
+                onClick={() => handleConsent(false)}
+                variant="outline"
+                className="w-full border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 hover:bg-[#cf21c3]/10 py-4 rounded-2xl font-semibold transition-all duration-300 text-gray-700"
+              >
+                No, I wanna stay anonymous 👻
+              </Button>
             </div>
           )}
 
@@ -878,7 +992,8 @@ I'd love to understand what you're looking for so I can point you in the right d
             !showContinueQuestion &&
             !showCallbackOptions &&
             !showWhatsAppConnect &&
-            !showCalendar && (
+            !showCalendar &&
+            !isEditMode && (
               <div className="p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm">
                 {validationError && (
                   <div className="mb-4 p-4 bg-red-50 border-2 border-red-200 rounded-2xl flex items-center gap-3 animate-in slide-in-from-top-3 duration-300">
@@ -961,29 +1076,54 @@ I'd love to understand what you're looking for so I can point you in the right d
                 </div>
               </div>
             )}
-
-          {isCompleted && (
+          {isCompleted && !isEditMode && (
             <div className="p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-5">
-              <div className="flex items-center justify-center gap-3 text-[#cf21c3] mb-6 animate-in zoom-in duration-700">
-                <CheckCircle className="w-8 h-8" />
-                <span className="font-bold text-xl">Thank you!</span>
-                <Sparkles className="w-6 h-6 animate-pulse" />
+              <div className="text-center space-y-4">
+                <div className="flex items-center justify-center gap-3 text-[#cf21c3] text-xl font-bold">
+                  <CheckCircle className="w-6 h-6" />
+                  Thank you!
+                  <Sparkles className="w-6 h-6" />
+                </div>
+                <p className="text-gray-600 text-center leading-relaxed">
+                  We will have someone get in touch with you as soon as possible.
+                </p>
+                {showCalendlyButton && (
+                  <div className="space-y-3">
+                    <div className="bg-gradient-to-r from-[#cf21c3]/10 to-purple-100/50 p-4 rounded-2xl border border-[#cf21c3]/20">
+                      <p className="text-sm text-[#cf21c3] font-semibold text-center flex items-center justify-center gap-2">
+                        <Calendar className="w-4 h-4" />📅 Book a meeting at your preferred schedule
+                      </p>
+                      <p className="text-xs text-gray-600 text-center mt-1">
+                        Schedule a personalized consultation with our team
+                      </p>
+                    </div>
+                    <Button
+                      onClick={() => window.open("http://calendly.com/saadalii/kayidigital", "_blank")}
+                      className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0"
+                    >
+                      <span className="flex items-center justify-center gap-3">
+                        <Calendar className="w-5 h-5" />
+                        Book Your Meeting
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                      </span>
+                    </Button>
+                  </div>
+                )}
               </div>
-              <Button
-                onClick={resetChat}
-                variant="outline"
-                className="w-full border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 hover:bg-[#cf21c3]/10 py-4 rounded-2xl font-semibold transition-all duration-300 text-gray-700 bg-transparent"
-              >
-                Start New Conversation
-              </Button>
-              <Button
-                onClick={() => setIsOpen(false)}
-                className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] font-semibold py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-0"
-              >
-                Close Chat
-              </Button>
             </div>
           )}
+        </div>
+      )}
+
+      {/* Animated success popup */}
+      {showSuccessPopup && (
+        <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top-2 duration-300">
+          <div className="bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            <span className="font-medium">Updated Successfully!</span>
+          </div>
         </div>
       )}
     </>
