@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { X, RotateCcw, Edit2, Check, ArrowRight } from "lucide-react"
 import { MessageCircle, Clock, Calendar, Phone, Sparkles, CheckCircle, Send, AlertCircle } from "lucide-react"
+import { Volume2, VolumeX } from "lucide-react"
 
 interface ChatMessage {
   id: string
@@ -151,7 +152,7 @@ const savePartialData = async (data: ChatData, reason: string) => {
   }
 }
 
-export default function KayiChatbot() {
+export default function KayiChatbotWithVoice() {
   const [isOpen, setIsOpen] = useState(false)
   const [currentStep, setCurrentStep] = useState(-1)
   const [messages, setMessages] = useState<ChatMessage[]>([])
@@ -182,7 +183,7 @@ export default function KayiChatbot() {
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("")
   const [showTimeSlots, setShowTimeSlots] = useState(false)
   const [showCalendlyButton, setShowCalendlyButton] = useState(false)
-  const [showContinueFromEdit, setShowContinueFromEdit] = useState(false) // Declare the variable
+  const [showContinueFromEdit, setShowContinueFromEdit] = useState(false)
 
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null)
   const [editingValue, setEditingValue] = useState("")
@@ -190,11 +191,178 @@ export default function KayiChatbot() {
   const [isEditMode, setIsEditMode] = useState(false)
   const [editingStep, setEditingStep] = useState<number | null>(null)
 
-  const [originalStep, setOriginalStep] = useState<number>(-1) // Track where user was before editing
-  const [editHistory, setEditHistory] = useState<{ stepId: number; originalValue: string }[]>([]) // Track edit history
-  const [showSuccessPopup, setShowSuccessPopup] = useState(false) // Track animated success popup
+  const [originalStep, setOriginalStep] = useState<number>(-1)
+  const [editHistory, setEditHistory] = useState<{ stepId: number; originalValue: string }[]>([])
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false)
+
+  // Enhanced voice state management
+  const [isSpeaking, setIsSpeaking] = useState(false)
+  const [currentSpeakingMessageId, setCurrentSpeakingMessageId] = useState<string | null>(null)
+  const [voiceEnabled, setVoiceEnabled] = useState(false)
+  const [speechSupported, setSpeechSupported] = useState(false)
+  const synthRef = useRef<SpeechSynthesis | null>(null)
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null)
+  const voicesLoaded = useRef(false)
 
   const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  // Initialize speech synthesis with Chrome compatibility
+  useEffect(() => {
+    if ("speechSynthesis" in window) {
+      setSpeechSupported(true)
+      synthRef.current = window.speechSynthesis
+      
+      // Chrome-specific voice loading workaround
+      const loadVoices = () => {
+        if (synthRef.current && synthRef.current.getVoices().length > 0) {
+          voicesLoaded.current = true
+          synthRef.current.onvoiceschanged = null // Remove the listener
+        }
+      }
+
+      // First try to load voices directly
+      loadVoices()
+
+      // If voices aren't loaded yet, set up the event listener
+      if (!voicesLoaded.current) {
+        synthRef.current.onvoiceschanged = loadVoices
+      }
+    }
+
+    return () => {
+      // Clean up speech when component unmounts
+      if (synthRef.current) {
+        synthRef.current.cancel()
+      }
+    }
+  }, [])
+
+  // Handle speaking messages with Chrome compatibility
+  const handleSpeak = (messageId: string, text: string) => {
+    if (!speechSupported || !synthRef.current) return
+
+    // If already speaking this message, stop it
+    if (currentSpeakingMessageId === messageId && isSpeaking) {
+      synthRef.current.cancel()
+      setIsSpeaking(false)
+      setCurrentSpeakingMessageId(null)
+      return
+    }
+
+    // Stop any current speech
+    synthRef.current.cancel()
+
+    // Clean text from emojis and special characters
+    const cleanText = text.replace(
+      /[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu,
+      "",
+    )
+
+    // Create new speech synthesis utterance
+    const utterance = new SpeechSynthesisUtterance(cleanText)
+    utteranceRef.current = utterance
+
+    // Configure speech settings
+    utterance.rate = 0.9
+    utterance.pitch = 1
+    utterance.volume = 0.8
+
+    // Chrome-compatible voice selection
+    const getVoices = () => {
+      if (!synthRef.current) return []
+      
+      // First try to get voices directly
+      const voices = synthRef.current.getVoices()
+      if (voices.length > 0) return voices
+      
+      // If no voices, try again after a short delay (Chrome workaround)
+      return []
+    }
+
+    const voices = getVoices()
+    const preferredVoice = voices.find(voice => 
+      voice.lang.includes('en') && 
+      (voice.name.toLowerCase().includes('female') || voice.name.toLowerCase().includes('woman'))
+    )
+    
+    if (preferredVoice) {
+      utterance.voice = preferredVoice
+    }
+
+    // Set up event listeners with error handling
+    utterance.onstart = () => {
+      setIsSpeaking(true)
+      setCurrentSpeakingMessageId(messageId)
+    }
+
+    utterance.onend = () => {
+      setIsSpeaking(false)
+      setCurrentSpeakingMessageId(null)
+    }
+
+    utterance.onerror = (event) => {
+      console.error("SpeechSynthesis error:", event.error)
+      setIsSpeaking(false)
+      setCurrentSpeakingMessageId(null)
+      
+      // Chrome-specific error handling
+      if (event.error === 'interrupted') {
+        // Speech was interrupted, we can try again if needed
+      }
+    }
+
+    // Start speaking with Chrome compatibility
+    try {
+      synthRef.current.speak(utterance)
+    } catch (error) {
+      console.error("Error speaking:", error)
+      setIsSpeaking(false)
+      setCurrentSpeakingMessageId(null)
+    }
+  }
+
+  // Toggle voice for the latest bot message
+  const toggleVoice = () => {
+    if (voiceEnabled) {
+      // If voice is enabled and we're currently speaking, stop it
+      if (isSpeaking && synthRef.current) {
+        synthRef.current.cancel()
+        setIsSpeaking(false)
+        setCurrentSpeakingMessageId(null)
+      }
+      setVoiceEnabled(false)
+    } else {
+      // Find the latest bot message to read
+      const latestBotMessage = [...messages].reverse().find(msg => msg.type === "bot")
+      if (latestBotMessage) {
+        // Chrome workaround - sometimes need to wait for voices
+        setTimeout(() => {
+          handleSpeak(latestBotMessage.id, latestBotMessage.message)
+          setVoiceEnabled(true)
+        }, 100)
+      }
+    }
+  }
+
+  // Auto-read new bot messages when voice is enabled
+  useEffect(() => {
+    if (!voiceEnabled || !speechSupported || !synthRef.current) return
+
+    const lastMessage = messages[messages.length - 1]
+    if (lastMessage?.type === "bot" && lastMessage.id !== currentSpeakingMessageId) {
+      // If currently speaking, stop first
+      if (isSpeaking) {
+        synthRef.current.cancel()
+      }
+      
+      // Chrome workaround - add slight delay
+      const timer = setTimeout(() => {
+        handleSpeak(lastMessage.id, lastMessage.message)
+      }, 300)
+
+      return () => clearTimeout(timer)
+    }
+  }, [messages, voiceEnabled])
 
   useEffect(() => {
     // Load saved state from localStorage
@@ -237,11 +405,10 @@ export default function KayiChatbot() {
     setShowContactInfo(false)
 
     // Always show initial greeting on component mount
+    const greeting =
+      "Good Afternoon! I'm ZoeBot from Kayi Digital, your business growth assistant. Before we explore how to transform your online presence, are you comfortable sharing a few quick details so I can personalize this for you?"
     setTimeout(() => {
-      addMessage(
-        "bot",
-        "Good Afternoon! I'm ZoeBot from Kayi Digital, your business growth assistant. Before we explore how to transform your online presence, are you comfortable sharing a few quick details so I can personalize this for you?",
-      )
+      addMessage("bot", greeting)
     }, 500)
   }, [])
 
@@ -255,8 +422,8 @@ export default function KayiChatbot() {
       type,
       message,
       timestamp: new Date(),
-      stepId, // Track which step this message belongs to
-      isEditable: type === "user" && stepId !== undefined, // Mark user messages as editable
+      stepId,
+      isEditable: type === "user" && stepId !== undefined,
     }
     setMessages((prev) => [...prev, newMessage])
   }
@@ -475,7 +642,7 @@ Feel free to reach out whenever you're ready. Have a great day!`,
         "Perfect! I've noted your preferred time slot. Our team will reach out to you accordingly. Thank you for your time!",
       )
       setIsCompleted(true)
-      setShowCalendlyButton(true) // Show Calendly button after time slot selection
+      setShowCalendlyButton(true)
     })
     setShowTimeSlots(false)
   }
@@ -494,7 +661,7 @@ Feel free to reach out whenever you're ready. Have a great day!`,
     }
 
     setValidationError("")
-    addMessage("user", finalValue, currentStep) // Pass stepId to make message editable
+    addMessage("user", finalValue, currentStep)
 
     const updatedData = { ...chatData, [currentQuestion.field]: finalValue }
     setChatData(updatedData)
@@ -537,7 +704,7 @@ Our team will review your requirements and reach out within 24 hours with a cust
 Would you like to schedule a quick 15-minute discovery call to discuss your goals in detail?`,
         )
         setIsCompleted(true)
-        setShowCalendlyButton(true) // Show Calendly button when completed
+        setShowCalendlyButton(true)
         setIsSubmitting(false)
       }, 2000)
     } else {
@@ -551,6 +718,10 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
   }
 
   const resetChat = () => {
+    if (synthRef.current) {
+      synthRef.current.cancel()
+    }
+
     setMessages([])
     setChatData({
       name: "",
@@ -578,12 +749,14 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
     setOriginalStep(-1)
     setEditHistory([])
     setShowContinueFromEdit(false)
+    setVoiceEnabled(false)
+    setIsSpeaking(false)
+    setCurrentSpeakingMessageId(null)
 
     setTimeout(() => {
-      addMessage(
-        "bot",
-        "Good Afternoon! I'm ZoeBot from Kayi Digital, your business growth assistant. Before we explore how to transform your online presence, are you comfortable sharing a few quick details so I can personalize this for you?",
-      )
+      const greeting =
+        "Good Afternoon! I'm ZoeBot from Kayi Digital, your business growth assistant. Before we explore how to transform your online presence, are you comfortable sharing a few quick details so I can personalize this for you?"
+      addMessage("bot", greeting)
     }, 500)
   }
 
@@ -712,6 +885,20 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
               </div>
             </div>
             <div className="flex items-center gap-2">
+              {speechSupported && messages.some((msg) => msg.type === "bot") && (
+                <Button
+                  onClick={toggleVoice}
+                  variant="ghost"
+                  size="sm"
+                  className={`text-white hover:bg-white/20 rounded-full p-2 ${
+                    voiceEnabled ? "animate-pulse bg-white/20" : ""
+                  }`}
+                  title={voiceEnabled ? "Stop speaking" : "Read messages aloud"}
+                  disabled={isTyping}
+                >
+                  {voiceEnabled ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+                </Button>
+              )}
               {isEditMode && (
                 <div className="flex items-center gap-1 bg-white/20 px-3 py-1 rounded-full">
                   <Edit2 className="w-3 h-3" />
@@ -794,6 +981,101 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
             <div ref={messagesEndRef} />
           </div>
 
+          {currentStep >= 0 &&
+            !isCompleted &&
+            !isSubmitting &&
+            !showContinueQuestion &&
+            !showCallbackOptions &&
+            !showWhatsAppConnect &&
+            !showCalendar &&
+            !isEditMode && (
+              <div className="p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-4">
+                {validationError && (
+                  <div className="mb-4 p-4 bg-red-50 border-2 border-red-200 rounded-2xl flex items-center gap-3 animate-in slide-in-from-top-3 duration-300">
+                    <AlertCircle className="w-5 h-5 text-red-600" />
+                    <span className="text-red-700 text-sm font-medium">{validationError}</span>
+                  </div>
+                )}
+
+                <div className="space-y-4">
+                  {currentQuestion?.type === "select" ? (
+                    <div className="flex gap-3">
+                      <Select value={selectValue} onValueChange={setSelectValue}>
+                        <SelectTrigger className="flex-1 border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl py-4 transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 focus:border-[#cf21c3] bg-white/90 backdrop-blur-sm">
+                          <SelectValue placeholder="Select an option..." />
+                        </SelectTrigger>
+                        <SelectContent className="rounded-2xl border-2 border-[#cf21c3]/20 shadow-2xl bg-white/95 backdrop-blur-sm">
+                          {currentQuestion.options?.map((option) => (
+                            <SelectItem
+                              key={option}
+                              value={option}
+                              className="rounded-xl hover:bg-[#cf21c3]/10 transition-colors duration-200 py-3 font-medium"
+                            >
+                              {option}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <Button
+                        onClick={() => handleSubmit("")}
+                        className="bg-[#cf21c3] hover:bg-[#b91c9e] px-5 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-0"
+                        disabled={!selectValue}
+                      >
+                        <Send className="w-5 h-5" />
+                      </Button>
+                    </div>
+                  ) : currentQuestion?.type === "textarea" ? (
+                    <div className="space-y-4">
+                      <div className="relative">
+                        <Textarea
+                          placeholder={currentQuestion.placeholder}
+                          value={inputValue}
+                          onChange={(e) => {
+                            setInputValue(e.target.value)
+                            if (validationError) setValidationError("")
+                          }}
+                          className="min-h-[120px] border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 resize-none p-4 bg-white/90 font-medium backdrop-blur-sm pr-12"
+                        />
+                      </div>
+                      <Button
+                        onClick={() => handleSubmit(inputValue)}
+                        className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] font-semibold py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0"
+                        disabled={!inputValue.trim()}
+                      >
+                        <span className="flex items-center justify-center gap-3">
+                          <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                          Send Response
+                        </span>
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex gap-3">
+                      <div className="relative flex-1">
+                        <Input
+                          type={currentQuestion?.type || "text"}
+                          placeholder={currentQuestion?.placeholder}
+                          value={inputValue}
+                          onChange={(e) => {
+                            setInputValue(e.target.value)
+                            if (validationError) setValidationError("")
+                          }}
+                          onKeyPress={(e) => e.key === "Enter" && handleSubmit(inputValue)}
+                          className="border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl py-4 transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 bg-white/90 font-medium backdrop-blur-sm pr-12"
+                        />
+                      </div>
+                      <Button
+                        onClick={() => handleSubmit(inputValue)}
+                        className="bg-[#cf21c3] hover:bg-[#b91c9e] px-5 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-0"
+                        disabled={!inputValue.trim()}
+                      >
+                        <Send className="w-5 h-5" />
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
           {isEditMode && editingStep !== null && (
             <div className="p-6 border-t border-[#cf21c3]/20 bg-gradient-to-r from-blue-50/50 to-purple-50/50 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-4">
@@ -836,27 +1118,31 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
                     </SelectContent>
                   </Select>
                 ) : questions[editingStep].type === "textarea" ? (
-                  <Textarea
-                    placeholder={questions[editingStep].placeholder}
-                    value={editingValue}
-                    onChange={(e) => {
-                      setEditingValue(e.target.value)
-                      if (validationError) setValidationError("")
-                    }}
-                    className="min-h-[100px] border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 resize-none p-4 bg-white/80 font-medium backdrop-blur-sm"
-                  />
+                  <div className="relative">
+                    <Textarea
+                      placeholder={questions[editingStep].placeholder}
+                      value={editingValue}
+                      onChange={(e) => {
+                        setEditingValue(e.target.value)
+                        if (validationError) setValidationError("")
+                      }}
+                      className="min-h-[100px] border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 resize-none p-4 bg-white/80 font-medium backdrop-blur-sm pr-12"
+                    />
+                  </div>
                 ) : (
-                  <Input
-                    type={questions[editingStep].type || "text"}
-                    placeholder={questions[editingStep].placeholder}
-                    value={editingValue}
-                    onChange={(e) => {
-                      setEditingValue(e.target.value)
-                      if (validationError) setValidationError("")
-                    }}
-                    onKeyPress={(e) => e.key === "Enter" && handleSubmit(editingValue)}
-                    className="flex-1 border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl py-4 transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 bg-white/80 font-medium backdrop-blur-sm"
-                  />
+                  <div className="relative">
+                    <Input
+                      type={questions[editingStep].type || "text"}
+                      placeholder={questions[editingStep].placeholder}
+                      value={editingValue}
+                      onChange={(e) => {
+                        setEditingValue(e.target.value)
+                        if (validationError) setValidationError("")
+                      }}
+                      onKeyPress={(e) => e.key === "Enter" && handleSubmit(editingValue)}
+                      className="border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl py-4 transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 bg-white/80 font-medium backdrop-blur-sm pr-12"
+                    />
+                  </div>
                 )}
 
                 <div className="flex gap-3">
@@ -986,96 +1272,6 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
             </div>
           )}
 
-          {currentStep >= 0 &&
-            !isCompleted &&
-            !isSubmitting &&
-            !showContinueQuestion &&
-            !showCallbackOptions &&
-            !showWhatsAppConnect &&
-            !showCalendar &&
-            !isEditMode && (
-              <div className="p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm">
-                {validationError && (
-                  <div className="mb-4 p-4 bg-red-50 border-2 border-red-200 rounded-2xl flex items-center gap-3 animate-in slide-in-from-top-3 duration-300">
-                    <AlertCircle className="w-5 h-5 text-red-600" />
-                    <span className="text-red-700 text-sm font-medium">{validationError}</span>
-                  </div>
-                )}
-
-                <div className="space-y-4">
-                  {currentQuestion?.type === "select" ? (
-                    <div className="flex gap-3">
-                      <Select value={selectValue} onValueChange={setSelectValue}>
-                        <SelectTrigger className="flex-1 border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl py-4 transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 focus:border-[#cf21c3] bg-white/90 backdrop-blur-sm">
-                          <SelectValue placeholder="Select an option..." />
-                        </SelectTrigger>
-                        <SelectContent className="rounded-2xl border-2 border-[#cf21c3]/20 shadow-2xl bg-white/95 backdrop-blur-sm">
-                          {currentQuestion.options?.map((option) => (
-                            <SelectItem
-                              key={option}
-                              value={option}
-                              className="rounded-xl hover:bg-[#cf21c3]/10 transition-colors duration-200 py-3 font-medium"
-                            >
-                              {option}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <Button
-                        onClick={() => handleSubmit("")}
-                        className="bg-[#cf21c3] hover:bg-[#b91c9e] px-5 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-0"
-                        disabled={!selectValue}
-                      >
-                        <Send className="w-5 h-5" />
-                      </Button>
-                    </div>
-                  ) : currentQuestion?.type === "textarea" ? (
-                    <div className="space-y-4">
-                      <Textarea
-                        placeholder={currentQuestion.placeholder}
-                        value={inputValue}
-                        onChange={(e) => {
-                          setInputValue(e.target.value)
-                          if (validationError) setValidationError("")
-                        }}
-                        className="min-h-[120px] border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 resize-none p-4 bg-white/90 font-medium backdrop-blur-sm"
-                      />
-                      <Button
-                        onClick={() => handleSubmit(inputValue)}
-                        className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] font-semibold py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0"
-                        disabled={!inputValue.trim()}
-                      >
-                        <span className="flex items-center justify-center gap-3">
-                          <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                          Send Response
-                        </span>
-                      </Button>
-                    </div>
-                  ) : (
-                    <div className="flex gap-3">
-                      <Input
-                        type={currentQuestion?.type || "text"}
-                        placeholder={currentQuestion?.placeholder}
-                        value={inputValue}
-                        onChange={(e) => {
-                          setInputValue(e.target.value)
-                          if (validationError) setValidationError("")
-                        }}
-                        onKeyPress={(e) => e.key === "Enter" && handleSubmit(inputValue)}
-                        className="flex-1 border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl py-4 transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 bg-white/90 font-medium backdrop-blur-sm"
-                      />
-                      <Button
-                        onClick={() => handleSubmit(inputValue)}
-                        className="bg-[#cf21c3] hover:bg-[#b91c9e] px-5 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-0"
-                        disabled={!inputValue.trim()}
-                      >
-                        <Send className="w-5 h-5" />
-                      </Button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
           {isCompleted && !isEditMode && (
             <div className="p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-5">
               <div className="text-center space-y-4">
