@@ -211,7 +211,7 @@ export default function KayiChatbotWithVoice() {
     if ("speechSynthesis" in window) {
       setSpeechSupported(true)
       synthRef.current = window.speechSynthesis
-      
+
       // Chrome-specific voice loading workaround
       const loadVoices = () => {
         if (synthRef.current && synthRef.current.getVoices().length > 0) {
@@ -270,21 +270,22 @@ export default function KayiChatbotWithVoice() {
     // Chrome-compatible voice selection
     const getVoices = () => {
       if (!synthRef.current) return []
-      
+
       // First try to get voices directly
       const voices = synthRef.current.getVoices()
       if (voices.length > 0) return voices
-      
+
       // If no voices, try again after a short delay (Chrome workaround)
       return []
     }
 
     const voices = getVoices()
-    const preferredVoice = voices.find(voice => 
-      voice.lang.includes('en') && 
-      (voice.name.toLowerCase().includes('female') || voice.name.toLowerCase().includes('woman'))
+    const preferredVoice = voices.find(
+      (voice) =>
+        voice.lang.includes("en") &&
+        (voice.name.toLowerCase().includes("female") || voice.name.toLowerCase().includes("woman")),
     )
-    
+
     if (preferredVoice) {
       utterance.voice = preferredVoice
     }
@@ -304,9 +305,9 @@ export default function KayiChatbotWithVoice() {
       console.error("SpeechSynthesis error:", event.error)
       setIsSpeaking(false)
       setCurrentSpeakingMessageId(null)
-      
+
       // Chrome-specific error handling
-      if (event.error === 'interrupted') {
+      if (event.error === "interrupted") {
         // Speech was interrupted, we can try again if needed
       }
     }
@@ -333,7 +334,7 @@ export default function KayiChatbotWithVoice() {
       setVoiceEnabled(false)
     } else {
       // Find the latest bot message to read
-      const latestBotMessage = [...messages].reverse().find(msg => msg.type === "bot")
+      const latestBotMessage = [...messages].reverse().find((msg) => msg.type === "bot")
       if (latestBotMessage) {
         // Chrome workaround - sometimes need to wait for voices
         setTimeout(() => {
@@ -354,7 +355,7 @@ export default function KayiChatbotWithVoice() {
       if (isSpeaking) {
         synthRef.current.cancel()
       }
-      
+
       // Chrome workaround - add slight delay
       const timer = setTimeout(() => {
         handleSpeak(lastMessage.id, lastMessage.message)
@@ -862,51 +863,55 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
   return (
     <>
       {!isOpen && (
-        <div className="fixed bottom-6 right-6 z-50">
+        <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="w-16 h-16 rounded-full bg-gradient-to-r from-[#cf21c3] to-[#cf21c3]/80 hover:from-[#cf21c3]/90 hover:to-[#cf21c3]/70 text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center"
+            className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-r from-[#cf21c3] to-[#cf21c3]/80 hover:from-[#cf21c3]/90 hover:to-[#cf21c3]/70 text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center touch-manipulation"
           >
-            <MessageCircle className="w-8 h-8" />
+            <MessageCircle className="w-6 h-6 sm:w-8 sm:h-8" />
           </button>
         </div>
       )}
 
       {isOpen && (
-        <div className="fixed bottom-24 right-6 w-[420px] md:w-[480px] h-[600px] md:h-[650px] bg-white rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden border border-gray-200">
-          <div className="flex items-center justify-between p-4 bg-gradient-to-r from-[#cf21c3] to-[#cf21c3]/80 text-white rounded-t-2xl">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                <MessageCircle className="w-5 h-5" />
+        <div className="fixed inset-x-2 bottom-2 top-2 sm:bottom-20 sm:right-4 sm:top-auto sm:left-auto sm:w-[420px] md:w-[480px] sm:h-[600px] md:h-[650px] bg-white rounded-2xl sm:rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden border border-gray-200">
+          <div className="flex items-center justify-between p-3 sm:p-4 bg-gradient-to-r from-[#cf21c3] to-[#cf21c3]/80 text-white rounded-t-2xl">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
-              <div>
-                <h3 className="font-bold text-lg">ZoeBot</h3>
-                <p className="text-sm text-white/90">Digital Marketing Assistant</p>
+              <div className="min-w-0">
+                <h3 className="font-bold text-base sm:text-lg truncate">ZoeBot</h3>
+                <p className="text-xs sm:text-sm text-white/90 truncate">Digital Marketing Assistant</p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
               {speechSupported && messages.some((msg) => msg.type === "bot") && (
                 <Button
                   onClick={toggleVoice}
                   variant="ghost"
                   size="sm"
-                  className={`text-white hover:bg-white/20 rounded-full p-2 ${
+                  className={`text-white hover:bg-white/20 rounded-full p-2 min-w-[36px] min-h-[36px] sm:min-w-[40px] sm:min-h-[40px] touch-manipulation ${
                     voiceEnabled ? "animate-pulse bg-white/20" : ""
                   }`}
                   title={voiceEnabled ? "Stop speaking" : "Read messages aloud"}
                   disabled={isTyping}
                 >
-                  {voiceEnabled ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+                  {voiceEnabled ? (
+                    <VolumeX className="w-4 h-4 sm:w-5 sm:h-5" />
+                  ) : (
+                    <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                  )}
                 </Button>
               )}
               {isEditMode && (
-                <div className="flex items-center gap-1 bg-white/20 px-3 py-1 rounded-full">
+                <div className="hidden sm:flex items-center gap-1 bg-white/20 px-2 sm:px-3 py-1 rounded-full">
                   <Edit2 className="w-3 h-3" />
-                  <span className="text-xs font-medium">Editing Mode</span>
+                  <span className="text-xs font-medium">Editing</span>
                 </div>
               )}
               {editHistory.length > 0 && !isEditMode && (
-                <div className="flex items-center gap-1 bg-blue-500/20 px-2 py-1 rounded-full">
+                <div className="hidden sm:flex items-center gap-1 bg-blue-500/20 px-2 py-1 rounded-full">
                   <span className="text-xs font-medium">
                     {editHistory.length} edit{editHistory.length > 1 ? "s" : ""}
                   </span>
@@ -916,7 +921,7 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
                 onClick={resetChat}
                 variant="ghost"
                 size="sm"
-                className="text-white hover:bg-white/20 rounded-full"
+                className="text-white hover:bg-white/20 rounded-full min-w-[36px] min-h-[36px] sm:min-w-[40px] sm:min-h-[40px] touch-manipulation"
                 title="Start New Chat"
               >
                 <RotateCcw className="w-4 h-4" />
@@ -925,31 +930,31 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
                 onClick={() => setIsOpen(false)}
                 variant="ghost"
                 size="sm"
-                className="text-white hover:bg-white/20 rounded-full"
+                className="text-white hover:bg-white/20 rounded-full min-w-[36px] min-h-[36px] sm:min-w-[40px] sm:min-h-[40px] touch-manipulation"
               >
                 <X className="w-4 h-4" />
               </Button>
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50/30">
+          <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 bg-gray-50/30">
             {messages.map((message) => (
               <div key={message.id} className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}>
                 <div
-                  className={`max-w-[85%] p-4 rounded-2xl relative group ${
+                  className={`max-w-[90%] sm:max-w-[85%] p-3 sm:p-4 rounded-2xl relative group ${
                     message.type === "user"
                       ? "bg-gradient-to-r from-[#cf21c3] to-[#cf21c3]/80 text-white shadow-md"
                       : "bg-white text-gray-800 border border-[#cf21c3]/20 shadow-sm"
                   }`}
                 >
-                  <div className="whitespace-pre-wrap text-sm leading-relaxed">{message.message}</div>
+                  <div className="whitespace-pre-wrap text-sm sm:text-sm leading-relaxed">{message.message}</div>
                   {message.isEditable && message.stepId !== undefined && !isEditMode && (
                     <button
                       onClick={() => handleEditMessage(message.id, message.stepId!)}
-                      className="absolute -top-2 -right-2 w-8 h-8 bg-white text-[#cf21c3] rounded-full shadow-lg opacity-80 hover:opacity-100 group-hover:opacity-100 transition-all duration-200 flex items-center justify-center hover:bg-gray-50 hover:scale-110 border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/60"
+                      className="absolute -top-2 -right-2 w-8 h-8 sm:w-8 sm:h-8 bg-white text-[#cf21c3] rounded-full shadow-lg opacity-80 hover:opacity-100 group-hover:opacity-100 transition-all duration-200 flex items-center justify-center hover:bg-gray-50 hover:scale-110 border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/60 touch-manipulation"
                       title="Edit this response"
                     >
-                      <Edit2 className="w-4 h-4" />
+                      <Edit2 className="w-3 h-3 sm:w-4 sm:h-4" />
                     </button>
                   )}
                   {editHistory.some((h) => h.stepId === message.stepId) && (
@@ -963,7 +968,7 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
             ))}
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-gray-100 rounded-2xl px-4 py-2 max-w-xs">
+                <div className="bg-gray-100 rounded-2xl px-3 sm:px-4 py-2 max-w-xs">
                   <div className="flex space-x-1">
                     <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                     <div
@@ -989,19 +994,19 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
             !showWhatsAppConnect &&
             !showCalendar &&
             !isEditMode && (
-              <div className="p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-4">
+              <div className="p-4 sm:p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-3 sm:space-y-4">
                 {validationError && (
-                  <div className="mb-4 p-4 bg-red-50 border-2 border-red-200 rounded-2xl flex items-center gap-3 animate-in slide-in-from-top-3 duration-300">
-                    <AlertCircle className="w-5 h-5 text-red-600" />
+                  <div className="mb-3 sm:mb-4 p-3 sm:p-4 bg-red-50 border-2 border-red-200 rounded-2xl flex items-center gap-3 animate-in slide-in-from-top-3 duration-300">
+                    <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-red-600 flex-shrink-0" />
                     <span className="text-red-700 text-sm font-medium">{validationError}</span>
                   </div>
                 )}
 
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {currentQuestion?.type === "select" ? (
-                    <div className="flex gap-3">
+                    <div className="flex flex-col sm:flex-row gap-3">
                       <Select value={selectValue} onValueChange={setSelectValue}>
-                        <SelectTrigger className="flex-1 border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl py-4 transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 focus:border-[#cf21c3] bg-white/90 backdrop-blur-sm">
+                        <SelectTrigger className="flex-1 border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl py-3 sm:py-4 transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 focus:border-[#cf21c3] bg-white/90 backdrop-blur-sm min-h-[48px] touch-manipulation">
                           <SelectValue placeholder="Select an option..." />
                         </SelectTrigger>
                         <SelectContent className="rounded-2xl border-2 border-[#cf21c3]/20 shadow-2xl bg-white/95 backdrop-blur-sm">
@@ -1009,7 +1014,7 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
                             <SelectItem
                               key={option}
                               value={option}
-                              className="rounded-xl hover:bg-[#cf21c3]/10 transition-colors duration-200 py-3 font-medium"
+                              className="rounded-xl hover:bg-[#cf21c3]/10 transition-colors duration-200 py-3 font-medium min-h-[48px] touch-manipulation"
                             >
                               {option}
                             </SelectItem>
@@ -1018,14 +1023,14 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
                       </Select>
                       <Button
                         onClick={() => handleSubmit("")}
-                        className="bg-[#cf21c3] hover:bg-[#b91c9e] px-5 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-0"
+                        className="bg-[#cf21c3] hover:bg-[#b91c9e] px-4 sm:px-5 py-3 sm:py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-0 min-h-[48px] touch-manipulation"
                         disabled={!selectValue}
                       >
                         <Send className="w-5 h-5" />
                       </Button>
                     </div>
                   ) : currentQuestion?.type === "textarea" ? (
-                    <div className="space-y-4">
+                    <div className="space-y-3 sm:space-y-4">
                       <div className="relative">
                         <Textarea
                           placeholder={currentQuestion.placeholder}
@@ -1034,12 +1039,12 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
                             setInputValue(e.target.value)
                             if (validationError) setValidationError("")
                           }}
-                          className="min-h-[120px] border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 resize-none p-4 bg-white/90 font-medium backdrop-blur-sm pr-12"
+                          className="min-h-[100px] sm:min-h-[120px] border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 resize-none p-3 sm:p-4 bg-white/90 font-medium backdrop-blur-sm pr-12 text-base touch-manipulation"
                         />
                       </div>
                       <Button
                         onClick={() => handleSubmit(inputValue)}
-                        className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] font-semibold py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0"
+                        className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] font-semibold py-3 sm:py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0 min-h-[48px] touch-manipulation"
                         disabled={!inputValue.trim()}
                       >
                         <span className="flex items-center justify-center gap-3">
@@ -1049,7 +1054,7 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
                       </Button>
                     </div>
                   ) : (
-                    <div className="flex gap-3">
+                    <div className="flex flex-col sm:flex-row gap-3">
                       <div className="relative flex-1">
                         <Input
                           type={currentQuestion?.type || "text"}
@@ -1060,12 +1065,12 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
                             if (validationError) setValidationError("")
                           }}
                           onKeyPress={(e) => e.key === "Enter" && handleSubmit(inputValue)}
-                          className="border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl py-4 transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 bg-white/90 font-medium backdrop-blur-sm pr-12"
+                          className="border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl py-3 sm:py-4 transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 bg-white/90 font-medium backdrop-blur-sm pr-12 min-h-[48px] text-base touch-manipulation"
                         />
                       </div>
                       <Button
                         onClick={() => handleSubmit(inputValue)}
-                        className="bg-[#cf21c3] hover:bg-[#b91c9e] px-5 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-0"
+                        className="bg-[#cf21c3] hover:bg-[#b91c9e] px-4 sm:px-5 py-3 sm:py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-0 min-h-[48px] touch-manipulation"
                         disabled={!inputValue.trim()}
                       >
                         <Send className="w-5 h-5" />
@@ -1077,12 +1082,12 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
             )}
 
           {isEditMode && editingStep !== null && (
-            <div className="p-6 border-t border-[#cf21c3]/20 bg-gradient-to-r from-blue-50/50 to-purple-50/50 backdrop-blur-sm">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 bg-[#cf21c3]/10 rounded-full flex items-center justify-center">
+            <div className="p-4 sm:p-6 border-t border-[#cf21c3]/20 bg-gradient-to-r from-blue-50/50 to-purple-50/50 backdrop-blur-sm">
+              <div className="flex items-center gap-2 mb-3 sm:mb-4">
+                <div className="w-8 h-8 bg-[#cf21c3]/10 rounded-full flex items-center justify-center flex-shrink-0">
                   <Edit2 className="w-4 h-4 text-[#cf21c3]" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <span className="text-sm font-semibold text-[#cf21c3]">Editing Response</span>
                   <p className="text-xs text-gray-600">
                     Step {editingStep + 1} of {questions.length}
@@ -1091,18 +1096,18 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
               </div>
 
               {validationError && (
-                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-2xl flex items-center gap-3 animate-in slide-in-from-top-2 duration-200">
-                  <AlertCircle className="w-4 h-4 text-red-600" />
+                <div className="mb-3 sm:mb-4 p-3 bg-red-50 border border-red-200 rounded-2xl flex items-center gap-3 animate-in slide-in-from-top-2 duration-200">
+                  <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0" />
                   <span className="text-red-700 text-sm font-medium">{validationError}</span>
                 </div>
               )}
 
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 <div className="text-sm text-gray-700 font-medium mb-3">{questions[editingStep].question}</div>
 
                 {questions[editingStep].type === "select" ? (
                   <Select value={editingSelectValue} onValueChange={setEditingSelectValue}>
-                    <SelectTrigger className="flex-1 border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-xl py-4 transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 focus:border-[#cf21c3] bg-white/80 backdrop-blur-sm">
+                    <SelectTrigger className="flex-1 border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-xl py-3 sm:py-4 transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 focus:border-[#cf21c3] bg-white/80 backdrop-blur-sm min-h-[48px] touch-manipulation">
                       <SelectValue placeholder="Select an option..." />
                     </SelectTrigger>
                     <SelectContent className="rounded-2xl border-2 border-[#cf21c3]/20 shadow-2xl bg-white/95 backdrop-blur-sm">
@@ -1110,7 +1115,7 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
                         <SelectItem
                           key={option}
                           value={option}
-                          className="rounded-xl hover:bg-[#cf21c3]/10 transition-colors duration-200 py-3 font-medium"
+                          className="rounded-xl hover:bg-[#cf21c3]/10 transition-colors duration-200 py-3 font-medium min-h-[48px] touch-manipulation"
                         >
                           {option}
                         </SelectItem>
@@ -1126,7 +1131,7 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
                         setEditingValue(e.target.value)
                         if (validationError) setValidationError("")
                       }}
-                      className="min-h-[100px] border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 resize-none p-4 bg-white/80 font-medium backdrop-blur-sm pr-12"
+                      className="min-h-[80px] sm:min-h-[100px] border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 resize-none p-3 sm:p-4 bg-white/80 font-medium backdrop-blur-sm pr-12 text-base touch-manipulation"
                     />
                   </div>
                 ) : (
@@ -1140,15 +1145,15 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
                         if (validationError) setValidationError("")
                       }}
                       onKeyPress={(e) => e.key === "Enter" && handleSubmit(editingValue)}
-                      className="border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl py-4 transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 bg-white/80 font-medium backdrop-blur-sm pr-12"
+                      className="border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 rounded-2xl py-3 sm:py-4 transition-all duration-300 focus:ring-2 focus:ring-[#cf21c3]/20 bg-white/80 font-medium backdrop-blur-sm pr-12 min-h-[48px] text-base touch-manipulation"
                     />
                   </div>
                 )}
 
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <Button
                     onClick={handleSaveEdit}
-                    className="flex-1 bg-[#cf21c3] hover:bg-[#b91c9e] text-white rounded-xl font-semibold py-3 shadow-lg hover:shadow-xl transition-all duration-200"
+                    className="flex-1 bg-[#cf21c3] hover:bg-[#b91c9e] text-white rounded-xl font-semibold py-3 shadow-lg hover:shadow-xl transition-all duration-200 min-h-[48px] touch-manipulation"
                     disabled={questions[editingStep].type === "select" ? !editingSelectValue : !editingValue.trim()}
                   >
                     <Check className="w-4 h-4 mr-2" />
@@ -1157,7 +1162,7 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
                   <Button
                     onClick={handleCancelEdit}
                     variant="outline"
-                    className="border-2 border-gray-300 hover:border-gray-400 rounded-xl bg-white/80 backdrop-blur-sm font-medium py-3"
+                    className="border-2 border-gray-300 hover:border-gray-400 rounded-xl bg-white/80 backdrop-blur-sm font-medium py-3 min-h-[48px] touch-manipulation"
                   >
                     Cancel
                   </Button>
@@ -1167,15 +1172,17 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
           )}
 
           {showContinueQuestion && !isEditMode && (
-            <div className="p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-4">
-              <div className="text-center mb-4">
-                <h4 className="font-semibold text-gray-800 mb-2">Where would you like to continue?</h4>
+            <div className="p-4 sm:p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-3 sm:space-y-4">
+              <div className="text-center mb-3 sm:mb-4">
+                <h4 className="font-semibold text-gray-800 mb-2 text-base sm:text-lg">
+                  Where would you like to continue?
+                </h4>
               </div>
 
               <div className="space-y-3">
                 <Button
                   onClick={() => handleContinueQuestion("Yes, I'm in!")}
-                  className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0"
+                  className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold py-3 sm:py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0 min-h-[48px] touch-manipulation"
                 >
                   <span className="flex items-center justify-center gap-3">
                     <Sparkles className="w-5 h-5" />
@@ -1186,7 +1193,7 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
                 <Button
                   onClick={() => handleContinueQuestion("Not right now, call me later")}
                   variant="outline"
-                  className="w-full border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 hover:bg-[#cf21c3]/10 py-4 rounded-2xl font-semibold transition-all duration-300 text-gray-700"
+                  className="w-full border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 hover:bg-[#cf21c3]/10 py-3 sm:py-4 rounded-2xl font-semibold transition-all duration-300 text-gray-700 min-h-[48px] touch-manipulation"
                 >
                   Not right now, call me later
                 </Button>
@@ -1195,10 +1202,10 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
           )}
 
           {showCallbackOptions && !isEditMode && (
-            <div className="p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-4">
+            <div className="p-4 sm:p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-3 sm:space-y-4">
               <Button
                 onClick={() => handleCallbackOption("I am available in the next hour")}
-                className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0"
+                className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold py-3 sm:py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0 min-h-[48px] touch-manipulation"
               >
                 <span className="flex items-center justify-center gap-3">
                   <Clock className="w-5 h-5" />I am available in the next hour
@@ -1206,7 +1213,7 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
               </Button>
               <Button
                 onClick={() => handleCallbackOption("Please select your preferred slot")}
-                className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0"
+                className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 sm:py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0 min-h-[48px] touch-manipulation"
               >
                 <span className="flex items-center justify-center gap-3">
                   <Calendar className="w-5 h-5" />
@@ -1216,7 +1223,7 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
               <Button
                 onClick={() => handleCallbackOption("Not right now, let's talk later")}
                 variant="outline"
-                className="w-full border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 hover:bg-[#cf21c3]/10 py-4 rounded-2xl font-semibold transition-all duration-300 text-gray-700"
+                className="w-full border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 hover:bg-[#cf21c3]/10 py-3 sm:py-4 rounded-2xl font-semibold transition-all duration-300 text-gray-700 min-h-[48px] touch-manipulation"
               >
                 Not right now, let's talk later
               </Button>
@@ -1224,10 +1231,10 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
           )}
 
           {showWhatsAppConnect && !isEditMode && (
-            <div className="p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-4">
+            <div className="p-4 sm:p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-3 sm:space-y-4">
               <Button
                 onClick={() => handleWhatsAppConnect("Yes, connect me to WhatsApp")}
-                className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0"
+                className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold py-3 sm:py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0 min-h-[48px] touch-manipulation"
               >
                 <span className="flex items-center justify-center gap-3">
                   <Phone className="w-5 h-5" />
@@ -1237,7 +1244,7 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
               <Button
                 onClick={() => handleWhatsAppConnect("No, I'll reach out later myself")}
                 variant="outline"
-                className="w-full border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 hover:bg-[#cf21c3]/10 py-4 rounded-2xl font-semibold transition-all duration-300 text-gray-700"
+                className="w-full border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 hover:bg-[#cf21c3]/10 py-3 sm:py-4 rounded-2xl font-semibold transition-all duration-300 text-gray-700 min-h-[48px] touch-manipulation"
               >
                 No, I'll reach out later myself
               </Button>
@@ -1245,16 +1252,16 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
           )}
 
           {showCalendar && !isEditMode && (
-            <div className="p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm">
+            <div className="p-4 sm:p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm">
               <CalendarSelector />
             </div>
           )}
 
           {currentStep === -1 && !isCompleted && !showWhatsAppConnect && !isEditMode && (
-            <div className="p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-4">
+            <div className="p-4 sm:p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-3 sm:space-y-4">
               <Button
                 onClick={() => handleConsent(true)}
-                className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0"
+                className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold py-3 sm:py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0 min-h-[48px] touch-manipulation"
               >
                 <span className="flex items-center justify-center gap-3">
                   <Sparkles className="w-5 h-5" />
@@ -1265,7 +1272,7 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
               <Button
                 onClick={() => handleConsent(false)}
                 variant="outline"
-                className="w-full border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 hover:bg-[#cf21c3]/10 py-4 rounded-2xl font-semibold transition-all duration-300 text-gray-700"
+                className="w-full border-2 border-[#cf21c3]/30 hover:border-[#cf21c3]/50 hover:bg-[#cf21c3]/10 py-3 sm:py-4 rounded-2xl font-semibold transition-all duration-300 text-gray-700 min-h-[48px] touch-manipulation"
               >
                 No, I wanna stay anonymous 👻
               </Button>
@@ -1273,20 +1280,20 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
           )}
 
           {isCompleted && !isEditMode && (
-            <div className="p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-5">
-              <div className="text-center space-y-4">
-                <div className="flex items-center justify-center gap-3 text-[#cf21c3] text-xl font-bold">
-                  <CheckCircle className="w-6 h-6" />
+            <div className="p-4 sm:p-6 border-t border-[#cf21c3]/20 bg-white/80 backdrop-blur-sm space-y-4 sm:space-y-5">
+              <div className="text-center space-y-3 sm:space-y-4">
+                <div className="flex items-center justify-center gap-3 text-[#cf21c3] text-lg sm:text-xl font-bold">
+                  <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6" />
                   Thank you!
-                  <Sparkles className="w-6 h-6" />
+                  <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
-                <p className="text-gray-600 text-center leading-relaxed">
+                <p className="text-gray-600 text-center leading-relaxed text-sm sm:text-base">
                   We will have someone get in touch with you as soon as possible.
                 </p>
                 {showCalendlyButton && (
                   <div className="space-y-3">
-                    <div className="bg-gradient-to-r from-[#cf21c3]/10 to-purple-100/50 p-4 rounded-2xl border border-[#cf21c3]/20">
-                      <p className="text-sm text-[#cf21c3] font-semibold text-center flex items-center justify-center gap-2">
+                    <div className="bg-gradient-to-r from-[#cf21c3]/10 to-purple-100/50 p-3 sm:p-4 rounded-2xl border border-[#cf21c3]/20">
+                      <p className="text-sm font-semibold text-[#cf21c3] text-center flex items-center justify-center gap-2">
                         <Calendar className="w-4 h-4" />📅 Book a meeting at your preferred schedule
                       </p>
                       <p className="text-xs text-gray-600 text-center mt-1">
@@ -1295,7 +1302,7 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
                     </div>
                     <Button
                       onClick={() => window.open("http://calendly.com/saadalii/kayidigital", "_blank")}
-                      className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0"
+                      className="w-full bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold py-3 sm:py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 group border-0 min-h-[48px] touch-manipulation"
                     >
                       <span className="flex items-center justify-center gap-3">
                         <Calendar className="w-5 h-5" />
