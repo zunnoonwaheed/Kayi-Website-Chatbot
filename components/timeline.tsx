@@ -1,7 +1,8 @@
 "use client"
 import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
-import { Check } from 'lucide-react'
+import { Check } from "lucide-react"
+
 export default function ProfessionalTimeline() {
   const steps = [
     {
@@ -12,7 +13,7 @@ export default function ProfessionalTimeline() {
     },
     {
       title: "Strategy",
-    description: "We map out exactly how we're going to get you there.",
+      description: "We map out exactly how we're going to get you there.",
       duration: "2-3 weeks",
       number: "02",
     },
@@ -71,37 +72,85 @@ export default function ProfessionalTimeline() {
   if (isMobile) {
     return (
       <section id="our-process-section" className="py-12 px-4 bg-white relative overflow-hidden">
-        {/* Subtle Background Effects for Mobile */}
         <div className="absolute inset-0 pointer-events-none">
-          {/* Animated gradient orbs - smaller and less intense */}
-          <div className="absolute top-10 left-10 w-48 h-48 bg-gradient-to-r from-pink-500/15 to-[#cf21c3]/10 rounded-full blur-2xl animate-pulse"></div>
-          <div className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-l from-[#cf21c3]/10 to-pink-400/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: "1s" }}></div>
-          {/* Floating particles effect */}
-          <div className="absolute top-20 left-1/2 w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce opacity-40" style={{ animationDelay: "0.2s" }}></div>
-          <div className="absolute top-40 right-1/3 w-1 h-1 bg-[#cf21c3] rounded-full animate-bounce opacity-50" style={{ animationDelay: "1.5s" }}></div>
+          <motion.div
+            className="absolute top-10 left-10 w-48 h-48 bg-gradient-to-r from-pink-500/15 to-[#cf21c3]/10 rounded-full blur-2xl"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+          />
+          <motion.div
+            className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-l from-[#cf21c3]/10 to-pink-400/15 rounded-full blur-2xl"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+          />
+          <motion.div
+            className="absolute top-20 left-1/2 w-1.5 h-1.5 bg-pink-400 rounded-full opacity-40"
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 0.4, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            animate={{ y: [0, -10, 0] }}
+            style={{ animationDuration: "2s", animationIterationCount: "infinite" }}
+          />
+          <motion.div
+            className="absolute top-40 right-1/3 w-1 h-1 bg-[#cf21c3] rounded-full opacity-50"
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 0.5, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            animate={{ y: [0, -8, 0] }}
+            style={{ animationDuration: "2.5s", animationIterationCount: "infinite" }}
+          />
         </div>
+
         <div className="max-w-lg mx-auto relative z-10">
-          {/* Header */}
           <div className="text-center mb-12">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-              <h2 className="text-4xl font-light mb-3 text-gray-700">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <motion.h2
+                className="text-4xl font-light mb-3 text-gray-700"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
                 <span className="font-semibold text-[#000000]">Our Process</span>
-              </h2>
-              <p className="text-lg text-gray-600">
+              </motion.h2>
+              <motion.p
+                className="text-lg text-gray-600"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
                 From initial discovery to ongoing <span className="font-bold">optimization</span>, we guide your
                 business through <span className="font-bold">proven systems</span> that deliver sustainable growth
-              </p>
+              </motion.p>
             </motion.div>
           </div>
-          {/* Mobile Timeline */}
-          <div className="relative">
+
+          <motion.div
+            className="relative"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
             <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200" />
             <motion.div
               className="absolute left-6 top-0 w-0.5 bg-[#cf21c3] origin-top"
-              animate={{
-                height: `${(currentStep / (steps.length - 1)) * 100}%`,
-              }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
+              initial={{ height: 0 }}
+              whileInView={{ height: `${(currentStep / (steps.length - 1)) * 100}%` }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
             />
             <div className="space-y-8">
               {steps.map((step, index) => {
@@ -110,9 +159,10 @@ export default function ProfessionalTimeline() {
                 return (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    initial={{ opacity: 0, x: -30, scale: 0.95 }}
+                    whileInView={{ opacity: 1, x: 0, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.15 + 0.4, ease: "easeOut" }}
                     className="relative flex items-start"
                   >
                     <motion.div
@@ -183,7 +233,8 @@ export default function ProfessionalTimeline() {
                 )
               })}
             </div>
-          </div>
+          </motion.div>
+
           {/* Mobile Navigation Dots */}
           <div className="flex justify-center mt-8 gap-2">
             {steps.map((_, index) => (
@@ -215,32 +266,90 @@ export default function ProfessionalTimeline() {
       </section>
     )
   }
+
   // Desktop Layout
   return (
     <section id="our-process-section" className="py-20 px-6 bg-white relative overflow-hidden">
-      {/* Subtle Background Effects for Desktop */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* Animated gradient orbs - smaller and less intense */}
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-pink-500/15 to-[#cf21c3]/10 rounded-full blur-2xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-56 h-56 bg-gradient-to-l from-[#cf21c3]/10 to-pink-400/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: "1s" }}></div>
-        {/* Floating particles effect */}
-        <div className="absolute top-20 left-1/2 w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce opacity-40" style={{ animationDelay: "0.2s" }}></div>
-        <div className="absolute top-40 right-1/3 w-1 h-1 bg-[#cf21c3] rounded-full animate-bounce opacity-50" style={{ animationDelay: "1.5s" }}></div>
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-pink-500/15 to-[#cf21c3]/10 rounded-full blur-2xl"
+          initial={{ opacity: 0, scale: 0.8, rotate: -45 }}
+          whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-56 h-56 bg-gradient-to-l from-[#cf21c3]/10 to-pink-400/15 rounded-full blur-2xl"
+          initial={{ opacity: 0, scale: 0.8, rotate: 45 }}
+          whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
+        />
+        <motion.div
+          className="absolute top-20 left-1/2 w-1.5 h-1.5 bg-pink-400 rounded-full opacity-40"
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 0.4, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.6 }}
+          animate={{ y: [0, -15, 0] }}
+          style={{ animationDuration: "3s", animationIterationCount: "infinite" }}
+        />
+        <motion.div
+          className="absolute top-40 right-1/3 w-1 h-1 bg-[#cf21c3] rounded-full opacity-50"
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 0.5, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.8 }}
+          animate={{ y: [0, -12, 0] }}
+          style={{ animationDuration: "3.5s", animationIterationCount: "infinite" }}
+        />
       </div>
+
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-16">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <h2 className="text-4xl lg:text-6xl font-light mb-3 text-gray-700">
-              <span className="font-semibold text-[#000000]">Our Process</span>
-            </h2>
-            <p className="text-lg text-gray-600 max-w-xl mx-auto">
-              From initial discovery to ongoing <span className="font-bold">optimization</span>, we guide your business
-              through <span className="font-bold">proven systems</span> that deliver sustainable growth
-            </p>
-          </motion.div>
-        </div>
-        <div className="timeline-container relative">
-          <div className="absolute top-1/2 left-0 right-0 h-px bg-gray-200 transform -translate-y-1/2 z-10" />
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <motion.h2
+            className="text-4xl lg:text-6xl font-light mb-3 text-gray-700"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <span className="font-semibold text-[#000000]">Our Process</span>
+          </motion.h2>
+          <motion.p
+            className="text-lg text-gray-600 max-w-xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            From initial discovery to ongoing <span className="font-bold">optimization</span>, we guide your business
+            through <span className="font-bold">proven systems</span> that deliver sustainable growth
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          className="timeline-container relative"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.3 }}
+        >
+          <motion.div
+            className="absolute top-1/2 left-0 right-0 h-px bg-gray-200 transform -translate-y-1/2 z-10"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, delay: 0.5, ease: "easeInOut" }}
+          />
+
+          {/* Animated progress line */}
           {dotX.length > 0 && (
             <>
               <motion.div
@@ -264,11 +373,18 @@ export default function ProfessionalTimeline() {
                 const isBelow = index % 2 !== 0
                 const isActive = index === currentStep
                 const isCompleted = index < currentStep
+
                 const Card = (
                   <motion.div
-                    initial={{ opacity: 0, y: isBelow ? 20 : -20, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: isActive ? 1.02 : 1 }}
-                    transition={{ duration: 0.5 }}
+                    initial={{ opacity: 0, y: isBelow ? 40 : -40, scale: 0.9 }}
+                    whileInView={{ opacity: 1, y: 0, scale: isActive ? 1.02 : 1 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.7,
+                      delay: index * 0.2 + 0.6,
+                      ease: "easeOut",
+                    }}
+                    whileHover={{ scale: 1.05, y: isBelow ? -5 : 5 }}
                     className={`w-full max-w-xs p-5 bg-white rounded-lg shadow-sm border transition-all duration-500 ${
                       isActive ? "border-[#cf21c3]/30 shadow-lg" : "border-gray-200 hover:shadow-lg"
                     }`}
@@ -292,9 +408,7 @@ export default function ProfessionalTimeline() {
                         <span className="text-xs font-medium text-gray-500">
                           {isCompleted ? "Completed" : isActive ? "In Progress" : "Upcoming"}
                         </span>
-                        <span className="text-xs text-gray-400">
-                          {isCompleted ? "100%" : isActive ? "70%" : "0%"}
-                        </span>
+                        <span className="text-xs text-gray-400">{isCompleted ? "100%" : isActive ? "70%" : "0%"}</span>
                       </div>
                       <div className="h-1 bg-gray-100 rounded-full overflow-hidden">
                         <motion.div
@@ -311,19 +425,36 @@ export default function ProfessionalTimeline() {
                     </div>
                   </motion.div>
                 )
+
                 return (
                   <div key={index} className="relative flex flex-col items-center">
                     {!isBelow && (
                       <div className="mb-20 lg:mb-40">
                         {Card}
-                        <motion.div className="w-px h-8 mx-auto" animate={{ backgroundColor: isActive ? "#cf21c3" : "#d1d5db" }} />
+                        <motion.div
+                          className="w-px h-8 mx-auto"
+                          initial={{ scaleY: 0 }}
+                          whileInView={{ scaleY: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, delay: index * 0.2 + 0.8 }}
+                          animate={{ backgroundColor: isActive ? "#cf21c3" : "#d1d5db" }}
+                        />
                       </div>
                     )}
+
                     <motion.div
                       ref={(el) => (dotRefs.current[index] = el)}
                       onClick={() => handleStepClick(index)}
-                      animate={{ scale: isActive ? 1.1 : 1 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileInView={{ opacity: 1, scale: isActive ? 1.1 : 1 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20,
+                        delay: index * 0.15 + 0.7,
+                      }}
+                      whileHover={{ scale: 1.2 }}
                       className="relative cursor-pointer z-50"
                     >
                       <div
@@ -344,9 +475,17 @@ export default function ProfessionalTimeline() {
                         )}
                       </div>
                     </motion.div>
+
                     {isBelow && (
                       <div className="mt-20 lg:mt-40">
-                        <motion.div className="w-px h-8 mx-auto" animate={{ backgroundColor: isActive ? "#cf21c3" : "#d1d5db" }} />
+                        <motion.div
+                          className="w-px h-8 mx-auto"
+                          initial={{ scaleY: 0 }}
+                          whileInView={{ scaleY: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, delay: index * 0.2 + 0.8 }}
+                          animate={{ backgroundColor: isActive ? "#cf21c3" : "#d1d5db" }}
+                        />
                         {Card}
                       </div>
                     )}
@@ -355,13 +494,24 @@ export default function ProfessionalTimeline() {
               })}
             </div>
           </div>
-        </div>
-        {/* Dots Navigation */}
-        <div className="flex justify-center mt-12 gap-2">
+        </motion.div>
+
+        <motion.div
+          className="flex justify-center mt-12 gap-2"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 1.2 }}
+        >
           {steps.map((_, index) => (
-            <button
+            <motion.button
               key={index}
               onClick={() => handleStepClick(index)}
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 + 1.3, type: "spring", stiffness: 300 }}
+              whileHover={{ scale: 1.3 }}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
                 index === currentStep
                   ? "bg-[#cf21c3] scale-125"
@@ -371,18 +521,26 @@ export default function ProfessionalTimeline() {
               }`}
             />
           ))}
-        </div>
-        {/* CTA Button */}
-        <div className="flex justify-center mt-12">
-          <a
+        </motion.div>
+
+        <motion.div
+          className="flex justify-center mt-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 1.4 }}
+        >
+          <motion.a
             href="https://calendly.com/saadalii/kayidigital"
             target="_blank"
             rel="noopener noreferrer"
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.98 }}
             className="bg-[#cf21c3] text-white text-base font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#b91aad] transition-all duration-300"
           >
             Book a Free Consultation
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
       </div>
     </section>
   )

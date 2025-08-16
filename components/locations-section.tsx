@@ -1,117 +1,133 @@
 "use client"
 
-import { useState } from "react"
-import { Settings, Users, Target } from "lucide-react"
+import { useState, useEffect, useRef } from "react"
+import { MapPin } from "lucide-react"
 
 interface Location {
   id: string
   country: string
-  address: string
   x: number // percentage from left
   y: number // percentage from top
 }
 
 const locations: Location[] = [
   {
+    id: "usa",
+    country: "USA",
+    x: 22, // USA
+    y: 35,
+  },
+  {
+    id: "uae",
+    country: "UAE",
+    x: 65, // Middle East
+    y: 42,
+  },
+  {
     id: "canada",
     country: "Canada",
-    address: "140 Doubtfire Cres, Markham, ON, Canada",
-    x: 20, // North America position
+    x: 20, // Canada
     y: 25,
   },
   {
     id: "uk",
     country: "United Kingdom",
-    address: "International House, 12 Constance St, London E16 2DQ, United Kingdom",
-    x: 50, // Europe position
-    y: 30,
+    x: 50, // Europe
+    y: 28,
   },
   {
     id: "pakistan",
     country: "Pakistan",
-    address: "Suite 33-35, 7th Floor, Plot Nos. 68 & 69, Kayani Shaheed Road, Karachi, Pakistan",
-    x: 70, // Asia position
-    y: 45,
+    x: 70, // South Asia
+    y: 38,
   },
 ]
 
 export default function LocationsSection() {
   const [hoveredLocation, setHoveredLocation] = useState<string | null>(null)
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+        }
+      },
+      { threshold: 0.3 },
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
 
   return (
-    <section className="bg-black text-white py-12 px-4 relative overflow-hidden">
+    <section ref={sectionRef} className="bg-black text-white py-20 px-4 relative overflow-hidden">
       <div className="absolute inset-0">
-        {/* Animated gradient orbs */}
-        <div className="absolute top-10 left-10 w-96 h-96 bg-gradient-to-r from-pink-500/30 to-[#cf21c3]/25 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/70" />
         <div
-          className="absolute bottom-10 right-10 w-80 h-80 bg-gradient-to-l from-[#cf21c3]/25 to-pink-400/30 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "1s" }}
+          className="absolute inset-0 bg-gradient-to-br from-gray-900/30 via-transparent to-gray-900/30 animate-pulse"
+          style={{ animationDuration: "4s" }}
         ></div>
         <div
-          className="absolute top-1/3 right-1/4 w-64 h-64 bg-gradient-to-br from-pink-600/20 to-[#cf21c3]/15 rounded-full blur-2xl animate-pulse"
-          style={{ animationDelay: "2s" }}
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#cf21c3]/8 rounded-full blur-3xl animate-pulse"
+          style={{ animationDuration: "6s" }}
         ></div>
         <div
-          className="absolute bottom-1/3 left-1/3 w-72 h-72 bg-gradient-to-tr from-[#cf21c3]/20 to-pink-500/25 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "0.5s" }}
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#cf21c3]/5 rounded-full blur-3xl animate-pulse"
+          style={{ animationDuration: "8s", animationDelay: "2s" }}
         ></div>
-        {/* Floating particles effect */}
-        <div
-          className="absolute top-20 left-1/2 w-2 h-2 bg-pink-400 rounded-full animate-bounce opacity-60"
-          style={{ animationDelay: "0.2s" }}
-        ></div>
-        <div
-          className="absolute top-40 right-1/3 w-1 h-1 bg-[#cf21c3] rounded-full animate-bounce opacity-80"
-          style={{ animationDelay: "1.5s" }}
-        ></div>
-        <div
-          className="absolute bottom-32 left-1/4 w-1.5 h-1.5 bg-pink-300 rounded-full animate-bounce opacity-70"
-          style={{ animationDelay: "0.8s" }}
-        ></div>
-        <div
-          className="absolute top-1/2 left-1/5 w-1 h-1 bg-pink-500 rounded-full animate-bounce opacity-50"
-          style={{ animationDelay: "1.2s" }}
-        ></div>
-        <div
-          className="absolute bottom-1/4 right-1/5 w-2 h-2 bg-[#cf21c3] rounded-full animate-bounce opacity-40"
-          style={{ animationDelay: "2.5s" }}
-        ></div>
-        {/* Gradient mesh overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-pink-900/5 to-[#cf21c3]/10"></div>
       </div>
 
-      <div className="max-w-5xl mx-auto text-center relative z-10">
-        {/* Header */}
-        <div className="mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white drop-shadow-2xl">
-            Pioneering Digital Innovation Across
+      <div className="max-w-7xl mx-auto text-center relative z-10">
+        <div className="mb-16">
+          <h2
+            className={`text-4xl md:text-6xl font-bold mb-6 text-white leading-tight transition-all duration-1200 ease-out ${
+              isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-20 scale-90"
+            }`}
+          >
+            <span
+              className={`inline-block transition-all duration-1000 delay-300 ease-out ${
+                isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-16 scale-85"
+              }`}
+            >
+              Pioneering Digital Innovation Across
+            </span>
             <br />
-          3 Countries
+            <span
+              className={`text-[#cf21c3] inline-block transition-all duration-1000 delay-500 ease-out ${
+                isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-12 scale-80"
+              }`}
+            >
+             The Globe
+            </span>
           </h2>
-          <p className="text-gray-300 text-base max-w-2xl mx-auto leading-relaxed">
-            We deliver cutting-edge solutions that transform businesses globally. Our expertise spans continents,
-            partnering with clients worldwide to achieve extraordinary results.
+          <p
+            className={`text-gray-300 text-lg max-w-4xl mx-auto leading-relaxed transition-all duration-1000 delay-700 ease-out ${
+              isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-8 scale-95"
+            }`}
+          >
+            We're proud to deliver cutting-edge, expert solutions that transform businesses and drive innovation. Our
+            expertise knows no boundaries, enabling us to partner with clients around the world to achieve extraordinary
+            results.
           </p>
         </div>
 
-        <div className="h-1 bg-gradient-to-r from-transparent via-[#cf21c3] to-transparent mb-8 animate-pulse shadow-lg shadow-pink-500/30"></div>
+        <div className="relative mb-20">
+          <div className="relative w-full max-w-5xl mx-auto h-80 md:h-96">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <img
+                src="https://hashpotato.io/wp-content/uploads/2024/07/Digital-Agency-Contact-World-Image-1-1536x679.webp"
+                alt="World Map"
+                className="max-w-full max-h-full object-contain opacity-60"
+              />
+            </div>
 
-        {/* World Map */}
-        <div className="relative mb-12">
-          <div className="relative w-full max-w-3xl mx-auto h-64">
-            <div
-              className="absolute inset-0 opacity-40"
-              style={{
-                backgroundImage: `radial-gradient(circle, #666 1px, transparent 1px)`,
-                backgroundSize: "6px 6px",
-                maskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 500'%3E%3Cpath d='M150 100c50-20 100-10 150 0s100 20 150 10 100-30 150-20 100 40 150 30c30-5 50-15 50-15v300c0 0-20 10-50 15-50 10-100-30-150-30s-100 30-150 20-100-20-150-10-100 10-150 0-100-20-150 0v-300z' fill='white'/%3E%3C/svg%3E")`,
-                maskSize: "contain",
-                maskRepeat: "no-repeat",
-                maskPosition: "center",
-              }}
-            />
-
-            {/* Location Pins */}
             {locations.map((location, index) => (
               <div
                 key={location.id}
@@ -123,25 +139,42 @@ export default function LocationsSection() {
                 onMouseEnter={() => setHoveredLocation(location.id)}
                 onMouseLeave={() => setHoveredLocation(null)}
               >
-                {/* Pin */}
+                <div
+                  className="absolute inset-0 w-20 h-20 bg-[#cf21c3]/20 rounded-full animate-ping"
+                  style={{ animationDelay: `${index * 0.8}s`, animationDuration: "3s" }}
+                />
+                <div
+                  className="absolute inset-0 w-16 h-16 bg-[#cf21c3]/30 rounded-full animate-ping"
+                  style={{ animationDelay: `${index * 0.6}s`, animationDuration: "2.5s" }}
+                />
+                <div
+                  className="absolute inset-0 w-12 h-12 bg-[#cf21c3]/40 rounded-full animate-ping"
+                  style={{ animationDelay: `${index * 0.4}s`, animationDuration: "2s" }}
+                />
+                <div
+                  className="absolute inset-0 w-8 h-8 bg-[#cf21c3]/50 rounded-full animate-ping"
+                  style={{ animationDelay: `${index * 0.2}s`, animationDuration: "1.5s" }}
+                />
+
                 <div className="relative">
                   <div
-                    className="w-5 h-5 bg-[#cf21c3] rounded-full border-2 border-white shadow-lg group-hover:scale-125 transition-transform duration-200 animate-pulse"
-                    style={{ animationDelay: `${index * 0.5}s` }}
-                  />
-                  <div
-                    className="absolute inset-0 w-5 h-5 bg-[#cf21c3] rounded-full opacity-30 animate-ping"
-                    style={{ animationDelay: `${index * 0.7}s` }}
+                    className="w-6 h-6 bg-[#cf21c3] rounded-full shadow-lg group-hover:scale-150 transition-all duration-500 animate-pulse border-2 border-white/50"
+                    style={{
+                      boxShadow:
+                        "0 0 30px rgba(207, 33, 195, 0.8), 0 0 20px rgba(207, 33, 195, 0.6), 0 0 10px rgba(207, 33, 195, 0.4)",
+                      animationDuration: "1.5s",
+                      animationDelay: `${index * 0.3}s`,
+                    }}
                   />
                 </div>
 
-                {/* Tooltip */}
                 {hoveredLocation === location.id && (
-                  <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 bg-white text-slate-800 p-3 rounded-xl shadow-2xl min-w-56 z-10 border border-slate-200">
-                    <div className="font-semibold text-sm mb-1 text-[#cf21c3]">{location.country}</div>
-                    <div className="text-xs text-slate-600 leading-relaxed">{location.address}</div>
-                    {/* Arrow */}
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-3 border-r-3 border-t-3 border-transparent border-t-white" />
+                  <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 bg-white text-slate-800 p-3 rounded-xl shadow-2xl min-w-32 z-20 border border-slate-200 animate-in fade-in-0 zoom-in-95 duration-300">
+                    <div className="flex items-center justify-center gap-2">
+                      <MapPin className="w-4 h-4 text-[#cf21c3]" />
+                      <div className="font-bold text-[#cf21c3] text-center">{location.country}</div>
+                    </div>
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-white" />
                   </div>
                 )}
               </div>
@@ -149,38 +182,52 @@ export default function LocationsSection() {
           </div>
         </div>
 
-        <div className="h-1 bg-gradient-to-r from-transparent via-[#cf21c3] to-transparent mb-8 animate-pulse shadow-lg shadow-pink-500/30"></div>
-
-        {/* Feature Boxes */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           <div className="text-center group">
-            <div className="w-12 h-12 bg-[#cf21c3] rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-200 shadow-lg">
-              <Settings className="w-6 h-6 text-white" />
+            <div className="w-16 h-16 mx-auto mb-4 bg-[#cf21c3]/10 rounded-full flex items-center justify-center group-hover:bg-[#cf21c3]/20 transition-all duration-500 group-hover:scale-110">
+              <svg className="w-8 h-8 text-[#cf21c3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                />
+              </svg>
             </div>
-            <h3 className="text-lg font-semibold mb-2 text-white">Client-Centric Approach</h3>
-            <p className="text-gray-300 text-sm leading-relaxed">
-              We prioritize your satisfaction, tailoring services to meet specific requirements and ensure optimal
-              outcomes.
+            <h3 className="text-xl font-semibold text-white mb-2">Client-Centric Approach</h3>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              We prioritize your satisfaction, tailoring our services to meet your specific requirements and ensure
+              optimal outcomes.
             </p>
           </div>
 
           <div className="text-center group">
-            <div className="w-12 h-12 bg-[#cf21c3] rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-200 shadow-lg">
-              <Users className="w-6 h-6 text-white" />
+            <div className="w-16 h-16 mx-auto mb-4 bg-[#cf21c3]/10 rounded-full flex items-center justify-center group-hover:bg-[#cf21c3]/20 transition-all duration-500 group-hover:scale-110">
+              <svg className="w-8 h-8 text-[#cf21c3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                />
+              </svg>
             </div>
-            <h3 className="text-lg font-semibold mb-2 text-white">Expert Team</h3>
-            <p className="text-gray-300 text-sm leading-relaxed">
+            <h3 className="text-xl font-semibold text-white mb-2">Expert Team</h3>
+            <p className="text-gray-400 text-sm leading-relaxed">
               Our team comprises professionals with expertise across various technologies, ensuring top-quality results.
             </p>
           </div>
 
           <div className="text-center group">
-            <div className="w-12 h-12 bg-[#cf21c3] rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-200 shadow-lg">
-              <Target className="w-6 h-6 text-white" />
+            <div className="w-16 h-16 mx-auto mb-4 bg-[#cf21c3]/10 rounded-full flex items-center justify-center group-hover:bg-[#cf21c3]/20 transition-all duration-500 group-hover:scale-110">
+              <svg className="w-8 h-8 text-[#cf21c3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
             </div>
-            <h3 className="text-lg font-semibold mb-2 text-white">Innovative Solutions</h3>
-            <p className="text-gray-300 text-sm leading-relaxed">
-              We leverage technology to create solutions that address unique challenges, driving growth and efficiency.
+            <h3 className="text-xl font-semibold text-white mb-2">Innovative Solutions</h3>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              We leverage technology to create solutions that address your unique challenges, driving growth and
+              efficiency.
             </p>
           </div>
         </div>
