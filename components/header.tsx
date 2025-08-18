@@ -1,4 +1,5 @@
 "use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -10,14 +11,17 @@ import { usePathname } from "next/navigation"
 export default function Header() {
   const [isSheetOpen, setIsSheetOpen] = useState(false)
   const pathname = usePathname()
+
   const menuItems = [
     { name: "Home", targetClass: ".home", href: "/" },
     { name: "Our Process", targetClass: ".aboutus" },
+    { name: "Our Presence", targetClass: ".locations" },
     { name: "Services", targetClass: ".services" },
     { name: "Portfolio", targetClass: ".portfolio" },
     { name: "Testimonials", targetClass: ".testimonials" },
     { name: "Contact", targetClass: ".contact" },
   ]
+
   const scrollToSection = (selector: string) => {
     const section = document.querySelector(selector)
     if (section) {
@@ -25,6 +29,7 @@ export default function Header() {
       setIsSheetOpen(false)
     }
   }
+
   const navLinks = (
     <>
       {menuItems.map((item, i) => {
@@ -40,6 +45,7 @@ export default function Header() {
             </Link>
           )
         }
+
         if (pathname === "/") {
           return (
             <button
@@ -51,6 +57,7 @@ export default function Header() {
             </button>
           )
         }
+
         return (
           <Link
             key={i}
@@ -63,6 +70,7 @@ export default function Header() {
       })}
     </>
   )
+
   return (
     <header className="flex items-center justify-between px-3 md:px-5 lg:px-8 py-1 bg-[#f8f8f8] sticky top-0 z-50 shadow-sm">
       {/* Logo */}
@@ -77,10 +85,12 @@ export default function Header() {
           />
         </Link>
       </div>
+
       {/* Center Nav Links */}
       <nav className="hidden lg:flex items-center gap-4 text-black absolute left-1/2 transform -translate-x-1/2">
         {navLinks}
       </nav>
+
       {/* Right-side Buttons */}
       <div className="flex items-center gap-1.5">
         <Link href="/book-call">
@@ -88,6 +98,7 @@ export default function Header() {
             Book a Call
           </Button>
         </Link>
+
         {/* Mobile Menu */}
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetTrigger asChild className="lg:hidden">
@@ -107,6 +118,7 @@ export default function Header() {
                 className="h-auto"
               />
             </div>
+
             {/* Navigation Links */}
             <nav className="flex flex-col gap-6 text-center">
               {menuItems.map((item, i) => {
@@ -122,6 +134,7 @@ export default function Header() {
                     </Link>
                   )
                 }
+
                 if (pathname === "/") {
                   return (
                     <button
@@ -133,6 +146,7 @@ export default function Header() {
                     </button>
                   )
                 }
+
                 return (
                   <Link
                     key={i}
@@ -145,6 +159,7 @@ export default function Header() {
                 )
               })}
             </nav>
+
             {/* Call to Action Button */}
             <div className="mt-auto pt-8">
               <Link href="/book-call">

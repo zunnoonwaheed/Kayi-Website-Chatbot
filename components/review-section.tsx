@@ -132,41 +132,8 @@ export default function ReviewsSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
           >
-            <span
-              className={`font-bold inline-block transition-all duration-800 delay-800 ${
-                isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
-              }`}
-            >
-              Every
-            </span>{" "}
-            <span
-              className={`inline-block transition-all duration-800 delay-900 ${
-                isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"
-              }`}
-            >
-              business has potential. Here's how we've helped companies unlock theirs through
-            </span>{" "}
-            <span
-              className={`font-semibold text-gray-800 inline-block transition-all duration-800 delay-1000 ${
-                isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-2"
-              }`}
-            >
-              custom solutions
-            </span>{" "}
-            <span
-              className={`inline-block transition-all duration-800 delay-1100 ${
-                isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
-              }`}
-            >
-              that actually
-            </span>{" "}
-            <span
-              className={`font-semibold text-gray-800 inline-block transition-all duration-800 delay-1200 ${
-                isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-6"
-              }`}
-            >
-              move the needle
-            </span>
+            Every business has potential. Here's how we've helped companies unlock theirs through tailored solutions
+            that deliver real results.
           </p>
         </div>
 
@@ -319,7 +286,7 @@ function CardText({
           className={`absolute top-16 left-16 w-12 h-12 ${accentColor} rounded-full group-hover:translate-y-2 transition-transform duration-500`}
         />
         <div
-          className={`absolute bottom-32 right-20 w-10 h-18 ${shapeColor} rounded-full group-hover:-translate-y-1 transition-transform duration-700`}
+          className={`absolute bottom-32 right-20 w-10 h-18 ${shapeColor} rounded-full transform rotate-12 group-hover:scale-90 transition-transform duration-600`}
         />
         <div
           className={`absolute top-1/2 right-8 w-14 h-8 ${accentColor} rounded-full group-hover:translate-x-2 transition-transform duration-600`}

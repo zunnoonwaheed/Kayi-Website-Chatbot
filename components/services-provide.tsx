@@ -35,23 +35,30 @@ export default function ServicesSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   return (
-    <section id="services-section" className="services py-12 md:py-24 lg:py-32 bg-white relative overflow-hidden">
+    <section id="services-section" className="services py-12 md:py-24 lg:py-32 relative overflow-hidden">
+      <div className="absolute inset-0 w-full h-full">
+        <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-20">
+          <source src="https://r2.nas.media/header-background.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-white/80" />
+      </div>
+
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 0.1, scale: 1 }}
         transition={{ duration: 1.5, ease: "easeOut" }}
         viewport={{ once: true }}
-        className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-[#ec67d5] to-[#fcdcf7] rounded-full blur-3xl"
+        className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-[#ec67d5] to-[#fcdcf7] rounded-full blur-3xl z-10"
       />
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 0.1, scale: 1 }}
         transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
         viewport={{ once: true }}
-        className="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-br from-[#fcdcf7] to-[#ec67d5] rounded-full blur-3xl"
+        className="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-br from-[#fcdcf7] to-[#ec67d5] rounded-full blur-3xl z-10"
       />
 
-      <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-20">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}

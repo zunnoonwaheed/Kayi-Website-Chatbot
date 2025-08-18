@@ -43,7 +43,6 @@ export default function Home() {
 
     initializeLandbot()
     const timer = setTimeout(initializeLandbot, 2000)
-
     return () => clearTimeout(timer)
   }, [])
 
@@ -57,11 +56,11 @@ export default function Home() {
         <section id="aboutus" className="aboutus">
           <ProcessSection />
         </section>
-        <section id="services" className="services">
-          <ServicesSection />
-        </section>
         <section id="locations" className="locations">
           <LocationsSection />
+        </section>
+        <section id="services" className="services">
+          <ServicesSection />
         </section>
         <section id="portfolio" className="portfolio">
           <Marquee />
@@ -77,10 +76,8 @@ export default function Home() {
           <div className="text-center mt-8"></div>
         </section>
       </main>
-
       {/* ✅ Chatbot widget added */}
       <KayiChatbot />
-
       <Footer />
     </div>
   )

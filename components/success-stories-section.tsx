@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState, useRef, useEffect } from "react"
 import { motion } from "framer-motion"
-import { ChevronDown, ArrowRight, Palette, Zap, ShoppingBag, Leaf, Code, ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronDown, ArrowRight, Palette, Zap, ShoppingBag, Leaf, Code, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -34,7 +34,7 @@ interface Project {
 const projects: Project[] = [
   {
     id: "cover-up-paints",
-    title: "COVER UP PAINTS LTD.",
+    title: "Cover up paints ltd.",
     subtitle: "Social Media Aesthetic Transformation",
     description:
       "Cover Up Paints wanted to elevate their social media presence to better reflect their premium paint brand. We developed a cohesive visual strategy with consistent colors, fonts, and styling that strengthened their brand recognition.",
@@ -42,7 +42,7 @@ const projects: Project[] = [
       "Cover Up Paints wanted to elevate their social media presence to better reflect their premium paint brand. We developed a cohesive visual strategy with consistent colors, fonts, and styling that strengthened their brand recognition. The new aesthetic helped their content stand out and better connect with their target audience.",
     image: "./images/kayi-suc2.jpeg",
     expandedImage: "./images/kayi-suc1.jpeg",
-    categories: ["Performance Marketing", "Brand Identity & Design", "SEO & Content Marketing", "Business Outsourcing"],
+    categories: ["Performance Marketing", "Brand Identity & Design", "SEO & Content Marketing"],
     icon: <Palette className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
     technologies: ["Canva", "Adobe Photoshop", "Instagram", "Facebook"],
@@ -53,7 +53,7 @@ const projects: Project[] = [
   },
   {
     id: "rejuuv-beauty",
-    title: "REJUUV BEAUTY",
+    title: "Rejuuv beauty",
     subtitle: "Complete Beauty Brand Build & E-commerce Platform",
     description:
       "We built Rejuuv from the ground up, creating everything from their brand identity to their complete e-commerce platform. This included designing their logo and visual identity, developing a custom Shopify store, managing their social media presence, and running targeted marketing campaigns.",
@@ -61,7 +61,7 @@ const projects: Project[] = [
       "We built Rejuuv from the ground up, creating everything from their brand identity to their complete e-commerce platform. This included designing their logo and visual identity, developing a custom Shopify store, managing their social media presence, and running targeted marketing campaigns. We also handled product photography and lifestyle content creation to showcase their beauty and wellness products.",
     image: "./images/kayi2.jpeg",
     expandedImage: "./images/kayi-success1.jpeg",
-    categories: ["E-commerce Development", "Mobile App Development", "Business Outsourcing", "CRM & Sales Systems"],
+    categories: ["E-commerce Development", "Mobile App Development", "CRM & Sales Systems"],
     icon: <ShoppingBag className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
     technologies: ["Shopify Plus", "Adobe Creative Suite", "Instagram & Facebook", "Facebook Ads"],
@@ -77,7 +77,7 @@ const projects: Project[] = [
   },
   {
     id: "pel-paints",
-    title: "PEL Paints",
+    title: "Pel paints",
     subtitle: "Social Media Content Creation",
     description:
       "PEL Paints wanted to enhance their social media presence to better showcase their paint brand and products. We created a series of professional social media posts with consistent branding that highlighted their paint solutions and quality.",
@@ -85,7 +85,7 @@ const projects: Project[] = [
       "PEL Paints wanted to enhance their social media presence to better showcase their paint brand and products. We created a series of professional social media posts with consistent branding that highlighted their paint solutions and quality. The content helped establish their digital presence and improved engagement with their target customers.",
     image: "./images/kayi3.jpeg",
     expandedImage: "./images/kayi-success2.jpeg",
-    categories: ["Performance Marketing", "Brand Identity & Design", "Business Outsourcing"],
+    categories: ["Performance Marketing", "Brand Identity & Design"],
     icon: <Palette className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
     technologies: ["Canva", "Adobe Photoshop", "Instagram", "Facebook"],
@@ -96,7 +96,7 @@ const projects: Project[] = [
   },
   {
     id: "saint-draper",
-    title: "SAINT DRAPER",
+    title: "Saint draper",
     subtitle: "Luxury Leather Brand Development",
     description:
       "We built Saint Draper from the ground up as a leather brand specializing in wallets and card holders. Our work included creating their complete brand identity and logo design, developing stunning 3D product models for marketing, and managing their social media presence.",
@@ -104,7 +104,7 @@ const projects: Project[] = [
       "We built Saint Draper from the ground up as a leather brand specializing in wallets and card holders. Our work included creating their complete brand identity and logo design, developing stunning 3D product models for marketing, and managing their social media presence. We established their brand positioning in the quality leather goods market with sophisticated visual content.",
     image: "./images/kayi4.jpeg",
     expandedImage: "./images/kayi-success4.jpeg",
-    categories: ["Brand Identity & Design", "Custom Software Solutions", "Business Outsourcing"],
+    categories: ["Brand Identity & Design", "Custom Software Solutions"],
     icon: <Code className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
     technologies: ["Blender 3D", "Adobe Creative Suite", "Instagram & Facebook", "Brand Design Tools"],
@@ -128,7 +128,7 @@ const projects: Project[] = [
       "We developed Mirakl as a complete skincare and antibacterial towel brand from concept to market. Our comprehensive approach included creating their logo and brand identity, designing product packaging that stands out on shelves, building their e-commerce website, and managing their social media presence. We established their brand positioning in the health and wellness market.",
     image: "./images/kayi-suc5.jpeg",
     expandedImage: "./images/kayi-success3.jpeg",
-    categories: ["E-commerce Development", "Brand Identity & Design", "Performance Marketing", "Business Outsourcing"],
+    categories: ["E-commerce Development", "Brand Identity & Design", "Performance Marketing"],
     icon: <Leaf className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
     technologies: ["Adobe Creative Suite", "WordPress", "Instagram & Facebook", "Packaging Design"],
@@ -144,7 +144,7 @@ const projects: Project[] = [
   },
   {
     id: "cordwood-covers",
-    title: "CORDWOOD covers",
+    title: "Cordwood covers",
     subtitle: "Complete E-commerce Store for Outdoor Storage Solutions",
     description:
       "We developed a comprehensive Shopify e-commerce store for Cordwood Covers, specializing in waterproof firewood protection solutions. This project involved creating responsive product pages with high-quality imagery, implementing educational content sections with integrated blog functionality, and optimizing the entire user experience for outdoor enthusiasts.",
@@ -169,7 +169,7 @@ const projects: Project[] = [
   },
   {
     id: "squid-notes",
-    title: "SQUID notes",
+    title: "Squid notes",
     subtitle: "Handwritten Note-Taking App with Professional PDF Annotation",
     description:
       "We developed Squid Notes to address the gap in digital note-taking apps that compromised on handwriting quality or lacked essential features for students and professionals. Our solution features vector-based rendering for crisp text at any zoom level, integrated PDF markup capabilities, advanced stylus support, and intelligent notebook organization with cloud synchronization.",
@@ -194,7 +194,7 @@ const projects: Project[] = [
   },
   {
     id: "cal-com",
-    title: "CAL.com",
+    title: "Cal.com",
     subtitle: "Advanced Mobile-First Database Management App",
     description:
       "We built a comprehensive cross-platform database interface app using React Native and Node.js, empowering users to create, manage, and collaborate on structured data in real-time. The solution features a robust multi-tenant architecture with PostgreSQL backend, AWS cloud infrastructure, and WebSocket integration for seamless live collaboration.",
@@ -225,7 +225,7 @@ const projects: Project[] = [
   },
   {
     id: "mem-ai",
-    title: "MEM",
+    title: "Mem",
     subtitle: "AI-Powered Knowledge Management & Note-Taking App",
     description:
       "We developed Mem to solve the challenge of fragmented knowledge management that leads to lost insights and inefficient workflows for professionals and researchers. Our AI-driven notes app features intelligent linking, automatic content suggestions, and contextual retrieval powered by advanced machine learning algorithms.",
@@ -256,7 +256,7 @@ const projects: Project[] = [
   },
   {
     id: "dawn-and-dusk-jewelry",
-    title: "DAWNANDDUSKJEWELRY.com",
+    title: "Dawnandduskjewelry.com",
     subtitle: "E-commerce Store for Artisan Jewelry Brand",
     description:
       "We developed an elegant, brand-focused e-commerce store for Dawn and Dusk Jewelry, a mother-daughter artisan jewelry business specializing in handcrafted sterling silver and gemstone pieces. The design integrates compelling storytelling elements that highlight the family business heritage, while implementing blog functionality for travel and lifestyle content that connects with their audience.",
@@ -281,7 +281,7 @@ const projects: Project[] = [
   },
   {
     id: "getvoila-com",
-    title: "GETVOILA.com",
+    title: "Getvoila.com",
     subtitle: "Premium German Gourmet Food Delivery Platform",
     description:
       "We developed a sophisticated e-commerce platform for Voilà, connecting discerning customers with restaurant-quality frozen meals crafted by international star chefs. The premium German delivery service features advanced scheduled delivery options, comprehensive multi-language support, and a seamless checkout flow optimized for high-end culinary experiences.",
@@ -312,7 +312,7 @@ const projects: Project[] = [
   },
   {
     id: "wecare-doctor",
-    title: "WECARE doctor",
+    title: "Wecare doctor",
     subtitle: "UI/UX Design for Telemedicine Platform",
     description:
       "We designed a comprehensive user interface and experience for WeCare Doctor, a telemedicine platform connecting patients with healthcare professionals. Created intuitive user flows for video consultations, streamlined appointment booking interfaces, and responsive design systems optimized for both patient and doctor experiences.",
@@ -345,7 +345,6 @@ const categories = [
   "Mobile App Development",
   "Custom Software Solutions",
   "E-commerce Development",
-  "Business Outsourcing",
   "AI & Automation Tools",
   "CRM & Sales Systems",
   "Brand Identity & Design",
@@ -747,6 +746,7 @@ export default function SuccessStoriesSection() {
                     className="group cursor-pointer transition-all duration-500 ease-out flex-shrink-0 snap-center w-[calc(100vw-64px)] md:w-[calc(40vw-48px)] lg:w-[calc(25vw-48px)] hover:scale-[1.02]"
                     onMouseEnter={() => setHoveredCard(project.id)}
                     onMouseLeave={() => setHoveredCard(null)}
+                    onClick={() => handleReadMore(project.id)}
                     initial={{ opacity: 0, y: 50, scale: 0.9 }}
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ once: true, amount: 0.2 }}
@@ -782,7 +782,7 @@ export default function SuccessStoriesSection() {
                       </motion.div>
                       <div className="p-4 md:p-8 flex-1 flex flex-col w-full">
                         <motion.h3
-                          className="text-lg md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors duration-300"
+                          className="text-base md:text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors duration-300"
                           initial={{ opacity: 0 }}
                           whileInView={{ opacity: 1 }}
                           transition={{ delay: 0.2 }}
@@ -790,7 +790,7 @@ export default function SuccessStoriesSection() {
                           {project.title}
                         </motion.h3>
                         <motion.h4
-                          className="text-sm md:text-lg font-semibold text-gray-600 mb-3 line-clamp-2"
+                          className="text-xs md:text-base font-semibold text-gray-600 mb-3 line-clamp-2"
                           initial={{ opacity: 0 }}
                           whileInView={{ opacity: 1 }}
                           transition={{ delay: 0.3 }}
@@ -799,7 +799,7 @@ export default function SuccessStoriesSection() {
                         </motion.h4>
                         <div className="transition-all duration-500 overflow-hidden max-h-[72px]">
                           <motion.p
-                            className="text-xs md:text-base text-gray-600 leading-relaxed mb-4 font-light flex-1 line-clamp-3"
+                            className="text-xs md:text-sm text-gray-600 leading-relaxed mb-4 font-light flex-1 line-clamp-3"
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
                             transition={{ delay: 0.4 }}
@@ -824,7 +824,10 @@ export default function SuccessStoriesSection() {
                             </span>
                           </div>
                           <motion.button
-                            onClick={() => handleReadMore(project.id)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleReadMore(project.id);
+                            }}
                             className="font-bold transition-all duration-300 text-gray-900 hover:text-gray-700 text-xs flex items-center gap-1.5"
                             whileHover={{ x: 5 }}
                             transition={{ duration: 0.2 }}
