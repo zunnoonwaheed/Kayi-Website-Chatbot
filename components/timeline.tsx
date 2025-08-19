@@ -34,6 +34,7 @@ export default function ProfessionalTimeline() {
   const [isMobile, setIsMobile] = useState(false)
   const dotRefs = useRef<(HTMLDivElement | null)[]>([])
   const [dotX, setDotX] = useState<number[]>([])
+
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768)
@@ -42,12 +43,14 @@ export default function ProfessionalTimeline() {
     window.addEventListener("resize", checkMobile)
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentStep((prev) => (prev + 1) % steps.length)
     }, 3000)
     return () => clearInterval(interval)
   }, [steps.length])
+
   useEffect(() => {
     if (isMobile) return
     const updatePositions = () => {
@@ -65,51 +68,145 @@ export default function ProfessionalTimeline() {
     window.addEventListener("resize", updatePositions)
     return () => window.removeEventListener("resize", updatePositions)
   }, [isMobile])
+
   const handleStepClick = (index: number) => {
     setCurrentStep(index)
   }
+
   // Mobile Layout
   if (isMobile) {
     return (
-      <section id="our-process-section" className="py-12 px-4 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <motion.div
-            className="absolute top-10 left-10 w-48 h-48 bg-gradient-to-r from-pink-500/15 to-[#cf21c3]/10 rounded-full blur-2xl"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
+      <section id="our-process-section" className="py-12 px-4 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div
+            className="absolute inset-0 opacity-40"
+            style={{
+              background: `linear-gradient(135deg, 
+                rgba(207, 33, 195, 0.4) 0%, 
+                rgba(255, 255, 255, 0.9) 30%, 
+                rgba(207, 33, 195, 0.1) 60%,
+                rgba(255, 255, 255, 0.9) 80%,
+                rgba(207, 33, 195, 0.3) 100%)`,
+              animation: "subtleFlow 15s ease-in-out infinite",
+            }}
+          />
+          <div
+            className="absolute inset-0 opacity-30"
+            style={{
+              background: `radial-gradient(ellipse at 20% 50%, 
+                rgba(207, 33, 195, 0.4) 0%, 
+                transparent 50%), 
+                radial-gradient(ellipse at 80% 50%, 
+                rgba(207, 33, 195, 0.2) 0%, 
+                transparent 50%)`,
+              animation: "subtleFlow 20s ease-in-out infinite reverse",
+            }}
           />
           <motion.div
-            className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-l from-[#cf21c3]/10 to-pink-400/15 rounded-full blur-2xl"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+            className="absolute top-1/4 left-1/4 w-2 h-2 bg-[#cf21c3]/20 rounded-full"
+            animate={{
+              y: [-10, 10, -10],
+              x: [-5, 5, -5],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+            }}
           />
           <motion.div
-            className="absolute top-20 left-1/2 w-1.5 h-1.5 bg-pink-400 rounded-full opacity-40"
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 0.4, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            animate={{ y: [0, -10, 0] }}
-            style={{ animationDuration: "2s", animationIterationCount: "infinite" }}
+            className="absolute top-3/4 right-1/4 w-3 h-3 bg-[#cf21c3]/15 rounded-full"
+            animate={{
+              y: [10, -10, 10],
+              x: [5, -5, 5],
+              scale: [1, 0.8, 1],
+            }}
+            transition={{
+              duration: 12,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+              delay: 2,
+            }}
+          />
+        </div>
+
+        <style jsx>{`
+          @keyframes subtleFlow {
+            0%, 100% { 
+              background: linear-gradient(135deg, 
+                rgba(207, 33, 195, 0.4) 0%, 
+                rgba(255, 255, 255, 0.9) 30%, 
+                rgba(207, 33, 195, 0.1) 60%,
+                rgba(255, 255, 255, 0.9) 80%,
+                rgba(207, 33, 195, 0.3) 100%);
+            }
+            25% { 
+              background: linear-gradient(225deg, 
+                rgba(207, 33, 195, 0.3) 0%, 
+                rgba(255, 255, 255, 0.9) 40%, 
+                rgba(207, 33, 195, 0.4) 80%,
+                rgba(255, 255, 255, 0.9) 100%);
+            }
+            50% { 
+              background: linear-gradient(315deg, 
+                rgba(207, 33, 195, 0.2) 0%, 
+                rgba(255, 255, 255, 0.9) 50%, 
+                rgba(207, 33, 195, 0.4) 100%);
+            }
+            75% { 
+              background: linear-gradient(45deg, 
+                rgba(207, 33, 195, 0.4) 0%, 
+                rgba(255, 255, 255, 0.9) 30%, 
+                rgba(207, 33, 195, 0.2) 70%,
+                rgba(255, 255, 255, 0.9) 100%);
+            }
+          }
+        `}</style>
+
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <motion.div
+            className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#cf21c3]/40 to-transparent"
+            initial={{ x: "-100%" }}
+            animate={{ x: "100%" }}
+            transition={{
+              duration: 12,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "linear",
+              repeatDelay: 3,
+            }}
           />
           <motion.div
-            className="absolute top-40 right-1/3 w-1 h-1 bg-[#cf21c3] rounded-full opacity-50"
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 0.5, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            animate={{ y: [0, -8, 0] }}
-            style={{ animationDuration: "2.5s", animationIterationCount: "infinite" }}
+            className="absolute top-3/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#cf21c3]/25 to-transparent"
+            initial={{ x: "100%" }}
+            animate={{ x: "-100%" }}
+            transition={{
+              duration: 18,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "linear",
+              repeatDelay: 5,
+            }}
+          />
+          <motion.div
+            className="absolute top-0 left-0 w-full h-full"
+            style={{
+              background: `linear-gradient(45deg, transparent 49%, rgba(207, 33, 195, 0.1) 50%, transparent 51%)`,
+            }}
+            animate={{
+              backgroundPosition: ["0% 0%", "100% 100%"],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "linear",
+            }}
           />
         </div>
 
         <div className="max-w-lg mx-auto relative z-10">
           <div className="text-center mb-12">
             <motion.div
+              className="motion.div"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -122,7 +219,15 @@ export default function ProfessionalTimeline() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <span className="font-semibold text-[#000000]">Our Process</span>
+                <motion.span
+                  className="font-semibold text-[#000000]"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.4, type: "spring", stiffness: 200 }}
+                >
+                  Our Process
+                </motion.span>
               </motion.h2>
               <motion.p
                 className="text-lg text-gray-600"
@@ -146,7 +251,7 @@ export default function ProfessionalTimeline() {
           >
             <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200" />
             <motion.div
-              className="absolute left-6 top-0 w-0.5 bg-[#cf21c3] origin-top"
+              className="absolute left-6 top-0 w-0.5 bg-[#cf21c3] origin-top shadow-[0_0_10px_rgba(207,33,195,0.5)]"
               initial={{ height: 0 }}
               whileInView={{ height: `${(currentStep / (steps.length - 1)) * 100}%` }}
               viewport={{ once: true }}
@@ -167,29 +272,55 @@ export default function ProfessionalTimeline() {
                   >
                     <motion.div
                       onClick={() => handleStepClick(index)}
-                      animate={{ scale: isActive ? 1.1 : 1 }}
+                      animate={{
+                        scale: isActive ? 1.1 : 1,
+                      }}
+                      whileHover={{ scale: 1.2 }}
                       transition={{ type: "spring", stiffness: 300, damping: 20 }}
                       className="relative cursor-pointer z-10 mr-4"
                     >
                       <div
                         className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-500 bg-white ${
-                          isCompleted ? "border-[#cf21c3]" : isActive ? "border-[#cf21c3]" : "border-gray-300"
+                          isCompleted
+                            ? "border-[#cf21c3] shadow-[0_0_15px_rgba(207,33,195,0.3)]"
+                            : isActive
+                              ? "border-[#cf21c3] shadow-[0_0_15px_rgba(207,33,195,0.3)]"
+                              : "border-gray-300"
                         }`}
                       >
                         {isCompleted ? (
-                          <div className="w-6 h-6 bg-[#cf21c3] rounded-full flex items-center justify-center">
+                          <motion.div
+                            className="w-6 h-6 bg-[#cf21c3] rounded-full flex items-center justify-center"
+                            initial={{ scale: 0, rotate: -180 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            transition={{ type: "spring", stiffness: 300, delay: 0.2 }}
+                          >
                             <Check size={12} className="text-white" />
-                          </div>
+                          </motion.div>
                         ) : (
-                          <div className={`w-3 h-3 rounded-full ${isActive ? "bg-[#cf21c3]" : "bg-gray-300"}`} />
+                          <motion.div
+                            className={`w-3 h-3 rounded-full ${isActive ? "bg-[#cf21c3]" : "bg-gray-300"}`}
+                            animate={isActive ? { scale: [1, 1.2, 1] } : {}}
+                            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                          />
                         )}
                       </div>
+                      {isActive && (
+                        <motion.div
+                          className="absolute inset-0 rounded-full border-2 border-[#cf21c3]/30"
+                          animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
+                          transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                        />
+                      )}
                     </motion.div>
                     <motion.div
                       animate={{ scale: isActive ? 1.02 : 1 }}
+                      whileHover={{ scale: 1.03, y: -2 }}
                       transition={{ duration: 0.3 }}
                       className={`flex-1 p-4 bg-white rounded-lg shadow-sm border transition-all duration-500 ${
-                        isActive ? "border-[#cf21c3]/30 shadow-md" : "border-gray-200"
+                        isActive
+                          ? "border-[#cf21c3]/30 shadow-md bg-gradient-to-br from-white to-[#cf21c3]/5"
+                          : "border-gray-200 hover:shadow-lg"
                       }`}
                     >
                       <div className="flex items-start justify-between mb-2">
@@ -238,12 +369,14 @@ export default function ProfessionalTimeline() {
           {/* Mobile Navigation Dots */}
           <div className="flex justify-center mt-8 gap-2">
             {steps.map((_, index) => (
-              <button
+              <motion.button
                 key={index}
                 onClick={() => handleStepClick(index)}
+                whileHover={{ scale: 1.3 }}
+                whileTap={{ scale: 0.9 }}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   index === currentStep
-                    ? "bg-[#cf21c3] scale-125"
+                    ? "bg-[#cf21c3] scale-125 shadow-[0_0_8px_rgba(207,33,195,0.5)]"
                     : index < currentStep
                       ? "bg-[#cf21c3]/60"
                       : "bg-gray-300"
@@ -251,16 +384,17 @@ export default function ProfessionalTimeline() {
               />
             ))}
           </div>
-          {/* CTA Button */}
           <div className="flex justify-center mt-12">
-            <a
+            <motion.a
               href="https://calendly.com/saadalii/kayidigital"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#cf21c3] text-white text-sm font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#b91aad] transition-all duration-300"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-[#cf21c3] text-white text-sm font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#b91aad] transition-all duration-300 hover:shadow-[0_8px_25px_rgba(207,33,195,0.3)]"
             >
               Book a Free Consultation
-            </a>
+            </motion.a>
           </div>
         </div>
       </section>
@@ -269,41 +403,112 @@ export default function ProfessionalTimeline() {
 
   // Desktop Layout
   return (
-    <section id="our-process-section" className="py-20 px-6 bg-white relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-pink-500/15 to-[#cf21c3]/10 rounded-full blur-2xl"
-          initial={{ opacity: 0, scale: 0.8, rotate: -45 }}
-          whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
+    <section id="our-process-section" className="py-20 px-6 relative overflow-hidden">
+      <div className="absolute inset-0">
+        <div
+          className="absolute inset-0 opacity-35"
+          style={{
+            background: `linear-gradient(135deg, 
+              rgba(207, 33, 195, 0.4) 0%, 
+              rgba(255, 255, 255, 0.9) 25%, 
+              rgba(207, 33, 195, 0.15) 50%,
+              rgba(255, 255, 255, 0.9) 75%,
+              rgba(207, 33, 195, 0.3) 100%)`,
+            animation: "subtleFlowDesktop 18s ease-in-out infinite",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-25"
+          style={{
+            background: `radial-gradient(ellipse at 30% 30%, 
+              rgba(207, 33, 195, 0.4) 0%, 
+              transparent 60%), 
+              radial-gradient(ellipse at 70% 70%, 
+              rgba(207, 33, 195, 0.2) 0%, 
+              transparent 60%)`,
+            animation: "subtleFlowDesktop 25s ease-in-out infinite reverse",
+          }}
         />
         <motion.div
-          className="absolute bottom-1/4 right-1/4 w-56 h-56 bg-gradient-to-l from-[#cf21c3]/10 to-pink-400/15 rounded-full blur-2xl"
-          initial={{ opacity: 0, scale: 0.8, rotate: 45 }}
-          whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
+          className="absolute top-1/4 left-1/6 w-3 h-3 bg-[#cf21c3]/15 rounded-full"
+          animate={{
+            y: [-15, 15, -15],
+            x: [-8, 8, -8],
+            scale: [1, 1.3, 1],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "easeInOut",
+          }}
         />
         <motion.div
-          className="absolute top-20 left-1/2 w-1.5 h-1.5 bg-pink-400 rounded-full opacity-40"
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 0.4, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.6 }}
-          animate={{ y: [0, -15, 0] }}
-          style={{ animationDuration: "3s", animationIterationCount: "infinite" }}
+          className="absolute top-2/3 right-1/6 w-4 h-4 bg-[#cf21c3]/10 rounded-full"
+          animate={{
+            y: [20, -20, 20],
+            x: [10, -10, 10],
+            scale: [1, 0.7, 1],
+            rotate: [360, 180, 0],
+          }}
+          transition={{
+            duration: 16,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "easeInOut",
+            delay: 4,
+          }}
         />
         <motion.div
-          className="absolute top-40 right-1/3 w-1 h-1 bg-[#cf21c3] rounded-full opacity-50"
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 0.5, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.8 }}
-          animate={{ y: [0, -12, 0] }}
-          style={{ animationDuration: "3.5s", animationIterationCount: "infinite" }}
+          className="absolute top-1/2 left-1/2 w-2 h-2 bg-[#cf21c3]/20 rounded-full"
+          animate={{
+            y: [-10, 10, -10],
+            x: [-5, 5, -5],
+            scale: [1, 1.5, 1],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "easeInOut",
+            delay: 2,
+          }}
         />
       </div>
+
+      <style jsx>{`
+        @keyframes subtleFlowDesktop {
+          0%, 100% { 
+            background: linear-gradient(135deg, 
+              rgba(207, 33, 195, 0.4) 0%, 
+              rgba(255, 255, 255, 0.9) 25%, 
+              rgba(207, 33, 195, 0.15) 50%,
+              rgba(255, 255, 255, 0.9) 75%,
+              rgba(207, 33, 195, 0.3) 100%);
+          }
+          25% { 
+            background: linear-gradient(225deg, 
+              rgba(207, 33, 195, 0.3) 0%, 
+              rgba(255, 255, 255, 0.9) 30%, 
+              rgba(207, 33, 195, 0.4) 60%,
+              rgba(255, 255, 255, 0.9) 85%,
+              rgba(207, 33, 195, 0.2) 100%);
+          }
+          50% { 
+            background: linear-gradient(315deg, 
+              rgba(207, 33, 195, 0.2) 0%, 
+              rgba(255, 255, 255, 0.9) 35%, 
+              rgba(207, 33, 195, 0.4) 70%,
+              rgba(255, 255, 255, 0.9) 100%);
+          }
+          75% { 
+            background: linear-gradient(45deg, 
+              rgba(207, 33, 195, 0.4) 0%, 
+              rgba(255, 255, 255, 0.9) 20%, 
+              rgba(207, 33, 195, 0.25) 50%,
+              rgba(255, 255, 255, 0.9) 80%,
+              rgba(207, 33, 195, 0.2) 100%);
+          }
+        }
+      `}</style>
 
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
@@ -320,7 +525,15 @@ export default function ProfessionalTimeline() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="font-semibold text-[#000000]">Our Process</span>
+            <motion.span
+              className="font-semibold text-[#000000]"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.4, type: "spring", stiffness: 150 }}
+            >
+              Our Process
+            </motion.span>
           </motion.h2>
           <motion.p
             className="text-lg text-gray-600 max-w-xl mx-auto"
@@ -349,11 +562,10 @@ export default function ProfessionalTimeline() {
             transition={{ duration: 1.2, delay: 0.5, ease: "easeInOut" }}
           />
 
-          {/* Animated progress line */}
           {dotX.length > 0 && (
             <>
               <motion.div
-                className="absolute top-1/2 h-px bg-[#cf21c3] transform -translate-y-1/2 z-20"
+                className="absolute top-1/2 h-px bg-[#cf21c3] transform -translate-y-1/2 z-20 shadow-[0_0_10px_rgba(207,33,195,0.5)]"
                 animate={{
                   width: currentStep === 0 ? 0 : dotX[currentStep] - dotX[0],
                   x: dotX[0] || 0,
@@ -361,10 +573,16 @@ export default function ProfessionalTimeline() {
                 transition={{ duration: 0.8, ease: "easeInOut" }}
               />
               <motion.div
-                className="absolute top-1/2 w-3 h-3 bg-[#cf21c3] rounded-full transform -translate-y-1/2 z-30"
+                className="absolute top-1/2 w-3 h-3 bg-[#cf21c3] rounded-full transform -translate-y-1/2 z-30 shadow-[0_0_15px_rgba(207,33,195,0.6)]"
                 animate={{ x: dotX[currentStep] - 6 }}
                 transition={{ duration: 0.8, ease: "easeInOut" }}
-              />
+              >
+                <motion.div
+                  className="absolute inset-0 rounded-full border-2 border-[#cf21c3]/40"
+                  animate={{ scale: [1, 2], opacity: [0.6, 0] }}
+                  transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
+                />
+              </motion.div>
             </>
           )}
           <div className="relative z-40 py-16">
@@ -384,9 +602,11 @@ export default function ProfessionalTimeline() {
                       delay: index * 0.2 + 0.6,
                       ease: "easeOut",
                     }}
-                    whileHover={{ scale: 1.05, y: isBelow ? -5 : 5 }}
+                    whileHover={{ scale: 1.05, y: isBelow ? -8 : 8 }}
                     className={`w-full max-w-xs p-5 bg-white rounded-lg shadow-sm border transition-all duration-500 ${
-                      isActive ? "border-[#cf21c3]/30 shadow-lg" : "border-gray-200 hover:shadow-lg"
+                      isActive
+                        ? "border-[#cf21c3]/30 shadow-lg bg-gradient-to-br from-white to-[#cf21c3]/5"
+                        : "border-gray-200 hover:shadow-lg hover:border-[#cf21c3]/20"
                     }`}
                   >
                     <div className="flex items-start justify-between mb-3">
@@ -454,26 +674,49 @@ export default function ProfessionalTimeline() {
                         damping: 20,
                         delay: index * 0.15 + 0.7,
                       }}
-                      whileHover={{ scale: 1.2 }}
+                      whileHover={{ scale: 1.3 }}
                       className="relative cursor-pointer z-50"
                     >
                       <div
                         className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-500 bg-white ${
                           isCompleted
-                            ? "border-[#cf21c3]"
+                            ? "border-[#cf21c3] shadow-[0_0_20px_rgba(207,33,195,0.4)]"
                             : isActive
-                              ? "border-[#cf21c3]"
+                              ? "border-[#cf21c3] shadow-[0_0_20px_rgba(207,33,195,0.4)]"
                               : "border-gray-300 hover:border-gray-400"
                         }`}
                       >
                         {isCompleted ? (
-                          <div className="w-6 h-6 bg-[#cf21c3] rounded-full flex items-center justify-center">
+                          <motion.div
+                            className="w-6 h-6 bg-[#cf21c3] rounded-full flex items-center justify-center"
+                            initial={{ scale: 0, rotate: -180 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            transition={{ type: "spring", stiffness: 300, delay: 0.2 }}
+                          >
                             <Check size={12} className="text-white" />
-                          </div>
+                          </motion.div>
                         ) : (
-                          <div className={`w-3 h-3 rounded-full ${isActive ? "bg-[#cf21c3]" : "bg-gray-300"}`} />
+                          <motion.div
+                            className={`w-3 h-3 rounded-full ${isActive ? "bg-[#cf21c3]" : "bg-gray-300"}`}
+                            animate={isActive ? { scale: [1, 1.3, 1] } : {}}
+                            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                          />
                         )}
                       </div>
+                      {(isActive || isCompleted) && (
+                        <>
+                          <motion.div
+                            className="absolute inset-0 rounded-full border-2 border-[#cf21c3]/30"
+                            animate={{ scale: [1, 1.8], opacity: [0.5, 0] }}
+                            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                          />
+                          <motion.div
+                            className="absolute inset-0 rounded-full border border-[#cf21c3]/20"
+                            animate={{ scale: [1, 2.2], opacity: [0.3, 0] }}
+                            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, delay: 0.5 }}
+                          />
+                        </>
+                      )}
                     </motion.div>
 
                     {isBelow && (
@@ -511,10 +754,11 @@ export default function ProfessionalTimeline() {
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 + 1.3, type: "spring", stiffness: 300 }}
-              whileHover={{ scale: 1.3 }}
+              whileHover={{ scale: 1.4 }}
+              whileTap={{ scale: 0.9 }}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
                 index === currentStep
-                  ? "bg-[#cf21c3] scale-125"
+                  ? "bg-[#cf21c3] scale-125 shadow-[0_0_10px_rgba(207,33,195,0.6)]"
                   : index < currentStep
                     ? "bg-[#cf21c3]/60"
                     : "bg-gray-300 hover:bg-gray-400"
@@ -534,9 +778,9 @@ export default function ProfessionalTimeline() {
             href="https://calendly.com/saadalii/kayidigital"
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.05, y: -2 }}
+            whileHover={{ scale: 1.05, y: -3 }}
             whileTap={{ scale: 0.98 }}
-            className="bg-[#cf21c3] text-white text-base font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#b91aad] transition-all duration-300"
+            className="bg-[#cf21c3] text-white text-base font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#b91aad] transition-all duration-300 hover:shadow-[0_10px_30px_rgba(207,33,195,0.4)]"
           >
             Book a Free Consultation
           </motion.a>

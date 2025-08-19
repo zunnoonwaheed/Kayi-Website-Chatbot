@@ -9,7 +9,7 @@ export function DynamicFavicon() {
       const isDarkMode =
         window.matchMedia("(prefers-color-scheme: dark)").matches || document.documentElement.classList.contains("dark")
 
-      const faviconPath = isDarkMode ? "/images/Kayi-White.jpeg" : "/images/Kayi-Black.jpeg"
+      const faviconPath = isDarkMode ? "/images/Kayi-Black.png" : "/images/Kayi-White.png"
 
       // Update all favicon links
       const links = document.querySelectorAll("link[rel*='icon']")
