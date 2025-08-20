@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { MapPin } from "lucide-react"
 
 interface Location {
   id: string
@@ -79,7 +78,7 @@ export default function LocationsSection() {
                 isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-16 scale-85"
               }`}
             >
-              Pioneering Digital Innovation Across
+              Pioneering Digital Innovation  Across 
             </span>
             <br />
             <span
@@ -87,7 +86,7 @@ export default function LocationsSection() {
                 isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-12 scale-80"
               }`}
             >
-              30+ Countries
+          The Globe
             </span>
           </h2>
           <p
@@ -114,7 +113,7 @@ export default function LocationsSection() {
             {locations.map((location, index) => (
               <div
                 key={location.id}
-                className="absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer group"
+                className="absolute flex items-center justify-center cursor-pointer group"
                 style={{
                   left: `${location.x}%`,
                   top: `${location.y}%`,
@@ -122,37 +121,40 @@ export default function LocationsSection() {
                 onMouseEnter={() => setHoveredLocation(location.id)}
                 onMouseLeave={() => setHoveredLocation(null)}
               >
+                {/* Large ping circle */}
                 <div
-                  className="absolute inset-0 w-16 h-16 bg-[#cf21c3]/10 rounded-full animate-ping flex items-center justify-center"
-                  style={{ animationDelay: `${index * 1.5}s`, animationDuration: "6s" }}
+                  className="absolute w-16 h-16 bg-[#cf21c3]/10 rounded-full animate-ping"
+                  style={{
+                    animationDelay: `${index * 1.5}s`,
+                    animationDuration: "6s",
+                  }}
                 />
+                {/* Medium ping circle */}
                 <div
-                  className="absolute inset-0 w-12 h-12 bg-[#cf21c3]/20 rounded-full animate-ping flex items-center justify-center"
-                  style={{ animationDelay: `${index * 1.0}s`, animationDuration: "5s" }}
+                  className="absolute w-12 h-12 bg-[#cf21c3]/20 rounded-full animate-ping"
+                  style={{
+                    animationDelay: `${index * 1.0}s`,
+                    animationDuration: "5s",
+                  }}
+                />
+                {/* Small ping circle */}
+                <div
+                  className="absolute w-8 h-8 bg-[#cf21c3]/30 rounded-full animate-ping"
+                  style={{
+                    animationDelay: `${index * 0.5}s`,
+                    animationDuration: "4s",
+                  }}
                 />
 
-                <div className="relative flex items-center justify-center">
-                  <div
-                    className="w-4 h-4 bg-[#cf21c3] rounded-full shadow-lg group-hover:scale-150 transition-all duration-500 animate-pulse border border-[#cf21c3]/80"
-                    style={{
-                      boxShadow: "0 0 15px rgba(207, 33, 195, 0.6), 0 0 8px rgba(207, 33, 195, 0.4)",
-                      animationDuration: "4s",
-                      animationDelay: `${index * 0.8}s`,
-                    }}
-                  />
-                </div>
-
-                {hoveredLocation === location.id && (
-                  <div className="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 bg-white text-slate-800 p-2 md:p-3 rounded-xl shadow-2xl min-w-20 md:min-w-32 z-20 border border-slate-200 animate-in fade-in-0 zoom-in-95 duration-300">
-                    <div className="flex items-center justify-center gap-1 md:gap-2">
-                      <MapPin className="w-3 md:w-4 h-3 md:h-4 text-[#cf21c3]" />
-                      <div className="font-bold text-[#cf21c3] text-center text-sm md:text-base">
-                        {location.country}
-                      </div>
-                    </div>
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-white" />
-                  </div>
-                )}
+                {/* Center dot - perfectly centered using flex */}
+                <div
+                  className="w-3 h-3 bg-[#cf21c3] rounded-full shadow-lg group-hover:scale-150 transition-all duration-500 animate-pulse border border-[#cf21c3]/80 relative z-10"
+                  style={{
+                    boxShadow: "0 0 15px rgba(207, 33, 195, 0.6), 0 0 8px rgba(207, 33, 195, 0.4)",
+                    animationDuration: "4s",
+                    animationDelay: `${index * 0.8}s`,
+                  }}
+                />
               </div>
             ))}
           </div>

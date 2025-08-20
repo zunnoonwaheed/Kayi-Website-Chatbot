@@ -1,7 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import "./globals.css"  // ✅ fixed path
+import "./globals.css" 
 import { DynamicFavicon } from "@/components/dynamic-favicon"
 import { ThemeProvider } from "@/components/theme-provider"
 
@@ -10,11 +10,11 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Kayi Digital",
   description:
-    "Our AI-driven platform connects you with pre-vetted professionals in under 72 hours, significantly reducing your hiring cycle.",
+    "Your business growth should feel predictable, not like a gamble. We partner with companies who want real results they can count on.",
   openGraph: {
     title: "Kayi Digital",
     description:
-      "Our AI-driven platform connects you with pre-vetted professionals in under 72 hours, significantly reducing your hiring cycle.",
+      "Your business growth should feel predictable, not like a gamble. We partner with companies who want real results they can count on.",
     images: ["/images/Kayi-Black.png"],
   },
 }
