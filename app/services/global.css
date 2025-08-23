@@ -166,15 +166,6 @@
   animation-delay: 2000ms;
 }
 
-/* Adding additional animation delays for sophisticated page animations */
-.animation-delay-800 {
-  animation-delay: 800ms;
-}
-
-.animation-delay-1200 {
-  animation-delay: 1200ms;
-}
-
 @keyframes float {
   0%,
   100% {
@@ -201,52 +192,6 @@
 
 .animate-pulse-slow {
   animation: pulse-slow 2s ease-in-out infinite;
-}
-
-/* Adding advanced animation effects for premium design */
-@keyframes gradient-shift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient-shift 4s ease infinite;
-}
-
-@keyframes glow {
-  0%,
-  100% {
-    box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(168, 85, 247, 0.8);
-  }
-}
-
-.animate-glow {
-  animation: glow 2s ease-in-out infinite;
-}
-
-/* Enhanced hover effects for premium interactions */
-.hover-lift {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.hover-lift:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-}
-
-/* Sophisticated backdrop blur effects */
-.backdrop-blur-premium {
-  backdrop-filter: blur(20px) saturate(180%);
-  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .bg-grid-pattern {

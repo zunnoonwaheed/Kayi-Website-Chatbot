@@ -365,6 +365,19 @@ export default function KayiChatbotWithVoice() {
     }
   }, [messages, voiceEnabled])
 
+  const [showIntroPopup, setShowIntroPopup] = useState(false)
+
+  useEffect(() => {
+    // Show intro popup after 1.5 seconds when component mounts
+    const timer = setTimeout(() => {
+      setShowIntroPopup(true)
+    }, 1500)
+
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [])
+
   useEffect(() => {
     // Load saved state from localStorage
     const savedState = localStorage.getItem("chatbot-state")
@@ -864,6 +877,30 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
     <>
       {!isOpen && (
         <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
+          {showIntroPopup && (
+            <div className="absolute bottom-16 right-0 mb-2 animate-in slide-in-from-bottom-2 duration-300">
+              <div className="relative">
+                <div className="bg-white rounded-lg shadow-lg border border-gray-200 px-3 py-2 max-w-[180px]">
+                  <div className="flex items-center gap-2">
+                    <div className="w-5 h-5 bg-gradient-to-r from-[#cf21c3] to-[#cf21c3]/80 rounded-full flex items-center justify-center flex-shrink-0">
+                      <MessageCircle className="w-2.5 h-2.5 text-white" />
+                    </div>
+                    <span className="text-xs font-medium text-gray-700 whitespace-nowrap">Need help? Ask me</span>
+                  </div>
+                  <button
+                    onClick={() => setShowIntroPopup(false)}
+                    className="absolute -top-1 -right-1 w-4 h-4 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors"
+                  >
+                    <X className="w-2.5 h-2.5" />
+                  </button>
+                </div>
+                {/* Speech bubble arrow */}
+                <div className="absolute bottom-0 right-4 transform translate-y-full">
+                  <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-white"></div>
+                </div>
+              </div>
+            </div>
+          )}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-r from-[#cf21c3] to-[#cf21c3]/80 hover:from-[#cf21c3]/90 hover:to-[#cf21c3]/70 text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center touch-manipulation"

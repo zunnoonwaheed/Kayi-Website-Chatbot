@@ -1,14 +1,15 @@
 "use client"
+
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { motion } from "framer-motion" // Added framer-motion for animations
+import { motion, animate } from "framer-motion"
+import { User } from "lucide-react"
 
 interface TypewriterEffectProps {
   words: string[]
   className?: string
 }
 
-// Moved TypewriterEffect component into the same file
 function TypewriterEffect({ words, className = "" }: TypewriterEffectProps) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0)
   const [currentText, setCurrentText] = useState("")
@@ -35,11 +36,12 @@ function TypewriterEffect({ words, className = "" }: TypewriterEffectProps) {
       },
       isDeleting ? 50 : 100,
     )
+
     return () => clearTimeout(timeout)
   }, [currentText, isDeleting, currentWordIndex, words])
 
   return (
-    <span className={`inline-block text-[#cf21c3] font-bold ${className}`} style={{ fontWeight: "800" }}>
+    <span className={`inline-block font-bold ${className}`} style={{ fontWeight: "800", color: "#cf21c3" }}>
       {currentText}
     </span>
   )
@@ -48,227 +50,155 @@ function TypewriterEffect({ words, className = "" }: TypewriterEffectProps) {
 export default function HeroSection() {
   const typingWords = ["Growth", "Results", "Revenue", "Success", "Performance", "Scaling", "Profit", "Impact"]
 
+  const [count, setCount] = useState(205000)
+  useEffect(() => {
+    let controls: any
+
+    const animateCounter = () => {
+      const startValue = 205000 + Math.floor(Math.random() * 100)
+      const endValue = startValue + Math.floor(Math.random() * 500) + 200
+
+      controls = animate(startValue, endValue, {
+        duration: 3 + Math.random() * 2, // Random duration between 3-5 seconds
+        ease: "easeInOut",
+        onUpdate(value) {
+          setCount(Math.floor(value))
+        },
+        onComplete() {
+          // Start next animation after a brief pause
+          setTimeout(animateCounter, 1000 + Math.random() * 2000)
+        },
+      })
+    }
+
+    animateCounter()
+
+    return () => controls?.stop()
+  }, [])
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 60 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
-    },
-  }
-
-  const fadeInLeft = {
-    hidden: { opacity: 0, x: -60 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.8, ease: "easeOut", delay: 0.2 },
-    },
-  }
-
-  const fadeInRight = {
-    hidden: { opacity: 0, x: 60 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.8, ease: "easeOut", delay: 0.4 },
-    },
-  }
-
-  const scaleIn = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.6, ease: "easeOut", delay: 0.6 },
-    },
-  }
-
-  const staggerContainer = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  }
-
-  const staggerItem = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
   }
 
   return (
-    <div id="hero-section" className="min-h-screen bg-white relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-20 w-72 h-72 rounded-full"></div>
-        <div className="absolute bottom-20 left-20 w-96 h-96 rounded-full"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"></div>
+    <div id="hero-section" className="relative overflow-hidden bg-white">
+      <div className="absolute inset-0 flex items-center justify-center">
+        <motion.div
+          className="absolute rounded-full"
+          style={{ width: "120vmin", height: "120vmin" }}
+          animate={{
+            background: [
+              "radial-gradient(circle at center, rgba(147,51,234,0.4), rgba(236,72,153,0.25), transparent 70%)",
+              "radial-gradient(circle at center, rgba(236,72,153,0.4), rgba(251,146,60,0.25), transparent 70%)",
+              "radial-gradient(circle at center, rgba(59,130,246,0.4), rgba(147,51,234,0.25), transparent 70%)",
+              "radial-gradient(circle at center, rgba(147,51,234,0.4), rgba(236,72,153,0.25), transparent 70%)",
+            ],
+            opacity: [0.6, 0.8, 0.7, 0.6],
+          }}
+          transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+        />
       </div>
 
+      {/* Hero Content */}
       <motion.div
-        className="container mx-auto flex flex-col lg:flex-row items-center justify-between pt-8 sm:pt-12 lg:pt-20 relative z-10 gap-4 lg:gap-0 px-4 md:px-6"
+        className="container mx-auto flex flex-col items-center text-center relative z-10 
+                   px-4 md:px-6 
+                   pt-36 sm:pt-40 md:pt-32 pb-16 sm:pb-24 md:min-h-screen md:justify-center"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <motion.div className="w-full lg:w-[35%] text-center lg:text-left order-1 lg:order-1" variants={fadeInLeft}>
-          <div className="mb-6 sm:mb-8">
-            <motion.h1
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-4xl xl:text-5xl font-bold text-black leading-tight mb-4 sm:mb-6"
-              variants={fadeInUp}
-            >
-              Everything Your
-              <br />
-              Business Needs
-              <br />
-              For <TypewriterEffect words={typingWords} />
-            </motion.h1>
-
-            <motion.p
-              className="text-gray-600 text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed"
-              variants={fadeInUp}
-              transition={{ delay: 0.3 }}
-            >
-              Your business growth should feel predictable, not like a gamble. We partner with companies who want real
-              results they can count on.
-            </motion.p>
-          </div>
-
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-80 -z-10">
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 mb-8 sm:mb-12 justify-center lg:justify-start"
+            className="absolute inset-0 rounded-full"
+            animate={{
+              background: [
+                "linear-gradient(135deg, rgba(147,51,234,0.6), rgba(236,72,153,0.4))",
+                "linear-gradient(135deg, rgba(236,72,153,0.6), rgba(251,146,60,0.4))",
+                "linear-gradient(135deg, rgba(251,146,60,0.6), rgba(59,130,246,0.4))",
+                "linear-gradient(135deg, rgba(59,130,246,0.6), rgba(147,51,234,0.4))",
+              ],
+              opacity: [0.5, 0.7, 0.6, 0.5],
+            }}
+            transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            style={{ filter: "blur(60px)" }}
+          />
+        </div>
+
+        <motion.div className="max-w-4xl mx-auto" variants={fadeInUp}>
+          {/* Heading */}
+          <motion.h1
+            className="text-3xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4 sm:mb-6 relative z-10"
+            style={{ color: "#1f2937" }}
             variants={fadeInUp}
-            transition={{ delay: 0.4 }}
           >
-            <Link
-              href="https://calendly.com/saadalii/kayidigital"
-              className="bg-black text-white px-6 sm:px-8 py-3 rounded-full font-medium shadow-lg hover:scale-105 transition-transform duration-200"
-            >
-              Let's do this
-            </Link>
-          </motion.div>
+            Everything Your Business Needs For <TypewriterEffect words={typingWords} />
+          </motion.h1>
 
-          <motion.div
-            className="bg-black/95 rounded-3xl p-4 sm:p-6 max-w-sm mx-auto lg:mx-0 shadow-2xl"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <div className="grid grid-cols-2 gap-2 sm:gap-3">
-              {["UI/UX Design", "Web Design", "Social Media", "Mobile Apps", "E-commerce", "Analytics"].map(
-                (service, index) => (
-                  <motion.span
-                    key={service}
-                    variants={staggerItem}
-                    className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium text-center ${
-                      index === 0 || index === 5
-                        ? "bg-white text-black"
-                        : index === 3
-                          ? "bg-black text-white shadow-lg"
-                          : "border border-gray-600 text-white"
-                    }`}
-                  >
-                    {service}
-                  </motion.span>
-                ),
-              )}
-            </div>
-          </motion.div>
-        </motion.div>
-
-        <motion.div className="w-full lg:w-[65%] relative order-2 lg:order-2" variants={fadeInRight}>
-          <motion.div
-            className="absolute top-4 sm:top-8 left-1/2 transform -translate-x-1/2 z-20"
-            variants={scaleIn}
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <div className="bg-black rounded-full p-3 sm:p-4 border-4 border-white shadow-2xl">
-              <div className="text-white text-xs font-bold text-center">
-                <div>DISCOVER THE</div>
-                <div className="text-white">MAGIC OF UX</div>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            className="relative"
+          {/* Subtext */}
+          <motion.p
+            className="text-gray-600 text-base sm:text-lg max-w-lg mx-auto leading-relaxed mb-8 sm:mb-10 relative z-10"
             variants={fadeInUp}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
+            transition={{ delay: 0.2 }}
           >
-            <motion.img
-              src="/images/hero_banner_desk.jpg"
-              alt="Person using VR headset in digital world (Desktop)"
-              className="w-full h-auto hidden lg:block"
-              loading="eager"
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            />
-            <motion.img
-              src="/images/hero_banner_mobile.jpg"
-              alt="Person using VR headset in digital world (Mobile)"
-              className="w-full h-auto block lg:hidden"
-              loading="eager"
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            />
-          </motion.div>
+            Your business growth should feel predictable, not like a gamble. We partner with companies who want real
+            results they can count on.
+          </motion.p>
 
-          <motion.div
-            className="absolute bottom-4 right-4 sm:bottom-0 sm:right-4 lg:right-0 bg-black/95 rounded-3xl p-4 sm:p-6 text-white min-w-[180px] sm:min-w-[200px] shadow-2xl border border-gray-800"
-            variants={scaleIn}
-            whileHover={{ scale: 1.05, y: -5 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <motion.div
-                  className="text-2xl sm:text-3xl font-bold text-white"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.8, duration: 0.5 }}
+          {/* 🔥 Solid Black CTA Button */}
+          <motion.div variants={fadeInUp} transition={{ delay: 0.3 }}>
+            <div
+              className="inline-flex items-center justify-center py-3 px-8 text-base font-semibold text-white rounded-full shadow-lg cursor-pointer group relative z-10"
+              style={{ backgroundColor: "#000000" }}
+            >
+              <Link href="https://calendly.com/saadalii/kayidigital" className="flex items-center">
+                Let's do it
+                <svg
+                  className="ml-2 group-hover:translate-x-1 transition-transform duration-300"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
                 >
-                  80+
-                </motion.div>
-                <div className="text-gray-400 text-xs sm:text-sm">New Users</div>
-              </div>
-              <div className="flex -space-x-2">
-                {[
-                  "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Andrzej_Person_Kancelaria_Senatu.jpg/1200px-Andrzej_Person_Kancelaria_Senatu.jpg",
-                  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
-                  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
-                ].map((src, index) => (
-                  <motion.img
-                    key={index}
-                    src={src}
-                    alt={`User ${index + 1}`}
-                    className="w-6 sm:w-8 h-6 sm:h-8 rounded-full border-2 border-black"
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.9 + index * 0.1, duration: 0.3 }}
-                    whileHover={{ scale: 1.1 }}
+                  <path
+                    d="M7.5 15L11.0858 11.4142C11.7525 10.7475 12.0858 10.4142 12.0858 10C12.0858 9.58579 11.7525 9.25245 11.0858 8.58579L7.5 5"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
-                ))}
-              </div>
+                </svg>
+              </Link>
             </div>
-            <Link
-              href="https://calendly.com/saadalii/kayidigital"
-              className="bg-[#cf21c3] text-white px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-medium w-full text-center block hover:bg-[#b91ea8] transition-colors duration-200"
-            >
-              Join now
-            </Link>
+          </motion.div>
+
+          {/* 👥 Enhanced customer counter with clean SVG icon and more vibrant gradient */}
+          <motion.div
+            className="mt-8 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 font-medium text-base sm:text-lg text-black"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+          >
+            <div className="flex items-center gap-2 sm:gap-3">
+              <User
+                className="w-5 h-5 sm:w-7 sm:h-7 text-purple-600"
+                style={{ filter: "drop-shadow(0 2px 8px rgba(147,51,234,0.4))" }}
+              />
+              <span
+                className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 bg-clip-text text-transparent"
+                style={{
+                  backgroundImage: "linear-gradient(135deg, #9333ea, #ec4899, #3b82f6)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  filter: "drop-shadow(0 2px 4px rgba(147,51,234,0.3))",
+                }}
+              >
+                {count.toLocaleString()}
+              </span>
+            </div>
+            <span className="text-sm sm:text-lg font-semibold text-gray-700">people helped so far</span>
           </motion.div>
         </motion.div>
       </motion.div>
