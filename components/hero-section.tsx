@@ -59,13 +59,12 @@ export default function HeroSection() {
       const endValue = startValue + Math.floor(Math.random() * 500) + 200
 
       controls = animate(startValue, endValue, {
-        duration: 3 + Math.random() * 2, // Random duration between 3-5 seconds
+        duration: 3 + Math.random() * 2,
         ease: "easeInOut",
         onUpdate(value) {
           setCount(Math.floor(value))
         },
         onComplete() {
-          // Start next animation after a brief pause
           setTimeout(animateCounter, 1000 + Math.random() * 2000)
         },
       })
@@ -96,7 +95,12 @@ export default function HeroSection() {
             ],
             opacity: [0.6, 0.8, 0.7, 0.6],
           }}
-          transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+          transition={{
+            duration: 12,
+            ease: "linear",
+            repeat: Infinity,
+            repeatType: "mirror",
+          }}
         />
       </div>
 
@@ -121,7 +125,12 @@ export default function HeroSection() {
               ],
               opacity: [0.5, 0.7, 0.6, 0.5],
             }}
-            transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            transition={{
+              duration: 10,
+              ease: "linear",
+              repeat: Infinity,
+              repeatType: "mirror",
+            }}
             style={{ filter: "blur(60px)" }}
           />
         </div>
