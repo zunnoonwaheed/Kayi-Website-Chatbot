@@ -26,7 +26,8 @@ export default function Home() {
           try {
             console.log("🏠 Initializing Landbot on Kayi Digital homepage...")
             ;new (window as any).Landbot.Livechat({
-              configUrl: "https://storage.googleapis.com/landbot.online/v3/H-3074586-M13ISOMDG5UFG08S/index.json",
+              configUrl:
+                "https://storage.googleapis.com/landbot.online/v3/H-3074586-M13ISOMDG5UFG08S/index.json",
             })
             console.log("Landbot chatbot initialized successfully on homepage!")
           } catch (error) {
@@ -50,32 +51,48 @@ export default function Home() {
     <div className="min-h-screen bg-[#F8F8F8]">
       <Header />
       <main>
+        {/* Hero Section */}
         <section id="home" className="home">
           <HeroSection />
         </section>
-        <section id="aboutus" className="aboutus">
-          <ProcessSection />
-        </section>
+
+        {/* ✅ Locations moved right below Hero */}
         <section id="locations" className="locations">
           <LocationsSection />
         </section>
+
+        {/* ✅ Timeline (Process) after Locations */}
+        <section id="aboutus" className="aboutus">
+          <ProcessSection />
+        </section>
+
+        {/* Services */}
         <section id="services" className="services">
           <ServicesSection />
         </section>
+
+        {/* Portfolio */}
         <section id="portfolio" className="portfolio">
           <Marquee />
         </section>
+
+        {/* Success Stories */}
         <section id="success">
           <SuccessStoriesSection />
         </section>
+
+        {/* Testimonials */}
         <section id="testimonials" className="testimonials">
           <ReviewsSection />
         </section>
+
+        {/* Contact */}
         <section id="contact" className="contact">
           <ContactSection />
           <div className="text-center mt-8"></div>
         </section>
       </main>
+
       {/* ✅ Chatbot widget added */}
       <KayiChatbot />
       <Footer />

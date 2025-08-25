@@ -13,7 +13,7 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="bg-black text-white relative overflow-hidden">
+    <footer className="bg-black text-white relative overflow-hidden -mt-8 block" style={{marginTop: '-2rem'}}>
       {/* Enhanced Eye-Catching Background Effects */}
       <div className="absolute inset-0">
         {/* Animated gradient orbs */}

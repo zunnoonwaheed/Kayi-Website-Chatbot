@@ -4,19 +4,19 @@ import Image from "next/image"
 import { useRef, useEffect, useState } from "react"
 
 const companies = [
-  { name: "Mirakl", logo: "/images/mirakl-logo.png", width: 80, height: 80 },
-  { name: "Rejuuv", logo: "/images/rejuuv-logo.png", width: 80, height: 80 },
-  { name: "Saint Draper", logo: "/images/sd-logo.png", width: 80, height: 80 },
-  { name: "Cover Up", logo: "/images/coverup-logo.png", width: 80, height: 80 },
+  { name: "Mirakl", logo: "/images/marq1.png", width: 80, height: 80 },
+  { name: "Rejuuv", logo: "/images/marq2.png", width: 80, height: 80 },
+  { name: "Saint Draper", logo: "/images/marq3.png", width: 80, height: 80 },
+  { name: "Cover Up", logo: "/images/marq4.png", width: 80, height: 80 },
 
-  { name: "Marquee 1", logo: "/images/marquee1.jpeg", width: 100, height: 50 },
-  { name: "Marquee 2", logo: "/images/marquee2.jpeg", width: 100, height: 50 },
-  { name: "Marquee 3", logo: "/images/marquee3.jpeg", width: 100, height: 50 },
-  { name: "Marquee 4", logo: "/images/marquee4.jpeg", width: 100, height: 50 },
-  { name: "Marquee 5", logo: "/images/marquee5.jpeg", width: 100, height: 50 },
-  { name: "Marquee 6", logo: "/images/marquee6.jpeg", width: 100, height: 50 },
-  { name: "Marquee 7", logo: "/images/marquee7.jpeg", width: 100, height: 50 },
-  { name: "Marquee 8", logo: "/images/marquee8.jpeg", width: 100, height: 50 },
+  { name: "Marquee 1", logo: "/images/marq1.png", width: 100, height: 50 },
+  { name: "Marquee 2", logo: "/images/marq2.png", width: 100, height: 50 },
+  { name: "Marquee 3", logo: "/images/marq3.png", width: 100, height: 50 },
+  { name: "Marquee 4", logo: "/images/marq4.png", width: 100, height: 50 },
+  { name: "Marquee 5", logo: "/images/marq5.png", width: 100, height: 50 },
+  { name: "Marquee 6", logo: "/images/marq6.png", width: 100, height: 50 },
+  { name: "Marquee 7", logo: "/images/marq7.png", width: 100, height: 50 },
+  { name: "Marquee 8", logo: "/images/marq8.png", width: 100, height: 50 },
 ]
 
 export default function Marquee() {

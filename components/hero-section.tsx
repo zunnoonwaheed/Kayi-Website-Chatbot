@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { motion, animate } from "framer-motion"
-import { User } from "lucide-react"
+import { motion } from "framer-motion"
+import { User, Lightbulb, Sparkles, Megaphone, CreditCard, DollarSign } from "lucide-react"
 
 interface TypewriterEffectProps {
   words: string[]
@@ -47,32 +47,60 @@ function TypewriterEffect({ words, className = "" }: TypewriterEffectProps) {
   )
 }
 
+const ServiceCard = ({ icon: Icon, title, delay = 0 }: { icon: any; title: string; delay?: number }) => {
+  return (
+    <motion.div
+      className="rounded-2xl p-6 hover:scale-105 cursor-pointer relative z-10 transition-all duration-300 
+                 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg hover:shadow-xl
+                 hover:bg-white/15"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay, duration: 0.6, ease: "easeOut" }}
+      whileHover={{ y: -5 }}
+    >
+      <div className="flex flex-col items-center text-center space-y-3">
+        <div className="p-3 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 text-white shadow-lg">
+          <Icon size={24} />
+        </div>
+        <h3 className="text-lg font-semibold text-gray-900 drop-shadow-md">{title}</h3>
+      </div>
+    </motion.div>
+  )
+}
+
 export default function HeroSection() {
   const typingWords = ["Growth", "Results", "Revenue", "Success", "Performance", "Scaling", "Profit", "Impact"]
+  const headingGradients = [
+    "linear-gradient(135deg, #8b5cf6, #ec4899, #f59e0b)",
+    "linear-gradient(135deg, #ec4899, #f97316, #eab308)",
+    "linear-gradient(135deg, #f97316, #eab308, #22c55e)",
+    "linear-gradient(135deg, #22c55e, #3b82f6, #8b5cf6)",
+    "linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899)",
+    "linear-gradient(135deg, #9333ea, #ec4899, #f97316, #3b82f6)",
+  ]
 
-  const [count, setCount] = useState(205000)
+  const [currentGradientIndex, setCurrentGradientIndex] = useState(0)
+  const [count, setCount] = useState(0)
+
+  // Animate heading gradients
   useEffect(() => {
-    let controls: any
+    const interval = setInterval(() => {
+      setCurrentGradientIndex((prev) => (prev + 1) % headingGradients.length)
+    }, 2000)
+    return () => clearInterval(interval)
+  }, [headingGradients.length])
 
-    const animateCounter = () => {
-      const startValue = 205000 + Math.floor(Math.random() * 100)
-      const endValue = startValue + Math.floor(Math.random() * 500) + 200
-
-      controls = animate(startValue, endValue, {
-        duration: 3 + Math.random() * 2,
-        ease: "easeInOut",
-        onUpdate(value) {
-          setCount(Math.floor(value))
-        },
-        onComplete() {
-          setTimeout(animateCounter, 1000 + Math.random() * 2000)
-        },
+  // Animate counter continuously
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount((prev) => {
+        const next = prev + 1
+        return next > 73 ? 1 : next
       })
-    }
+    }, 150) // Change number every 150ms for smooth animation
 
-    animateCounter()
-
-    return () => controls?.stop()
+    return () => clearInterval(interval)
   }, [])
 
   const fadeInUp = {
@@ -80,26 +108,71 @@ export default function HeroSection() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
   }
 
+  const services = [
+    { icon: Lightbulb, title: "Find ideas" },
+    { icon: Sparkles, title: "Create products" },
+    { icon: Megaphone, title: "Find customers" },
+    { icon: CreditCard, title: "Get paid globally" },
+    { icon: DollarSign, title: "Build a business" },
+  ]
+
   return (
-    <div id="hero-section" className="relative overflow-hidden bg-white">
-      <div className="absolute inset-0 flex items-center justify-center">
+    <div id="hero-section" className="relative overflow-hidden bg-white min-h-screen">
+      <div className="absolute inset-0">
+        <motion.div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(135deg, rgba(255,255,255,0.3), rgba(248,250,252,0.4))",
+          }}
+        />
+
         <motion.div
           className="absolute rounded-full"
-          style={{ width: "120vmin", height: "120vmin" }}
+          style={{
+            width: "120vmin",
+            height: "120vmin",
+            left: "50%",
+            top: "25%",
+            transform: "translate(-50%, -50%)",
+          }}
           animate={{
             background: [
-              "radial-gradient(circle at center, rgba(147,51,234,0.4), rgba(236,72,153,0.25), transparent 70%)",
-              "radial-gradient(circle at center, rgba(236,72,153,0.4), rgba(251,146,60,0.25), transparent 70%)",
-              "radial-gradient(circle at center, rgba(59,130,246,0.4), rgba(147,51,234,0.25), transparent 70%)",
-              "radial-gradient(circle at center, rgba(147,51,234,0.4), rgba(236,72,153,0.25), transparent 70%)",
+              "radial-gradient(circle at center, rgba(147,51,234,0.05), rgba(236,72,153,0.03), transparent 70%)",
+              "radial-gradient(circle at center, rgba(236,72,153,0.05), rgba(251,146,60,0.03), transparent 70%)",
+              "radial-gradient(circle at center, rgba(59,130,246,0.05), rgba(147,51,234,0.03), transparent 70%)",
+              "radial-gradient(circle at center, rgba(147,51,234,0.05), rgba(236,72,153,0.03), transparent 70%)",
             ],
-            opacity: [0.6, 0.8, 0.7, 0.6],
           }}
           transition={{
-            duration: 12,
+            duration: 8,
             ease: "linear",
-            repeat: Infinity,
+            repeat: Number.POSITIVE_INFINITY,
             repeatType: "mirror",
+          }}
+        />
+        <motion.div
+          className="absolute rounded-full"
+          style={{
+            width: "140vmin",
+            height: "140vmin",
+            left: "50%",
+            top: "85%",
+            transform: "translate(-50%, -50%)",
+          }}
+          animate={{
+            background: [
+              "radial-gradient(circle at center, rgba(236,72,153,0.06), rgba(147,51,234,0.04), transparent 60%)",
+              "radial-gradient(circle at center, rgba(59,130,246,0.06), rgba(236,72,153,0.04), transparent 60%)",
+              "radial-gradient(circle at center, rgba(147,51,234,0.06), rgba(59,130,246,0.04), transparent 60%)",
+              "radial-gradient(circle at center, rgba(236,72,153,0.06), rgba(147,51,234,0.04), transparent 60%)",
+            ],
+          }}
+          transition={{
+            duration: 10,
+            ease: "linear",
+            repeat: Number.POSITIVE_INFINITY,
+            repeatType: "mirror",
+            delay: 2,
           }}
         />
       </div>
@@ -108,7 +181,7 @@ export default function HeroSection() {
       <motion.div
         className="container mx-auto flex flex-col items-center text-center relative z-10 
                    px-4 md:px-6 
-                   pt-36 sm:pt-40 md:pt-32 pb-16 sm:pb-24 md:min-h-screen md:justify-center"
+                   pt-36 sm:pt-40 md:pt-32 pb-8 sm:pb-12 md:min-h-screen md:justify-center"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
@@ -128,7 +201,7 @@ export default function HeroSection() {
             transition={{
               duration: 10,
               ease: "linear",
-              repeat: Infinity,
+              repeat: Number.POSITIVE_INFINITY,
               repeatType: "mirror",
             }}
             style={{ filter: "blur(60px)" }}
@@ -139,7 +212,13 @@ export default function HeroSection() {
           {/* Heading */}
           <motion.h1
             className="text-3xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4 sm:mb-6 relative z-10"
-            style={{ color: "#1f2937" }}
+            style={{
+              backgroundImage: headingGradients[currentGradientIndex],
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              transition: "background-image 0.5s ease-in-out",
+            }}
             variants={fadeInUp}
           >
             Everything Your Business Needs For <TypewriterEffect words={typingWords} />
@@ -204,13 +283,49 @@ export default function HeroSection() {
                   filter: "drop-shadow(0 2px 4px rgba(147,51,234,0.3))",
                 }}
               >
-                {count.toLocaleString()}
+                {count}+ clients
               </span>
             </div>
-            <span className="text-sm sm:text-lg font-semibold text-gray-700">people helped so far</span>
+            <span className="text-sm sm:text-lg font-semibold text-gray-700">helped so far</span>
           </motion.div>
         </motion.div>
       </motion.div>
+
+      {/* Kayi Digital Helps You Section with Video Background */}
+      <div className="w-full pb-16 relative overflow-hidden">
+        {/* Video Background for Bottom Section Only */}
+        <div className="absolute inset-0">
+          <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-30">
+            <source src="https://r2.nas.media/header-background.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/10 to-white/30"></div>
+        </div>
+
+        <motion.div
+          className="text-center mb-6 relative z-20 px-4 md:px-6"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
+          {/* Enhanced heading with better contrast over video */}
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 drop-shadow-lg">Kayi Digital helps you</h2>
+
+          {/* Service Cards - Desktop */}
+          <div className="hidden lg:grid lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
+            {services.map((service, index) => (
+              <ServiceCard key={service.title} icon={service.icon} title={service.title} delay={index * 0.1} />
+            ))}
+          </div>
+
+          {/* Service Cards - Mobile and Tablet */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto lg:hidden">
+            {services.map((service, index) => (
+              <ServiceCard key={service.title} icon={service.icon} title={service.title} delay={index * 0.1} />
+            ))}
+          </div>
+        </motion.div>
+      </div>
     </div>
   )
 }
