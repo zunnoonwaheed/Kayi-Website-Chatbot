@@ -87,13 +87,13 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
         isScrolled
-          ? "bg-white/80 backdrop-blur-lg shadow-lg py-2 mx-4 mt-4 rounded-2xl border border-white/20"
-          : "bg-[#f8f8f8] shadow-sm py-2"
+          ? "bg-white/80 backdrop-blur-lg shadow-lg py-1.5 mx-4 mt-4 rounded-2xl border border-white/20"
+          : "bg-[#f8f8f8] shadow-sm py-1.5 md:py-2"
       }`}
     >
       <div
         className={`flex items-center justify-between transition-all duration-300 ${
-          isScrolled ? "px-6" : "px-3 md:px-5 lg:px-8"
+          isScrolled ? "px-4 md:px-6" : "px-3 md:px-5 lg:px-8"
         }`}
       >
         {/* Logo */}
@@ -102,16 +102,16 @@ export default function Header() {
             <Image
               src="/images/kayi-logo-white.png"
               alt="Kayi Digital Logo"
-              width={isScrolled ? 85 : 95}
-              height={isScrolled ? 24 : 26}
-              className={`h-auto transition-all duration-300 ${isScrolled ? "scale-95" : "scale-100"}`}
+              width={isScrolled ? 75 : 85}
+              height={isScrolled ? 20 : 22}
+              className={`h-auto transition-all duration-300 ${isScrolled ? "scale-90" : "scale-100"}`}
             />
           </Link>
         </div>
 
         {/* Center Nav Links */}
         <nav
-          className={`hidden lg:flex items-center gap-6 text-gray-700 absolute left-1/2 transform -translate-x-1/2 transition-all duration-300 ${
+          className={`hidden lg:flex items-center gap-5 text-gray-700 absolute left-1/2 transform -translate-x-1/2 transition-all duration-300 ${
             isScrolled ? "opacity-100" : "opacity-100"
           }`}
         >
@@ -121,7 +121,7 @@ export default function Header() {
         {/* Right-side Buttons */}
         <div className="flex items-center gap-2">
           <Link href="/book-call">
-            <Button className="hidden md:block bg-black hover:bg-black/90 text-white px-5 py-1.5 text-[13px] font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <Button className="hidden md:block bg-black hover:bg-black/90 text-white px-4 py-1.5 text-[13px] font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
               Book a Call
             </Button>
           </Link>
@@ -132,7 +132,7 @@ export default function Header() {
               <Button
                 variant="ghost"
                 size="icon"
-                className={`transition-all duration-300 h-8 w-8 ${
+                className={`transition-all duration-300 h-7 w-7 ${
                   isScrolled ? "text-gray-700 hover:bg-blue-50" : "text-black hover:bg-gray-100"
                 }`}
               >
@@ -143,27 +143,27 @@ export default function Header() {
 
             <SheetContent
               side="right"
-              className="w-[320px] bg-white/95 backdrop-blur-xl border-l border-gray-200/50 flex flex-col"
+              className="w-[300px] bg-white/95 backdrop-blur-xl border-l border-gray-200/50 flex flex-col"
             >
-              <div className="flex items-center justify-between mb-8 pt-4 px-2">
+              <div className="flex items-center justify-between mb-6 pt-3 px-2">
                 <Image
                   src="/images/kayi-logo-white.png"
                   alt="Kayi Digital Logo"
-                  width={85}
-                  height={24}
+                  width={75}
+                  height={20}
                   className="h-auto"
                 />
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsSheetOpen(false)}
-                  className="text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full h-8 w-8"
+                  className="text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full h-7 w-7"
                 >
                   <X className="h-4 w-4" />
                 </Button>
               </div>
 
-              <nav className="flex flex-col gap-1 mb-8">
+              <nav className="flex flex-col gap-1 mb-6">
                 {menuItems.map((item, i) => {
                   if (item.href) {
                     return (
@@ -171,7 +171,7 @@ export default function Header() {
                         key={i}
                         href={item.href}
                         onClick={() => setIsSheetOpen(false)}
-                        className="text-gray-700 hover:text-[#cf21c3] hover:bg-purple-50 transition-all duration-200 font-medium text-base py-3 px-4 rounded-xl"
+                        className="text-gray-700 hover:text-[#cf21c3] hover:bg-purple-50 transition-all duration-200 font-medium text-[15px] py-2.5 px-3 rounded-lg"
                       >
                         {item.name}
                       </Link>
@@ -183,7 +183,7 @@ export default function Header() {
                       <button
                         key={i}
                         onClick={() => scrollToSection(item.targetClass!)}
-                        className="text-gray-700 hover:text-[#cf21c3] hover:bg-purple-50 transition-all duration-200 font-medium text-base py-3 px-4 rounded-xl text-left"
+                        className="text-gray-700 hover:text-[#cf21c3] hover:bg-purple-50 transition-all duration-200 font-medium text-[15px] py-2.5 px-3 rounded-lg text-left"
                       >
                         {item.name}
                       </button>
@@ -195,7 +195,7 @@ export default function Header() {
                       key={i}
                       href={`/#${item.targetClass?.replace(".", "")}`}
                       onClick={() => setIsSheetOpen(false)}
-                      className="text-gray-700 hover:text-[#cf21c3] hover:bg-purple-50 transition-all duration-200 font-medium text-base py-3 px-4 rounded-xl"
+                      className="text-gray-700 hover:text-[#cf21c3] hover:bg-purple-50 transition-all duration-200 font-medium text-[15px] py-2.5 px-3 rounded-lg"
                     >
                       {item.name}
                     </Link>
@@ -203,11 +203,11 @@ export default function Header() {
                 })}
               </nav>
 
-              <div className="mt-auto pb-6">
+              <div className="mt-auto pb-4">
                 <Link href="/book-call">
                   <Button
                     onClick={() => setIsSheetOpen(false)}
-                    className="w-full bg-black hover:bg-black/90 text-white px-6 py-3 text-[15px] font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
+                    className="w-full bg-black hover:bg-black/90 text-white px-5 py-2.5 text-[14px] font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
                   >
                     Book a Call
                   </Button>
