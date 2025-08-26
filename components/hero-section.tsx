@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef, memo } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { User, Lightbulb, Sparkles, Megaphone, CreditCard, DollarSign } from "lucide-react"
@@ -10,38 +10,73 @@ interface TypewriterEffectProps {
   className?: string
 }
 
-function TypewriterEffect({ words, className = "" }: TypewriterEffectProps) {
-  const [currentWordIndex, setCurrentWordIndex] = useState(0)
+// keep your words content the same but make the reference stable (top-level const)
+const TYPING_WORDS = ["Growth", "Success", "Results", "Revenue", "Scaling"]
+
+const TypewriterEffect = memo(function TypewriterEffect({ words, className = "" }: TypewriterEffectProps) {
   const [currentText, setCurrentText] = useState("")
-  const [isDeleting, setIsDeleting] = useState(false)
+  const wordIndexRef = useRef(0)
+  const isDeletingRef = useRef(false)
+  const textRef = useRef("")
+  const timeoutRef = useRef<number | null>(null)
 
   useEffect(() => {
-    const currentWord = words[currentWordIndex]
-    const timeout = setTimeout(
-      () => {
-        if (!isDeleting) {
-          if (currentText.length < currentWord.length) {
-            setCurrentText(currentWord.slice(0, currentText.length + 1))
-          } else {
-            setTimeout(() => setIsDeleting(true), 1500)
-          }
-        } else {
-          if (currentText.length > 0) {
-            setCurrentText(currentText.slice(0, -1))
-          } else {
-            setIsDeleting(false)
-            setCurrentWordIndex((prev) => (prev + 1) % words.length)
-          }
-        }
-      },
-      isDeleting ? 50 : 100,
-    )
+    if (!words || words.length === 0) return
 
-    return () => clearTimeout(timeout)
-  }, [currentText, isDeleting, currentWordIndex, words])
+    const TYPING_DELAY = 100
+    const DELETING_DELAY = 50
+    const PAUSE_AFTER_COMPLETE = 1000
+
+    const tick = () => {
+      const currentWord = words[wordIndexRef.current]
+
+      if (!isDeletingRef.current) {
+        // type forward
+        textRef.current = currentWord.slice(0, textRef.current.length + 1)
+        setCurrentText(textRef.current)
+
+        if (textRef.current === currentWord) {
+          // pause, then start deleting
+          timeoutRef.current = window.setTimeout(() => {
+            isDeletingRef.current = true
+            tick()
+          }, PAUSE_AFTER_COMPLETE)
+          return
+        } else {
+          timeoutRef.current = window.setTimeout(tick, TYPING_DELAY)
+          return
+        }
+      } else {
+        // deleting
+        textRef.current = currentWord.slice(0, Math.max(0, textRef.current.length - 1))
+        setCurrentText(textRef.current)
+
+        if (textRef.current === "") {
+          // move to next word and start typing
+          isDeletingRef.current = false
+          wordIndexRef.current = (wordIndexRef.current + 1) % words.length
+          timeoutRef.current = window.setTimeout(tick, TYPING_DELAY)
+          return
+        } else {
+          timeoutRef.current = window.setTimeout(tick, DELETING_DELAY)
+          return
+        }
+      }
+    }
+
+    // start the loop
+    tick()
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+    // only restart if the `words` prop reference changes
+  }, [words])
 
   return <span className={`inline-block font-bold ${className}`}>{currentText}</span>
-}
+})
 
 const ServiceCard = ({ icon: Icon, title, delay = 0 }: { icon: any; title: string; delay?: number }) => {
   return (
@@ -58,7 +93,7 @@ const ServiceCard = ({ icon: Icon, title, delay = 0 }: { icon: any; title: strin
                    p-4 md:p-6 shadow-sm hover:shadow-md transition-all duration-300 group-hover:bg-white/90"
       >
         <div className="flex flex-col items-center text-center space-y-2 md:space-y-3">
-          <div className="p-2 md:p-3 rounded-full bg-gradient-to-br from-orange-400 to-purple-600 text-white shadow-lg">
+          <div className="p-2 md:p-3 rounded-full bg-gradient-to-br from-[#cf21c3] to-[#e879f9] text-white shadow-lg">
             <Icon size={18} className="md:w-5 md:h-5" />
           </div>
           <h3 className="text-xs md:text-sm font-medium text-gray-700">{title}</h3>
@@ -68,42 +103,54 @@ const ServiceCard = ({ icon: Icon, title, delay = 0 }: { icon: any; title: strin
   )
 }
 
-export default function HeroSection() {
-  const typingWords = ["Growth", "Success", "Results", "Revenue", "Scaling"]
-
-  const [currentGradientIndex, setCurrentGradientIndex] = useState(0)
-  const gradientSets = [
-    {
-      heading: "linear-gradient(135deg, #f97316, #ec4899, #8b5cf6)",
-      background: ["rgba(251,146,60,0.25)", "rgba(147,51,234,0.22)", "rgba(236,72,153,0.28)"],
-    },
-    {
-      heading: "linear-gradient(135deg, #ea580c, #db2777, #7c3aed)",
-      background: ["rgba(234,88,12,0.25)", "rgba(219,39,119,0.22)", "rgba(124,58,237,0.28)"],
-    },
-    {
-      heading: "linear-gradient(135deg, #fb923c, #f472b6, #a855f7)",
-      background: ["rgba(251,146,60,0.25)", "rgba(244,114,182,0.22)", "rgba(168,85,247,0.28)"],
-    },
-  ]
-
-  const [count, setCount] = useState(27)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentGradientIndex((prev) => (prev + 1) % gradientSets.length)
-    }, 7000)
-    return () => clearInterval(interval)
-  }, [gradientSets.length])
+function Counter() {
+  const [count, setCount] = useState(0)
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCount((prev) => {
-        const next = prev + 1
-        return next > 35 ? 27 : next
+        if (prev >= 71) {
+          clearInterval(interval)
+          return 71
+        }
+        return prev + 1
       })
-    }, 200)
+    }, 100)
+    return () => clearInterval(interval)
+  }, [])
 
+  return (
+    <span className="font-bold text-transparent bg-gradient-to-r from-[#cf21c3] to-[#e879f9] bg-clip-text">
+      {count}+ clients
+    </span>
+  )
+}
+
+export default function HeroSection() {
+  // pass the stable top-level constant so memoization & effect don't restart
+  const typingWords = TYPING_WORDS
+
+  const [currentGradientIndex, setCurrentGradientIndex] = useState(0)
+  const gradientSets = [
+    {
+      heading: "linear-gradient(135deg, #cf21c3, #e879f9, #f0abfc)",
+      background: ["rgba(207,33,195,0.15)", "rgba(232,121,249,0.12)", "rgba(240,171,252,0.18)"],
+    },
+    {
+      heading: "linear-gradient(135deg, #a21caf, #cf21c3, #e879f9)",
+      background: ["rgba(162,28,175,0.15)", "rgba(207,33,195,0.12)", "rgba(232,121,249,0.18)"],
+    },
+    {
+      heading: "linear-gradient(135deg, #e879f9, #cf21c3, #c084fc)",
+      background: ["rgba(232,121,249,0.15)", "rgba(207,33,195,0.12)", "rgba(192,132,252,0.18)"],
+    },
+  ]
+
+  // Gradient effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentGradientIndex((prev) => (prev + 1) % gradientSets.length)
+    }, 3000)
     return () => clearInterval(interval)
   }, [])
 
@@ -118,14 +165,17 @@ export default function HeroSection() {
   return (
     <div className="relative overflow-hidden bg-gradient-to-b from-gray-50 to-white min-h-screen">
       <div className="absolute inset-0">
+        {/* animated blobs */}
         <motion.div
           className="absolute w-[300px] h-[300px] rounded-full"
           style={{
-            background: `radial-gradient(circle, ${gradientSets[currentGradientIndex].background[0]} 0%, ${gradientSets[currentGradientIndex].background[0].replace("0.25", "0.12")} 40%, transparent 70%)`,
+            background: `radial-gradient(circle, ${gradientSets[currentGradientIndex].background[0]} 0%, ${gradientSets[currentGradientIndex].background[0].replace(
+              "0.15",
+              "0.12"
+            )} 40%, transparent 70%)`,
             filter: "blur(40px)",
             left: "20%",
             top: "20%",
-            transition: "background 4s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
           }}
           animate={{
             x: [0, 60, -40, 0],
@@ -135,18 +185,20 @@ export default function HeroSection() {
           transition={{
             duration: 20,
             ease: "easeInOut",
-            repeat: Number.POSITIVE_INFINITY,
+            repeat: Infinity,
           }}
         />
 
         <motion.div
           className="absolute w-[250px] h-[250px] rounded-full"
           style={{
-            background: `radial-gradient(circle, ${gradientSets[currentGradientIndex].background[1]} 0%, ${gradientSets[currentGradientIndex].background[1].replace("0.22", "0.1")} 45%, transparent 70%)`,
+            background: `radial-gradient(circle, ${gradientSets[currentGradientIndex].background[1]} 0%, ${gradientSets[currentGradientIndex].background[1].replace(
+              "0.12",
+              "0.1"
+            )} 45%, transparent 70%)`,
             filter: "blur(35px)",
             right: "25%",
             top: "15%",
-            transition: "background 4s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
           }}
           animate={{
             x: [0, -50, 40, 0],
@@ -156,18 +208,20 @@ export default function HeroSection() {
           transition={{
             duration: 25,
             ease: "easeInOut",
-            repeat: Number.POSITIVE_INFINITY,
+            repeat: Infinity,
           }}
         />
 
         <motion.div
           className="absolute w-[200px] h-[200px] rounded-full"
           style={{
-            background: `radial-gradient(circle, ${gradientSets[currentGradientIndex].background[2]} 0%, ${gradientSets[currentGradientIndex].background[2].replace("0.28", "0.14")} 50%, transparent 70%)`,
+            background: `radial-gradient(circle, ${gradientSets[currentGradientIndex].background[2]} 0%, ${gradientSets[currentGradientIndex].background[2].replace(
+              "0.18",
+              "0.14"
+            )} 50%, transparent 70%)`,
             filter: "blur(30px)",
             left: "50%",
             top: "10%",
-            transition: "background 4s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
           }}
           animate={{
             x: [0, -40, 50, 0],
@@ -177,7 +231,7 @@ export default function HeroSection() {
           transition={{
             duration: 18,
             ease: "easeInOut",
-            repeat: Number.POSITIVE_INFINITY,
+            repeat: Infinity,
           }}
         />
       </div>
@@ -189,20 +243,11 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <motion.h1
-            className="text-4xl md:text-6xl font-bold leading-tight mb-6"
-            style={{
-              backgroundImage: gradientSets[currentGradientIndex].heading,
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              transition: "background-image 3.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-            }}
-          >
-            Everything Your Business Needs For{" "}
+          <motion.h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
+            <span className="text-black">Everything Your Business Needs For </span>
             <TypewriterEffect
               words={typingWords}
-              className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent"
+              className="bg-gradient-to-r from-[#cf21c3] to-[#e879f9] bg-clip-text text-transparent"
             />
           </motion.h1>
 
@@ -225,8 +270,8 @@ export default function HeroSection() {
             <Link
               href="https://calendly.com/saadalii/kayidigital"
               className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white 
-                         bg-gradient-to-r from-orange-500 to-purple-600 rounded-full 
-                         hover:from-orange-600 hover:to-purple-700 transition-all duration-300 
+                         bg-gradient-to-r from-[#cf21c3] to-[#e879f9] rounded-full 
+                         hover:from-[#a21caf] hover:to-[#cf21c3] transition-all duration-300 
                          shadow-lg hover:shadow-xl transform hover:-translate-y-1"
             >
               Let's do it
@@ -242,16 +287,14 @@ export default function HeroSection() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.8 }}
           >
-            <User className="w-5 h-5 text-orange-500" />
+            <User className="w-5 h-5 text-[#cf21c3]" />
             <span className="text-lg">
-              <span className="font-bold text-transparent bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text">
-                {count}+ clients
-              </span>{" "}
-              helped so far
+              <Counter /> helped so far
             </span>
           </motion.div>
         </motion.div>
 
+        {/* Services Section */}
         <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 40 }}
@@ -261,13 +304,13 @@ export default function HeroSection() {
         >
           <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-12">
             Everything you need to{" "}
-            <span className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#cf21c3] to-[#e879f9] bg-clip-text text-transparent">
               grow your business
             </span>
           </h2>
 
           <div className="relative w-full">
-            {/* Background heartbeat wave animation */}
+            {/* background heartbeat waves */}
             <div
               className="absolute inset-0 overflow-hidden"
               style={{
@@ -276,75 +319,59 @@ export default function HeroSection() {
                 right: "calc(-50vw + 50%)",
               }}
             >
-              {/* Primary heartbeat wave */}
               <motion.div
                 className="absolute"
                 style={{
                   background: `linear-gradient(90deg, 
                     transparent 0%, 
-                    rgba(251,146,60,0.15) 20%, 
-                    rgba(236,72,153,0.25) 40%, 
-                    rgba(147,51,234,0.20) 60%, 
-                    rgba(59,130,246,0.15) 80%,
+                    rgba(207,33,195,0.15) 20%, 
+                    rgba(232,121,249,0.25) 40%, 
+                    rgba(240,171,252,0.20) 60%, 
+                    rgba(192,132,252,0.15) 80%,
                     transparent 100%
                   )`,
                   height: "8px",
                   top: "30%",
                   borderRadius: "4px",
                   filter: "blur(2px)",
-                  boxShadow: "0 0 20px rgba(236,72,153,0.3)",
+                  boxShadow: "0 0 20px rgba(207,33,195,0.3)",
                   width: "100%",
                   left: "0",
                 }}
-                animate={{
-                  x: ["-100%", "100%"],
-                }}
-                transition={{
-                  duration: 4,
-                  ease: "linear",
-                  repeat: Number.POSITIVE_INFINITY,
-                }}
+                animate={{ x: ["-100%", "100%"] }}
+                transition={{ duration: 4, ease: "linear", repeat: Infinity }}
               />
 
-              {/* Secondary heartbeat wave */}
               <motion.div
                 className="absolute"
                 style={{
                   background: `linear-gradient(90deg, 
                     transparent 0%, 
-                    rgba(147,51,234,0.12) 25%, 
-                    rgba(59,130,246,0.18) 50%, 
-                    rgba(16,185,129,0.15) 75%, 
+                    rgba(162,28,175,0.12) 25%, 
+                    rgba(207,33,195,0.18) 50%, 
+                    rgba(232,121,249,0.15) 75%, 
                     transparent 100%
                   )`,
                   height: "6px",
                   top: "50%",
                   borderRadius: "3px",
                   filter: "blur(1.5px)",
-                  boxShadow: "0 0 15px rgba(147,51,234,0.2)",
+                  boxShadow: "0 0 15px rgba(207,33,195,0.2)",
                   width: "100%",
                   left: "0",
                 }}
-                animate={{
-                  x: ["-120%", "120%"],
-                }}
-                transition={{
-                  duration: 5,
-                  ease: "linear",
-                  repeat: Number.POSITIVE_INFINITY,
-                  delay: 1,
-                }}
+                animate={{ x: ["-120%", "120%"] }}
+                transition={{ duration: 5, ease: "linear", repeat: Infinity, delay: 1 }}
               />
 
-              {/* Tertiary flowing wave */}
               <motion.div
                 className="absolute"
                 style={{
                   background: `linear-gradient(90deg, 
                     transparent 0%, 
-                    rgba(251,146,60,0.10) 30%, 
-                    rgba(236,72,153,0.15) 60%, 
-                    rgba(147,51,234,0.12) 90%, 
+                    rgba(240,171,252,0.10) 30%, 
+                    rgba(232,121,249,0.15) 60%, 
+                    rgba(207,33,195,0.12) 90%, 
                     transparent 100%
                   )`,
                   height: "4px",
@@ -354,15 +381,8 @@ export default function HeroSection() {
                   width: "100%",
                   left: "0",
                 }}
-                animate={{
-                  x: ["-80%", "180%"],
-                }}
-                transition={{
-                  duration: 6,
-                  ease: "linear",
-                  repeat: Number.POSITIVE_INFINITY,
-                  delay: 2,
-                }}
+                animate={{ x: ["-80%", "180%"] }}
+                transition={{ duration: 6, ease: "linear", repeat: Infinity, delay: 2 }}
               />
             </div>
 
