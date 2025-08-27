@@ -169,10 +169,9 @@ export default function HeroSection() {
         <motion.div
           className="absolute w-[300px] h-[300px] rounded-full"
           style={{
-            background: `radial-gradient(circle, ${gradientSets[currentGradientIndex].background[0]} 0%, ${gradientSets[currentGradientIndex].background[0].replace(
-              "0.15",
-              "0.12"
-            )} 40%, transparent 70%)`,
+            background: `radial-gradient(circle, ${gradientSets[currentGradientIndex].background[0]} 0%, ${gradientSets[
+              currentGradientIndex
+            ].background[0].replace("0.15", "0.12")} 40%, transparent 70%)`,
             filter: "blur(40px)",
             left: "20%",
             top: "20%",
@@ -185,17 +184,16 @@ export default function HeroSection() {
           transition={{
             duration: 20,
             ease: "easeInOut",
-            repeat: Infinity,
+            repeat: Number.POSITIVE_INFINITY,
           }}
         />
 
         <motion.div
           className="absolute w-[250px] h-[250px] rounded-full"
           style={{
-            background: `radial-gradient(circle, ${gradientSets[currentGradientIndex].background[1]} 0%, ${gradientSets[currentGradientIndex].background[1].replace(
-              "0.12",
-              "0.1"
-            )} 45%, transparent 70%)`,
+            background: `radial-gradient(circle, ${gradientSets[currentGradientIndex].background[1]} 0%, ${gradientSets[
+              currentGradientIndex
+            ].background[1].replace("0.12", "0.1")} 45%, transparent 70%)`,
             filter: "blur(35px)",
             right: "25%",
             top: "15%",
@@ -208,17 +206,16 @@ export default function HeroSection() {
           transition={{
             duration: 25,
             ease: "easeInOut",
-            repeat: Infinity,
+            repeat: Number.POSITIVE_INFINITY,
           }}
         />
 
         <motion.div
           className="absolute w-[200px] h-[200px] rounded-full"
           style={{
-            background: `radial-gradient(circle, ${gradientSets[currentGradientIndex].background[2]} 0%, ${gradientSets[currentGradientIndex].background[2].replace(
-              "0.18",
-              "0.14"
-            )} 50%, transparent 70%)`,
+            background: `radial-gradient(circle, ${gradientSets[currentGradientIndex].background[2]} 0%, ${gradientSets[
+              currentGradientIndex
+            ].background[2].replace("0.18", "0.14")} 50%, transparent 70%)`,
             filter: "blur(30px)",
             left: "50%",
             top: "10%",
@@ -231,7 +228,7 @@ export default function HeroSection() {
           transition={{
             duration: 18,
             ease: "easeInOut",
-            repeat: Infinity,
+            repeat: Number.POSITIVE_INFINITY,
           }}
         />
       </div>
@@ -244,7 +241,11 @@ export default function HeroSection() {
           transition={{ duration: 0.8 }}
         >
           <motion.h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-            <span className="text-black">Everything Your Business Needs For </span>
+            <span className="text-black">
+              Everything Your
+              <br className="sm:hidden" /> Business Needs
+              <br className="sm:hidden" /> For{" "}
+            </span>
             <TypewriterEffect
               words={typingWords}
               className="bg-gradient-to-r from-[#cf21c3] to-[#e879f9] bg-clip-text text-transparent"
@@ -303,10 +304,9 @@ export default function HeroSection() {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-12">
-            Everything you need to{" "}
-            <span className="bg-gradient-to-r from-[#cf21c3] to-[#e879f9] bg-clip-text text-transparent">
-              grow your business
-            </span>
+            With{" "}
+            <span className="bg-gradient-to-r from-[#cf21c3] to-[#e879f9] bg-clip-text text-transparent">Kayi</span> You
+            Can
           </h2>
 
           <div className="relative w-full">
@@ -339,7 +339,7 @@ export default function HeroSection() {
                   left: "0",
                 }}
                 animate={{ x: ["-100%", "100%"] }}
-                transition={{ duration: 4, ease: "linear", repeat: Infinity }}
+                transition={{ duration: 4, ease: "linear", repeat: Number.POSITIVE_INFINITY }}
               />
 
               <motion.div
@@ -361,7 +361,7 @@ export default function HeroSection() {
                   left: "0",
                 }}
                 animate={{ x: ["-120%", "120%"] }}
-                transition={{ duration: 5, ease: "linear", repeat: Infinity, delay: 1 }}
+                transition={{ duration: 5, ease: "linear", repeat: Number.POSITIVE_INFINITY, delay: 1 }}
               />
 
               <motion.div
@@ -382,7 +382,7 @@ export default function HeroSection() {
                   left: "0",
                 }}
                 animate={{ x: ["-80%", "180%"] }}
-                transition={{ duration: 6, ease: "linear", repeat: Infinity, delay: 2 }}
+                transition={{ duration: 6, ease: "linear", repeat: Number.POSITIVE_INFINITY, delay: 2 }}
               />
             </div>
 

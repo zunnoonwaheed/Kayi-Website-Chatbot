@@ -371,7 +371,7 @@ export default function SuccessStoriesSection() {
   const filteredProjects =
     selectedCategory === "Latest Projects"
       ? projects
-      : projects.filter((project) => project.categories.includes(selectedCategory))
+      : projects.filter((project) => project.categories().includes(selectedCategory))
 
   const handleReadMore = (projectId: string) => {
     setExpandedCard(expandedCard === projectId ? null : projectId)
@@ -475,102 +475,19 @@ export default function SuccessStoriesSection() {
   return (
     <section className="py-20 px-6 relative overflow-hidden bg-white">
       <div className="absolute inset-0">
-        {/* Base gradient layers that flow seamlessly */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/6 via-pink-500/3 to-[#cf21c3]/8" />
         <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#cf21c3]/4 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-bl from-[#cf21c3]/3 via-transparent to-pink-500/6" />
         <div className="absolute inset-0 bg-gradient-to-tl from-pink-500/4 via-transparent to-[#cf21c3]/5" />
 
-        {/* Seamless edge gradients */}
         <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#cf21c3]/12 via-pink-500/6 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[#cf21c3]/12 via-pink-500/6 to-transparent" />
         <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-[#cf21c3]/10 via-pink-500/5 to-transparent" />
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#cf21c3]/10 via-pink-500/5 to-transparent" />
 
-        {/* Flowing wave gradients */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-[#cf21c3]/8 to-transparent"
-          animate={{
-            x: ["-50%", "50%"],
-            opacity: [0.4, 0.8, 0.4],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-l from-transparent via-pink-500/6 to-transparent"
-          animate={{
-            x: ["50%", "-50%"],
-            opacity: [0.3, 0.7, 0.3],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 8,
-          }}
-        />
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-b from-transparent via-[#cf21c3]/5 to-transparent"
-          animate={{
-            y: ["-30%", "30%"],
-            opacity: [0.2, 0.6, 0.2],
-          }}
-          transition={{
-            duration: 35,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 15,
-          }}
-        />
-
-        {/* Organic floating gradients that blend naturally */}
-        <motion.div
-          className="absolute top-1/6 left-1/6 w-96 h-96 bg-gradient-radial from-[#cf21c3]/15 via-pink-500/10 to-transparent rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.4, 1],
-            opacity: [0.5, 0.8, 0.5],
-            x: [0, 60, 0],
-            y: [0, -40, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-1/6 right-1/6 w-[32rem] h-[32rem] bg-gradient-radial from-pink-500/12 via-[#cf21c3]/8 to-transparent rounded-full blur-3xl"
-          animate={{
-            scale: [1.3, 1, 1.3],
-            opacity: [0.4, 0.7, 0.4],
-            x: [0, -80, 0],
-            y: [0, 50, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 7,
-          }}
-        />
-        <motion.div
-          className="absolute top-1/2 left-1/2 w-[40rem] h-[40rem] bg-gradient-radial from-[#cf21c3]/6 via-pink-500/4 to-transparent rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 40,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 12,
-          }}
-        />
+        <div className="absolute top-1/6 left-1/6 w-96 h-96 bg-gradient-radial from-[#cf21c3]/15 via-pink-500/10 to-transparent rounded-full blur-3xl opacity-60" />
+        <div className="absolute bottom-1/6 right-1/6 w-[32rem] h-[32rem] bg-gradient-radial from-pink-500/12 via-[#cf21c3]/8 to-transparent rounded-full blur-3xl opacity-50" />
+        <div className="absolute top-1/2 left-1/2 w-[40rem] h-[40rem] bg-gradient-radial from-[#cf21c3]/6 via-pink-500/4 to-transparent rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2 opacity-40" />
 
         {/* Subtle mesh gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/3 via-transparent to-pink-500/4 mix-blend-multiply" />
@@ -768,7 +685,7 @@ export default function SuccessStoriesSection() {
                 {filteredProjects.map((project, index) => (
                   <motion.div
                     key={project.id}
-                    className="group cursor-pointer transition-all duration-500 ease-out flex-shrink-0 snap-center w-[calc(100vw-64px)] md:w-[calc(40vw-48px)] lg:w-[calc(25vw-48px)] hover:scale-[1.02]"
+                    className="group cursor-pointer transition-all duration-500 ease-out flex-shrink-0 snap-center w-[280px] sm:w-[320px] md:w-[calc(40vw-48px)] lg:w-[calc(25vw-48px)] hover:scale-[1.02]"
                     onMouseEnter={() => setHoveredCard(project.id)}
                     onMouseLeave={() => setHoveredCard(null)}
                     onClick={() => handleReadMore(project.id)}
@@ -788,13 +705,13 @@ export default function SuccessStoriesSection() {
                     }}
                   >
                     <motion.div
-                      className="bg-white/90 backdrop-blur-sm rounded-3xl overflow-hidden transition-all duration-700 border h-full flex flex-col shadow-lg border-gray-200/50 hover:shadow-xl hover:border-gray-300"
+                      className="bg-white/90 backdrop-blur-sm rounded-3xl overflow-hidden transition-all duration-700 border h-full flex flex-col shadow-lg border-gray-200/50 hover:shadow-xl hover:border-gray-300 min-h-[400px]"
                       whileHover={{
                         boxShadow: "0 20px 40px -12px rgba(0, 0, 0, 0.15)",
                       }}
                     >
                       <motion.div
-                        className="relative overflow-hidden h-40 md:h-64 w-full"
+                        className="relative overflow-hidden h-40 md:h-48 w-full flex-shrink-0"
                         whileHover={{ scale: 1.1 }}
                         transition={{ duration: 0.6 }}
                       >
@@ -805,7 +722,7 @@ export default function SuccessStoriesSection() {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                       </motion.div>
-                      <div className="p-4 md:p-8 flex-1 flex flex-col w-full">
+                      <div className="p-4 md:p-6 flex-1 flex flex-col w-full">
                         <motion.h3
                           className="text-base md:text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors duration-300"
                           initial={{ opacity: 0 }}

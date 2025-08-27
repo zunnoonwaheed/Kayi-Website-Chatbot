@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, X } from "lucide-react"
+import { Menu } from "lucide-react"
 import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
 
@@ -85,15 +85,16 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
-        isScrolled
-          ? "bg-white/80 backdrop-blur-lg shadow-lg py-1.5 mx-4 mt-4 rounded-2xl border border-white/20"
-          : "bg-[#f8f8f8] shadow-sm py-1.5 md:py-2"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out 
+        ${
+          isScrolled
+            ? "bg-white/80 backdrop-blur-lg shadow-lg py-1.5 mx-4 mt-4 rounded-2xl border border-white/20"
+            : "lg:bg-[#f8f8f8] lg:shadow-sm bg-white/80 backdrop-blur-lg shadow-lg mx-4 mt-4 rounded-2xl border border-white/20 py-1.5 md:py-2"
+        }`}
     >
       <div
         className={`flex items-center justify-between transition-all duration-300 ${
-          isScrolled ? "px-4 md:px-6" : "px-3 md:px-5 lg:px-8"
+          isScrolled || true ? "px-4 md:px-6" : "px-3 md:px-5 lg:px-8"
         }`}
       >
         {/* Logo */}
@@ -153,14 +154,6 @@ export default function Header() {
                   height={20}
                   className="h-auto"
                 />
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setIsSheetOpen(false)}
-                  className="text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full h-7 w-7"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
               </div>
 
               <nav className="flex flex-col gap-1 mb-6">
