@@ -46,7 +46,7 @@ export default function AdminDashboard() {
   const [expandedLead, setExpandedLead] = useState<string | null>(null)
 
   const handleLogin = () => {
-    if (password === "KayiDigital@1") {
+    if (password === "123456") {
       setIsAuthenticated(true)
       setAuthError("")
       sessionStorage.setItem("kayi-admin-auth", "true")
