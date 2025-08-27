@@ -354,26 +354,50 @@ export default function ContactSection() {
                         />
                       </motion.div>
                       <motion.div
-                        variants={itemVariants}
-                        initial="hidden"
-                        animate="visible"
-                        transition={{ delay: 1.3 }}
-                        className="pt-2 md:pt-4"
-                      >
-                        <button
-                          type="submit"
-                          disabled={isPending}
-                          className="w-full py-3 md:py-4 px-4 md:px-6 bg-[#cf21c3] text-white font-semibold rounded-lg md:rounded-xl hover:bg-[#b91db0] transition-all duration-300 shadow-md md:shadow-lg hover:shadow-xl transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-                        >
-                          {isPending ? (
-                            <span className="flex items-center justify-center gap-2">
-                              <Loader2 className="w-4 h-4 animate-spin" /> Sending...
-                            </span>
-                          ) : (
-                            <span className="relative z-10 text-sm md:text-base">Submit</span>
-                          )}
-                        </button>
-                      </motion.div>
+  variants={itemVariants}
+  initial="hidden"
+  animate="visible"
+  transition={{ delay: 1.3 }}
+  className="pt-2 md:pt-4"
+>
+  <motion.button
+    type="submit"
+    disabled={isPending}
+    className="inline-flex items-center justify-center w-full px-8 py-4 text-lg font-semibold text-white 
+               bg-gradient-to-r from-[#cf21c3] to-[#e879f9] rounded-full 
+               hover:from-[#a21caf] hover:to-[#cf21c3] transition-all duration-300 
+               shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+    whileHover={{
+      scale: 1.02,
+      boxShadow: "0 10px 30px -5px rgba(207, 33, 195, 0.4)",
+    }}
+    whileTap={{ scale: 0.95 }}
+  >
+    {isPending ? (
+      <span className="flex items-center justify-center gap-2">
+        <Loader2 className="w-5 h-5 animate-spin" /> Sending...
+      </span>
+    ) : (
+      <>
+        Submit
+        <svg
+          className="ml-2 w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </>
+    )}
+  </motion.button>
+</motion.div>
+
                     </form>
                   </div>
                 </div>

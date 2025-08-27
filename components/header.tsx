@@ -51,7 +51,7 @@ export default function Header() {
               key={i}
               href={item.href}
               onClick={() => setIsSheetOpen(false)}
-              className="hover:text-[#cf21c3] transition-all duration-300 font-medium text-[14px] relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#cf21c3] after:transition-all after:duration-300 hover:after:w-full"
+              className="hover:text-[#cf21c3] transition-all duration-300 font-medium text-[13px] xl:text-[14px] relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#cf21c3] after:transition-all after:duration-300 hover:after:w-full whitespace-nowrap"
             >
               {item.name}
             </Link>
@@ -63,7 +63,7 @@ export default function Header() {
             <button
               key={i}
               onClick={() => scrollToSection(item.targetClass!)}
-              className="hover:text-[#cf21c3] transition-all duration-300 font-medium text-[14px] relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#cf21c3] after:transition-all after:duration-300 hover:after:w-full"
+              className="hover:text-[#cf21c3] transition-all duration-300 font-medium text-[13px] xl:text-[14px] relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#cf21c3] after:transition-all after:duration-300 hover:after:w-full whitespace-nowrap"
             >
               {item.name}
             </button>
@@ -74,7 +74,8 @@ export default function Header() {
           <Link
             key={i}
             href={`/#${item.targetClass?.replace(".", "")}`}
-            className="hover:text-[#cf21c3] transition-all duration-300 font-medium text-[14px] relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#cf21c3] after:transition-all after:duration-300 hover:after:w-full"
+            onClick={() => setIsSheetOpen(false)}
+            className="hover:text-[#cf21c3] transition-all duration-300 font-medium text-[13px] xl:text-[14px] relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#cf21c3] after:transition-all after:duration-300 hover:after:w-full whitespace-nowrap"
           >
             {item.name}
           </Link>
@@ -112,7 +113,7 @@ export default function Header() {
 
         {/* Center Nav Links */}
         <nav
-          className={`hidden lg:flex items-center gap-5 text-gray-700 absolute left-1/2 transform -translate-x-1/2 transition-all duration-300 ${
+          className={`hidden lg:flex items-center gap-3 xl:gap-4 text-gray-700 absolute left-1/2 transform -translate-x-1/2 transition-all duration-300 ${
             isScrolled ? "opacity-100" : "opacity-100"
           }`}
         >

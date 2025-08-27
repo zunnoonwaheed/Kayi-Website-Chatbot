@@ -53,19 +53,22 @@ export default function Footer() {
             id="contact-us-section"
             className="text-4xl md:text-6xl font-black tracking-tight mb-4 text-white drop-shadow-2xl bg-gradient-to-r from-white via-pink-100 to-white bg-clip-text text-transparent"
           >
-            Contact Us
+            Let's Talk
           </h2>
           <p className="text-white text-lg md:text-xl mb-8 max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-lg">
             Stop googling 'how to grow my business at 3am' and just talk to us instead.
           </p>
           <Link
-            href="https://calendly.com/saadalii/kayidigital"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-gradient-to-r from-[#cf21c3] to-pink-500 text-white font-semibold px-6 py-3 rounded-full hover:from-pink-500 hover:to-[#cf21c3] transition-all duration-500 transform hover:scale-105 shadow-xl hover:shadow-pink-500/50 border border-pink-400/30"
-          >
-            <span className="text-base">Need help?</span>
-          </Link>
+              href="https://calendly.com/saadalii/kayidigital"
+              className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white 
+                         bg-gradient-to-r from-[#cf21c3] to-[#e879f9] rounded-full 
+                         hover:from-[#a21caf] hover:to-[#cf21c3] transition-all duration-300 
+                         shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            >
+             Need Help?
+              
+          
+            </Link>
         </div>
         {/* Animated Pink Gradient Dividers */}
         <div className="h-1 bg-gradient-to-r from-transparent via-pink-400 to-transparent mb-6 animate-pulse shadow-lg shadow-pink-500/30"></div>
@@ -105,7 +108,7 @@ export default function Footer() {
                   href="/admin/dashboard"
                   className="hover:text-[#cf21c3] transition-colors opacity-70 hover:opacity-100"
                 >
-                  Dashboard
+                Admin
                 </Link>
               </li>
             </ul>

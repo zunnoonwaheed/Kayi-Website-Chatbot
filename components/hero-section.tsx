@@ -243,8 +243,8 @@ export default function HeroSection() {
           <motion.h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
             <span className="text-black">
               Everything Your
-              <br className="sm:hidden" /> Business Needs
-              <br className="sm:hidden" /> For{" "}
+              <br /> Business Needs
+              <br /> For{" "}
             </span>
             <TypewriterEffect
               words={typingWords}

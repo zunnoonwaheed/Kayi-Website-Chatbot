@@ -190,7 +190,7 @@ export default function ServicesSection() {
                 viewport={{ once: true }}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                className="group"
+                className="group h-full"
               >
                 <motion.div
                   whileHover={{
@@ -198,7 +198,7 @@ export default function ServicesSection() {
                     scale: 1.02,
                     transition: { duration: 0.3, ease: "easeOut" },
                   }}
-                  className={`relative p-8 bg-white/80 backdrop-blur-sm rounded-xl border transition-all duration-500 ${
+                  className={`relative p-8 bg-white/80 backdrop-blur-sm rounded-xl border transition-all duration-500 h-full flex flex-col ${
                     isHovered
                       ? "border-[#cf21c3]/20 shadow-xl shadow-[#cf21c3]/10"
                       : "border-slate-200 hover:shadow-lg hover:border-slate-300"
@@ -211,7 +211,7 @@ export default function ServicesSection() {
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ duration: 0.4, delay: index * 0.1 + 0.3 }}
                     viewport={{ once: true }}
-                    className="mb-6"
+                    className="mb-6 flex-shrink-0"
                   >
                     <div
                       className={`w-16 h-16 rounded-xl flex items-center justify-center shadow-lg transition-all duration-500 ${
@@ -230,9 +230,10 @@ export default function ServicesSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1 + 0.4 }}
                     viewport={{ once: true }}
+                    className="flex-grow flex flex-col"
                   >
-                    <h3 className="text-xl font-bold text-black mb-4 leading-tight">{service.title}</h3>
-                    <p className="text-sm text-slate-600 leading-relaxed">{service.description}</p>
+                    <h3 className="text-xl font-bold text-black mb-4 leading-tight flex-shrink-0">{service.title}</h3>
+                    <p className="text-sm text-slate-600 leading-relaxed flex-grow">{service.description}</p>
                   </motion.div>
                 </motion.div>
               </motion.div>
@@ -253,13 +254,21 @@ export default function ServicesSection() {
             rel="noopener noreferrer"
             whileHover={{
               scale: 1.05,
-              boxShadow: "0 10px 30px rgba(207, 33, 195, 0.3)",
+              y: -4,
             }}
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="inline-block bg-gradient-to-r from-[#cf21c3] to-pink-500 text-white font-semibold text-base px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#cf21c3] to-[#e879f9] hover:from-[#a21caf] hover:to-[#cf21c3] text-white font-semibold text-lg px-8 py-4 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
           >
             Tell us what you need
+            <svg
+              className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
           </motion.a>
         </motion.div>
       </div>

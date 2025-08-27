@@ -851,27 +851,45 @@ export default function SuccessStoriesSection() {
           </motion.div>
         )}
 
-        <motion.div
-          className="text-center mt-16 md:mt-24"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, delay: 1.4 }}
-        >
-          <motion.a
-            href="https://calendly.com/saadalii/kayidigital"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-[#cf21c3] hover:bg-[#b91c9e] text-white font-semibold px-6 py-3 rounded-full text-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300"
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 10px 30px -5px rgba(207, 33, 195, 0.4)",
-            }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Book a Free Consultation
-          </motion.a>
-        </motion.div>
+<motion.div
+  className="text-center mt-16 md:mt-24"
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.3 }}
+  transition={{ duration: 0.8, delay: 1.4 }}
+>
+  <motion.a
+    href="https://calendly.com/saadalii/kayidigital"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white 
+               bg-gradient-to-r from-[#cf21c3] to-[#e879f9] rounded-full 
+               hover:from-[#a21caf] hover:to-[#cf21c3] transition-all duration-300 
+               shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+    whileHover={{
+      scale: 1.02,
+      boxShadow: "0 10px 30px -5px rgba(207, 33, 195, 0.4)",
+    }}
+    whileTap={{ scale: 0.95 }}
+  >
+    Book a Free Consultation
+    <svg
+      className="ml-2 w-5 h-5"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M9 5l7 7-7 7"
+      />
+    </svg>
+  </motion.a>
+</motion.div>
+
+
       </div>
 
       {/* ... existing styles ... */}

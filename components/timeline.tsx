@@ -8,13 +8,13 @@ export default function SophisticatedTimeline() {
     {
       title: "Discovery",
       description: "We understand where you are and where you want to go.",
-      duration: "1-2 weeks",
+      duration: "1-2 days",
       number: "01",
     },
     {
       title: "Strategy",
       description: "We map out exactly how we're going to get you there.",
-      duration: "2-3 weeks",
+      duration: "5-7 days",
       number: "02",
     },
     {
