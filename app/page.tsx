@@ -8,10 +8,11 @@ import ProcessSection from "@/components/timeline"
 import ServicesSection from "@/components/services-provide"
 import LocationsSection from "@/components/locations-section"
 import SuccessStoriesSection from "@/components/success-stories-section"
-import ReviewsSection from "@/components/review-section"
+import FaqsSection from "@/components/faqs" 
 import ContactSection from "@/components/contact-section"
 import Footer from "@/components/Footer"
 import KayiChatbot from "@/components/kayi-chatbot"
+import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton" // Import the WhatsApp button
 
 export default function Home() {
   useEffect(() => {
@@ -81,9 +82,9 @@ export default function Home() {
           <SuccessStoriesSection />
         </section>
 
-        {/* Testimonials */}
-        <section id="testimonials" className="testimonials">
-          <ReviewsSection />
+        {/* FAQs */}
+        <section id="faqs" className="faqs">
+          <FaqsSection />
         </section>
 
         {/* Contact */}
@@ -95,6 +96,10 @@ export default function Home() {
 
       {/* ✅ Chatbot widget added */}
       <KayiChatbot />
+      
+      {/* ✅ WhatsApp Floating Button added */}
+      <WhatsAppFloatingButton />
+      
       <Footer />
     </div>
   )

@@ -3,7 +3,7 @@ import HeroSection from "./hero-section"
 import CardsSection from "./cards-section"
 import SubscriptionPlans from "./subscription-plans"
 import TechnologiesSection from "./technologies"
-import Footer from "./footer"
+import Footer from "./Footer"
 import { Questions } from "./questions"
 import { FaqsSection } from "./faqs-section"
 

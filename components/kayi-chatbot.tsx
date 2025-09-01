@@ -874,42 +874,27 @@ Would you like to schedule a quick 15-minute discovery call to discuss your goal
   }
 
   return (
-    <>
-      {!isOpen && (
-        <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
-          {showIntroPopup && (
-            <div className="absolute bottom-16 right-0 mb-2 animate-in slide-in-from-bottom-2 duration-300">
-              <div className="relative">
-                <div className="bg-white rounded-lg shadow-lg border border-gray-200 px-3 py-2 max-w-[180px]">
-                  <div className="flex items-center gap-2">
-                    <div className="w-5 h-5 bg-gradient-to-r from-[#cf21c3] to-[#cf21c3]/80 rounded-full flex items-center justify-center flex-shrink-0">
-                      <MessageCircle className="w-2.5 h-2.5 text-white" />
-                    </div>
-                    <span className="text-xs font-medium text-gray-700 whitespace-nowrap">Need help? Ask me</span>
-                  </div>
-                  <button
-                    onClick={() => setShowIntroPopup(false)}
-                    className="absolute -top-1 -right-1 w-4 h-4 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors"
-                  >
-                    <X className="w-2.5 h-2.5" />
-                  </button>
-                </div>
-                {/* Speech bubble arrow */}
-                <div className="absolute bottom-0 right-4 transform translate-y-full">
-                  <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-white"></div>
-                </div>
-              </div>
-            </div>
-          )}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-r from-[#cf21c3] to-[#cf21c3]/80 hover:from-[#cf21c3]/90 hover:to-[#cf21c3]/70 text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center touch-manipulation"
-          >
-            <MessageCircle className="w-6 h-6 sm:w-8 sm:h-8" />
-          </button>
+<>
+  <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center space-x-2">
+    {/* ZoeBot label */}
+    {!isOpen && (
+      <div className="bg-white shadow-md border border-gray-200 rounded-lg px-3 py-1.5 flex items-center gap-2">
+        <div className="w-5 h-5 bg-gradient-to-r from-[#cf21c3] to-[#cf21c3]/80 rounded-full flex items-center justify-center flex-shrink-0">
+          <MessageCircle className="w-3 h-3 text-white" />
         </div>
-      )}
+        <span className="text-xs font-medium text-gray-800">ZoeBot</span>
+      </div>
+    )}
 
+    {/* Floating chat button */}
+    <button
+      onClick={() => setIsOpen(!isOpen)}
+      className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-r from-[#cf21c3] to-[#cf21c3]/80 hover:from-[#cf21c3]/90 hover:to-[#cf21c3]/70 text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center touch-manipulation"
+    >
+      <MessageCircle className="w-6 h-6 sm:w-8 sm:h-8" />
+    </button>
+  </div>
+      
       {isOpen && (
         <div className="fixed inset-x-2 bottom-2 top-2 sm:bottom-20 sm:right-4 sm:top-auto sm:left-auto sm:w-[420px] md:w-[480px] sm:h-[600px] md:h-[650px] bg-white rounded-2xl sm:rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden border border-gray-200">
           <div className="flex items-center justify-between p-3 sm:p-4 bg-gradient-to-r from-[#cf21c3] to-[#cf21c3]/80 text-white rounded-t-2xl">

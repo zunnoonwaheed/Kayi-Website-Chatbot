@@ -509,7 +509,7 @@ export default function SuccessStoriesSection() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <span className="font-semibold text-black">Our Success Stories</span>
+            <span className="font-semibold text-black">Client Wins</span>
           </motion.h2>
           <motion.p
             className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed font-light px-4 md:px-0"

@@ -2,37 +2,61 @@
 
 import { motion } from "framer-motion"
 import { useState } from "react"
-import { CpuChipIcon, ChartBarIcon, CodeBracketIcon, UserGroupIcon } from "@heroicons/react/24/outline"
+import { Plus, Minus } from "lucide-react"
 
-const services = [
+const faqData = [
   {
-    title: "BUSINESS AUTOMATION",
-    description:
-      "Stop doing the same tasks over and over again. We build powerful systems that handle the boring stuff automatically.",
-    icon: CpuChipIcon,
+    id: "item-1",
+    question: "How quickly can you start working on my project?",
+    answer: "We can usually get started within 48 hours of our initial call. After understanding your needs, we'll put together a clear plan and timeline so you know exactly what to expect and when.",
   },
   {
-    title: "PERFORMANCE MARKETING",
-    description:
-      "Your marketing budget deserves better than guesswork. We only spend money on things that actually work.",
-    icon: ChartBarIcon,
+    id: "item-2",
+    question: "What if the solution doesn't work for my business?",
+    answer: "We work closely with you throughout the process to make sure everything fits your needs. If something isn't working, we'll adjust our approach until we get it right - your success is our priority.",
   },
   {
-    title: "WEB DEVELOPMENT & MOBILE APPS",
-    description:
-      "Off-the-shelf tools don't cut it. We build custom web and mobile apps tailored to your business—fast, functional, and ready to grow.",
-    icon: CodeBracketIcon,
+    id: "item-3",
+    question: "Do you work with businesses of all sizes?",
+    answer: "Yes, we work with everyone from startups to established companies. Our approach scales with your business - whether you need simple solutions or complex enterprise-level implementations.",
   },
   {
-    title: "CUSTOM BUSINESS OUTSOURCING",
-    description:
-      "Why hire full-time when you can get exactly the help you need, exactly when you need it, without the overhead?",
-    icon: UserGroupIcon,
+    id: "item-4",
+    question: "How do you measure success?",
+    answer: "We focus on metrics that actually matter to your business - whether that's increased revenue, more leads, time saved, or improved efficiency. We'll agree on clear goals upfront and track progress together.",
+  },
+  {
+    id: "item-5",
+    question: "What's your typical project timeline?",
+    answer: "Most projects take 2-8 weeks depending on complexity. We'll give you a realistic timeline upfront and keep you updated throughout. Rush projects can often be accommodated with additional resources.",
+  },
+  {
+    id: "item-6",
+    question: "How is this different from hiring an in-house team?",
+    answer: "You get experienced specialists across multiple areas without the overhead costs, hiring time, or management complexity. We bring proven systems and can scale up or down based on your needs.",
+  },
+  {
+    id: "item-7",
+    question: "What happens to our data and business information?",
+    answer: "Everything stays with you. We sign NDAs as standard practice, follow strict security protocols, and ensure you maintain full ownership of all accounts, data, and systems we work with.",
+  },
+  {
+    id: "item-8",
+    question: "Do you provide ongoing support after project completion?",
+    answer: "Yes, we offer continued support to ensure everything runs smoothly. This includes training your team, monitoring performance, making adjustments, and being available when you need help.",
   },
 ]
 
-export default function ServicesSection() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+export default function FaqsSection() {
+  const [openItems, setOpenItems] = useState<string[]>([])
+
+  const toggleItem = (id: string) => {
+    if (openItems.includes(id)) {
+      setOpenItems(openItems.filter(item => item !== id))
+    } else {
+      setOpenItems([...openItems, id])
+    }
+  }
 
   return (
     <section className="py-20 px-6 relative overflow-hidden bg-white">
@@ -141,7 +165,7 @@ export default function ServicesSection() {
         <div className="absolute inset-0 bg-gradient-to-tl from-pink-500/2 via-transparent to-[#cf21c3]/3 mix-blend-screen opacity-50" />
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-4xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -157,8 +181,7 @@ export default function ServicesSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-           Growth Solutions
-
+            Frequently Asked Questions
           </motion.h2>
           <motion.p
             className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed"
@@ -167,87 +190,60 @@ export default function ServicesSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <span className="font-bold">Everything</span> your business needs to grow and scale{" "}
-            <span className="font-bold">under one roof</span> - no more juggling multiple vendors or wondering who's
-            responsible
+            Everything you need to know about our services and processes. Can't find an answer?{" "}
+            <a href="https://calendly.com/saadalii/kayidigital" className="text-[#cf21c3] font-semibold hover:underline">
+              Contact us directly
+            </a>
+            .
           </motion.p>
         </motion.div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {services.map((service, index) => {
-            const Icon = service.icon
-            const isHovered = hoveredIndex === index
+        {/* FAQ Items */}
+        <div className="space-y-6">
+          {faqData.map((faq, index) => {
+            const isOpen = openItems.includes(faq.id)
+            
             return (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 60, scale: 0.9 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{
-                  duration: 0.7,
-                  delay: index * 0.15,
-                  ease: "easeOut",
-                }}
+                key={faq.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                className="group h-full"
+                className="bg-white/80 backdrop-blur-sm rounded-xl border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-slate-300"
               >
-                <motion.div
-                  whileHover={{
-                    y: -8,
-                    scale: 1.02,
-                    transition: { duration: 0.3, ease: "easeOut" },
-                  }}
-                  className={`relative p-8 bg-white/80 backdrop-blur-sm rounded-xl border transition-all duration-500 h-full flex flex-col ${
-                    isHovered
-                      ? "border-[#cf21c3]/20 shadow-xl shadow-[#cf21c3]/10"
-                      : "border-slate-200 hover:shadow-lg hover:border-slate-300"
-                  }`}
+                <button
+                  onClick={() => toggleItem(faq.id)}
+                  className="w-full flex items-center justify-between p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#cf21c3]"
                 >
-                  {/* Icon */}
-                  <motion.div
-                    initial={{ scale: 0.8, rotate: -10 }}
-                    whileInView={{ scale: 1, rotate: 0 }}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 + 0.3 }}
-                    viewport={{ once: true }}
-                    className="mb-6 flex-shrink-0"
-                  >
-                    <div
-                      className={`w-16 h-16 rounded-xl flex items-center justify-center shadow-lg transition-all duration-500 ${
-                        isHovered
-                          ? "bg-gradient-to-br from-[#cf21c3] to-pink-500 text-white shadow-[#cf21c3]/20"
-                          : "bg-white text-[#cf21c3] shadow-slate-200"
-                      }`}
-                    >
-                      <Icon className="w-8 h-8" />
-                    </div>
-                  </motion.div>
-
-                  {/* Content */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 + 0.4 }}
-                    viewport={{ once: true }}
-                    className="flex-grow flex flex-col"
-                  >
-                    <h3 className="text-xl font-bold text-black mb-4 leading-tight flex-shrink-0">{service.title}</h3>
-                    <p className="text-sm text-slate-600 leading-relaxed flex-grow">{service.description}</p>
-                  </motion.div>
+                  <h3 className="text-lg font-semibold text-black pr-4">{faq.question}</h3>
+                  <div className={`flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full transition-all duration-300 ${isOpen ? 'bg-gradient-to-br from-[#cf21c3] to-pink-500 text-white' : 'bg-slate-100 text-slate-600'}`}>
+                    {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                  </div>
+                </button>
+                
+                <motion.div
+                  initial={false}
+                  animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="overflow-hidden"
+                >
+                  <div className="px-6 pb-6 pt-2 text-slate-600">
+                    {faq.answer}
+                  </div>
                 </motion.div>
               </motion.div>
             )
           })}
         </div>
 
+        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.9 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-center"
+          className="text-center mt-16"
         >
           <motion.a
             href="https://calendly.com/saadalii/kayidigital"
@@ -261,7 +257,7 @@ export default function ServicesSection() {
             transition={{ duration: 0.2 }}
             className="inline-flex items-center gap-2 bg-gradient-to-r from-[#cf21c3] to-[#e879f9] hover:from-[#a21caf] hover:to-[#cf21c3] text-white font-semibold text-lg px-8 py-4 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
           >
-            Tell us what you need
+            Schedule a free consultation
             <svg
               className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1"
               fill="none"

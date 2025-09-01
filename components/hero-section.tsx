@@ -155,11 +155,11 @@ export default function HeroSection() {
   }, [])
 
   const services = [
-    { icon: Lightbulb, title: "Find ideas" },
-    { icon: Sparkles, title: "Create products" },
-    { icon: Megaphone, title: "Find customers" },
-    { icon: CreditCard, title: "Get paid globally" },
-    { icon: DollarSign, title: "Build a business" },
+    { icon: Lightbulb, title: "Research Markets" },
+    { icon: Sparkles, title: "Build solutions" },
+    { icon: Megaphone, title: "Drive traffic" },
+    { icon: CreditCard, title: "Boost revenue" },
+    { icon: DollarSign, title: "Scale operations" },
   ]
 
   return (

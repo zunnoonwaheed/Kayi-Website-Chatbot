@@ -4,7 +4,7 @@ import { useActionState } from "react"
 import { submitContactForm } from "./actions/contact-actions"
 import { CheckCircle, Loader2 } from "lucide-react"
 import Image from "next/image"
-import { motion } from "framer-motion" // Import motion from framer-motion
+import { motion } from "framer-motion"
 
 export default function ContactSection() {
   const [isVisible, setIsVisible] = useState(false)
@@ -18,7 +18,6 @@ export default function ContactSection() {
   useEffect(() => {
     if (state?.success) {
       setShowSuccess(true)
-      // Reset success message after 5 seconds
       const timer = setTimeout(() => {
         setShowSuccess(false)
       }, 5000)
@@ -113,19 +112,16 @@ export default function ContactSection() {
         className="py-8 md:py-16 px-4 bg-white relative overflow-hidden min-h-screen flex items-center"
       >
         <div className="absolute inset-0">
-          {/* Base gradient layers that flow seamlessly */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/6 via-pink-500/3 to-[#cf21c3]/8" />
           <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#cf21c3]/4 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-bl from-[#cf21c3]/3 via-transparent to-pink-500/6" />
           <div className="absolute inset-0 bg-gradient-to-tl from-pink-500/4 via-transparent to-[#cf21c3]/5" />
 
-          {/* Seamless edge gradients */}
           <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#cf21c3]/12 via-pink-500/6 to-transparent" />
           <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[#cf21c3]/12 via-pink-500/6 to-transparent" />
           <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-[#cf21c3]/10 via-pink-500/5 to-transparent" />
           <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#cf21c3]/10 via-pink-500/5 to-transparent" />
 
-          {/* Flowing wave gradients with motion animations */}
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#cf21c3]/8 to-transparent animate-flowing-wave" />
           <div
             className="absolute inset-0 bg-gradient-to-l from-transparent via-pink-500/6 to-transparent animate-flowing-wave"
@@ -136,7 +132,6 @@ export default function ContactSection() {
             style={{ animationDelay: "15s" }}
           />
 
-          {/* Organic floating gradients with complex motion patterns */}
           <div className="absolute top-1/6 left-1/6 w-96 h-96 bg-gradient-radial from-[#cf21c3]/15 via-pink-500/10 to-transparent rounded-full blur-3xl animate-organic-float" />
           <div
             className="absolute bottom-1/6 right-1/6 w-[32rem] h-[32rem] bg-gradient-radial from-pink-500/12 via-[#cf21c3]/8 to-transparent rounded-full blur-3xl animate-organic-float-large"
@@ -147,31 +142,27 @@ export default function ContactSection() {
             style={{ animationDelay: "12s", animationDuration: "40s" }}
           />
 
-          {/* Additional seamless flowing gradients */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/4 via-transparent to-pink-500/3 animate-seamless-flow" />
           <div
             className="absolute inset-0 bg-gradient-to-tl from-pink-500/3 via-transparent to-[#cf21c3]/4 animate-seamless-flow-reverse"
             style={{ animationDelay: "10s" }}
           />
 
-          {/* Subtle mesh gradient overlays with blend modes */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/3 via-transparent to-pink-500/4 mix-blend-multiply" />
           <div className="absolute inset-0 bg-gradient-to-tl from-pink-500/2 via-transparent to-[#cf21c3]/3 mix-blend-screen opacity-50" />
         </div>
 
         <div className="max-w-7xl mx-auto w-full relative z-10">
-          {/* Header */}
-          <div className="text-center mb-8 md:mb-16">
+          <div className="text-center mb-4 md:mb-8">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-8"
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 md:mb-4"
             >
               Have A Project In Mind? 👋
             </motion.h2>
-            {/* Animated Arrow */}
-            <div className="flex justify-center mb-6 md:mb-8">
+            <div className="flex justify-center -mt-2 mb-2">
               <div
                 className={`transition-all duration-1000 ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"}`}
               >
@@ -180,8 +171,8 @@ export default function ContactSection() {
                     src="/images/purple-arrow.png"
                     alt="Decorative arrow pointing to form"
                     width={128}
-                    height={96}
-                    className="w-24 md:w-32 h-20 md:h-24 object-contain animate-bounce"
+                    height={60}
+                    className="w-20 md:w-24 h-16 md:h-20 object-contain animate-bounce"
                     style={{
                       filter: "grayscale(100%)",
                       animationDuration: "2s",
@@ -193,9 +184,7 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Form Section */}
-          <div className="flex flex-col lg:flex-row items-center justify-center gap-6 max-w-6xl mx-auto">
-            {/* Phone Mockup */}
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-4 max-w-6xl mx-auto">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -218,17 +207,15 @@ export default function ContactSection() {
               </div>
             </motion.div>
 
-            {/* Form */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.6 }}
               className="relative w-full max-w-[750px]"
             >
-              <div className="relative w-full mb-6 md:mb-8">
+              <div className="relative w-full">
                 <div className="w-full bg-black rounded-xl md:rounded-2xl p-2 md:p-4 shadow-xl md:shadow-2xl mx-auto">
-                  <div className="w-full h-full bg-white rounded-lg md:rounded-xl p-4 md:p-6 lg:p-10 relative overflow-hidden min-h-[500px] md:min-h-[520px]">
-                    {/* Success Message */}
+                  <div className="w-full h-full bg-white rounded-lg md:rounded-xl p-4 md:p-6 lg:p-10 relative overflow-hidden min-h-[400px] md:min-h-[420px]">
                     {showSuccess && state?.success && (
                       <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
@@ -254,7 +241,6 @@ export default function ContactSection() {
                         </div>
                       </motion.div>
                     )}
-                    {/* Error Message */}
                     {state && !state.success && (
                       <motion.div
                         initial={{ opacity: 0, y: -10 }}
@@ -265,7 +251,7 @@ export default function ContactSection() {
                         <p className="text-red-800 text-sm">{state.message}</p>
                       </motion.div>
                     )}
-                    <form action={formAction} className="space-y-3 md:space-y-4 relative z-10 h-full flex flex-col">
+                    <form action={formAction} className="space-y-4 md:space-y-6 relative z-10 h-full flex flex-col">
                       <motion.div
                         variants={itemVariants}
                         initial="hidden"
@@ -301,103 +287,61 @@ export default function ContactSection() {
                         initial="hidden"
                         animate="visible"
                         transition={{ delay: 1.0 }}
-                        className="group relative"
+                        className="group flex-1"
                       >
-                        <select
-                          name="topic"
+                        <textarea
+                          name="description"
+                          placeholder="How can we help you?"
+                          rows={5}
                           required
                           disabled={isPending}
-                          className="w-full px-4 md:px-5 py-3 md:py-4 border border-gray-300 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-[#cf21c3] text-gray-500 bg-gray-50/50 backdrop-blur-sm appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                          <option value="">Select a Discussion Topic</option>
-                          <option value="Web Development">Web Development</option>
-                          <option value="Mobile App">Mobile App</option>
-                          <option value="UI/UX Design">UI/UX Design</option>
-                          <option value="Consultation">Consultation</option>
-                          <option value="E-commerce">E-commerce</option>
-                          <option value="Digital Marketing">Digital Marketing</option>
-                        </select>
-                        <div className="absolute inset-y-0 right-3 md:right-4 flex items-center pointer-events-none">
-                          <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </div>
+                          className="w-full h-full px-4 md:px-5 py-3 md:py-4 border border-gray-300 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-[#cf21c3] resize-none bg-gray-50/50 backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed min-h-[120px]"
+                        />
                       </motion.div>
                       <motion.div
                         variants={itemVariants}
                         initial="hidden"
                         animate="visible"
                         transition={{ delay: 1.1 }}
+                        className="pt-2 md:pt-4"
                       >
-                        <input
-                          type="text"
-                          name="budget"
-                          placeholder="What's your budget?"
+                        <motion.button
+                          type="submit"
                           disabled={isPending}
-                          className="w-full px-4 md:px-5 py-3 md:py-4 border border-gray-300 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-[#cf21c3] bg-gray-50/50 backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed"
-                        />
+                          className="inline-flex items-center justify-center w-full px-8 py-4 text-lg font-semibold text-white 
+                                     bg-gradient-to-r from-[#cf21c3] to-[#e879f9] rounded-full 
+                                     hover:from-[#a21caf] hover:to-[#cf21c3] transition-all duration-300 
+                                     shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                          whileHover={{
+                            scale: 1.02,
+                            boxShadow: "0 10px 30px -5px rgba(207, 33, 195, 0.4)",
+                          }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          {isPending ? (
+                            <span className="flex items-center justify-center gap-2">
+                              <Loader2 className="w-5 h-5 animate-spin" /> Sending...
+                            </span>
+                          ) : (
+                            <>
+                              Submit
+                              <svg
+                                className="ml-2 w-5 h-5"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M9 5l7 7-7 7"
+                                />
+                              </svg>
+                            </>
+                          )}
+                        </motion.button>
                       </motion.div>
-                      <motion.div
-                        variants={itemVariants}
-                        initial="hidden"
-                        animate="visible"
-                        transition={{ delay: 1.2 }}
-                        className="group flex-1"
-                      >
-                        <textarea
-                          name="description"
-                          placeholder="A brief description about your project/request/consultation"
-                          rows={3}
-                          required
-                          disabled={isPending}
-                          className="w-full h-full px-4 md:px-5 py-3 md:py-4 border border-gray-300 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-[#cf21c3] resize-none bg-gray-50/50 backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed"
-                        />
-                      </motion.div>
-                      <motion.div
-  variants={itemVariants}
-  initial="hidden"
-  animate="visible"
-  transition={{ delay: 1.3 }}
-  className="pt-2 md:pt-4"
->
-  <motion.button
-    type="submit"
-    disabled={isPending}
-    className="inline-flex items-center justify-center w-full px-8 py-4 text-lg font-semibold text-white 
-               bg-gradient-to-r from-[#cf21c3] to-[#e879f9] rounded-full 
-               hover:from-[#a21caf] hover:to-[#cf21c3] transition-all duration-300 
-               shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-    whileHover={{
-      scale: 1.02,
-      boxShadow: "0 10px 30px -5px rgba(207, 33, 195, 0.4)",
-    }}
-    whileTap={{ scale: 0.95 }}
-  >
-    {isPending ? (
-      <span className="flex items-center justify-center gap-2">
-        <Loader2 className="w-5 h-5 animate-spin" /> Sending...
-      </span>
-    ) : (
-      <>
-        Submit
-        <svg
-          className="ml-2 w-5 h-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 5l7 7-7 7"
-          />
-        </svg>
-      </>
-    )}
-  </motion.button>
-</motion.div>
-
                     </form>
                   </div>
                 </div>

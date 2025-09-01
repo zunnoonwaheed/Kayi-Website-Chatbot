@@ -73,21 +73,21 @@ export default function LocationsSection() {
               isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-20 scale-90"
             }`}
           >
-            <span
-              className={`inline-block transition-all duration-1000 delay-300 ease-out ${
-                isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-16 scale-85"
-              }`}
-            >
-              Pioneering Digital Innovation  Across 
-            </span>
-            <br />
-            <span
-              className={`text-[#cf21c3] inline-block transition-all duration-1000 delay-500 ease-out ${
-                isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-12 scale-80"
-              }`}
-            >
-          The Globe
-            </span>
+          <span
+  className={`inline-block transition-all duration-1000 delay-300 ease-out ${
+    isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-16 scale-85"
+  }`}
+>
+  Innovating Beyond{" "}
+  <span
+    className={`text-[#cf21c3] inline-block transition-all duration-1000 delay-500 ease-out ${
+      isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-12 scale-80"
+    }`}
+  >
+    Borders
+  </span>
+</span>
+
           </h2>
           <p
             className={`text-gray-300 text-base md:text-xl max-w-4xl mx-auto leading-relaxed px-2 md:px-0 transition-all duration-1000 delay-700 ease-out ${
@@ -177,10 +177,9 @@ export default function LocationsSection() {
                 />
               </svg>
             </div>
-            <h3 className="text-lg md:text-2xl font-semibold text-white mb-2 md:mb-4">Client-Centric Approach</h3>
-            <p className="text-sm md:text-lg text-gray-400 leading-relaxed">
-              We prioritize your satisfaction, tailoring our services to meet your specific requirements and ensure
-              optimal outcomes.
+            <h3 className="text-lg md:text-2xl font-semibold text-white mb-2 md:mb-4">We Actually Listen</h3>
+            <p className="text-sm md:text-lg text-gray-400 leading-relaxed ">
+            Your success is what matters most to us. We take time to understand your business, listen to your challenges, and work alongside you to find solutions that actually fit your needs.
             </p>
           </div>
 
@@ -200,9 +199,9 @@ export default function LocationsSection() {
                 />
               </svg>
             </div>
-            <h3 className="text-lg md:text-2xl font-semibold text-white mb-2 md:mb-4">Expert Team</h3>
+            <h3 className="text-lg md:text-2xl font-semibold text-white mb-2 md:mb-4">No Learning Curve</h3>
             <p className="text-sm md:text-lg text-gray-400 leading-relaxed">
-              Our team comprises professionals with expertise across various technologies, ensuring top-quality results.
+            You'll work with people who genuinely care about your project. Our team brings real experience from different industries, so we can tackle whatever challenges you're facing together.
             </p>
           </div>
 
@@ -217,10 +216,9 @@ export default function LocationsSection() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            <h3 className="text-lg md:text-2xl font-semibold text-white mb-2 md:mb-4">Innovative Solutions</h3>
+            <h3 className="text-lg md:text-2xl font-semibold text-white mb-2 md:mb-4">Results That Matter</h3>
             <p className="text-sm md:text-lg text-gray-400 leading-relaxed">
-              We leverage technology to create solutions that address your unique challenges, driving growth and
-              efficiency.
+            We'll help you find the right tools and strategies for your specific situation. Every business is different, so we focus on what will actually move the needle for you and your goals.
             </p>
           </div>
         </div>
