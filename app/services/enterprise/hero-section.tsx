@@ -1,60 +1,95 @@
-import React from 'react';
+"use client"
 
-const HeroSection = () => {
+import { motion } from "framer-motion"
+
+export default function HeroSection() {
   return (
-    <section className="bg-gray-50 pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                Grow your brand
-                <span className="text-gray-600 text-lg font-normal block mt-2">®</span>
-              </h1>
-              
-              <p className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-lg">
-                Strategic, data-driven and results-focused - transform your 
-                marketing into measurable growth and amplify your brand 
-                presence with cutting-edge digital solutions.
-              </p>
-            </div>
-            
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button className="px-8 py-4 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all duration-200 font-medium shadow-md hover:shadow-lg">
-                View our work
-              </button>
-              <button 
-                className="px-8 py-4 text-white rounded-lg transition-all duration-200 font-medium shadow-md hover:shadow-lg transform hover:scale-105"
-                style={{
-                  background: 'linear-gradient(135deg, #cf21c3 0%, #e535db 50%, #f649f3 100%)',
-                }}
-              >
-                Start your project
-              </button>
-            </div>
-          </div>
+    <section className="bg-white dark:bg-gray-900 pt-28 md:pt-36 lg:pt-44 pb-12 md:pb-24 relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-[#cf21c3]/5 to-transparent -z-10"></div>
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#cf21c3]/10 rounded-full blur-3xl opacity-50 animate-pulse hidden md:block"></div>
+      <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-[#e879f9]/10 rounded-full blur-3xl opacity-30 hidden md:block"></div>
+
+      <div className="grid max-w-screen-xl px-4 mx-auto lg:gap-8 xl:gap-0 lg:grid-cols-12">
+        <div className="mr-auto place-self-center lg:col-span-7 order-2 lg:order-1 mt-8 lg:mt-0">
+          <motion.h1 
+            className="max-w-2xl mb-4 text-3xl font-extrabold tracking-tight leading-none md:text-4xl md:mb-6 xl:text-5xl dark:text-white text-center lg:text-left"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            Transform Your Digital Presence with Expert Solutions
+          </motion.h1>
           
-          {/* Right Image */}
-          <div className="relative">
-            <div className="relative z-10 transform hover:scale-105 transition-transform duration-300">
-              <img 
-                src="https://yotta.com/wp-content/uploads/2022/06/Why-ITSM-is-integral-in-enterprise-wide-digitisation.jpg"
-                alt="Enterprise digitization illustration"
-                className="w-full h-auto rounded-2xl shadow-2xl"
-              />
-              
-              {/* Background Decorative Elements */}
-              <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-br from-pink-300 to-purple-400 rounded-full opacity-60 animate-pulse"></div>
-              <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-gradient-to-br from-blue-300 to-cyan-400 rounded-full opacity-40 animate-pulse delay-1000"></div>
-              <div className="absolute top-1/2 -right-8 w-8 h-8 bg-gradient-to-br from-green-300 to-emerald-400 rounded-full opacity-50 animate-bounce delay-500"></div>
-            </div>
-          </div>
+          <motion.p 
+            className="max-w-2xl mb-6 font-light text-gray-500 md:mb-8 md:text-lg lg:text-xl dark:text-gray-400 text-center lg:text-left"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
+            From stunning web development to powerful automation systems, we help businesses streamline operations, 
+            enhance user experiences, and drive sustainable growth through cutting-edge technology solutions.
+          </motion.p>
+          
+          <motion.div 
+            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+          >
+            <a 
+              href="https://calendly.com/saadalii/kayidigital" 
+              className="inline-flex items-center justify-center px-5 py-3 md:px-6 md:py-4 text-base font-medium text-center text-white rounded-lg bg-gradient-to-r from-[#cf21c3] to-[#e879f9] hover:from-[#a21caf] hover:to-[#cf21c3] focus:ring-4 focus:ring-purple-300 dark:focus:ring-purple-900 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
+            >
+              Get Started Free
+              <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
+              </svg>
+            </a>
+            
+            <a 
+              href="#services" 
+              className="inline-flex items-center justify-center px-5 py-3 md:px-6 md:py-4 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800 transition-all duration-300"
+            >
+              Explore Services
+            </a> 
+          </motion.div>
         </div>
+        
+        {/* Mobile Image - Visible on small screens */}
+        <motion.div 
+          className="lg:hidden flex justify-center items-center mb-8 order-1 mt-6"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+        >
+          <div className="relative w-full max-w-xs">
+            <div className="absolute -inset-3 bg-gradient-to-r from-[#cf21c3]/20 to-[#e879f9]/20 rounded-2xl blur-lg opacity-75 animate-pulse"></div>
+            <img 
+              src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" 
+              alt="Digital solutions mockup" 
+              className="relative rounded-xl shadow-xl w-full transform hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+        </motion.div>
+
+        {/* Desktop Image - Hidden on mobile */}
+        <motion.div 
+          className="hidden lg:flex lg:mt-0 lg:col-span-5 justify-center items-center order-2 pt-8"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.6 }}
+        >
+          <div className="relative">
+            <div className="absolute -inset-4 bg-gradient-to-r from-[#cf21c3]/20 to-[#e879f9]/20 rounded-3xl blur-xl opacity-75 animate-pulse"></div>
+            <img 
+              src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" 
+              alt="Digital solutions mockup" 
+              className="relative rounded-2xl shadow-2xl w-full max-w-md transform hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+        </motion.div>                
       </div>
     </section>
-  );
-};
-
-export default HeroSection;
+  )
+}

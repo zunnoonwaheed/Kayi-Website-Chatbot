@@ -1,5 +1,7 @@
 import Header from "./header"
 import HeroSection from "./hero-section"
+import CgisSection from "./cgis-section"
+import CgisWork from "./cgis-work"
 import CardsSection from "./cards-section"
 import SubscriptionPlans from "./subscription-plans"
 import TechnologiesSection from "./technologies"
@@ -13,9 +15,10 @@ export default function EnterprisePage() {
       <Header />
       <HeroSection />
       <CardsSection />
-      <SubscriptionPlans />
       <TechnologiesSection />
-      <FaqsSection />
+      <CgisSection />
+      <CgisWork />
+      <SubscriptionPlans />
       <Questions />
       <Footer />
     </main>
