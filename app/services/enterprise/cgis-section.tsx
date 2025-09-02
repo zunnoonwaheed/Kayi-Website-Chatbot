@@ -36,7 +36,7 @@ const CgisSection = () => {
   const pathDefinition = "M 40 180 L 80 160 L 120 140 L 160 110 L 200 80 L 240 55 L 280 35 L 320 20 L 360 10";
   
   return (
-    <section className="py-20 px-6 relative overflow-hidden">
+    <section className="py-20 px-6 relative overflow-hidden bg-white">
       {/* Gradient Background - Same as Questions section */}
       <div className="absolute inset-0">
         {/* Base gradient layers that flow seamlessly */}
@@ -352,28 +352,30 @@ const CgisSection = () => {
           </motion.div>
         </div>
 
-        {/* Bottom CTA */}
+        {/* Bottom CTA - Updated with more rounded corners and refined styling */}
         <motion.div 
-          className="text-center rounded-2xl p-6 shadow-lg backdrop-blur-sm bg-white/90 border border-white/40"
+          className="text-center rounded-3xl p-8 shadow-lg backdrop-blur-sm bg-white border border-gray-100 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <h3 className="text-xl font-bold text-gray-800 mb-2">
+          <h3 className="text-xl font-bold text-gray-800 mb-3">
             Ready to boost your ROAS?
           </h3>
-          <p className="text-sm text-gray-700 mb-4 max-w-lg mx-auto">
+          <p className="text-sm text-gray-600 mb-6 max-w-md mx-auto leading-relaxed">
             Join 500+ companies who've transformed their marketing ROI with our CGIS solutions.
           </p>
-          <button 
-            className="px-6 py-2 text-white rounded-lg transition-all duration-300 font-semibold text-sm shadow-md hover:shadow-lg transform hover:scale-105"
+          <motion.button 
+            className="px-8 py-3 text-white rounded-full transition-all duration-300 font-semibold text-sm shadow-md hover:shadow-lg"
             style={{
               background: 'linear-gradient(135deg, #cf21c3 0%, #e535db 50%, #f649f3 100%)',
             }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             Start Your CGIS Project
-          </button>
+          </motion.button>
         </motion.div>
       </div>
 

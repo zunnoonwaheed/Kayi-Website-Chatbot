@@ -71,7 +71,7 @@ export function Questions() {
   }
 
   return (
-    <section className="py-20 px-6 relative overflow-hidden">
+    <section className="py-20 px-6 relative overflow-hidden bg-white">
       {/* Gradient Background */}
       <div className="absolute inset-0">
         {/* Base gradient layers that flow seamlessly */}
@@ -224,7 +224,7 @@ export function Questions() {
                 viewport={{ once: true }}
                 className="group"
               >
-                <Card className="p-6 bg-white/90 backdrop-blur-sm border border-white/40 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                <Card className="p-6 bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
                   <div 
                     className="cursor-pointer"
                     onClick={() => toggleItem(faq.id)}
@@ -276,7 +276,7 @@ export function Questions() {
                 viewport={{ once: true }}
                 className="group"
               >
-                <Card className="p-6 bg-white/90 backdrop-blur-sm border border-white/40 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                <Card className="p-6 bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
                   <div 
                     className="cursor-pointer"
                     onClick={() => toggleItem(faq.id)}

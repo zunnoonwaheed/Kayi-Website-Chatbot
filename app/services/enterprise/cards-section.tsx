@@ -29,7 +29,7 @@ export default function CardsSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   return (
-    <section className="py-20 px-6 relative overflow-hidden">
+    <section className="py-20 px-6 relative overflow-hidden bg-white">
       {/* Gradient Background */}
       <div className="absolute inset-0">
         {/* Base gradient layers that flow seamlessly */}
@@ -136,7 +136,7 @@ export default function CardsSection() {
         <div className="absolute inset-0 bg-gradient-to-tl from-pink-500/2 via-transparent to-[#cf21c3]/3 mix-blend-screen opacity-50" />
       </div>
 
-      <div className="max-w-6xl mx-auto relative z-10 pt-16"> {/* Added top padding here */}
+      <div className="max-w-6xl mx-auto relative z-10 pt-16">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}

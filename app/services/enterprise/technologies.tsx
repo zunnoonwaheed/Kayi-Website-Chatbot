@@ -175,7 +175,7 @@ const Technologies = () => {
   const tabs = Object.keys(technologies)
 
   return (
-    <div className="py-20 relative overflow-hidden">
+    <div className="py-20 relative overflow-hidden bg-white">
       {/* Gradient Background */}
       <div className="absolute inset-0">
         {/* Base gradient layers that flow seamlessly */}

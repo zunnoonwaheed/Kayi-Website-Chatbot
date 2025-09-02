@@ -108,7 +108,7 @@ export default function SubscriptionPlans() {
   );
 
   return (
-    <section className="py-20 px-6 relative overflow-hidden">
+    <section className="py-20 px-6 relative overflow-hidden bg-white">
       {/* Gradient Background */}
       <div className="absolute inset-0">
         {/* Base gradient layers that flow seamlessly */}
@@ -293,10 +293,10 @@ export default function SubscriptionPlans() {
               viewport={{ once: true }}
               className={`relative rounded-2xl p-6 flex flex-col h-full transition-all duration-300 hover:scale-105 ${
                 plan.popular 
-                  ? "border-2 border-[#cf21c3] bg-white/90 backdrop-blur-sm shadow-xl" 
+                  ? "border-2 border-[#cf21c3] bg-white shadow-xl" 
                   : plan.enterprise
                     ? "bg-gradient-to-br from-[#cf21c3] to-[#a81a9e] text-white"
-                    : "bg-white/90 backdrop-blur-sm border border-white/40 shadow-lg hover:shadow-xl"
+                    : "bg-white border border-gray-200 shadow-lg hover:shadow-xl"
               }`}
             >
               {/* Popular badge */}
@@ -406,7 +406,7 @@ export default function SubscriptionPlans() {
                       ? "border-2 border-[#cf21c3]" 
                       : plan.enterprise
                         ? "bg-gradient-to-br from-[#cf21c3] to-[#a81a9e]"
-                        : "bg-white border"
+                        : "bg-white border border-gray-200"
                   }`}
                 >
                   <div className="p-6">
@@ -492,7 +492,7 @@ export default function SubscriptionPlans() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.4 }}
-              className="mt-8 bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden shadow-xl"
+              className="mt-8 bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-200"
             >
               <div className="p-6">
                 <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
