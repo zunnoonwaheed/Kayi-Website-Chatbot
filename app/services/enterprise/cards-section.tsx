@@ -10,18 +10,21 @@ const services = [
     description:
       "Stop doing the same tasks over and over again. We build powerful systems that handle the boring stuff automatically.",
     icon: CpuChipIcon,
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop&auto=format",
   },
   {
     title: "PERFORMANCE MARKETING",
     description:
       "Your marketing budget deserves better than guesswork. We only spend money on things that actually work.",
     icon: ChartBarIcon,
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop&auto=format",
   },
   {
     title: "WEB & MOBILE APPS",
     description:
       "We build custom web and mobile apps tailored to your business—fast, functional, and ready to grow.",
     icon: CodeBracketIcon,
+    image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=300&fit=crop&auto=format",
   },
 ]
 
@@ -186,36 +189,81 @@ export default function CardsSection() {
                 onMouseLeave={() => setHoveredIndex(null)}
               >
                 <div
-                  className={`relative p-8 rounded-2xl border shadow-md transition-all duration-500 h-full 
+                  className={`relative rounded-2xl border shadow-md transition-all duration-700 h-full overflow-hidden
                   bg-gradient-to-br from-white to-pink-50 ${
                     isHovered
-                      ? "shadow-xl shadow-pink-200 border-pink-300"
+                      ? "shadow-xl shadow-pink-200 border-[#cf21c3]/30 transform translate-y-[-8px]"
                       : "border-slate-200"
                   }`}
                 >
-                  {/* Logo */}
-                  <div className="mb-6 flex-shrink-0">
-                    <div
-                      className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-md transition-all duration-500 
-                      bg-gradient-to-br from-pink-400 to-pink-600 ${
-                        isHovered
-                          ? "shadow-lg shadow-pink-300"
-                          : "shadow-md"
-                      }`}
-                    >
-                      <Icon
-                        className="w-7 h-7 text-white"
-                      />
+                  {/* Image Section */}
+                  <div className="relative h-48 overflow-hidden">
+                    <motion.img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover"
+                      animate={isHovered ? { scale: 1.05 } : { scale: 1 }}
+                      transition={{ duration: 0.7, ease: "easeOut" }}
+                    />
+                    
+                    {/* Professional gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent" />
+                    
+                    {/* Subtle hover overlay */}
+                    <motion.div
+                      className="absolute inset-0 bg-[#cf21c3]"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: isHovered ? 0.08 : 0 }}
+                      transition={{ duration: 0.4 }}
+                    />
+
+                    {/* Icon overlay on image */}
+                    <div className="absolute top-4 left-4">
+                      <motion.div
+                        className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-lg transition-all duration-500 
+                        bg-gradient-to-br from-pink-400 to-pink-600 ${
+                          isHovered
+                            ? "shadow-lg shadow-pink-300/50 scale-110"
+                            : "shadow-md"
+                        }`}
+                        animate={{
+                          backgroundColor: isHovered ? '#cf21c3' : '#ec4899'
+                        }}
+                      >
+                        <Icon
+                          className="w-6 h-6 text-white"
+                        />
+                      </motion.div>
                     </div>
                   </div>
 
-                  {/* Content */}
-                  <h3 className="text-xl font-bold text-gray-900 mb-4 leading-tight">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm text-slate-600 leading-relaxed">
-                    {service.description}
-                  </p>
+                  {/* Content Section */}
+                  <div className="p-8">
+                    <motion.h3
+                      className="text-xl font-bold mb-4 leading-tight"
+                      animate={{ 
+                        color: isHovered ? '#cf21c3' : '#1f2937'
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {service.title}
+                    </motion.h3>
+                    
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      {service.description}
+                    </p>
+
+                    {/* Professional indicator line */}
+                    <motion.div
+                      className="mt-6 h-0.5 bg-gradient-to-r from-gray-200 to-transparent"
+                      animate={{
+                        background: isHovered 
+                          ? 'linear-gradient(to right, #cf21c3, transparent)' 
+                          : 'linear-gradient(to right, #e5e7eb, transparent)'
+                      }}
+                      transition={{ duration: 0.4 }}
+                    />
+                  </div>
                 </div>
               </motion.div>
             )

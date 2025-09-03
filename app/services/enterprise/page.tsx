@@ -8,12 +8,14 @@ import TechnologiesSection from "./technologies"
 import Footer from "./Footer"
 import { Questions } from "./questions"
 import { FaqsSection } from "./faqs-section"
+import Marquee from "./marquee"   // ✅ Import Marquee
 
 export default function EnterprisePage() {
   return (
     <main className="min-h-screen">
       <Header />
       <HeroSection />
+      <Marquee /> {/* ✅ Added Marquee here */}
       <CardsSection />
       <TechnologiesSection />
       <CgisSection />
