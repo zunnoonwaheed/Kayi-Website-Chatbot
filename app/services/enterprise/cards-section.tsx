@@ -6,23 +6,23 @@ import { CpuChipIcon, ChartBarIcon, CodeBracketIcon } from "@heroicons/react/24/
 
 const services = [
   {
-    title: "BUSINESS AUTOMATION",
+    title: "What is CGI?",
     description:
-      "Stop doing the same tasks over and over again. We build powerful systems that handle the boring stuff automatically.",
+      "Think of CGI as digital magic. We use computers to create visuals that look 100% real but exist only in pixels. Your product floating in space? Easy. A car driving on water? Done.",
     icon: CpuChipIcon,
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop&auto=format",
   },
   {
-    title: "PERFORMANCE MARKETING",
+    title: "Why Choose CGI?",
     description:
-      "Your marketing budget deserves better than guesswork. We only spend money on things that actually work.",
+      "No more waiting for perfect weather or renting costly locations. CGI gives you cinematic, stunning, and versatile visuals that make your brand unforgettable without ever breaking the budget.",
     icon: ChartBarIcon,
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop&auto=format",
   },
   {
-    title: "WEB & MOBILE APPS",
+    title: "Who is CGI For?",
     description:
-      "We build custom web and mobile apps tailored to your business—fast, functional, and ready to grow.",
+      "Perfect for both product and service businesses. Whether you're selling sneakers or software consulting, CGI helps you visualize your offerings that make people understand and remember your brand.",
     icon: CodeBracketIcon,
     image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=300&fit=crop&auto=format",
   },
@@ -155,7 +155,7 @@ export default function CardsSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Services We Offer
+           Why CGI Ads Are Game-Changers
           </motion.h2>
           <motion.p
             className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed"
@@ -164,8 +164,8 @@ export default function CardsSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <span className="font-bold">Everything</span> your business needs to grow and scale{" "}
-            <span className="font-bold">under one roof</span>.
+            <span className="font-bold">Everything</span>  you need to know about CGI advertising and why smart brands are making the switch.{" "}
+          
           </motion.p>
         </motion.div>
 

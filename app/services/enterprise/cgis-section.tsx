@@ -8,27 +8,27 @@ const CgisSection = () => {
   const services = [
     {
       icon: <Monitor className="w-6 h-6" />,
-      title: "Interactive Web Graphics",
-      description: "Custom animations and interactive elements that boost engagement and conversion rates.",
-      metric: "+340% Engagement"
+      title: "Product Visualization",
+      description: "Show your products from angles that don't exist in real life. Perfect lighting, impossible shots, and details so crisp your customers can almost touch them.",
+      metric: "+380% Engagement"
     },
     {
       icon: <Video className="w-6 h-6" />,
-      title: "Graphics & Animation",
-      description: "Professional video content and motion graphics that tell your brand story and drive action.",
-      metric: "+280% CTR"
+      title: "Brand Storytelling",
+      description: "Ever wanted to put your product in space? Or make it the hero of an epic adventure? We create stories that stick in people's minds.",
+      metric: "+295% CTR"
     },
     {
       icon: <Palette className="w-6 h-6" />,
-      title: "Visual Brand Identity",
-      description: "Comprehensive visual systems that create memorable brand experiences across all touchpoints.",
-      metric: "+95% Recognition"
+      title: "Architectural Visualization",
+      description: "Help people fall in love with spaces before they're even built. From dream homes to office complexes, we make blueprints come alive.",
+      metric: "+180% Recognition"
     },
     {
       icon: <Target className="w-6 h-6" />,
-      title: "3D Visualization",
-      description: "Stunning 3D product renders and interactive experiences that showcase your offerings perfectly.",
-      metric: "+450% Engagement"
+      title: " Motion Animatios",
+      description: "Explain the complicated stuff without boring anyone to death. We turn complex ideas into visuals that can actually makes sense.",
+      metric: "+420% Engagement"
     }
   ];
 
@@ -248,10 +248,10 @@ const CgisSection = () => {
             <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-xl p-6 border border-white/40">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xl font-bold text-gray-800">Client ROAS Growth</h3>
+                  <h3 className="text-xl font-bold text-gray-800">Client Engagement Growth</h3>
                   <div className="flex items-center space-x-2 text-green-600">
                     <TrendingUp className="w-5 h-5" />
-                    <span className="font-bold">+347%</span>
+                    <span className="font-bold">+285%</span>
                   </div>
                 </div>
                 
@@ -276,7 +276,18 @@ const CgisSection = () => {
                       fill="url(#roasGradient)"
                     />
                     
-                    {/* Animated ROAS line using motion.path */}
+                    {/* Base line (static) */}
+                    <path
+                      d={pathDefinition}
+                      stroke="#cf21c3"
+                      strokeWidth="3"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      opacity="0.3"
+                    />
+                    
+                    {/* Continuously moving line */}
                     <motion.path
                       d={pathDefinition}
                       stroke="#cf21c3"
@@ -285,37 +296,33 @@ const CgisSection = () => {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       initial={{ pathLength: 0 }}
-                      whileInView={{ pathLength: 1 }}
-                      viewport={{ once: true }}
+                      animate={{ pathLength: 1 }}
                       transition={{
-                        duration: 2,
+                        duration: 3,
                         ease: "easeInOut",
-                        delay: 0.8
+                        repeat: Infinity,
+                        repeatType: "reverse"
                       }}
                     />
                     
-                    {/* Data points with animation */}
-                    {[
-                      [40, 180], [80, 160], [120, 140], [160, 110], [200, 80], 
-                      [240, 55], [280, 35], [320, 20], [360, 10]
-                    ].map(([x, y], i) => (
-                      <motion.circle
-                        key={i}
-                        cx={x}
-                        cy={y}
-                        r="4"
-                        fill="white"
-                        stroke="#cf21c3"
-                        strokeWidth="2"
-                        initial={{ scale: 0, opacity: 0 }}
-                        whileInView={{ scale: 1, opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          duration: 0.3,
-                          delay: 0.8 + (i * 0.2)
-                        }}
-                      />
-                    ))}
+                    {/* Moving dot along the path */}
+                    <motion.circle
+                      r="6"
+                      fill="#cf21c3"
+                      stroke="white"
+                      strokeWidth="2"
+                      initial={{ x: 40, y: 180 }}
+                      animate={{
+                        x: [40, 80, 120, 160, 200, 240, 280, 320, 360],
+                        y: [180, 160, 140, 110, 80, 55, 35, 20, 10]
+                      }}
+                      transition={{
+                        duration: 6,
+                        ease: "easeInOut",
+                        repeat: Infinity,
+                        repeatType: "reverse"
+                      }}
+                    />
                     
                     {/* Y-axis labels */}
                     <text x="25" y="15" className="text-xs fill-gray-600" textAnchor="middle">8.0x</text>
@@ -335,16 +342,16 @@ const CgisSection = () => {
                 {/* Key Metrics */}
                 <div className="grid grid-cols-3 gap-3">
                   <div className="text-center p-3 bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg border border-pink-200">
-                    <div className="text-lg font-bold" style={{ color: '#cf21c3' }}>7.8x</div>
-                    <div className="text-xs text-gray-600">Current ROAS</div>
+                    <div className="text-lg font-bold" style={{ color: '#cf21c3' }}>View Time</div>
+                    <div className="text-xs text-gray-600">4.2x Average View Time</div>
                   </div>
                   <div className="text-center p-3 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-lg border border-blue-200">
-                    <div className="text-lg font-bold text-blue-600">347%</div>
-                    <div className="text-xs text-gray-600">Growth</div>
+                    <div className="text-md font-bold text-blue-600">Activity Rate</div>
+                    <div className="text-xs text-gray-600">285% Higher Engagement</div>
                   </div>
                   <div className="text-center p-3 bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg border border-green-200">
-                    <div className="text-lg font-bold text-green-600">96%</div>
-                    <div className="text-xs text-gray-600">Success Rate</div>
+                    <div className="text-lg font-bold text-green-600"> Brand Recall</div>
+                    <div className="text-xs text-gray-600">92% Recall Rate</div>
                   </div>
                 </div>
               </div>
@@ -361,10 +368,10 @@ const CgisSection = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
         >
           <h3 className="text-xl font-bold text-gray-800 mb-3">
-            Ready to boost your ROAS?
+          Ready to bring your wildest ad ideas to life?
           </h3>
           <p className="text-sm text-gray-600 mb-6 max-w-md mx-auto leading-relaxed">
-            Join 500+ companies who've transformed their marketing ROI with our CGIS solutions.
+          Got a concept that seems impossible to film? Let's turn it into CGI that makes people stop and stare.
           </p>
           <motion.button 
             className="px-8 py-3 text-white rounded-full transition-all duration-300 font-semibold text-sm shadow-md hover:shadow-lg"
@@ -374,28 +381,10 @@ const CgisSection = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Start Your CGIS Project
+           Let's Talk About Your Project
           </motion.button>
         </motion.div>
       </div>
-
-      {/* Add custom animation styles */}
-      <style jsx>{`
-        @keyframes draw {
-          to {
-            stroke-dashoffset: 0;
-          }
-        }
-        
-        .animate-draw {
-          fill: none;
-          stroke: #cf21c3;
-          stroke-width: 3;
-          stroke-dasharray: 1000;
-          stroke-dashoffset: 1000;
-          animation: draw 3s ease-in-out forwards;
-        }
-      `}</style>
     </section>
   );
 };

@@ -18,7 +18,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-            Transform Your Digital Presence with Expert Solutions
+     Ever Wished You Could Film the Impossible?
           </motion.h1>
           
           <motion.p 
@@ -27,8 +27,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            From stunning web development to powerful automation systems, we help businesses streamline operations, 
-            enhance user experiences, and drive sustainable growth through cutting-edge technology solutions.
+         Now you can. We create photorealistic CGI ads that bring your wildest brand ideas to life, no matter how impossible they seem in the real world.
           </motion.p>
           
           <motion.div 
@@ -41,7 +40,7 @@ export default function HeroSection() {
               href="https://calendly.com/saadalii/kayidigital" 
               className="inline-flex items-center justify-center px-5 py-3 md:px-6 md:py-4 text-base font-medium text-center text-white rounded-lg bg-gradient-to-r from-[#cf21c3] to-[#e879f9] hover:from-[#a21caf] hover:to-[#cf21c3] focus:ring-4 focus:ring-purple-300 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
             >
-              Get Started Free
+              Let's Create Magic
               <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
               </svg>
@@ -51,7 +50,7 @@ export default function HeroSection() {
               href="#services" 
               className="inline-flex items-center justify-center px-5 py-3 md:px-6 md:py-4 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-4 focus:ring-gray-100 transition-all duration-300"
             >
-              Explore Services
+              See What's Possible
             </a> 
           </motion.div>
         </div>

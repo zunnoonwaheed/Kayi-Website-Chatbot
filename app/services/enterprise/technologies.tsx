@@ -290,7 +290,7 @@ const Technologies = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Technologies we use
+        See CGI Ads from Your Industry
         </motion.h1>
         <motion.p 
           className="text-base md:text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed"
@@ -299,8 +299,7 @@ const Technologies = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          Hire from our pool of 350+ specialized experts in web, mobile, and software engineering, specializing in the
-          latest technologies and frameworks, ready to scale your development teams effortlessly.
+       Whether you're selling luxury watches or launching a tech startup, we've helped brands like yours tell their stories through CGI. Take a look at what's possible in your industry.
         </motion.p>
       </div>
 
@@ -326,7 +325,7 @@ const Technologies = () => {
           </div>
 
           {/* Desktop Sidebar */}
-          <div className="hidden lg:block w-80">
+          <div className="hidden lg:block w-64 flex-shrink-0">
             <div className="space-y-1">
               {tabs.map((tab) => (
                 <motion.button
@@ -336,7 +335,7 @@ const Technologies = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5 }}
                   viewport={{ once: true }}
-                  className={`w-full text-left px-8 py-4 text-lg font-medium transition-all duration-200 rounded-full ${
+                  className={`w-full text-left px-6 py-4 text-lg font-medium transition-all duration-200 rounded-full ${
                     activeTab === tab
                       ? "bg-gradient-to-r from-[#cf21c3]/20 to-[#cf21c3]/10 text-black"
                       : "text-gray-700 hover:bg-white/50"
@@ -349,7 +348,7 @@ const Technologies = () => {
           </div>
 
           {/* Content */}
-          <div className="flex-1 lg:pl-12">
+          <div className="flex-1 lg:pl-8">
             <div className="space-y-12 lg:space-y-16">
               {technologies[activeTab].sections.map((section, sectionIndex) => (
                 <motion.div 
@@ -382,7 +381,7 @@ const Technologies = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 mt-16 lg:mt-20 relative z-10">
+      <div className="max-w-4xl mx-auto px-6 mt-16 lg:mt-20 relative z-10">
         <motion.div 
           className="bg-white/90 backdrop-blur-sm rounded-2xl lg:rounded-full px-6 py-6 lg:px-12 lg:py-6 shadow-lg border border-white/40"
           initial={{ opacity: 0, y: 40 }}
@@ -391,8 +390,8 @@ const Technologies = () => {
           viewport={{ once: true }}
         >
           <div className="flex flex-col lg:flex-row lg:items-center text-center lg:text-left space-y-4 lg:space-y-0 lg:gap-8">
-            <h2 className="text-xl lg:text-4xl font-bold text-black leading-tight">
-              Create a software development <span className="text-[#cf21c3]">Team</span> with us
+            <h2 className="text-xl lg:text-3xl font-bold text-black leading-tight flex-1">
+            Let's build your next <span className="text-[#cf21c3]">CGI campaign</span>
             </h2>
             <motion.button 
               whileHover={{ scale: 1.05 }}

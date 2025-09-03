@@ -1,35 +1,30 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 export default function CgisWork() {
   const steps = [
     {
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="w-20 h-20 text-emerald-500" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M2 12l20-9-9 20-2-7-7-4z" />
-        </svg>
-      ),
-      title: "Collect Information",
+      image: "/images/pre-production.png",
       courses: "Step 1",
+      title: "Pre-Production",
+      description:
+        "We turn your ideas into detailed plans, create storyboards, and map out every shot.",
     },
     {
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="w-20 h-20 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 17l6-6 4 4 6-6" />
-        </svg>
-      ),
-      title: "Process & Analyze",
+      image: "/images/production.png",
       courses: "Step 2",
+      title: "Production",
+      description:
+        "Our team builds 3D models, sets up lighting, and brings your vision to life.",
     },
     {
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="w-20 h-20 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M20 2H4a2 2 0 00-2 2v18l4-4h14a2 2 0 002-2V4a2 2 0 00-2-2z" />
-        </svg>
-      ),
-      title: "Deliver Insights",
+      image: "/images/post-production.png",
       courses: "Step 3",
+      title: "Post-Production",
+      description:
+        "Final touches, color grading, and refinements to make everything look flawless.",
     },
   ]
 
@@ -87,7 +82,7 @@ export default function CgisWork() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          How CGIS Works
+          Our Process
         </motion.h2>
 
         {/* 3 items in one row */}
@@ -95,29 +90,37 @@ export default function CgisWork() {
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              className="flex items-center gap-6"
+              className="flex flex-row items-start gap-6"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
               viewport={{ once: true }}
             >
-              {/* Floating Icon (no circle behind) */}
+              {/* Floating Image (left side) */}
               <motion.div
+                className="flex-shrink-0"
                 animate={{ y: [0, -6, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               >
-                {step.icon}
+                <Image
+                  src={step.image}
+                  alt={step.title}
+                  width={110}
+                  height={110}
+                  className="object-contain"
+                />
               </motion.div>
 
-              {/* Text */}
+              {/* Text on right */}
               <div className="flex flex-col space-y-3">
-                <h3 className="text-lg font-semibold text-gray-800">{step.title}</h3>
                 <motion.span
                   className="self-start px-4 py-1.5 text-sm font-semibold rounded-full bg-gray-100 text-gray-700 shadow-sm"
                   whileHover={{ scale: 1.05 }}
                 >
                   {step.courses}
                 </motion.span>
+                <h3 className="text-lg font-semibold text-gray-800">{step.title}</h3>
+                <p className="text-sm text-gray-600 leading-relaxed">{step.description}</p>
               </div>
             </motion.div>
           ))}
