@@ -41,8 +41,11 @@ export default function Marquee() {
   const animationDuration = widthOfFirstSet > 0 ? widthOfFirstSet / 60 : 5
 
   return (
-    <section className="w-full overflow-hidden py-8 border-t border-b border-gray-200 relative">
-      {/* Animated Pink Gradient Background */}
+    <section className="w-full overflow-hidden py-8 border-t border-b border-gray-200 relative bg-white dark:bg-white">
+      {/* White background overlay to ensure it stays white in dark mode */}
+      <div className="absolute inset-0 bg-white dark:bg-white -z-10"></div>
+      
+      {/* Animated Pink Gradient Background - unchanged from your original */}
       <div className="absolute inset-0">
         {/* Base gradient layers that flow seamlessly */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/6 via-pink-500/3 to-[#cf21c3]/8" />
