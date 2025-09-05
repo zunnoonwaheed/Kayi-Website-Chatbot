@@ -65,8 +65,8 @@ export default function HeroSection() {
           <div className="relative w-full max-w-xs">
             <div className="absolute -inset-3 bg-gradient-to-r from-[#cf21c3]/20 to-[#e879f9]/20 rounded-2xl blur-lg opacity-75 animate-pulse"></div>
             <img 
-              src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" 
-              alt="Digital solutions mockup" 
+              src="/images/kayi-hero.jpeg" 
+              alt="CGI Advertising Solutions" 
               className="relative rounded-xl shadow-xl w-full transform hover:scale-105 transition-transform duration-500"
             />
           </div>
@@ -82,8 +82,8 @@ export default function HeroSection() {
           <div className="relative">
             <div className="absolute -inset-4 bg-gradient-to-r from-[#cf21c3]/20 to-[#e879f9]/20 rounded-3xl blur-xl opacity-75 animate-pulse"></div>
             <img 
-              src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" 
-              alt="Digital solutions mockup" 
+              src="/images/kayi-hero.jpeg" 
+              alt="CGI Advertising Solutions" 
               className="relative rounded-2xl shadow-2xl w-full max-w-md transform hover:scale-105 transition-transform duration-500"
             />
           </div>
