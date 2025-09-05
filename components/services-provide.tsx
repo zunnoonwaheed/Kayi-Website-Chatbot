@@ -1,41 +1,110 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useState } from "react"
-import { CpuChipIcon, ChartBarIcon, CodeBracketIcon, UserGroupIcon } from "@heroicons/react/24/outline"
+import { useState, useRef, useEffect } from "react"
+import { 
+  CpuChipIcon, 
+  ChartBarIcon, 
+  CodeBracketIcon, 
+  UserGroupIcon,
+  FilmIcon,
+  RocketLaunchIcon,
+  CommandLineIcon,
+  DevicePhoneMobileIcon,
+  CloudIcon,
+  CircleStackIcon
+} from "@heroicons/react/24/outline"
 
 const services = [
   {
-    title: "BUSINESS AUTOMATION",
+    title: "CGI ADS",
     description:
-      "Stop doing the same tasks over and over again. We build powerful systems that handle the boring stuff automatically.",
-    icon: CpuChipIcon,
+      "High-quality ads don't always need expensive location shoots. With CGI, we create realistic and engaging visuals that capture attention and tell your story in a cost-effective way.",
+    icon: FilmIcon,
   },
   {
     title: "PERFORMANCE MARKETING",
     description:
-      "Your marketing budget deserves better than guesswork. We only spend money on things that actually work.",
-    icon: ChartBarIcon,
+      "We don't chase vanity metrics. Our approach to performance marketing is simple: use your budget efficiently to bring in more qualified customers and measurable growth.",
+    icon: RocketLaunchIcon,
   },
   {
-    title: "WEB DEVELOPMENT & MOBILE APPS",
+    title: "AI BUSINESS AUTOMATION",
     description:
-      "Off-the-shelf tools don't cut it. We build custom web and mobile apps tailored to your business—fast, functional, and ready to grow.",
+      "Manual tasks slow businesses down. We design AI-driven systems that automate repetitive work, giving you more time to focus on strategy and growth.",
+    icon: CpuChipIcon,
+  },
+  {
+    title: "UX/UI DESIGN",
+    description:
+      "A website should feel effortless to use. We design clean, user-friendly interfaces that make navigation simple and encourage visitors to take action.",
+    icon: UserGroupIcon,
+  },
+  {
+    title: "WEB DEVELOPMENT",
+    description:
+      "Your website is often the first impression of your business. We build fast, secure, and custom web solutions, including Shopify stores, that are built to perform and scale with you.",
     icon: CodeBracketIcon,
   },
   {
-    title: "CUSTOM BUSINESS OUTSOURCING",
+    title: "MOBILE APP DEVELOPMENT",
     description:
-      "Why hire full-time when you can get exactly the help you need, exactly when you need it, without the overhead?",
-    icon: UserGroupIcon,
+      "An app should provide value long after the first download. We design mobile experiences that keep users engaged and connected to your brand.",
+    icon: DevicePhoneMobileIcon,
+  },
+  {
+    title: "AI SAAS SOLUTIONS",
+    description:
+      "Developing software doesn't have to take years. By integrating AI, we accelerate the process and deliver scalable platforms in a fraction of the traditional time.",
+    icon: CloudIcon,
+  },
+  {
+    title: "CUSTOM SOFTWARE DEVELOPMENT",
+    description:
+      "Every business works differently, and off-the-shelf tools don't always fit. We develop tailored software solutions designed to match your unique workflows and goals.",
+    icon: CommandLineIcon,
   },
 ]
 
 export default function ServicesSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  const scrollToSlide = (index: number) => {
+    if (scrollContainerRef.current) {
+      const slideWidth = scrollContainerRef.current.offsetWidth
+      scrollContainerRef.current.scrollTo({
+        left: index * slideWidth,
+        behavior: 'smooth'
+      })
+      setCurrentSlide(index)
+    }
+  }
+
+  const handleScroll = () => {
+    if (scrollContainerRef.current && isMobile) {
+      const scrollPosition = scrollContainerRef.current.scrollLeft
+      const slideWidth = scrollContainerRef.current.offsetWidth
+      const newSlide = Math.round(scrollPosition / slideWidth)
+      setCurrentSlide(newSlide)
+    }
+  }
 
   return (
-    <section className="py-20 px-6 relative overflow-hidden bg-white">
+    <section className="py-16 md:py-20 px-4 relative overflow-hidden bg-white">
       <div className="absolute inset-0">
         {/* Base gradient layers that flow seamlessly */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/6 via-pink-500/3 to-[#cf21c3]/8" />
@@ -148,17 +217,16 @@ export default function ServicesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16 px-4"
         >
           <motion.h2
-            className="text-5xl lg:text-6xl font-bold mb-4 text-black"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-black"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-           Growth Solutions
-
+            Growth Solutions
           </motion.h2>
           <motion.p
             className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed"
@@ -173,73 +241,113 @@ export default function ServicesSection() {
           </motion.p>
         </motion.div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {services.map((service, index) => {
-            const Icon = service.icon
-            const isHovered = hoveredIndex === index
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 60, scale: 0.9 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{
-                  duration: 0.7,
-                  delay: index * 0.15,
-                  ease: "easeOut",
-                }}
-                viewport={{ once: true }}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                className="group h-full"
-              >
-                <motion.div
-                  whileHover={{
-                    y: -8,
-                    scale: 1.02,
-                    transition: { duration: 0.3, ease: "easeOut" },
-                  }}
-                  className={`relative p-8 bg-white/80 backdrop-blur-sm rounded-xl border transition-all duration-500 h-full flex flex-col ${
-                    isHovered
-                      ? "border-[#cf21c3]/20 shadow-xl shadow-[#cf21c3]/10"
-                      : "border-slate-200 hover:shadow-lg hover:border-slate-300"
-                  }`}
-                >
-                  {/* Icon */}
-                  <motion.div
-                    initial={{ scale: 0.8, rotate: -10 }}
-                    whileInView={{ scale: 1, rotate: 0 }}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 + 0.3 }}
-                    viewport={{ once: true }}
-                    className="mb-6 flex-shrink-0"
-                  >
-                    <div
-                      className={`w-16 h-16 rounded-xl flex items-center justify-center shadow-lg transition-all duration-500 ${
-                        isHovered
-                          ? "bg-gradient-to-br from-[#cf21c3] to-pink-500 text-white shadow-[#cf21c3]/20"
-                          : "bg-white text-[#cf21c3] shadow-slate-200"
-                      }`}
-                    >
-                      <Icon className="w-8 h-8" />
-                    </div>
-                  </motion.div>
+        {/* Services Grid with Horizontal Scroll on Mobile */}
+        <div className="relative">
+          {/* Scroll indicator for mobile */}
+          <div className="lg:hidden flex justify-center mb-6">
+            <div className="bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2 shadow-md">
+              <span className="text-sm text-gray-600">Swipe to explore</span>
+              <svg className="w-4 h-4 animate-bounce-horizontal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
 
-                  {/* Content */}
+          <div 
+            ref={scrollContainerRef}
+            onScroll={handleScroll}
+            className="flex lg:grid lg:grid-cols-4 gap-6 mb-8 overflow-x-auto lg:overflow-visible snap-x snap-mandatory scrollbar-hide"
+            style={{
+              scrollBehavior: 'smooth',
+            }}
+          >
+            {services.map((service, index) => {
+              const Icon = service.icon
+              const isHovered = hoveredIndex === index
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 60, scale: 0.9 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{
+                    duration: 0.7,
+                    delay: index * 0.08,
+                    ease: "easeOut",
+                  }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  className="w-full lg:w-auto flex-shrink-0 snap-start px-4 lg:px-0"
+                  style={{ scrollSnapAlign: 'start' }}
+                >
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 + 0.4 }}
-                    viewport={{ once: true }}
-                    className="flex-grow flex flex-col"
+                    whileHover={{
+                      y: -6,
+                      scale: 1.02,
+                      transition: { duration: 0.3, ease: "easeOut" },
+                    }}
+                    className={`relative p-6 bg-white/95 backdrop-blur-sm rounded-xl border transition-all duration-500 h-full flex flex-col shadow-md hover:shadow-xl ${
+                      isHovered
+                        ? "border-[#cf21c3]/40 shadow-lg"
+                        : "border-gray-200/60 hover:border-gray-300"
+                    }`}
                   >
-                    <h3 className="text-xl font-bold text-black mb-4 leading-tight flex-shrink-0">{service.title}</h3>
-                    <p className="text-sm text-slate-600 leading-relaxed flex-grow">{service.description}</p>
+                    {/* Icon */}
+                    <motion.div
+                      initial={{ scale: 0.8, rotate: -10 }}
+                      whileInView={{ scale: 1, rotate: 0 }}
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      transition={{ duration: 0.4, delay: index * 0.05 + 0.2 }}
+                      viewport={{ once: true }}
+                      className="mb-4 flex-shrink-0"
+                    >
+                      <div
+                        className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all duration-500 ${
+                          isHovered
+                            ? "bg-gradient-to-br from-[#cf21c3] to-pink-500 text-white"
+                            : "bg-[#cf21c3]/10 text-[#cf21c3]"
+                        }`}
+                      >
+                        <Icon className="w-6 h-6" />
+                      </div>
+                    </motion.div>
+
+                    {/* Content */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.05 + 0.3 }}
+                      viewport={{ once: true }}
+                      className="flex-grow flex flex-col"
+                    >
+                      <h3 className={`text-lg font-bold mb-3 leading-tight flex-shrink-0 ${
+                        isHovered ? "text-[#cf21c3]" : "text-gray-800"
+                      }`}>
+                        {service.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 leading-relaxed flex-grow">
+                        {service.description}
+                      </p>
+                    </motion.div>
                   </motion.div>
                 </motion.div>
-              </motion.div>
-            )
-          })}
+              )
+            })}
+          </div>
+
+          {/* Mobile pagination dots */}
+          <div className="lg:hidden flex justify-center space-x-2 mt-6">
+            {services.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => scrollToSlide(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  index === currentSlide ? 'bg-[#cf21c3] w-6' : 'bg-gray-300'
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
 
         <motion.div
@@ -247,7 +355,7 @@ export default function ServicesSection() {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-center"
+          className="text-center px-4 mt-10"
         >
           <motion.a
             href="https://calendly.com/saadalii/kayidigital"
@@ -273,6 +381,23 @@ export default function ServicesSection() {
           </motion.a>
         </motion.div>
       </div>
+
+      <style jsx>{`
+        @keyframes bounce-horizontal {
+          0%, 100% { transform: translateX(0); }
+          50% { transform: translateX(4px); }
+        }
+        .animate-bounce-horizontal {
+          animation: bounce-horizontal 1s infinite;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </section>
   )
 }

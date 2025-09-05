@@ -2,29 +2,25 @@
 
 import { motion } from "framer-motion"
 import { useState } from "react"
-import { CpuChipIcon, ChartBarIcon, CodeBracketIcon } from "@heroicons/react/24/solid"
 
 const services = [
   {
     title: "What is CGI?",
     description:
       "Think of CGI as digital magic. We use computers to create visuals that look 100% real but exist only in pixels. Your product floating in space? Easy. A car driving on water? Done.",
-    icon: CpuChipIcon,
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop&auto=format",
+    image: "/images/cgi1.png",
   },
   {
     title: "Why Choose CGI?",
     description:
       "No more waiting for perfect weather or renting costly locations. CGI gives you cinematic, stunning, and versatile visuals that make your brand unforgettable without ever breaking the budget.",
-    icon: ChartBarIcon,
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop&auto=format",
+    image: "/images/cgi2.png",
   },
   {
     title: "Who is CGI For?",
     description:
       "Perfect for both product and service businesses. Whether you're selling sneakers or software consulting, CGI helps you visualize your offerings that make people understand and remember your brand.",
-    icon: CodeBracketIcon,
-    image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=300&fit=crop&auto=format",
+    image: "/images/cgi3.png",
   },
 ]
 
@@ -172,7 +168,6 @@ export default function CardsSection() {
         {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((service, index) => {
-            const Icon = service.icon
             const isHovered = hoveredIndex === index
             return (
               <motion.div
@@ -216,25 +211,6 @@ export default function CardsSection() {
                       animate={{ opacity: isHovered ? 0.08 : 0 }}
                       transition={{ duration: 0.4 }}
                     />
-
-                    {/* Icon overlay on image */}
-                    <div className="absolute top-4 left-4">
-                      <motion.div
-                        className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-lg transition-all duration-500 
-                        bg-gradient-to-br from-pink-400 to-pink-600 ${
-                          isHovered
-                            ? "shadow-lg shadow-pink-300/50 scale-110"
-                            : "shadow-md"
-                        }`}
-                        animate={{
-                          backgroundColor: isHovered ? '#cf21c3' : '#ec4899'
-                        }}
-                      >
-                        <Icon
-                          className="w-6 h-6 text-white"
-                        />
-                      </motion.div>
-                    </div>
                   </div>
 
                   {/* Content Section */}
