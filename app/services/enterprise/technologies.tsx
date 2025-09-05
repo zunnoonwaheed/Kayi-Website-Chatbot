@@ -3,8 +3,7 @@ import { motion } from "framer-motion"
 import { useState } from "react"
 
 const Technologies = () => {
-  const [activeTab, setActiveTab] = useState("CGI Ads")
-  const [activeSubTab, setActiveSubTab] = useState("All")
+  const [activeTab, setActiveTab] = useState("Perfumes") // Set Perfumes as default tab
 
   const techIcons = {
     swift: (
@@ -70,22 +69,16 @@ const Technologies = () => {
   }
 
   const technologies = {
-    "CGI Ads": {
-      sections: [
-        {
-          title: "Perfumes",
-          videos: [
-            { src: "/images/Perfume-CGI-1.mp4", alt: "Perfume CGI Ad 1", category: "Perfumes" },
-            { src: "/images/Perfume-CGI-2.mp4", alt: "Perfume CGI Ad 2", category: "Perfumes" },
-          ],
-        },
-        {
-          title: "Skincare",
-          videos: [
-            { src: "/images/Skincare-CGI-1.mp4", alt: "Skincare CGI Ad 1", category: "Skincare" },
-            { src: "/images/Skincare-CGI-2.mp4", alt: "Skincare CGI Ad 2", category: "Skincare" },
-          ],
-        },
+    "Perfumes": {
+      videos: [
+        { src: "/images/Perfume-CGI-1.mp4", alt: "Perfume CGI Ad 1" },
+        { src: "/images/Perfume-CGI-2.mp4", alt: "Perfume CGI Ad 2" },
+      ],
+    },
+    "Skincare": {
+      videos: [
+        { src: "/images/Skincare-CGI-1.mp4", alt: "Skincare CGI Ad 1" },
+        { src: "/images/Skincare-CGI-2.mp4", alt: "Skincare CGI Ad 2" },
       ],
     },
     "Mobile Apps": {
@@ -192,9 +185,6 @@ const Technologies = () => {
   }
 
   const tabs = Object.keys(technologies)
-
-  // Get all videos from CGI Ads sections
-  const allVideos = technologies["CGI Ads"].sections.flatMap(section => section.videos)
 
   return (
     <div className="py-20 relative overflow-hidden bg-white">
@@ -333,10 +323,7 @@ const Technologies = () => {
               {tabs.map((tab) => (
                 <button
                   key={tab}
-                  onClick={() => {
-                    setActiveTab(tab)
-                    if (tab === "CGI Ads") setActiveSubTab("All")
-                  }}
+                  onClick={() => setActiveTab(tab)}
                   className={`flex-shrink-0 px-6 py-3 text-sm font-medium transition-all duration-200 whitespace-nowrap border-b-2 ${
                     activeTab === tab
                       ? "border-[#cf21c3] text-black"
@@ -347,118 +334,27 @@ const Technologies = () => {
                 </button>
               ))}
             </div>
-            
-            {/* Sub-tabs for Mobile - Only show when CGI Ads is active */}
-            {activeTab === "CGI Ads" && (
-              <div className="mt-4">
-                <div className="flex space-x-2 overflow-x-auto scrollbar-hide pb-2">
-                  <button
-                    onClick={() => setActiveSubTab("All")}
-                    className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                      activeSubTab === "All"
-                        ? "bg-gradient-to-r from-[#cf21c3] to-[#e879f9] text-white shadow-lg"
-                        : "bg-white/90 text-gray-700 hover:bg-white border border-gray-200"
-                    }`}
-                  >
-                    All Videos
-                  </button>
-                  <button
-                    onClick={() => setActiveSubTab("Perfumes")}
-                    className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                      activeSubTab === "Perfumes"
-                        ? "bg-gradient-to-r from-[#cf21c3] to-[#e879f9] text-white shadow-lg"
-                        : "bg-white/90 text-gray-700 hover:bg-white border border-gray-200"
-                    }`}
-                  >
-                    Perfumes
-                  </button>
-                  <button
-                    onClick={() => setActiveSubTab("Skincare")}
-                    className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                      activeSubTab === "Skincare"
-                        ? "bg-gradient-to-r from-[#cf21c3] to-[#e879f9] text-white shadow-lg"
-                        : "bg-white/90 text-gray-700 hover:bg-white border border-gray-200"
-                    }`}
-                  >
-                    Skincare
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Desktop Sidebar */}
           <div className="hidden lg:block w-80">
             <div className="space-y-1">
               {tabs.map((tab) => (
-                <div key={tab}>
-                  <motion.button
-                    onClick={() => {
-                      setActiveTab(tab)
-                      if (tab === "CGI Ads") setActiveSubTab("All")
-                    }}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5 }}
-                    viewport={{ once: true }}
-                    className={`w-full text-left px-8 py-4 text-lg font-medium transition-all duration-200 rounded-full flex items-center ${
-                      activeTab === tab
-                        ? "bg-gradient-to-r from-[#cf21c3]/20 to-[#cf21c3]/10 text-black shadow-md"
-                        : "text-gray-700 hover:bg-white/50"
-                    }`}
-                  >
-                    {tab}
-                    {tab === "CGI Ads" && activeTab === "CGI Ads" && (
-                      <svg className="ml-2 w-4 h-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    )}
-                  </motion.button>
-                  
-                  {/* Sub-tabs for Desktop - Only show when CGI Ads is active and selected */}
-                  {tab === "CGI Ads" && activeTab === "CGI Ads" && (
-                    <motion.div 
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      transition={{ duration: 0.3 }}
-                      className="ml-8 mt-1 space-y-1 border-l-2 border-[#cf21c3]/20 pl-4 py-2"
-                    >
-                      <button
-                        onClick={() => setActiveSubTab("All")}
-                        className={`w-full text-left px-6 py-2 text-sm font-medium transition-all duration-200 rounded-full flex items-center ${
-                          activeSubTab === "All"
-                            ? "bg-gradient-to-r from-[#cf21c3]/15 to-[#cf21c3]/10 text-black"
-                            : "text-gray-600 hover:bg-white/30"
-                        }`}
-                      >
-                        <span className={`w-2 h-2 rounded-full mr-2 ${activeSubTab === "All" ? "bg-[#cf21c3]" : "bg-gray-300"}`}></span>
-                        All Videos
-                      </button>
-                      <button
-                        onClick={() => setActiveSubTab("Perfumes")}
-                        className={`w-full text-left px-6 py-2 text-sm font-medium transition-all duration-200 rounded-full flex items-center ${
-                          activeSubTab === "Perfumes"
-                            ? "bg-gradient-to-r from-[#cf21c3]/15 to-[#cf21c3]/10 text-black"
-                            : "text-gray-600 hover:bg-white/30"
-                        }`}
-                      >
-                        <span className={`w-2 h-2 rounded-full mr-2 ${activeSubTab === "Perfumes" ? "bg-[#cf21c3]" : "bg-gray-300"}`}></span>
-                        Perfumes
-                      </button>
-                      <button
-                        onClick={() => setActiveSubTab("Skincare")}
-                        className={`w-full text-left px-6 py-2 text-sm font-medium transition-all duration-200 rounded-full flex items-center ${
-                          activeSubTab === "Skincare"
-                            ? "bg-gradient-to-r from-[#cf21c3]/15 to-[#cf21c3]/10 text-black"
-                            : "text-gray-600 hover:bg-white/30"
-                        }`}
-                      >
-                        <span className={`w-2 h-2 rounded-full mr-2 ${activeSubTab === "Skincare" ? "bg-[#cf21c3]" : "bg-gray-300"}`}></span>
-                        Skincare
-                      </button>
-                    </motion.div>
-                  )}
-                </div>
+                <motion.button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className={`w-full text-left px-8 py-4 text-lg font-medium transition-all duration-200 rounded-full flex items-center ${
+                    activeTab === tab
+                      ? "bg-gradient-to-r from-[#cf21c3]/20 to-[#cf21c3]/10 text-black shadow-md"
+                      : "text-gray-700 hover:bg-white/50"
+                  }`}
+                >
+                  {tab}
+                </motion.button>
               ))}
             </div>
           </div>
@@ -466,56 +362,57 @@ const Technologies = () => {
           {/* Content */}
           <div className="flex-1 lg:pl-12">
             <div className="space-y-12 lg:space-y-16">
-              {activeTab === "CGI Ads" ? (
-                // Show filtered videos based on active sub-tab
+              {/* Show videos for Perfumes and Skincare tabs */}
+              {(activeTab === "Perfumes" || activeTab === "Skincare") ? (
                 <motion.div 
-                  key={activeSubTab}
+                  key={activeTab}
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
                   viewport={{ once: true }}
                 >
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-                    {allVideos
-                      .filter(video => activeSubTab === "All" || video.category === activeSubTab)
-                      .map((video, videoIndex) => (
-                        <motion.div
-                          key={videoIndex}
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.4, delay: videoIndex * 0.1 }}
-                          viewport={{ once: true }}
-                          className="bg-white/90 backdrop-blur-sm rounded-2xl p-1 shadow-xl hover:shadow-2xl transition-all duration-300 border border-white/40 group overflow-hidden"
-                        >
-                          <div className="relative aspect-video rounded-xl overflow-hidden bg-gray-100">
-                            <video
-                              src={video.src}
-                              autoPlay
-                              loop
-                              muted
-                              playsInline
-                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                              onError={(e) => {
-                                e.target.style.display = 'none';
-                                const fallback = e.target.nextSibling;
-                                if (fallback) fallback.style.display = 'flex';
-                              }}
-                            />
-                            <div 
-                              className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/20 to-pink-500/20 items-center justify-center text-gray-600 hidden"
-                            >
-                              <div className="text-center">
-                                <div className="w-16 h-16 bg-white/80 rounded-full flex items-center justify-center mb-2 mx-auto">
-                                  <svg className="w-6 h-6 text-[#cf21c3]" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M8 5v10l8-5-8-5z"/>
-                                  </svg>
-                                </div>
-                                <p className="text-sm font-medium">{video.alt}</p>
+                  {/* Reduced gap between videos from gap-6 lg:gap-8 to gap-4 lg:gap-6 */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+                    {technologies[activeTab].videos.map((video, videoIndex) => (
+                      <motion.div
+                        key={videoIndex}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.4, delay: videoIndex * 0.1 }}
+                        viewport={{ once: true }}
+                        className="rounded-2xl overflow-hidden group"
+                      >
+                        {/* Portrait video container without white background */}
+                        {/* Changed max-w-xs to max-w-sm for slightly larger videos */}
+                        <div className="relative aspect-[9/16] rounded-xl overflow-hidden mx-auto max-w-sm">
+                          <video
+                            src={video.src}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              const fallback = e.target.nextSibling;
+                              if (fallback) fallback.style.display = 'flex';
+                            }}
+                          />
+                          <div 
+                            className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/20 to-pink-500/20 items-center justify-center text-gray-600 hidden"
+                          >
+                            <div className="text-center">
+                              <div className="w-16 h-16 bg-white/80 rounded-full flex items-center justify-center mb-2 mx-auto">
+                                <svg className="w-6 h-6 text-[#cf21c3]" fill="currentColor" viewBox="0 0 20 20">
+                                  <path d="M8 5v10l8-5-8-5z"/>
+                                </svg>
                               </div>
+                              <p className="text-sm font-medium">{video.alt}</p>
                             </div>
                           </div>
-                        </motion.div>
-                      ))}
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
                 </motion.div>
               ) : (
