@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useRef, useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from "framer-motion"
 import { Monitor, Target, TrendingUp, Palette, Video } from 'lucide-react';
 
@@ -26,14 +26,27 @@ const CgisSection = () => {
     },
     {
       icon: <Target className="w-6 h-6" />,
-      title: " Motion Animatios",
-      description: "Explain the complicated stuff without boring anyone to death. We turn complex ideas into visuals that can actually makes sense.",
+      title: "Motion Graphics",
+      description: "Explain the complicated stuff without boring anyone to death. We turn complex ideas into visuals that actually make sense.",
       metric: "+420% Engagement"
     }
   ];
 
   // Define the path for the ROAS graph
   const pathDefinition = "M 40 180 L 80 160 L 120 140 L 160 110 L 200 80 L 240 55 L 280 35 L 320 20 L 360 10";
+  
+  // Points for the moving dot animation
+  const points = [
+    { x: 40, y: 180 },
+    { x: 80, y: 160 },
+    { x: 120, y: 140 },
+    { x: 160, y: 110 },
+    { x: 200, y: 80 },
+    { x: 240, y: 55 },
+    { x: 280, y: 35 },
+    { x: 320, y: 20 },
+    { x: 360, y: 10 }
+  ];
   
   return (
     <section className="py-20 px-6 relative overflow-hidden bg-white">
@@ -159,7 +172,7 @@ const CgisSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Our <span style={{ color: '#cf21c3' }}>CGIS</span> Services
+            Our <span style={{ color: '#cf21c3' }}>CGI</span> Services
           </motion.h2>
           <motion.p
             className="text-lg text-gray-600 max-w-2xl mx-auto"
@@ -287,7 +300,7 @@ const CgisSection = () => {
                       opacity="0.3"
                     />
                     
-                    {/* Continuously moving line */}
+                    {/* Continuously moving line - no reverse */}
                     <motion.path
                       d={pathDefinition}
                       stroke="#cf21c3"
@@ -301,26 +314,23 @@ const CgisSection = () => {
                         duration: 3,
                         ease: "easeInOut",
                         repeat: Infinity,
-                        repeatType: "reverse"
+                        repeatDelay: 1
                       }}
                     />
                     
-                    {/* Moving dot along the path */}
+                    {/* Moving dot along the path - stays at top */}
                     <motion.circle
                       r="6"
                       fill="#cf21c3"
                       stroke="white"
                       strokeWidth="2"
-                      initial={{ x: 40, y: 180 }}
                       animate={{
-                        x: [40, 80, 120, 160, 200, 240, 280, 320, 360],
-                        y: [180, 160, 140, 110, 80, 55, 35, 20, 10]
+                        cx: [40, 80, 120, 160, 200, 240, 280, 320, 360],
+                        cy: [180, 160, 140, 110, 80, 55, 35, 20, 10]
                       }}
                       transition={{
-                        duration: 6,
-                        ease: "easeInOut",
-                        repeat: Infinity,
-                        repeatType: "reverse"
+                        duration: 3,
+                        ease: "easeInOut"
                       }}
                     />
                     
@@ -339,18 +349,18 @@ const CgisSection = () => {
                   </svg>
                 </div>
                 
-                {/* Key Metrics */}
-                <div className="grid grid-cols-3 gap-3">
+                {/* Key Metrics - Fixed for mobile */}
+                <div className="flex flex-col sm:grid sm:grid-cols-3 gap-3 mt-4">
                   <div className="text-center p-3 bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg border border-pink-200">
-                    <div className="text-lg font-bold" style={{ color: '#cf21c3' }}>View Time</div>
-                    <div className="text-xs text-gray-600">4.2x Average View Time</div>
+                    <div className="text-sm font-bold" style={{ color: '#cf21c3' }}>View Time</div>
+                    <div className="text-xs text-gray-600">4.2x Average</div>
                   </div>
                   <div className="text-center p-3 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-lg border border-blue-200">
-                    <div className="text-md font-bold text-blue-600">Activity Rate</div>
-                    <div className="text-xs text-gray-600">285% Higher Engagement</div>
+                    <div className="text-sm font-bold text-blue-600">Engagement</div>
+                    <div className="text-xs text-gray-600">285% Higher</div>
                   </div>
                   <div className="text-center p-3 bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg border border-green-200">
-                    <div className="text-lg font-bold text-green-600"> Brand Recall</div>
+                    <div className="text-sm font-bold text-green-600">Brand Recall</div>
                     <div className="text-xs text-gray-600">92% Recall Rate</div>
                   </div>
                 </div>
@@ -367,11 +377,11 @@ const CgisSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <h3 className="text-xl font-bold text-gray-800 mb-3">
-          Ready to bring your wildest ad ideas to life?
+          <h3 className="text-2xl font-bold text-gray-800 mb-3">
+            Ready to bring your wildest ad ideas to life?
           </h3>
-          <p className="text-sm text-gray-600 mb-6 max-w-md mx-auto leading-relaxed">
-          Got a concept that seems impossible to film? Let's turn it into CGI that makes people stop and stare.
+          <p className="text-gray-600 mb-6 max-w-md mx-auto leading-relaxed">
+            Got a concept that seems impossible to film? Let's turn it into CGI that makes people stop and stare.
           </p>
           <motion.button 
             className="px-8 py-3 text-white rounded-full transition-all duration-300 font-semibold text-sm shadow-md hover:shadow-lg"
@@ -381,7 +391,7 @@ const CgisSection = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-           Let's Talk About Your Project
+            Let's Talk About Your Project
           </motion.button>
         </motion.div>
       </div>

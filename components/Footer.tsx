@@ -66,8 +66,6 @@ export default function Footer() {
                          shadow-lg hover:shadow-xl transform hover:-translate-y-1"
             >
              Need Help?
-              
-          
             </Link>
         </div>
         {/* Animated Pink Gradient Dividers */}
@@ -101,6 +99,13 @@ export default function Footer() {
               <li>
                 <Link href="#have-a-project-in-mind-section" className="hover:text-[#cf21c3] transition-colors">
                   Have A Project In Mind?
+                </Link>
+              </li>
+           
+              {/* Added Contact Page Link */}
+              <li>
+                <Link href="/contact" className="hover:text-[#cf21c3] transition-colors">
+                  Contact Us
                 </Link>
               </li>
               <li>

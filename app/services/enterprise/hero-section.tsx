@@ -4,21 +4,22 @@ import { motion } from "framer-motion"
 
 export default function HeroSection() {
   return (
-    <section className="bg-white pt-28 md:pt-36 lg:pt-44 pb-12 md:pb-24 relative overflow-hidden">
+    <section className="bg-white pt-40 sm:pt-44 md:pt-48 lg:pt-52 pb-12 md:pb-24 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-[#cf21c3]/5 to-transparent -z-10"></div>
       <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#cf21c3]/10 rounded-full blur-3xl opacity-50 animate-pulse hidden md:block"></div>
       <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-[#e879f9]/10 rounded-full blur-3xl opacity-30 hidden md:block"></div>
 
       <div className="grid max-w-screen-xl px-4 mx-auto lg:gap-8 xl:gap-0 lg:grid-cols-12">
-        <div className="mr-auto place-self-center lg:col-span-7 order-2 lg:order-1 mt-8 lg:mt-0">
+        {/* Content - First on mobile */}
+        <div className="mr-auto place-self-center lg:col-span-7 order-1 lg:order-2">
           <motion.h1 
             className="max-w-2xl mb-4 text-3xl font-extrabold tracking-tight leading-none md:text-4xl md:mb-6 xl:text-5xl text-gray-900 text-center lg:text-left"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-     Ever Wished You Could Film the Impossible?
+            Ever Wished You Could Film the Impossible?
           </motion.h1>
           
           <motion.p 
@@ -27,7 +28,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-         Now you can. We create photorealistic CGI ads that bring your wildest brand ideas to life, no matter how impossible they seem in the real world.
+            Now you can. We create photorealistic CGI ads that bring your wildest brand ideas to life, no matter how impossible they seem in the real world.
           </motion.p>
           
           <motion.div 
@@ -54,10 +55,10 @@ export default function HeroSection() {
             </a> 
           </motion.div>
         </div>
-        
-        {/* Mobile Image - Visible on small screens */}
+
+        {/* Mobile Image - Visible on small screens at the bottom */}
         <motion.div 
-          className="lg:hidden flex justify-center items-center mb-8 order-1 mt-6"
+          className="lg:hidden flex justify-center items-center mt-8 order-2"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.3 }}
@@ -71,10 +72,10 @@ export default function HeroSection() {
             />
           </div>
         </motion.div>
-
+        
         {/* Desktop Image - Hidden on mobile */}
         <motion.div 
-          className="hidden lg:flex lg:mt-0 lg:col-span-5 justify-center items-center order-2 pt-8"
+          className="hidden lg:flex lg:mt-0 lg:col-span-5 justify-center items-center order-3"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.6 }}
