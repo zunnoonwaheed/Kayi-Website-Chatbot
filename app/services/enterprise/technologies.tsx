@@ -5,186 +5,38 @@ import { useState } from "react"
 const Technologies = () => {
   const [activeTab, setActiveTab] = useState("Perfumes") // Set Perfumes as default tab
 
-  const techIcons = {
-    swift: (
-      <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
-        <span className="text-white text-xs font-bold">S</span>
-      </div>
-    ),
-    uikit: (
-      <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
-        <span className="text-white text-xs font-bold">UI</span>
-      </div>
-    ),
-    rxswift: (
-      <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center">
-        <span className="text-white text-xs font-bold">Rx</span>
-      </div>
-    ),
-    combine: (
-      <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
-        <span className="text-white text-xs font-bold">C</span>
-      </div>
-    ),
-    mvvm: (
-      <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
-        <span className="text-white text-xs font-bold">M</span>
-      </div>
-    ),
-    alamofire: (
-      <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
-        <span className="text-white text-xs font-bold">A</span>
-      </div>
-    ),
-    coredata: (
-      <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
-        <span className="text-white text-xs font-bold">CD</span>
-      </div>
-    ),
-    kotlin: (
-      <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
-        <span className="text-white text-xs font-bold">K</span>
-      </div>
-    ),
-    rxjava: (
-      <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
-        <span className="text-white text-xs font-bold">Rx</span>
-      </div>
-    ),
-    java: (
-      <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
-        <span className="text-white text-xs font-bold">J</span>
-      </div>
-    ),
-    retrofit: (
-      <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
-        <span className="text-white text-xs font-bold">R</span>
-      </div>
-    ),
-    jetpack: (
-      <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
-        <span className="text-white text-xs font-bold">J</span>
-      </div>
-    ),
+  const categories = {
+    "Perfumes": [
+      { src: "/images/Perfume-CGI-1.mp4", alt: "Perfume CGI Ad 1", isVideo: true },
+      { src: "/images/Perfume-CGI-2.mp4", alt: "Perfume CGI Ad 2", isVideo: true },
+    ],
+    "Skincare": [
+      { src: "/images/Skincare-CGI-1.mp4", alt: "Skincare CGI Ad 1", isVideo: true },
+      { src: "/images/Skincare-CGI-2.mp4", alt: "Skincare CGI Ad 2", isVideo: true },
+    ],
+    "Shoes": [
+      { src: "/images/shoes1.mp4", alt: "Shoes CGI Ad 1", isVideo: true },
+      { src: "/images/shoes2.mp4", alt: "Shoes CGI Ad 2", isVideo: true },
+    ],
+    "Bags": [
+      { src: "/images/bag1.mp4", alt: "Bags CGI Ad 1", isVideo: true },
+      { src: "/images/bag2.mp4", alt: "Bags CGI Ad 2", isVideo: true },
+    ],
+    "Food": [
+      { src: "/images/food1.mp4", alt: "Food CGI Ad 1", isVideo: true },
+      { src: "/images/food2.mp4", alt: "Food CGI Ad 2", isVideo: true },
+    ],
+    "Accessories": [
+      { src: "/images/accessories1.mp4", alt: "Accessories CGI Ad 1", isVideo: true },
+      { src: "/images/accessories2.mp4", alt: "Accessories CGI Ad 2", isVideo: true },
+    ],
+    "Service Based": [
+      { src: "/images/service1.mp4", alt: "Service Based CGI Ad 1", isVideo: true },
+      { src: "/images/service2.mp4", alt: "Service Based CGI Ad 2", isVideo: true },
+    ],
   }
 
-  const technologies = {
-    "Perfumes": {
-      videos: [
-        { src: "/images/Perfume-CGI-1.mp4", alt: "Perfume CGI Ad 1" },
-        { src: "/images/Perfume-CGI-2.mp4", alt: "Perfume CGI Ad 2" },
-      ],
-    },
-    "Skincare": {
-      videos: [
-        { src: "/images/Skincare-CGI-1.mp4", alt: "Skincare CGI Ad 1" },
-        { src: "/images/Skincare-CGI-2.mp4", alt: "Skincare CGI Ad 2" },
-      ],
-    },
-    "Mobile Apps": {
-      sections: [
-        {
-          title: "iOS",
-          items: [
-            { name: "Swift", icon: "swift" },
-            { name: "UI Kit", icon: "uikit" },
-            { name: "RxSwift", icon: "rxswift" },
-            { name: "Combine", icon: "combine" },
-            { name: "MVVM", icon: "mvvm" },
-            { name: "Alamofire", icon: "alamofire" },
-            { name: "Core Data", icon: "coredata" },
-          ],
-        },
-        {
-          title: "Android",
-          items: [
-            { name: "Kotlin", icon: "kotlin" },
-            { name: "MVVM", icon: "mvvm" },
-            { name: "RxJava", icon: "rxjava" },
-            { name: "Java", icon: "java" },
-            { name: "Retrofit", icon: "retrofit" },
-            { name: "Jetpack", icon: "jetpack" },
-          ],
-        },
-      ],
-    },
-    "Web Platforms": {
-      sections: [
-        {
-          title: "Frontend",
-          items: [
-            { name: "React", icon: "swift" },
-            { name: "Vue.js", icon: "uikit" },
-            { name: "Angular", icon: "rxswift" },
-            { name: "TypeScript", icon: "combine" },
-          ],
-        },
-        {
-          title: "Backend",
-          items: [
-            { name: "Node.js", icon: "kotlin" },
-            { name: "Python", icon: "rxjava" },
-            { name: "PHP", icon: "java" },
-            { name: "Java", icon: "retrofit" },
-          ],
-        },
-      ],
-    },
-    "Cross Platforms": {
-      sections: [
-        {
-          title: "Mobile",
-          items: [
-            { name: "React Native", icon: "swift" },
-            { name: "Flutter", icon: "uikit" },
-            { name: "Xamarin", icon: "rxswift" },
-            { name: "Ionic", icon: "combine" },
-          ],
-        },
-      ],
-    },
-    Games: {
-      sections: [
-        {
-          title: "Engines",
-          items: [
-            { name: "Unity", icon: "swift" },
-            { name: "Unreal", icon: "uikit" },
-            { name: "Godot", icon: "rxswift" },
-            { name: "Cocos2d", icon: "combine" },
-          ],
-        },
-      ],
-    },
-    Database: {
-      sections: [
-        {
-          title: "SQL",
-          items: [
-            { name: "PostgreSQL", icon: "swift" },
-            { name: "MySQL", icon: "uikit" },
-            { name: "SQLite", icon: "rxswift" },
-            { name: "Oracle", icon: "combine" },
-          ],
-        },
-      ],
-    },
-    "Cloud & DevOps": {
-      sections: [
-        {
-          title: "Cloud",
-          items: [
-            { name: "AWS", icon: "swift" },
-            { name: "Azure", icon: "uikit" },
-            { name: "GCP", icon: "rxswift" },
-            { name: "Docker", icon: "combine" },
-          ],
-        },
-      ],
-    },
-  }
-
-  const tabs = Object.keys(technologies)
+  const tabs = Object.keys(categories)
 
   return (
     <div className="py-20 relative overflow-hidden bg-white">
@@ -302,7 +154,7 @@ const Technologies = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-        See CGI Ads from Your Industry
+          See CGI Ads from Your Industry
         </motion.h1>
         <motion.p 
           className="text-base md:text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed"
@@ -311,7 +163,7 @@ const Technologies = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-       Whether you're selling luxury watches or launching a tech startup, we've helped brands like yours tell their stories through CGI. Take a look at what's possible in your industry.
+          Whether you're selling luxury watches or launching a tech startup, we've helped brands like yours tell their stories through CGI. Take a look at what's possible in your industry.
         </motion.p>
       </div>
 
@@ -361,92 +213,57 @@ const Technologies = () => {
 
           {/* Content */}
           <div className="flex-1 lg:pl-12">
-            <div className="space-y-12 lg:space-y-16">
-              {/* Show videos for Perfumes and Skincare tabs */}
-              {(activeTab === "Perfumes" || activeTab === "Skincare") ? (
-                <motion.div 
-                  key={activeTab}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                  viewport={{ once: true }}
-                >
-                  {/* Reduced gap between videos from gap-6 lg:gap-8 to gap-4 lg:gap-6 */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-                    {technologies[activeTab].videos.map((video, videoIndex) => (
-                      <motion.div
-                        key={videoIndex}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.4, delay: videoIndex * 0.1 }}
-                        viewport={{ once: true }}
-                        className="rounded-2xl overflow-hidden group"
-                      >
-                        {/* Portrait video container without white background */}
-                        {/* Changed max-w-xs to max-w-sm for slightly larger videos */}
-                        <div className="relative aspect-[9/16] rounded-xl overflow-hidden mx-auto max-w-sm">
-                          <video
-                            src={video.src}
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                              const fallback = e.target.nextSibling;
-                              if (fallback) fallback.style.display = 'flex';
-                            }}
-                          />
-                          <div 
-                            className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/20 to-pink-500/20 items-center justify-center text-gray-600 hidden"
-                          >
-                            <div className="text-center">
-                              <div className="w-16 h-16 bg-white/80 rounded-full flex items-center justify-center mb-2 mx-auto">
-                                <svg className="w-6 h-6 text-[#cf21c3]" fill="currentColor" viewBox="0 0 20 20">
-                                  <path d="M8 5v10l8-5-8-5z"/>
-                                </svg>
-                              </div>
-                              <p className="text-sm font-medium">{video.alt}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              ) : (
-                // Show all sections for other tabs
-                technologies[activeTab].sections.map((section, sectionIndex) => (
-                  <motion.div 
-                    key={sectionIndex}
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: sectionIndex * 0.1 }}
+            <motion.div 
+              key={activeTab}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              {/* Reduced gap between videos from gap-6 lg:gap-8 to gap-4 lg:gap-6 */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+                {categories[activeTab].map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
                     viewport={{ once: true }}
+                    className="rounded-2xl overflow-hidden group"
                   >
-                    <h3 className="text-2xl lg:text-3xl font-bold text-black mb-6 lg:mb-8">{section.title}</h3>
-                    
-                    {/* Regular Tech Items */}
-                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-                      {section.items?.map((item, itemIndex) => (
-                        <motion.div
-                          key={itemIndex}
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.4, delay: itemIndex * 0.05 }}
-                          viewport={{ once: true }}
-                          className="bg-white/90 backdrop-blur-sm rounded-xl px-4 lg:px-6 py-3 lg:py-4 flex items-center space-x-3 lg:space-x-4 hover:bg-white transition-colors cursor-pointer border border-white/40 shadow-lg hover:shadow-xl"
-                        >
-                          <div className="flex-shrink-0">{techIcons[item.icon]}</div>
-                          <span className="font-medium text-gray-900 text-sm lg:text-base">{item.name}</span>
-                        </motion.div>
-                      ))}
+                    {/* Portrait video container without white background */}
+                    {/* Changed max-w-xs to max-w-sm for slightly larger videos */}
+                    <div className="relative aspect-[9/16] rounded-xl overflow-hidden mx-auto max-w-sm">
+                      <video
+                        src={item.src}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          const fallback = e.target.nextSibling;
+                          if (fallback) fallback.style.display = 'flex';
+                        }}
+                      />
+                      <div 
+                        className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/20 to-pink-500/20 items-center justify-center text-gray-600 hidden"
+                      >
+                        <div className="text-center">
+                          <div className="w-16 h-16 bg-white/80 rounded-full flex items-center justify-center mb-2 mx-auto">
+                            <svg className="w-6 h-6 text-[#cf21c3]" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M8 5v10l8-5-8-5z"/>
+                            </svg>
+                          </div>
+                          <p className="text-sm font-medium">{item.alt}</p>
+                        </div>
+                      </div>
                     </div>
                   </motion.div>
-                ))
-              )}
-            </div>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -461,7 +278,7 @@ const Technologies = () => {
         >
           <div className="flex flex-col lg:flex-row lg:items-center text-center lg:text-left space-y-4 lg:space-y-0 lg:gap-8">
             <h2 className="text-xl lg:text-4xl font-bold text-black leading-tight">
-            Let's build your next <span className="text-[#cf21c3]">CGI campaign</span>
+              Let's build your next <span className="text-[#cf21c3]">CGI campaign</span>
             </h2>
             <motion.button 
               whileHover={{ scale: 1.05 }}
