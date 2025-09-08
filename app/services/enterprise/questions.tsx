@@ -2,65 +2,55 @@
 
 import { motion } from "framer-motion"
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Plus, Minus } from "lucide-react"
 
 const faqData = [
   {
-    id: "delivery-process",
-    question: "What's the Off Menu delivery process?",
-    answer:
-      "Our delivery process is streamlined and efficient. Once you place an order, our team begins preparation immediately. We provide real-time updates and ensure your order arrives fresh and on time.",
+    id: "cgi-vs-traditional",
+    question: "What are CGI ads and how do they differ from traditional advertising?",
+    answer: "CGI ads use computer-generated imagery to create visual content that would be impossible, impractical, or too expensive to film with traditional methods. Unlike conventional ads that rely on physical sets, actors, and real products, CGI ads can create entirely digital environments, impossible physics, and fantastical scenarios while maintaining photorealistic quality."
   },
   {
-    id: "not-happy",
-    question: "What if I'm not happy with my designs?",
-    answer:
-      "Your satisfaction is our priority. If you're not completely happy with your designs, we offer unlimited revisions until you're satisfied. We also provide a satisfaction guarantee for all our services.",
+    id: "software-tools",
+    question: "What software and tools are commonly used to create CGI advertisements?",
+    answer: "Popular CGI software includes Cinema 4D and Blender for 3D modeling and animation, Maya and 3ds Max for complex character work, After Effects for compositing and motion graphics, and rendering engines like Octane, V-Ray, or Cycles for final image generation. Many studios also use specialized tools for simulation (Houdini), sculpting (ZBrush), and real-time rendering (Unreal Engine)."
   },
   {
-    id: "request-limit",
-    question: "Is there a limit to how many requests I can have?",
-    answer:
-      "There's no limit to the number of requests you can make. However, we work on them one at a time to ensure quality and attention to detail. You can queue up as many requests as you need.",
+    id: "production-time",
+    question: "How long does it take to produce a CGI advertisement?",
+    answer: "Production timelines typically range from 4-16 weeks depending on complexity. Simple product visualizations might take 4-6 weeks, while complex narratives with detailed environments and characters can require 12-16 weeks or more. The process includes concept development, 3D modeling, animation, lighting, rendering, and post-production."
   },
   {
-    id: "full-time-designer",
-    question: "Why wouldn't I just hire a full-time designer?",
-    answer:
-      "Hiring a full-time designer comes with significant overhead costs, benefits, and the challenge of finding the right talent. Our service gives you access to expert designers without the long-term commitment and at a fraction of the cost.",
+    id: "industries-benefit",
+    question: "What types of products or industries benefit most from CGI advertising?",
+    answer: "CGI works particularly well for automotive (showing internal mechanics), technology products (demonstrating features), pharmaceuticals (visualizing biological processes), architecture and real estate (showing unbuilt properties), fashion and cosmetics (perfect product shots), and any industry needing to visualize abstract concepts or impossible scenarios."
   },
   {
-    id: "a-la-carte",
-    question: "How does the A La Carte process work?",
-    answer:
-      "With an A La Carte subscription, you get 50 hours of design work per month from our full-service creative team.\n\nAfter a kickoff call to discuss your goals, you submit requests through our project management tool, prioritizing your most important items.\n\nWe work on tasks one at a time, track the hours spent, and provide updates every two business days. If you run out of hours, you can purchase additional time or wait until your subscription renews.",
+    id: "emotional-connection",
+    question: "Can CGI ads achieve the same emotional connection as live-action advertising?",
+    answer: "Modern CGI can absolutely create strong emotional connections through sophisticated character animation, realistic environments, and compelling storytelling. However, success depends on skilled execution—poorly done CGI can feel cold or artificial, while expertly crafted CGI can be more emotionally impactful than traditional footage by creating experiences impossible in real life."
   },
   {
-    id: "share-feedback",
-    question: "How do I share feedback?",
-    answer:
-      "Sharing feedback is easy through our project management platform. You can leave comments directly on designs, request specific changes, and communicate with your dedicated design team in real-time.",
+    id: "technical-challenges",
+    question: "What are the main technical challenges in creating CGI advertisements?",
+    answer: "Key challenges include achieving photorealism without falling into the 'uncanny valley,' managing long rendering times, ensuring consistent quality across different devices and platforms, integrating CGI with live-action footage seamlessly, and optimizing file sizes for various media channels while maintaining visual quality."
   },
   {
-    id: "have-calls",
-    question: "Can we have calls?",
-    answer:
-      "We encourage regular check-ins and are available for calls whenever needed. You can schedule calls through our platform or request them as part of your project workflow.",
+    id: "review-approval",
+    question: "How do clients typically review and approve CGI ad content during production?",
+    answer: "The process usually involves multiple approval stages: initial concept art and storyboards, rough 3D previsualization (animatics), refined animation with basic lighting, and final rendered versions. Clients can request changes at each stage, though modifications become more expensive and time-consuming as production progresses toward final rendering."
   },
   {
-    id: "cancellation-policy",
-    question: "What's your cancellation policy?",
-    answer:
-      "You can cancel your subscription at any time. There are no long-term contracts or cancellation fees. Your subscription will remain active until the end of your current billing period.",
-  },
+    id: "cgi-vs-motion-graphics",
+    question: "What's the difference between CGI ads and other digital advertising formats like motion graphics?",
+    answer: "CGI ads focus on creating photorealistic or highly detailed 3D environments and objects that mimic real-world physics and lighting. Motion graphics typically use 2D or simplified 3D elements with stylized animation, text, and graphic design elements. CGI ads aim for immersive realism or fantastical but believable worlds, while motion graphics prioritize clear communication through animated graphic design."
+  }
 ]
 
 export function Questions() {
   const [openItems, setOpenItems] = useState<Record<string, boolean>>({
-    "a-la-carte": true // Default open item
+    "cgi-vs-traditional": true // Default open item
   })
 
   const toggleItem = (id: string) => {
@@ -249,11 +239,7 @@ export function Questions() {
                       transition={{ duration: 0.3 }}
                       className="pt-4 text-gray-700 leading-relaxed ml-8"
                     >
-                      {faq.answer.split("\n").map((paragraph, index) => (
-                        <p key={index} className={index > 0 ? "mt-4" : ""}>
-                          {paragraph}
-                        </p>
-                      ))}
+                      {faq.answer}
                     </motion.div>
                   )}
                 </Card>
@@ -301,11 +287,7 @@ export function Questions() {
                       transition={{ duration: 0.3 }}
                       className="pt-4 text-gray-700 leading-relaxed ml-8"
                     >
-                      {faq.answer.split("\n").map((paragraph, index) => (
-                        <p key={index} className={index > 0 ? "mt-4" : ""}>
-                          {paragraph}
-                        </p>
-                      ))}
+                      {faq.answer}
                     </motion.div>
                   )}
                 </Card>

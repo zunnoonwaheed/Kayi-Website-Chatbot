@@ -9,44 +9,27 @@ const CgisSection = () => {
     {
       icon: <Monitor className="w-6 h-6" />,
       title: "Product Visualization",
-      description: "Show your products from angles that don't exist in real life. Perfect lighting, impossible shots, and details so crisp your customers can almost touch them.",
       metric: "+380% Engagement"
     },
     {
       icon: <Video className="w-6 h-6" />,
       title: "Brand Storytelling",
-      description: "Ever wanted to put your product in space? Or make it the hero of an epic adventure? We create stories that stick in people's minds.",
       metric: "+295% CTR"
     },
     {
       icon: <Palette className="w-6 h-6" />,
       title: "Architectural Visualization",
-      description: "Help people fall in love with spaces before they're even built. From dream homes to office complexes, we make blueprints come alive.",
       metric: "+180% Recognition"
     },
     {
       icon: <Target className="w-6 h-6" />,
       title: "Motion Graphics",
-      description: "Explain the complicated stuff without boring anyone to death. We turn complex ideas into visuals that actually make sense.",
       metric: "+420% Engagement"
     }
   ];
 
   // Define the path for the ROAS graph
   const pathDefinition = "M 40 180 L 80 160 L 120 140 L 160 110 L 200 80 L 240 55 L 280 35 L 320 20 L 360 10";
-  
-  // Points for the moving dot animation
-  const points = [
-    { x: 40, y: 180 },
-    { x: 80, y: 160 },
-    { x: 120, y: 140 },
-    { x: 160, y: 110 },
-    { x: 200, y: 80 },
-    { x: 240, y: 55 },
-    { x: 280, y: 35 },
-    { x: 320, y: 20 },
-    { x: 360, y: 10 }
-  ];
   
   return (
     <section className="py-20 px-6 relative overflow-hidden bg-white">
@@ -202,8 +185,8 @@ const CgisSection = () => {
                 viewport={{ once: true }}
               >
                 <div 
-                  className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border backdrop-blur-sm"
-                  style={{ borderColor: '#f8d7da' }}
+                  className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border backdrop-blur-sm flex flex-col items-center justify-center text-center"
+                  style={{ borderColor: '#f8d7da', minHeight: '180px' }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.borderColor = '#cf21c3';
                     e.currentTarget.style.borderWidth = '2px';
@@ -213,34 +196,27 @@ const CgisSection = () => {
                     e.currentTarget.style.borderWidth = '1px';
                   }}
                 >
-                  <div className="flex items-center mb-3">
-                    <div 
-                      className="p-2 rounded-md mr-3"
-                      style={{ 
-                        background: 'linear-gradient(135deg, #cf21c3 0%, #e535db 50%, #f649f3 100%)',
-                        color: 'white'
-                      }}
-                    >
-                      {service.icon}
-                    </div>
-                    <div>
-                      <h3 
-                        className="font-semibold text-gray-900 text-sm transition-colors duration-300"
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.color = '#cf21c3';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.color = '#111827';
-                        }}
-                      >
-                        {service.title}
-                      </h3>
-                      <span className="text-xs font-medium text-green-600">{service.metric}</span>
-                    </div>
+                  <div 
+                    className="p-3 rounded-full mb-4"
+                    style={{ 
+                      background: 'linear-gradient(135deg, #cf21c3 0%, #e535db 50%, #f649f3 100%)',
+                      color: 'white'
+                    }}
+                  >
+                    {service.icon}
                   </div>
-                  <p className="text-gray-600 text-xs leading-relaxed">
-                    {service.description}
-                  </p>
+                  <h3 
+                    className="font-semibold text-gray-900 text-lg mb-2 transition-colors duration-300 whitespace-nowrap"
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = '#cf21c3';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = '#111827';
+                    }}
+                  >
+                    {service.title}
+                  </h3>
+                  <span className="text-xl font-bold text-green-600">{service.metric}</span>
                 </div>
               </motion.div>
             ))}

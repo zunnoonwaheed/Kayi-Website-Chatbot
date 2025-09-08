@@ -268,26 +268,25 @@ const Technologies = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 mt-16 lg:mt-20 relative z-10">
+      {/* Centrally aligned CTA section */}
+      <div className="max-w-4xl mx-auto px-6 mt-16 lg:mt-20 relative z-10">
         <motion.div 
-          className="bg-white/90 backdrop-blur-sm rounded-2xl lg:rounded-full px-6 py-6 lg:px-12 lg:py-6 shadow-lg border border-white/40"
+          className="bg-white/90 backdrop-blur-sm rounded-2xl px-8 py-10 lg:py-12 shadow-lg border border-white/40 text-center"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <div className="flex flex-col lg:flex-row lg:items-center text-center lg:text-left space-y-4 lg:space-y-0 lg:gap-8">
-            <h2 className="text-xl lg:text-4xl font-bold text-black leading-tight">
-              Let's build your next <span className="text-[#cf21c3]">CGI campaign</span>
-            </h2>
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-[#cf21c3] to-[#e879f9] text-white px-6 lg:px-10 py-3 lg:py-4 rounded-full font-semibold hover:from-[#a21caf] hover:to-[#cf21c3] transition-all duration-200 shadow-lg hover:shadow-xl mx-auto lg:mx-0 flex-shrink-0 text-sm lg:text-base"
-            >
-              Get a Quote
-            </motion.button>
-          </div>
+          <h2 className="text-2xl lg:text-4xl font-bold text-black mb-6 leading-tight">
+            Let's Build Your Next <span className="text-[#cf21c3]">CGI Campaign</span>
+          </h2>
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-gradient-to-r from-[#cf21c3] to-[#e879f9] text-white px-8 py-4 rounded-full font-semibold hover:from-[#a21caf] hover:to-[#cf21c3] transition-all duration-200 shadow-lg hover:shadow-xl text-base lg:text-lg"
+          >
+            Get a Quote
+          </motion.button>
         </motion.div>
       </div>
     </div>

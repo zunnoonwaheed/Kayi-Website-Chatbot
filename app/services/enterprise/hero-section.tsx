@@ -5,11 +5,6 @@ import { motion } from "framer-motion"
 export default function HeroSection() {
   return (
     <section className="bg-white pt-40 sm:pt-44 md:pt-48 lg:pt-52 pb-12 md:pb-24 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-[#cf21c3]/5 to-transparent -z-10"></div>
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#cf21c3]/10 rounded-full blur-3xl opacity-50 animate-pulse hidden md:block"></div>
-      <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-[#e879f9]/10 rounded-full blur-3xl opacity-30 hidden md:block"></div>
-
       <div className="grid max-w-screen-xl px-4 mx-auto lg:gap-8 xl:gap-0 lg:grid-cols-12">
         {/* Content - First on mobile */}
         <div className="mr-auto place-self-center lg:col-span-7 order-1 lg:order-2">
@@ -64,11 +59,14 @@ export default function HeroSection() {
           transition={{ duration: 0.7, delay: 0.3 }}
         >
           <div className="relative w-full max-w-xs">
-            <div className="absolute -inset-3 bg-gradient-to-r from-[#cf21c3]/20 to-[#e879f9]/20 rounded-2xl blur-lg opacity-75 animate-pulse"></div>
             <img 
-              src="/images/kayi-hero.jpeg" 
+              src="/images/hero.png" 
               alt="CGI Advertising Solutions" 
-              className="relative rounded-xl shadow-xl w-full transform hover:scale-105 transition-transform duration-500"
+              className="w-full"
+              style={{ 
+                transform: 'perspective(1000px) rotateY(-5deg) rotateX(5deg)',
+                transformStyle: 'preserve-3d'
+              }}
             />
           </div>
         </motion.div>
@@ -81,11 +79,14 @@ export default function HeroSection() {
           transition={{ duration: 0.7, delay: 0.6 }}
         >
           <div className="relative">
-            <div className="absolute -inset-4 bg-gradient-to-r from-[#cf21c3]/20 to-[#e879f9]/20 rounded-3xl blur-xl opacity-75 animate-pulse"></div>
             <img 
-              src="/images/kayi-hero.jpeg" 
+              src="/images/hero.png" 
               alt="CGI Advertising Solutions" 
-              className="relative rounded-2xl shadow-2xl w-full max-w-md transform hover:scale-105 transition-transform duration-500"
+              className="relative w-full max-w-md transition-transform duration-500 hover:scale-105"
+              style={{ 
+                transform: 'perspective(1000px) rotateY(-5deg) rotateX(5deg)',
+                transformStyle: 'preserve-3d'
+              }}
             />
           </div>
         </motion.div>                
