@@ -31,19 +31,14 @@ export default function CardsSection() {
     <section className="py-20 px-6 relative overflow-hidden bg-white">
       {/* Gradient Background */}
       <div className="absolute inset-0">
-        {/* Base gradient layers that flow seamlessly */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/6 via-pink-500/3 to-[#cf21c3]/8" />
         <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#cf21c3]/4 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-bl from-[#cf21c3]/3 via-transparent to-pink-500/6" />
         <div className="absolute inset-0 bg-gradient-to-tl from-pink-500/4 via-transparent to-[#cf21c3]/5" />
-
-        {/* Seamless edge gradients */}
         <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#cf21c3]/12 via-pink-500/6 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[#cf21c3]/12 via-pink-500/6 to-transparent" />
         <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-[#cf21c3]/10 via-pink-500/5 to-transparent" />
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#cf21c3]/10 via-pink-500/5 to-transparent" />
-
-        {/* Flowing wave gradients */}
         <motion.div
           className="absolute inset-0 bg-gradient-to-r from-transparent via-[#cf21c3]/8 to-transparent"
           animate={{
@@ -82,8 +77,6 @@ export default function CardsSection() {
             delay: 15,
           }}
         />
-
-        {/* Organic floating gradients that blend naturally */}
         <motion.div
           className="absolute top-1/6 left-1/6 w-96 h-96 bg-gradient-radial from-[#cf21c3]/15 via-pink-500/10 to-transparent rounded-full blur-3xl"
           animate={{
@@ -129,8 +122,6 @@ export default function CardsSection() {
             delay: 12,
           }}
         />
-
-        {/* Subtle mesh gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/3 via-transparent to-pink-500/4 mix-blend-multiply" />
         <div className="absolute inset-0 bg-gradient-to-tl from-pink-500/2 via-transparent to-[#cf21c3]/3 mix-blend-screen opacity-50" />
       </div>
@@ -151,7 +142,7 @@ export default function CardsSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-           Why CGI Ads Are Game-Changers
+            Why CGI Ads Are Game-Changers
           </motion.h2>
           <motion.p
             className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed"
@@ -160,13 +151,12 @@ export default function CardsSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <span className="font-bold">Everything</span>  you need to know about CGI advertising and why smart brands are making the switch.{" "}
-          
+            <span className="font-bold">Everything</span> you need to know about CGI advertising and why smart brands are making the switch.
           </motion.p>
         </motion.div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {services.map((service, index) => {
             const isHovered = hoveredIndex === index
             return (
@@ -184,15 +174,14 @@ export default function CardsSection() {
                 onMouseLeave={() => setHoveredIndex(null)}
               >
                 <div
-                  className={`relative rounded-2xl border shadow-md transition-all duration-700 h-full overflow-hidden
-                  bg-gradient-to-br from-white to-pink-50 ${
-                    isHovered
-                      ? "shadow-xl shadow-pink-200 border-[#cf21c3]/30 transform translate-y-[-8px]"
-                      : "border-slate-200"
-                  }`}
+                  className={`relative rounded-2xl shadow-lg overflow-hidden transition-all duration-700
+                    bg-white/90 backdrop-blur-lg
+                    ${isHovered ? "shadow-2xl transform -translate-y-2" : ""}
+                    before:absolute before:inset-x-0 before:top-0 before:h-12 before:bg-gradient-to-b before:from-white/100 before:to-transparent
+                  `}
                 >
-                  {/* Image Section */}
-                  <div className="relative h-48 overflow-hidden">
+                  {/* Image Section with enhanced bottom blend */}
+                  <div className="relative h-60 overflow-hidden -mb-6">
                     <motion.img
                       src={service.image}
                       alt={service.title}
@@ -200,45 +189,22 @@ export default function CardsSection() {
                       animate={isHovered ? { scale: 1.05 } : { scale: 1 }}
                       transition={{ duration: 0.7, ease: "easeOut" }}
                     />
-                    
-                    {/* Professional gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent" />
-                    
-                    {/* Subtle hover overlay */}
-                    <motion.div
-                      className="absolute inset-0 bg-[#cf21c3]"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: isHovered ? 0.08 : 0 }}
-                      transition={{ duration: 0.4 }}
-                    />
+                    {/* Taller gradient for perfect blend */}
+                    <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-white/100 to-transparent" />
                   </div>
 
                   {/* Content Section */}
-                  <div className="p-8">
+                  <div className="p-6">
                     <motion.h3
-                      className="text-xl font-bold mb-4 leading-tight"
-                      animate={{ 
-                        color: isHovered ? '#cf21c3' : '#1f2937'
-                      }}
+                      className="text-xl font-bold mb-3 leading-tight"
+                      animate={{ color: isHovered ? "#cf21c3" : "#1f2937" }}
                       transition={{ duration: 0.3 }}
                     >
                       {service.title}
                     </motion.h3>
-                    
-                    <p className="text-sm text-slate-600 leading-relaxed">
+                    <p className="text-sm text-slate-700 leading-relaxed">
                       {service.description}
                     </p>
-
-                    {/* Professional indicator line */}
-                    <motion.div
-                      className="mt-6 h-0.5 bg-gradient-to-r from-gray-200 to-transparent"
-                      animate={{
-                        background: isHovered 
-                          ? 'linear-gradient(to right, #cf21c3, transparent)' 
-                          : 'linear-gradient(to right, #e5e7eb, transparent)'
-                      }}
-                      transition={{ duration: 0.4 }}
-                    />
                   </div>
                 </div>
               </motion.div>

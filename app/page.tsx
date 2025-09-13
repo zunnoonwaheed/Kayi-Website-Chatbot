@@ -8,7 +8,8 @@ import ProcessSection from "@/components/timeline"
 import ServicesSection from "@/components/services-provide"
 import LocationsSection from "@/components/locations-section"
 import SuccessStoriesSection from "@/components/success-stories-section"
-import FaqsSection from "@/components/faqs" 
+import Review from "@/components/review" // ✅ Import Review
+import FaqsSection from "@/components/faqs"
 import ContactSection from "@/components/contact-section"
 import Footer from "@/components/Footer"
 import KayiChatbot from "@/components/kayi-chatbot"
@@ -82,6 +83,9 @@ export default function Home() {
           <SuccessStoriesSection />
         </section>
 
+        {/* ✅ Reviews Section */}
+        <Review />
+
         {/* FAQs */}
         <section id="faqs" className="faqs">
           <FaqsSection />
@@ -96,10 +100,10 @@ export default function Home() {
 
       {/* ✅ Chatbot widget added */}
       <KayiChatbot />
-      
+
       {/* ✅ WhatsApp Floating Button added */}
       <WhatsAppFloatingButton />
-      
+
       <Footer />
     </div>
   )
