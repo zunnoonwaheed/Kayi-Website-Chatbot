@@ -198,7 +198,7 @@ export default function ReviewSection() {
             {reviews.map((review, index) => (
               <div
                 key={index}
-                className={`relative bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden flex-shrink-0 snap-center w-80 sm:w-96 lg:w-auto transition-transform ${
+                className={`relative bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-xl flex-shrink-0 snap-center w-80 sm:w-96 lg:w-auto transition-transform ${
                   index === 1 ? "scale-105 lg:h-[560px]" : "lg:h-[520px]"
                 }`}
               >
@@ -233,11 +233,12 @@ export default function ReviewSection() {
                     </div>
                   )}
 
-                  {/* Bottom gradient - removed to blend with section */}
+                  {/* Bottom gradient */}
+                  <div className="absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t from-white/90 via-white/50 to-transparent"></div>
                 </div>
 
                 {/* Overlayed text & name */}
-                <div className="p-6 flex flex-col justify-end">
+                <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col justify-end">
                   <p className="text-base text-black leading-snug mb-2 text-left font-normal not-italic">
                     {review.text}
                   </p>
@@ -252,13 +253,13 @@ export default function ReviewSection() {
           {/* Navigation arrows (hidden on mobile) */}
           <button
             onClick={() => scroll("left")}
-            className="hidden lg:flex absolute -left-12 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full p-2 hover:bg-white"
+            className="hidden lg:flex absolute -left-12 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-md hover:bg-white"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
           <button
             onClick={() => scroll("right")}
-            className="hidden lg:flex absolute -right-12 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full p-2 hover:bg-white"
+            className="hidden lg:flex absolute -right-12 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-md hover:bg-white"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
