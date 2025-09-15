@@ -59,7 +59,7 @@ export default function FaqsSection() {
   }
 
   return (
-    <section className="py-20 px-6 relative overflow-hidden bg-white">
+    <section className="pt-12 px-4 sm:px-6 relative overflow-hidden bg-white">
       <div className="absolute inset-0">
         {/* Base gradient layers that flow seamlessly */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/6 via-pink-500/3 to-[#cf21c3]/8" />
@@ -172,10 +172,10 @@ export default function FaqsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center mb-16"
+          className="text-center mb-6"
         >
           <motion.h2
-            className="text-5xl lg:text-6xl font-bold mb-4 text-black"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3 text-black"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -184,7 +184,7 @@ export default function FaqsSection() {
             Frequently Asked Questions
           </motion.h2>
           <motion.p
-            className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed"
+            className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed px-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -194,12 +194,11 @@ export default function FaqsSection() {
             <a href="https://calendly.com/saadalii/kayidigital" className="text-[#cf21c3] font-semibold hover:underline">
             We typically respond back in an hour!
             </a>
-          
           </motion.p>
         </motion.div>
 
         {/* FAQ Items */}
-        <div className="space-y-6">
+        <div className="space-y-2 px-4">
           {faqData.map((faq, index) => {
             const isOpen = openItems.includes(faq.id)
             
@@ -214,11 +213,11 @@ export default function FaqsSection() {
               >
                 <button
                   onClick={() => toggleItem(faq.id)}
-                  className="w-full flex items-center justify-between p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#cf21c3]"
+                  className="w-full flex items-center justify-between p-4 sm:p-5 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#cf21c3]"
                 >
-                  <h3 className="text-lg font-semibold text-black pr-4">{faq.question}</h3>
-                  <div className={`flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full transition-all duration-300 ${isOpen ? 'bg-gradient-to-br from-[#cf21c3] to-pink-500 text-white' : 'bg-slate-100 text-slate-600'}`}>
-                    {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                  <h3 className="text-base sm:text-lg font-semibold text-black pr-4">{faq.question}</h3>
+                  <div className={`flex-shrink-0 w-5 h-5 flex items-center justify-center rounded-full transition-all duration-300 ${isOpen ? 'bg-gradient-to-br from-[#cf21c3] to-pink-500 text-white' : 'bg-slate-100 text-slate-600'}`}>
+                    {isOpen ? <Minus className="w-3 h-3" /> : <Plus className="w-3 h-3" />}
                   </div>
                 </button>
                 
@@ -228,7 +227,7 @@ export default function FaqsSection() {
                   transition={{ duration: 0.3, ease: "easeOut" }}
                   className="overflow-hidden"
                 >
-                  <div className="px-6 pb-6 pt-2 text-slate-600">
+                  <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-0 text-slate-600 text-sm sm:text-base">
                     {faq.answer}
                   </div>
                 </motion.div>
@@ -243,7 +242,7 @@ export default function FaqsSection() {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-center mt-16"
+          className="text-center mt-6 px-4"
         >
           <motion.a
             href="https://calendly.com/saadalii/kayidigital"
@@ -255,11 +254,11 @@ export default function FaqsSection() {
             }}
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#cf21c3] to-[#e879f9] hover:from-[#a21caf] hover:to-[#cf21c3] text-white font-semibold text-lg px-8 py-4 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#cf21c3] to-[#e879f9] hover:from-[#a21caf] hover:to-[#cf21c3] text-white font-semibold text-base sm:text-lg px-5 py-2.5 sm:px-6 sm:py-3 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto justify-center"
           >
             Schedule a free consultation
             <svg
-              className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1"
+              className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-200 group-hover:translate-x-1"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

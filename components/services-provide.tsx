@@ -83,9 +83,7 @@ export default function ServicesSection() {
 
   const scrollToSlide = (index: number) => {
     if (scrollContainerRef.current) {
-      const slideWidth = scrollContainerRef.current.offsetWidth
-      const cardWidth = scrollContainerRef.current.scrollWidth / services.length
-      const scrollPosition = index * cardWidth
+      const scrollPosition = index * scrollContainerRef.current.offsetWidth
       
       scrollContainerRef.current.scrollTo({
         left: scrollPosition,
@@ -98,8 +96,8 @@ export default function ServicesSection() {
   const handleScroll = () => {
     if (scrollContainerRef.current && isMobile) {
       const scrollPosition = scrollContainerRef.current.scrollLeft
-      const cardWidth = scrollContainerRef.current.scrollWidth / services.length
-      const newSlide = Math.round(scrollPosition / cardWidth)
+      const slideWidth = scrollContainerRef.current.offsetWidth
+      const newSlide = Math.round(scrollPosition / slideWidth)
       setCurrentSlide(newSlide)
     }
   }
@@ -242,29 +240,148 @@ export default function ServicesSection() {
           </motion.p>
         </motion.div>
 
-        {/* Services Grid with proper spacing and centering */}
+        {/* Services Grid - Fixed to prevent vertical movement */}
         <div className="relative">
-          {/* Subtle arrow indicator for mobile */}
-          <div className="lg:hidden flex justify-end mb-2 pr-2">
-            <div className="text-[#cf21c3] opacity-50">
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
+          {/* Desktop Grid */}
+          <div className="hidden lg:grid grid-cols-4 gap-4">
+            {services.map((service, index) => {
+              const Icon = service.icon
+              const isHovered = hoveredIndex === index
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{
+                    duration: 0.7,
+                    delay: index * 0.08,
+                    ease: "easeOut",
+                  }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  className="flex justify-center"
+                >
+                  <motion.div
+                    whileHover={{
+                      scale: 1.03,
+                      transition: { 
+                        duration: 0.4, 
+                        ease: "easeOut",
+                      },
+                    }}
+                    className={`relative p-8 bg-white/95 backdrop-blur-sm rounded-3xl border transition-all duration-500 h-full flex flex-col shadow-md hover:shadow-2xl w-full ${
+                      isHovered ? "border-[#cf21c3]/40 shadow-lg" : "border-gray-200/60 hover:border-gray-300"
+                    }`}
+                    style={{ 
+                      minHeight: "420px",
+                    }}
+                  >
+                    {/* Rounded top section with gradient background */}
+                    <motion.div
+                      initial={{ scale: 0.8, rotate: -10 }}
+                      whileInView={{ scale: 1, rotate: 0 }}
+                      whileHover={{ 
+                        scale: 1.15, 
+                        rotate: 8,
+                      }}
+                      transition={{ 
+                        duration: 0.4, 
+                        delay: index * 0.05 + 0.2,
+                        type: "spring",
+                        stiffness: 300
+                      }}
+                      viewport={{ once: true }}
+                      className="mb-6 flex-shrink-0 flex justify-center"
+                    >
+                      <div
+                        className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 transform ${
+                          isHovered
+                            ? "bg-gradient-to-br from-[#cf21c3] to-pink-500 text-white shadow-lg"
+                            : "bg-[#cf21c3]/10 text-[#cf21c3] hover:bg-[#cf21c3]/15"
+                        }`}
+                      >
+                        <Icon className="w-8 h-8" />
+                      </div>
+                    </motion.div>
+
+                    {/* Content section */}
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ duration: 0.6, delay: index * 0.05 + 0.3 }}
+                      viewport={{ once: true }}
+                      className="flex-grow flex flex-col text-center"
+                    >
+                      <h3
+                        className={`text-xl font-bold mb-4 leading-tight flex-shrink-0 transition-colors duration-300 ${
+                          isHovered ? "text-[#cf21c3]" : "text-gray-800"
+                        }`}
+                      >
+                        {service.title}
+                      </h3>
+                      <p className="text-base text-gray-600 leading-relaxed flex-grow">
+                        {service.description}
+                      </p>
+                    </motion.div>
+
+                    {/* Subtle hover glow effect */}
+                    <motion.div
+                      className="absolute inset-0 pointer-events-none"
+                      animate={{
+                        opacity: isHovered ? 0.08 : 0,
+                      }}
+                      transition={{ duration: 0.3 }}
+                      style={{
+                        background: `linear-gradient(135deg, #cf21c3, #e879f9)`,
+                        borderRadius: "2rem",
+                      }}
+                    />
+                  </motion.div>
+                </motion.div>
+              )
+            })}
           </div>
 
-          {/* Cards container with proper spacing for hover effects */}
-          <div className="py-8 px-2">
+          {/* Mobile Carousel */}
+          <div className="lg:hidden relative">
+            {/* Navigation arrows */}
+            <div className="absolute left-0 right-0 top-1/2 transform -translate-y-1/2 z-20 flex justify-between items-center px-2 pointer-events-none">
+              <button 
+                onClick={() => scrollToSlide(Math.max(0, currentSlide - 1))}
+                disabled={currentSlide === 0}
+                className={`p-3 rounded-full bg-white/80 backdrop-blur-sm shadow-lg pointer-events-auto ${
+                  currentSlide === 0 ? 'opacity-30' : 'text-[#cf21c3] hover:bg-white'
+                }`}
+              >
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              
+              <button 
+                onClick={() => scrollToSlide(Math.min(services.length - 1, currentSlide + 1))}
+                disabled={currentSlide === services.length - 1}
+                className={`p-3 rounded-full bg-white/80 backdrop-blur-sm shadow-lg pointer-events-auto ${
+                  currentSlide === services.length - 1 ? 'opacity-30' : 'text-[#cf21c3] hover:bg-white'
+                }`}
+              >
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+
             <div
               ref={scrollContainerRef}
               onScroll={handleScroll}
-              className="flex lg:grid lg:grid-cols-4 gap-6 lg:gap-4 overflow-x-auto lg:overflow-visible snap-x snap-mandatory scrollbar-hide"
+              className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide"
               style={{
                 scrollBehavior: "smooth",
               }}
             >
               {/* Add padding to ensure first and last cards are centered */}
-              <div className="lg:hidden flex-shrink-0 w-[calc((100vw-320px)/2)]" />
+              <div className="flex-shrink-0 w-[calc((100vw-320px)/2)]" />
               
               {services.map((service, index) => {
                 const Icon = service.icon
@@ -272,81 +389,40 @@ export default function ServicesSection() {
                 return (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, y: 60, scale: 0.9 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
                     transition={{
                       duration: 0.7,
                       delay: index * 0.08,
                       ease: "easeOut",
                     }}
                     viewport={{ once: true, margin: "-100px" }}
-                    onMouseEnter={() => setHoveredIndex(index)}
-                    onMouseLeave={() => setHoveredIndex(null)}
-                    className="w-[75vw] sm:w-[65vw] lg:w-auto flex-shrink-0 snap-center flex justify-center"
+                    className="w-[75vw] sm:w-[65vw] flex-shrink-0 snap-center flex justify-center px-2"
                     style={{ scrollSnapAlign: "center" }}
                   >
-                    <motion.div
-                      whileHover={{
-                        y: -8,
-                        scale: 1.03,
-                        rotateX: 5,
-                        transition: { 
-                          duration: 0.4, 
-                          ease: "easeOut",
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 20
-                        },
-                      }}
-                      className={`relative p-8 bg-white/95 backdrop-blur-sm rounded-3xl border transition-all duration-500 h-full flex flex-col shadow-md hover:shadow-2xl w-full max-w-sm mx-auto ${
+                    <div
+                      className={`relative p-8 bg-white/95 backdrop-blur-sm rounded-3xl border transition-all duration-500 h-full flex flex-col shadow-md hover:shadow-2xl w-full ${
                         isHovered ? "border-[#cf21c3]/40 shadow-lg" : "border-gray-200/60 hover:border-gray-300"
                       }`}
                       style={{ 
                         minHeight: "420px",
-                        transformStyle: "preserve-3d",
-                        perspective: "1000px"
                       }}
                     >
                       {/* Rounded top section with gradient background */}
-                      <motion.div
-                        initial={{ scale: 0.8, rotate: -10 }}
-                        whileInView={{ scale: 1, rotate: 0 }}
-                        whileHover={{ 
-                          scale: 1.15, 
-                          rotate: 8,
-                          y: -2
-                        }}
-                        transition={{ 
-                          duration: 0.4, 
-                          delay: index * 0.05 + 0.2,
-                          type: "spring",
-                          stiffness: 300
-                        }}
-                        viewport={{ once: true }}
-                        className="mb-6 flex-shrink-0 flex justify-center"
-                      >
+                      <div className="mb-6 flex-shrink-0 flex justify-center">
                         <div
                           className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 transform ${
                             isHovered
                               ? "bg-gradient-to-br from-[#cf21c3] to-pink-500 text-white shadow-lg"
                               : "bg-[#cf21c3]/10 text-[#cf21c3] hover:bg-[#cf21c3]/15"
                           }`}
-                          style={{
-                            borderRadius: "1.5rem",
-                          }}
                         >
                           <Icon className="w-8 h-8" />
                         </div>
-                      </motion.div>
+                      </div>
 
                       {/* Content section */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: index * 0.05 + 0.3 }}
-                        viewport={{ once: true }}
-                        className="flex-grow flex flex-col text-center"
-                      >
+                      <div className="flex-grow flex flex-col text-center">
                         <h3
                           className={`text-xl font-bold mb-4 leading-tight flex-shrink-0 transition-colors duration-300 ${
                             isHovered ? "text-[#cf21c3]" : "text-gray-800"
@@ -357,48 +433,35 @@ export default function ServicesSection() {
                         <p className="text-base text-gray-600 leading-relaxed flex-grow">
                           {service.description}
                         </p>
-                      </motion.div>
-
-                      {/* Subtle hover glow effect */}
-                      <motion.div
-                        className="absolute inset-0 pointer-events-none"
-                        animate={{
-                          opacity: isHovered ? 0.08 : 0,
-                        }}
-                        transition={{ duration: 0.3 }}
-                        style={{
-                          background: `linear-gradient(135deg, #cf21c3, #e879f9)`,
-                          borderRadius: "2rem",
-                        }}
-                      />
-                    </motion.div>
+                      </div>
+                    </div>
                   </motion.div>
                 )
               })}
               
               {/* Add padding to ensure first and last cards are centered */}
-              <div className="lg:hidden flex-shrink-0 w-[calc((100vw-320px)/2)]" />
+              <div className="flex-shrink-0 w-[calc((100vw-320px)/2)]" />
             </div>
-          </div>
 
-          {/* Mobile pagination dots */}
-          <div className="lg:hidden flex justify-center space-x-2 mt-6">
-            {services.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => scrollToSlide(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentSlide ? "bg-[#cf21c3] w-6" : "bg-gray-300"
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
+            {/* Mobile pagination dots */}
+            <div className="flex justify-center space-x-2 mt-6">
+              {services.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => scrollToSlide(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentSlide ? "bg-[#cf21c3] w-6" : "bg-gray-300"
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.9 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
           viewport={{ once: true }}
           className="text-center px-4 mt-10"
@@ -409,11 +472,10 @@ export default function ServicesSection() {
             rel="noopener noreferrer"
             whileHover={{
               scale: 1.05,
-              y: -4,
             }}
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#cf21c3] to-[#e879f9] hover:from-[#a21caf] hover:to-[#cf21c3] text-white font-semibold text-lg px-8 py-4 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#cf21c3] to-[#e879f9] hover:from-[#a21caf] hover:to-[#cf21c3] text-white font-semibold text-lg px-8 py-4 rounded-full shadow-lg hover:shadow-xl transform transition-all duration-300"
           >
             Tell us what you need
             <svg
@@ -429,13 +491,6 @@ export default function ServicesSection() {
       </div>
 
       <style jsx>{`
-        @keyframes bounce-horizontal {
-          0%, 100% { transform: translateX(0); }
-          50% { transform: translateX(4px); }
-        }
-        .animate-bounce-horizontal {
-          animation: bounce-horizontal 1s infinite;
-        }
         .scrollbar-hide {
           -ms-overflow-style: none;
           scrollbar-width: none;

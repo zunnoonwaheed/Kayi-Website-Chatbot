@@ -275,7 +275,7 @@ export default function HeroSection() {
                          hover:from-[#a21caf] hover:to-[#cf21c3] transition-all duration-300 
                          shadow-lg hover:shadow-xl transform hover:-translate-y-1"
             >
-              Let's do it
+              let's do it
               <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
