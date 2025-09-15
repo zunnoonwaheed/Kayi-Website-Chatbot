@@ -105,7 +105,7 @@ export default function ServicesSection() {
   }
 
   return (
-    <section className="py-16 md:py-20 px-4 relative overflow-hidden bg-white rounded-t-3xl">
+    <section className="py-16 md:py-20 px-4 relative overflow-hidden bg-white">
       <div className="absolute inset-0">
         {/* Base gradient layers that flow seamlessly */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/6 via-pink-500/3 to-[#cf21c3]/8" />

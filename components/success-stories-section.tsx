@@ -368,10 +368,12 @@ export default function SuccessStoriesSection() {
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
+  // FIXED: Removed parentheses from project.categories
   const filteredProjects =
     selectedCategory === "Latest Projects"
       ? projects
-      : projects.filter((project) => project.categories().includes(selectedCategory))
+      : projects.filter((project) => project.categories.includes(selectedCategory))
+
 
   const handleReadMore = (projectId: string) => {
     setExpandedCard(expandedCard === projectId ? null : projectId)
