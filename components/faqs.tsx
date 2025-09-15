@@ -192,9 +192,9 @@ export default function FaqsSection() {
           >
             Everything you need to know about our services and processes. Can't find an answer?{" "}
             <a href="https://calendly.com/saadalii/kayidigital" className="text-[#cf21c3] font-semibold hover:underline">
-              Contact us directly
+            We typically respond back in an hour!
             </a>
-            .
+          
           </motion.p>
         </motion.div>
 
