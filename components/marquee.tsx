@@ -8,7 +8,6 @@ const companies = [
   { name: "Rejuuv", logo: "/images/marq2.png", width: 80, height: 80 },
   { name: "Saint Draper", logo: "/images/marq3.png", width: 80, height: 80 },
   { name: "Cover Up", logo: "/images/marq4.png", width: 80, height: 80 },
-
   { name: "Marquee 1", logo: "/images/marq1.png", width: 100, height: 50 },
   { name: "Marquee 2", logo: "/images/marq2.png", width: 100, height: 50 },
   { name: "Marquee 3", logo: "/images/marq3.png", width: 100, height: 50 },
@@ -37,11 +36,14 @@ export default function Marquee() {
     }
   }, [companies])
 
-  // Increased divisor from 30 to 60 → faster movement
   const animationDuration = widthOfFirstSet > 0 ? widthOfFirstSet / 60 : 5
 
   return (
-    <section className="w-full overflow-hidden py-8 border-t border-b border-gray-200 relative">
+    <section className="w-full overflow-hidden py-8 relative">
+      {/* Very subtle gradient borders */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#cf21c3]/15 to-transparent" />
+      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#cf21c3]/15 to-transparent" />
+      
       {/* Animated Pink Gradient Background */}
       <div className="absolute inset-0">
         {/* Base gradient layers that flow seamlessly */}
@@ -167,7 +169,7 @@ export default function Marquee() {
             {companies.map((company, index) => (
               <div
                 key={`${company.name}-${index}-first`}
-                className="flex-shrink-0 flex items-center justify-center"
+                className="flex-shrink-0 flex items-center justify-center bg-white/5 backdrop-blur-sm rounded-xl p-2 border border-white/10"
                 style={{
                   width: `${company.width + 24}px`,
                   height: `${company.height + 24}px`,
@@ -192,7 +194,7 @@ export default function Marquee() {
             {companies.map((company, index) => (
               <div
                 key={`${company.name}-${index}-second`}
-                className="flex-shrink-0 flex items-center justify-center"
+                className="flex-shrink-0 flex items-center justify-center bg-white/5 backdrop-blur-sm rounded-xl p-2 border border-white/10"
                 style={{
                   width: `${company.width + 24}px`,
                   height: `${company.height + 24}px`,

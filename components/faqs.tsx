@@ -256,7 +256,7 @@ export default function FaqsSection() {
             transition={{ duration: 0.2 }}
             className="inline-flex items-center gap-2 bg-gradient-to-r from-[#cf21c3] to-[#e879f9] hover:from-[#a21caf] hover:to-[#cf21c3] text-white font-semibold text-base sm:text-lg px-5 py-2.5 sm:px-6 sm:py-3 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto justify-center"
           >
-            Schedule a free consultation
+           Book a Free Consultation
             <svg
               className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-200 group-hover:translate-x-1"
               fill="none"

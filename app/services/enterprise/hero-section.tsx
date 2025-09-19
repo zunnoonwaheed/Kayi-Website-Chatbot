@@ -4,92 +4,189 @@ import { motion } from "framer-motion"
 
 export default function HeroSection() {
   return (
-    <section className="bg-white pt-40 sm:pt-44 md:pt-48 lg:pt-52 pb-12 md:pb-24 relative overflow-hidden">
-      <div className="grid max-w-screen-xl px-4 mx-auto lg:gap-8 xl:gap-0 lg:grid-cols-12">
-        {/* Content - First on mobile */}
-        <div className="mr-auto place-self-center lg:col-span-7 order-1 lg:order-2">
-          <motion.h1 
-            className="max-w-2xl mb-4 text-3xl font-extrabold tracking-tight leading-none md:text-4xl md:mb-6 xl:text-5xl text-gray-900 text-center lg:text-left"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            Ever Wished You Could Film the Impossible?
-          </motion.h1>
+    <section className="bg-gray-50 min-h-screen flex items-center justify-center relative overflow-hidden pt-24 md:pt-2 lg:pt-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-0">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 xl:gap-16 items-center">
           
-          <motion.p 
-            className="max-w-2xl mb-6 font-light text-gray-600 md:mb-8 md:text-lg lg:text-xl text-center lg:text-left"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
-            Now you can. We create photorealistic CGI ads that bring your wildest brand ideas to life, no matter how impossible they seem in the real world.
-          </motion.p>
-          
-          <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-          >
-            <a 
-              href="https://calendly.com/saadalii/kayidigital" 
-              className="inline-flex items-center justify-center px-5 py-3 md:px-6 md:py-4 text-base font-medium text-center text-white rounded-lg bg-gradient-to-r from-[#cf21c3] to-[#e879f9] hover:from-[#a21caf] hover:to-[#cf21c3] focus:ring-4 focus:ring-purple-300 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
-            >
-              Let's Create Magic
-              <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
-              </svg>
-            </a>
+          {/* Left Content */}
+          <div className="text-center lg:text-left order-1">
             
-            <a 
-              href="#services" 
-              className="inline-flex items-center justify-center px-5 py-3 md:px-6 md:py-4 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-4 focus:ring-gray-100 transition-all duration-300"
+          <motion.h1 
+  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-black mb-4 sm:mb-6 leading-tight whitespace-nowrap"
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8 }}
+>
+  Film the{" "}
+  <span className="relative inline-block">
+    impossible
+    <div 
+      className="absolute bottom-0 left-0 w-full h-9 sm:h-10 md:h-11 lg:h-12 translate-y-5 sm:translate-y-6 md:translate-y-7" 
+    >
+      <svg 
+        viewBox="0 0 220 45" 
+        className="w-full h-full"
+        preserveAspectRatio="none"
+      >
+        <path 
+          d="M14,28 Q33,24 54,28" 
+          stroke="#000" 
+          strokeWidth="2.5" 
+          fill="none"
+          strokeLinecap="round"
+        />
+
+        <path 
+          d="M60,28 Q100,22 140,27 Q175,24 210,28" 
+          stroke="#000" 
+          strokeWidth="2.6" 
+          fill="none"
+          strokeLinecap="round"
+        />
+
+        <path 
+          d="M60,32 Q100,26 140,30 Q175,27 210,32" 
+          stroke="#000" 
+          strokeWidth="2.3" 
+          fill="none"
+          strokeLinecap="round"
+          opacity="0.9"
+        />
+      </svg>
+    </div>
+  </span>
+</motion.h1>
+
+
+            {/* Subtitle */}
+            <motion.p 
+              className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 mb-6 sm:mb-8 leading-relaxed font-light max-w-xl mx-auto lg:max-w-none lg:mx-0"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              See What's Possible
-            </a> 
+              Revolutionary CGI technology that transforms impossible brand visions into 
+              photorealistic advertising content that captivates and converts.
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div 
+              className="mb-8 sm:mb-10 lg:mb-12 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <a 
+                href="https://calendly.com/saadalii/kayidigital" 
+                className="w-full sm:w-auto inline-flex items-center justify-center px-5 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 text-sm sm:text-base lg:text-lg font-semibold text-white bg-black rounded-xl hover:bg-gray-800 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl"
+              >
+                Start Creating Magic
+              </a>
+              <a 
+                href="#technologies" 
+                className="w-full sm:w-auto inline-flex items-center justify-center px-5 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 text-sm sm:text-base lg:text-lg font-semibold text-black border-2 border-black rounded-xl hover:bg-black hover:text-white transition-all duration-300"
+              >
+                See Examples
+              </a>
+            </motion.div>
+
+            {/* Stats Grid */}
+            <motion.div 
+              className="space-y-6 sm:space-y-8 lg:space-y-10"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              
+              {/* Top Stats Row */}
+              <div className="grid grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
+                <div className="text-center lg:text-left">
+                  <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-1 sm:mb-2">
+                    95.8%
+                  </div>
+                  <div className="text-xs sm:text-sm md:text-base text-gray-600 font-medium">
+                    Client satisfaction rate
+                  </div>
+                </div>
+
+                <div className="text-center lg:text-left">
+                  <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-1 sm:mb-2">
+                    ~60+
+                  </div>
+                  <div className="text-xs sm:text-sm md:text-base text-gray-600 font-medium">
+                    Projects delivered
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Star Rating Row - Single Line */}
+              <div className="text-center lg:text-left border-t border-gray-200 pt-4 sm:pt-6">
+                <div className="flex items-center justify-center lg:justify-start gap-2 sm:gap-3">
+                  <div className="flex items-center">
+                    {[1, 2, 3, 4].map((star) => (
+                      <svg 
+                        key={star}
+                        className="w-4 h-4 sm:w-5 md:w-6 sm:h-5 md:h-6 text-black fill-current" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                      </svg>
+                    ))}
+                    {/* Half star */}
+                    <div className="relative">
+                      <svg 
+                        className="w-4 h-4 sm:w-5 md:w-6 sm:h-5 md:h-6 text-gray-300 fill-current" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                      </svg>
+                      <div className="absolute top-0 left-0 w-1/2 overflow-hidden">
+                        <svg 
+                          className="w-4 h-4 sm:w-5 md:w-6 sm:h-5 md:h-6 text-black fill-current" 
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <span className="text-base sm:text-lg md:text-xl font-bold text-black">4.5</span>
+                  <span className="text-xs sm:text-sm md:text-base text-gray-600 font-medium">Average client rating</span>
+                </div>
+              </div>
+
+            </motion.div>
+          </div>
+
+          {/* Right Image */}
+          <motion.div 
+            className="flex justify-center items-center lg:justify-end order-2"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
+              <img 
+                src="/images/hero.png" 
+                alt="CGI Advertising Solutions" 
+                className="relative w-full h-auto transition-transform duration-500 hover:scale-105"
+                style={{ 
+                  transform: 'perspective(1000px) rotateY(-5deg) rotateX(5deg)',
+                  transformStyle: 'preserve-3d'
+                }}
+              />
+              {/* Image accent elements */}
+
+            </div>
           </motion.div>
+
         </div>
 
-        {/* Mobile Image - Visible on small screens at the bottom */}
-        <motion.div 
-          className="lg:hidden flex justify-center items-center mt-8 order-2"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-        >
-          <div className="relative w-full max-w-xs">
-            <img 
-              src="/images/hero.png" 
-              alt="CGI Advertising Solutions" 
-              className="w-full"
-              style={{ 
-                transform: 'perspective(1000px) rotateY(-5deg) rotateX(5deg)',
-                transformStyle: 'preserve-3d'
-              }}
-            />
-          </div>
-        </motion.div>
-        
-        {/* Desktop Image - Hidden on mobile */}
-        <motion.div 
-          className="hidden lg:flex lg:mt-0 lg:col-span-5 justify-center items-center order-3"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.6 }}
-        >
-          <div className="relative">
-            <img 
-              src="/images/hero.png" 
-              alt="CGI Advertising Solutions" 
-              className="relative w-full max-w-md transition-transform duration-500 hover:scale-105"
-              style={{ 
-                transform: 'perspective(1000px) rotateY(-5deg) rotateX(5deg)',
-                transformStyle: 'preserve-3d'
-              }}
-            />
-          </div>
-        </motion.div>                
+        {/* Background Elements - Responsive */}
+        <div className="absolute top-12 sm:top-16 left-2 sm:left-4 lg:left-10 w-16 h-16 sm:w-20 sm:h-20 lg:w-32 lg:h-32 bg-purple-100 rounded-full opacity-20 blur-xl"></div>
+        <div className="absolute bottom-12 sm:bottom-16 right-2 sm:right-4 lg:right-10 w-20 h-20 sm:w-24 sm:h-24 lg:w-40 lg:h-40 bg-pink-100 rounded-full opacity-20 blur-xl"></div>
+        <div className="absolute top-1/2 left-1/6 sm:left-1/4 w-12 h-12 sm:w-16 sm:h-16 lg:w-24 lg:h-24 bg-blue-100 rounded-full opacity-15 blur-lg"></div>
+
       </div>
     </section>
   )

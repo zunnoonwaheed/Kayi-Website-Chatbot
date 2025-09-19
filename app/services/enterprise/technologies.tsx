@@ -1,9 +1,11 @@
 "use client"
 import { motion } from "framer-motion"
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 
 const Technologies = () => {
-  const [activeTab, setActiveTab] = useState("Perfumes") // Set Perfumes as default tab
+  const [activeTab, setActiveTab] = useState("Perfumes")
+  const [isCTAVisible, setIsCTAVisible] = useState(false)
+  const ctaRef = useRef(null)
 
   const categories = {
     "Perfumes": [
@@ -38,65 +40,36 @@ const Technologies = () => {
 
   const tabs = Object.keys(categories)
 
+  // Check if CTA section is in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsCTAVisible(entry.isIntersecting)
+      },
+      { threshold: 0.5 }
+    )
+
+    if (ctaRef.current) {
+      observer.observe(ctaRef.current)
+    }
+
+    return () => {
+      if (ctaRef.current) {
+        observer.unobserve(ctaRef.current)
+      }
+    }
+  }, [])
+
   return (
-    <div className="py-20 relative overflow-hidden bg-white">
-      {/* Gradient Background */}
+    <div id="technologies" className="py-20 relative overflow-hidden bg-white">
+      {/* Enhanced Gradient Background that flows throughout */}
       <div className="absolute inset-0">
-        {/* Base gradient layers that flow seamlessly */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/6 via-pink-500/3 to-[#cf21c3]/8" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#cf21c3]/4 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-[#cf21c3]/3 via-transparent to-pink-500/6" />
-        <div className="absolute inset-0 bg-gradient-to-tl from-pink-500/4 via-transparent to-[#cf21c3]/5" />
+        {/* Base gradient layers */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/10 via-pink-500/5 to-[#cf21c3]/8" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#cf21c3]/6 to-transparent" />
 
-        {/* Seamless edge gradients */}
-        <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#cf21c3]/12 via-pink-500/6 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[#cf21c3]/12 via-pink-500/6 to-transparent" />
-        <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-[#cf21c3]/10 via-pink-500/5 to-transparent" />
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#cf21c3]/10 via-pink-500/5 to-transparent" />
-
-        {/* Flowing wave gradients */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-[#cf21c3]/8 to-transparent"
-          animate={{
-            x: ["-50%", "50%"],
-            opacity: [0.4, 0.8, 0.4],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-l from-transparent via-pink-500/6 to-transparent"
-          animate={{
-            x: ["50%", "-50%"],
-            opacity: [0.3, 0.7, 0.3],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 8,
-          }}
-        />
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-b from-transparent via-[#cf21c3]/5 to-transparent"
-          animate={{
-            y: ["-30%", "30%"],
-            opacity: [0.2, 0.6, 0.2],
-          }}
-          transition={{
-            duration: 35,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 15,
-          }}
-        />
-
-        {/* Organic floating gradients */}
-        <motion.div
-          className="absolute top-1/6 left-1/6 w-96 h-96 bg-gradient-radial from-[#cf21c3]/15 via-pink-500/10 to-transparent rounded-full blur-3xl"
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-radial from-[#cf21c3]/15 via-pink-500/10 to-transparent rounded-full blur-3xl"
           animate={{
             scale: [1, 1.4, 1],
             opacity: [0.5, 0.8, 0.5],
@@ -111,7 +84,7 @@ const Technologies = () => {
           }}
         />
         <motion.div
-          className="absolute bottom-1/6 right-1/6 w-[32rem] h-[32rem] bg-gradient-radial from-pink-500/12 via-[#cf21c3]/8 to-transparent rounded-full blur-3xl"
+          className="absolute bottom-1/4 right-1/4 w-[32rem] h-[32rem] bg-gradient-radial from-pink-500/12 via-[#cf21c3]/8 to-transparent rounded-full blur-3xl"
           animate={{
             scale: [1.3, 1, 1.3],
             opacity: [0.4, 0.7, 0.4],
@@ -126,24 +99,23 @@ const Technologies = () => {
             delay: 7,
           }}
         />
+
+        {/* Flowing wave gradients */}
         <motion.div
-          className="absolute top-1/2 left-1/2 w-[40rem] h-[40rem] bg-gradient-radial from-[#cf21c3]/6 via-pink-500/4 to-transparent rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-[#cf21c3]/8 to-transparent"
           animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
-            rotate: [0, 180, 360],
+            x: ["-50%", "50%"],
+            opacity: [0.4, 0.8, 0.4],
           }}
           transition={{
-            duration: 40,
+            duration: 25,
             repeat: Number.POSITIVE_INFINITY,
             ease: "easeInOut",
-            delay: 12,
           }}
         />
 
         {/* Subtle mesh gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/3 via-transparent to-pink-500/4 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-tl from-pink-500/2 via-transparent to-[#cf21c3]/3 mix-blend-screen opacity-50" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 mb-16 text-center relative z-10">
@@ -220,7 +192,6 @@ const Technologies = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              {/* Reduced gap between videos from gap-6 lg:gap-8 to gap-4 lg:gap-6 */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
                 {categories[activeTab].map((item, index) => (
                   <motion.div
@@ -231,8 +202,6 @@ const Technologies = () => {
                     viewport={{ once: true }}
                     className="rounded-2xl overflow-hidden group"
                   >
-                    {/* Portrait video container without white background */}
-                    {/* Changed max-w-xs to max-w-sm for slightly larger videos */}
                     <div className="relative aspect-[9/16] rounded-xl overflow-hidden mx-auto max-w-sm">
                       <video
                         src={item.src}
@@ -248,7 +217,7 @@ const Technologies = () => {
                         }}
                       />
                       <div 
-                        className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/20 to-pink-500/20 items-center justify-center text-gray-600 hidden"
+                         className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/20 to-pink-500/20 items-center justify-center text-gray-600 hidden"
                       >
                         <div className="text-center">
                           <div className="w-16 h-16 bg-white/80 rounded-full flex items-center justify-center mb-2 mx-auto">
@@ -268,25 +237,126 @@ const Technologies = () => {
         </div>
       </div>
 
-      {/* Centrally aligned CTA section */}
-      <div className="max-w-4xl mx-auto px-6 mt-16 lg:mt-20 relative z-10">
+      {/* Enhanced CTA section with improved gallery layout */}
+      <div ref={ctaRef} className="max-w-4xl mx-auto px-6 mt-16 lg:mt-24 relative z-10">
         <motion.div 
-          className="bg-white/90 backdrop-blur-sm rounded-2xl px-8 py-10 lg:py-12 shadow-lg border border-white/40 text-center"
+          className="relative rounded-3xl overflow-hidden shadow-2xl"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-2xl lg:text-4xl font-bold text-black mb-6 leading-tight">
-            Let's Build Your Next <span className="text-[#cf21c3]">CGI Campaign</span>
-          </h2>
-          <motion.button 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-gradient-to-r from-[#cf21c3] to-[#e879f9] text-white px-8 py-4 rounded-full font-semibold hover:from-[#a21caf] hover:to-[#cf21c3] transition-all duration-200 shadow-lg hover:shadow-xl text-base lg:text-lg"
-          >
-            Get a Quote
-          </motion.button>
+          {/* Background that matches the overall gradient theme */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/10 via-pink-500/5 to-[#cf21c3]/8" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#cf21c3]/6 to-transparent" />
+
+          {/* Animated gradient elements */}
+          <motion.div
+            className="absolute -top-24 -left-24 w-64 h-64 bg-gradient-to-r from-[#cf21c3]/20 to-pink-500/20 rounded-full blur-3xl"
+            animate={isCTAVisible ? {
+              scale: [1, 1.2, 1],
+              opacity: [0.4, 0.7, 0.4],
+              x: [0, 30, 0],
+              y: [0, -20, 0],
+            } : {}}
+            transition={{
+              duration: 15,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+            }}
+          />
+
+          {/* Content */}
+          <div className="relative z-10 p-8 lg:p-10">
+            {/* Heading */}
+            <h2 className="text-2xl lg:text-3xl font-bold text-black mb-6 text-center leading-tight">
+              Let's Build Your Next <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#cf21c3] to-[#e879f9]">CGI Campaign</span>
+            </h2>
+
+            {/* Mini video gallery preview - 4 small cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+              {categories[activeTab].map((item, index) => (
+                <motion.div
+                  key={index}
+                  className="relative aspect-square rounded-xl overflow-hidden group border-2 border-white/20"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="w-8 h-8 bg-white/80 rounded-full flex items-center justify-center">
+                      <svg className="w-4 h-4 text-[#cf21c3]" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M8 5v10l8-5-8-5z"/>
+                      </svg>
+                    </div>
+                  </div>
+                  <video
+                    src={item.src}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
+              ))}
+
+              {/* Add two more videos from other categories to make it 4 */}
+              {Object.entries(categories)
+                .filter(([category]) => category !== activeTab)
+                .slice(0, 2)
+                .flatMap(([_, items]) => items)
+                .slice(0, 2)
+                .map((item, index) => (
+                  <motion.div
+                    key={index + 2}
+                    className="relative aspect-square rounded-xl overflow-hidden group border-2 border-white/20"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: (index + 2) * 0.1 }}
+                    viewport={{ once: true }}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <div className="w-8 h-8 bg-white/80 rounded-full flex items-center justify-center">
+                        <svg className="w-4 h-4 text-[#cf21c3]" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M8 5v10l8-5-8-5z"/>
+                        </svg>
+                      </div>
+                    </div>
+                    <video
+                      src={item.src}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  </motion.div>
+                ))
+              }
+            </div>
+
+            {/* Text content */}
+            <div className="text-center">
+              <p className="text-gray-700 mb-6 text-sm md:text-base">
+                Ready to elevate your brand with stunning CGI content? Get in touch with our team to discuss your project and see how we can bring your vision to life.
+              </p>
+              <motion.button 
+                 whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative bg-gradient-to-r from-[#cf21c3] to-[#e879f9] text-white px-6 py-3 rounded-full font-semibold hover:shadow-xl transition-all duration-200 shadow-md text-sm md:text-base overflow-hidden group mx-auto"
+              >
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform group-hover:translate-x-64 transition-all duration-1000" />
+                Get a Quote
+              </motion.button>
+            </div>
+          </div>
+
+          {/* Border gradient effect */}
+          <div className="absolute inset-0 rounded-3xl p-px bg-gradient-to-b from-white/40 to-transparent pointer-events-none">
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-b from-white/30 to-transparent" />
+          </div>
         </motion.div>
       </div>
     </div>

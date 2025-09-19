@@ -345,30 +345,164 @@ const CgisSection = () => {
           </motion.div>
         </div>
 
-        {/* Bottom CTA - Updated with more rounded corners and refined styling */}
+        {/* Minimal CTA Section - Full Width End to End */}
         <motion.div 
-          className="text-center rounded-3xl p-8 shadow-lg backdrop-blur-sm bg-white border border-gray-100 max-w-2xl mx-auto"
-          initial={{ opacity: 0, y: 40 }}
+          className="relative w-full overflow-hidden mt-8 py-8"
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <h3 className="text-2xl font-bold text-gray-800 mb-3">
-            Ready to bring your wildest ad ideas to life?
-          </h3>
-          <p className="text-gray-600 mb-6 max-w-md mx-auto leading-relaxed">
-            Got a concept that seems impossible to film? Let's turn it into CGI that makes people stop and stare.
-          </p>
-          <motion.button 
-            className="px-8 py-3 text-white rounded-full transition-all duration-300 font-semibold text-sm shadow-md hover:shadow-lg"
-            style={{
-              background: 'linear-gradient(135deg, #cf21c3 0%, #e535db 50%, #f649f3 100%)',
-            }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Let's Talk About Your Project
-          </motion.button>
+          {/* Gradient Ring Elements - Using image-inspired gradients */}
+          <div className="absolute inset-0 overflow-hidden">
+            {/* First gradient ring - left */}
+            <motion.div 
+              className="absolute -top-10 -left-20 w-56 h-56 opacity-30"
+              style={{
+                background: `radial-gradient(circle, transparent 30%, rgba(207, 33, 195, 0.4) 35%, rgba(255, 105, 180, 0.6) 40%, rgba(147, 112, 219, 0.5) 45%, rgba(207, 33, 195, 0.3) 50%, transparent 55%)`,
+                borderRadius: '50%'
+              }}
+              animate={{
+                rotate: [0, 360],
+                scale: [1, 1.1, 1],
+                opacity: [0.2, 0.4, 0.2],
+              }}
+              transition={{
+                duration: 30,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            />
+            
+            {/* Second gradient ring - right */}
+            <motion.div 
+              className="absolute -bottom-8 -right-16 w-44 h-44 opacity-25"
+              style={{
+                background: `radial-gradient(circle, transparent 30%, rgba(255, 105, 180, 0.5) 35%, rgba(207, 33, 195, 0.7) 40%, rgba(147, 112, 219, 0.4) 45%, rgba(255, 105, 180, 0.3) 50%, transparent 55%)`,
+                borderRadius: '50%'
+              }}
+              animate={{
+                rotate: [360, 0],
+                scale: [1.2, 0.9, 1.2],
+                opacity: [0.15, 0.35, 0.15],
+              }}
+              transition={{
+                duration: 35,
+                repeat: Infinity,
+                ease: "linear",
+                delay: 5,
+              }}
+            />
+
+            {/* Additional floating ring - center top */}
+            <motion.div 
+              className="absolute -top-16 left-1/2 transform -translate-x-1/2 w-32 h-32 opacity-20"
+              style={{
+                background: `radial-gradient(circle, transparent 35%, rgba(147, 112, 219, 0.4) 40%, rgba(207, 33, 195, 0.6) 45%, rgba(255, 105, 180, 0.3) 50%, transparent 55%)`,
+                borderRadius: '50%'
+              }}
+              animate={{
+                rotate: [0, -360],
+                y: [0, 30, 0],
+                opacity: [0.1, 0.3, 0.1],
+              }}
+              transition={{
+                duration: 25,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 10,
+              }}
+            />
+
+            {/* Small accent ring - bottom center */}
+            <motion.div 
+              className="absolute -bottom-12 left-1/3 w-28 h-28 opacity-15"
+              style={{
+                background: `radial-gradient(circle, transparent 40%, rgba(255, 105, 180, 0.5) 45%, rgba(207, 33, 195, 0.4) 50%, transparent 55%)`,
+                borderRadius: '50%'
+              }}
+              animate={{
+                rotate: [180, 540],
+                x: [0, 40, 0],
+                opacity: [0.1, 0.25, 0.1],
+              }}
+              transition={{
+                duration: 40,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 15,
+              }}
+            />
+          </div>
+
+          {/* Content - Full Width */}
+          <div className="relative z-10 text-center px-6 max-w-2xl mx-auto">
+            {/* Status Badge */}
+            <motion.div
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium mb-4 border"
+              style={{
+                background: 'linear-gradient(135deg, rgba(207, 33, 195, 0.08), rgba(207, 33, 195, 0.04))',
+                borderColor: 'rgba(207, 33, 195, 0.2)',
+                color: '#cf21c3'
+              }}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <div className="w-2 h-2 rounded-full bg-[#cf21c3] animate-pulse"></div>
+              Drive your best creative
+            </motion.div>
+
+            {/* Main Heading */}
+            <motion.h2 
+              className="text-xl sm:text-2xl font-bold mb-2 leading-tight"
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <span className="text-gray-900">Start your </span>
+              <span className="bg-gradient-to-r from-[#cf21c3] via-pink-500 to-purple-500 bg-clip-text text-transparent">
+                free trial today
+              </span>
+            </motion.h2>
+
+            {/* Subtitle */}
+            <motion.p 
+              className="text-sm text-gray-600 mb-5 max-w-lg mx-auto"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              Unlock the full potential of your data with our comprehensive SaaS analytics platform.
+            </motion.p>
+
+            {/* CTA Button */}
+            <motion.button 
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-300"
+              style={{
+                background: 'linear-gradient(135deg, #cf21c3 0%, #e535db 50%, #f649f3 100%)',
+              }}
+              initial={{ opacity: 0, y: 10, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.4, delay: 0.5 }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                scale: 1.02,
+                boxShadow: "0 10px 20px rgba(207, 33, 195, 0.25)"
+              }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <span>Schedule a demo</span>
+              <div className="w-3.5 h-3.5 rounded-full bg-white/20 flex items-center justify-center">
+                <svg className="w-1.5 h-1.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </div>
+            </motion.button>
+          </div>
         </motion.div>
       </div>
     </section>
