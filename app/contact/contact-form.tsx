@@ -42,7 +42,7 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="pt-32 pb-20 px-6 relative overflow-hidden">
+    <section className="pt-32 pb-20 px-6 relative overflow-hidden bg-white">
       {/* Simple gradient background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/6 via-pink-500/3 to-[#cf21c3]/8" />
@@ -90,9 +90,9 @@ const ContactForm = () => {
             </div>
           </motion.div>
 
-          {/* Right Side - Clean form */}
+          {/* Right Side - Clean form with solid white background */}
           <motion.div 
-            className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-white/50"
+            className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -111,7 +111,7 @@ const ContactForm = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg focus:bg-white focus:ring-2 focus:ring-[#cf21c3] transition-all duration-300 text-gray-900"
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#cf21c3] focus:border-[#cf21c3] transition-all duration-300 text-gray-900 placeholder-gray-500"
                   placeholder="Enter your name"
                 />
               </div>
@@ -128,7 +128,7 @@ const ContactForm = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg focus:bg-white focus:ring-2 focus:ring-[#cf21c3] transition-all duration-300 text-gray-900"
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#cf21c3] focus:border-[#cf21c3] transition-all duration-300 text-gray-900 placeholder-gray-500"
                   placeholder="your@email.com"
                 />
               </div>
@@ -144,7 +144,7 @@ const ContactForm = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg focus:bg-white focus:ring-2 focus:ring-[#cf21c3] transition-all duration-300 text-gray-900"
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#cf21c3] focus:border-[#cf21c3] transition-all duration-300 text-gray-900 placeholder-gray-500"
                   placeholder="123-456-7890"
                 />
               </div>
@@ -161,7 +161,7 @@ const ContactForm = () => {
                   onChange={handleChange}
                   required
                   rows={4}
-                  className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg focus:bg-white focus:ring-2 focus:ring-[#cf21c3] transition-all duration-300 text-gray-900 resize-none"
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#cf21c3] focus:border-[#cf21c3] transition-all duration-300 text-gray-900 placeholder-gray-500 resize-none"
                   placeholder="Tell us about your project..."
                 />
               </div>

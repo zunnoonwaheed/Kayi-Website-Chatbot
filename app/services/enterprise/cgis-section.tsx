@@ -347,14 +347,14 @@ const CgisSection = () => {
 
         {/* Minimal CTA Section - Full Width End to End */}
         <motion.div 
-          className="relative w-full overflow-hidden mt-8 py-8"
+          className="relative w-full overflow-visible mt-8"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           {/* Gradient Ring Elements - Using image-inspired gradients */}
-          <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 overflow-visible">
             {/* First gradient ring - left */}
             <motion.div 
               className="absolute -top-10 -left-20 w-56 h-56 opacity-30"
@@ -439,10 +439,9 @@ const CgisSection = () => {
           <div className="relative z-10 text-center px-6 max-w-2xl mx-auto">
             {/* Status Badge */}
             <motion.div
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium mb-4 border"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium mb-4"
               style={{
                 background: 'linear-gradient(135deg, rgba(207, 33, 195, 0.08), rgba(207, 33, 195, 0.04))',
-                borderColor: 'rgba(207, 33, 195, 0.2)',
                 color: '#cf21c3'
               }}
               initial={{ opacity: 0, y: 15 }}
