@@ -181,7 +181,8 @@ export default function FaqsSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Frequently Asked Questions
+            <span className="sm:hidden">FAQs</span>
+            <span className="hidden sm:inline">Frequently Asked Questions</span>
           </motion.h2>
           <motion.p
             className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed px-4"

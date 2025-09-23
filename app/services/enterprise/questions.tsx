@@ -61,7 +61,7 @@ export function Questions() {
   }
 
   return (
-    <section className="py-20 px-6 relative overflow-hidden bg-white">
+    <section className="pt-0 pb-16 sm:py-20 px-4 sm:px-6 relative overflow-hidden bg-white">
       {/* Gradient Background */}
       <div className="absolute inset-0">
         {/* Base gradient layers that flow seamlessly */}
@@ -118,7 +118,7 @@ export function Questions() {
 
         {/* Organic floating gradients */}
         <motion.div
-          className="absolute top-1/6 left-1/6 w-96 h-96 bg-gradient-radial from-[#cf21c3]/15 via-pink-500/10 to-transparent rounded-full blur-3xl"
+          className="absolute top-1/6 left-1/6 w-64 h-64 sm:w-96 sm:h-96 bg-gradient-radial from-[#cf21c3]/15 via-pink-500/10 to-transparent rounded-full blur-3xl"
           animate={{
             scale: [1, 1.4, 1],
             opacity: [0.5, 0.8, 0.5],
@@ -133,7 +133,7 @@ export function Questions() {
           }}
         />
         <motion.div
-          className="absolute bottom-1/6 right-1/6 w-[32rem] h-[32rem] bg-gradient-radial from-pink-500/12 via-[#cf21c3]/8 to-transparent rounded-full blur-3xl"
+          className="absolute bottom-1/6 right-1/6 w-80 h-80 sm:w-[32rem] sm:h-[32rem] bg-gradient-radial from-pink-500/12 via-[#cf21c3]/8 to-transparent rounded-full blur-3xl"
           animate={{
             scale: [1.3, 1, 1.3],
             opacity: [0.4, 0.7, 0.4],
@@ -149,7 +149,7 @@ export function Questions() {
           }}
         />
         <motion.div
-          className="absolute top-1/2 left-1/2 w-[40rem] h-[40rem] bg-gradient-radial from-[#cf21c3]/6 via-pink-500/4 to-transparent rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"
+          className="absolute top-1/2 left-1/2 w-96 h-96 sm:w-[40rem] sm:h-[40rem] bg-gradient-radial from-[#cf21c3]/6 via-pink-500/4 to-transparent rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.6, 0.3],
@@ -175,19 +175,20 @@ export function Questions() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
           <motion.h2
-            className="text-5xl lg:text-6xl font-bold mb-2 text-black"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-2 text-black"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Got any questions?
+            <span className="sm:hidden">Questions?</span>
+            <span className="hidden sm:inline">Got any questions?</span>
           </motion.h2>
           <motion.p
-            className="text-2xl md:text-3xl text-gray-600"
+            className="text-xl sm:text-2xl md:text-3xl text-gray-600"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -197,10 +198,10 @@ export function Questions() {
           </motion.p>
         </motion.div>
 
-        {/* FAQ Grid - Perfectly Symmetrical */}
-        <div className="grid md:grid-cols-2 gap-6">
+        {/* FAQ Grid - Single column on mobile, two columns on medium screens and up */}
+        <div className="grid lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Left Column */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {faqData.slice(0, 4).map((faq, index) => (
               <motion.div
                 key={faq.id}
@@ -214,20 +215,20 @@ export function Questions() {
                 viewport={{ once: true }}
                 className="group"
               >
-                <Card className="p-6 bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                <Card className="p-4 sm:p-6 bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
                   <div 
                     className="cursor-pointer"
                     onClick={() => toggleItem(faq.id)}
                   >
-                    <div className="flex items-center gap-3 w-full">
-                      <div className="flex-shrink-0">
+                    <div className="flex items-start gap-3 w-full">
+                      <div className="flex-shrink-0 mt-0.5">
                         {openItems[faq.id] ? (
-                          <Minus className="h-5 w-5 text-gray-600 transition-colors duration-300 group-hover:text-[#cf21c3]" />
+                          <Minus className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600 transition-colors duration-300 group-hover:text-[#cf21c3]" />
                         ) : (
-                          <Plus className="h-5 w-5 text-gray-600 transition-colors duration-300 group-hover:text-[#cf21c3]" />
+                          <Plus className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600 transition-colors duration-300 group-hover:text-[#cf21c3]" />
                         )}
                       </div>
-                      <span className="flex-1 text-lg font-semibold text-gray-900 group-hover:text-[#cf21c3] transition-colors duration-300">
+                      <span className="flex-1 text-base sm:text-lg font-semibold text-gray-900 group-hover:text-[#cf21c3] transition-colors duration-300 leading-tight">
                         {faq.question}
                       </span>
                     </div>
@@ -237,7 +238,7 @@ export function Questions() {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       transition={{ duration: 0.3 }}
-                      className="pt-4 text-gray-700 leading-relaxed ml-8"
+                      className="pt-3 sm:pt-4 text-gray-700 leading-relaxed text-sm sm:text-base ml-6 sm:ml-8"
                     >
                       {faq.answer}
                     </motion.div>
@@ -248,7 +249,7 @@ export function Questions() {
           </div>
 
           {/* Right Column */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {faqData.slice(4).map((faq, index) => (
               <motion.div
                 key={faq.id}
@@ -262,20 +263,20 @@ export function Questions() {
                 viewport={{ once: true }}
                 className="group"
               >
-                <Card className="p-6 bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                <Card className="p-4 sm:p-6 bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
                   <div 
                     className="cursor-pointer"
                     onClick={() => toggleItem(faq.id)}
                   >
-                    <div className="flex items-center gap-3 w-full">
-                      <div className="flex-shrink-0">
+                    <div className="flex items-start gap-3 w-full">
+                      <div className="flex-shrink-0 mt-0.5">
                         {openItems[faq.id] ? (
-                          <Minus className="h-5 w-5 text-gray-600 transition-colors duration-300 group-hover:text-[#cf21c3]" />
+                          <Minus className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600 transition-colors duration-300 group-hover:text-[#cf21c3]" />
                         ) : (
-                          <Plus className="h-5 w-5 text-gray-600 transition-colors duration-300 group-hover:text-[#cf21c3]" />
+                          <Plus className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600 transition-colors duration-300 group-hover:text-[#cf21c3]" />
                         )}
                       </div>
-                      <span className="flex-1 text-lg font-semibold text-gray-900 group-hover:text-[#cf21c3] transition-colors duration-300">
+                      <span className="flex-1 text-base sm:text-lg font-semibold text-gray-900 group-hover:text-[#cf21c3] transition-colors duration-300 leading-tight">
                         {faq.question}
                       </span>
                     </div>
@@ -285,7 +286,7 @@ export function Questions() {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       transition={{ duration: 0.3 }}
-                      className="pt-4 text-gray-700 leading-relaxed ml-8"
+                      className="pt-3 sm:pt-4 text-gray-700 leading-relaxed text-sm sm:text-base ml-6 sm:ml-8"
                     >
                       {faq.answer}
                     </motion.div>

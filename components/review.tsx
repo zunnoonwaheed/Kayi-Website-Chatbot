@@ -254,13 +254,13 @@ export default function ReviewSection() {
             onClick={() => scroll("left")}
             className="hidden lg:flex absolute -left-12 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-md hover:bg-gray-50 transition-all"
           >
-            <ChevronLeft className="w-6 h-6 text-gray-600" />
+            <ChevronLeft className="w-5 h-5 text-[#cf21c3]" />
           </button>
           <button
             onClick={() => scroll("right")}
             className="hidden lg:flex absolute -right-12 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-md hover:bg-gray-50 transition-all"
           >
-            <ChevronRight className="w-6 h-6 text-gray-600" />
+            <ChevronRight className="w-5 h-5 text-[#cf21c3]" />
           </button>
         </div>
 
