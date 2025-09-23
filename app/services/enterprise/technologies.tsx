@@ -135,7 +135,7 @@ const Technologies = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          Whether you're selling luxury watches or launching a tech startup, we've helped brands like yours tell their stories through CGI. Take a look at what's possible in your industry.
+          Everything you need to know about CGI advertising and why smart brands are making the switch.
         </motion.p>
       </div>
 
@@ -192,7 +192,52 @@ const Technologies = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+              {/* Mobile - Horizontal Scroll */}
+              <div className="lg:hidden">
+                <div className="flex overflow-x-auto scrollbar-hide space-x-4 pb-4">
+                  {categories[activeTab].map((item, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.4, delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                      className="flex-shrink-0 w-80" // Fixed width for consistent sizing
+                    >
+                      <div className="relative aspect-[9/16] rounded-xl overflow-hidden">
+                        <video
+                          src={item.src}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            const fallback = e.target.nextSibling;
+                            if (fallback) fallback.style.display = 'flex';
+                          }}
+                        />
+                        <div 
+                          className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/20 to-pink-500/20 items-center justify-center text-gray-600 hidden"
+                        >
+                          <div className="text-center">
+                            <div className="w-16 h-16 bg-white/80 rounded-full flex items-center justify-center mb-2 mx-auto">
+                              <svg className="w-6 h-6 text-[#cf21c3]" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M8 5v10l8-5-8-5z"/>
+                              </svg>
+                            </div>
+                            <p className="text-sm font-medium">{item.alt}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Desktop - Grid Layout */}
+              <div className="hidden lg:grid grid-cols-2 gap-6">
                 {categories[activeTab].map((item, index) => (
                   <motion.div
                     key={index}
