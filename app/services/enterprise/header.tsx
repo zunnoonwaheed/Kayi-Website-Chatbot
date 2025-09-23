@@ -4,33 +4,19 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, ChevronDown } from "lucide-react"
-import { useState, useEffect, useRef } from "react"
+import { Menu } from "lucide-react"
+import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
 
 export default function Header() {
   const [isSheetOpen, setIsSheetOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isServicesOpen, setIsServicesOpen] = useState(false)
-  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false)
   const pathname = usePathname()
-  const dropdownRef = useRef<HTMLDivElement>(null)
-
-  const servicesItems = [
-    { name: "Business Automation", targetClass: ".services" },
-    { name: "Performance Marketing", targetClass: ".services" },
-    { name: "Web Development & Mobile Apps", targetClass: ".services" },
-    { name: "Custom Business Outsourcing", targetClass: ".services" },
-  ]
 
   const menuItems = [
     { name: "Home", targetClass: ".home", href: "/" },
     { name: "About", targetClass: ".locations" },
-    { 
-      name: "Services", 
-      isDropdown: true,
-      items: servicesItems
-    },
+    { name: "Services", targetClass: ".services" },
     { name: "Work", targetClass: ".portfolio" },
     { name: "Contact", targetClass: ".contact" },
   ]
@@ -46,75 +32,17 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsServicesOpen(false)
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
-
   const scrollToSection = (selector: string) => {
     const section = document.querySelector(selector)
     if (section) {
       section.scrollIntoView({ behavior: "smooth" })
       setIsSheetOpen(false)
-      setIsServicesOpen(false)
     }
-  }
-
-  const toggleServices = () => {
-    setIsServicesOpen(!isServicesOpen)
   }
 
   const navLinks = (
     <>
       {menuItems.map((item, i) => {
-        if (item.isDropdown) {
-          return (
-            <div 
-              key={i} 
-              className="relative group"
-              ref={dropdownRef}
-            >
-              <button 
-                onClick={toggleServices}
-                className="flex items-center gap-1 text-black hover:text-[#cf21c3] transition-all duration-300 font-medium text-[13px] xl:text-[14px] relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#cf21c3] after:transition-all after:duration-300 group-hover:after:w-full whitespace-nowrap"
-              >
-                {item.name}
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isServicesOpen ? "rotate-180" : ""}`} />
-              </button>
-              
-              {/* Dropdown Menu */}
-              <div 
-                className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-64 bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 overflow-hidden z-50 transition-all duration-300 ${
-                  isServicesOpen 
-                    ? "opacity-100 visible translate-y-0" 
-                    : "opacity-0 invisible -translate-y-2 pointer-events-none"
-                }`}
-              >
-                <div className="py-2">
-                  {item.items?.map((service, serviceIndex) => (
-                    <button
-                      key={serviceIndex}
-                      onClick={() => scrollToSection(service.targetClass)}
-                      className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:text-[#cf21c3] hover:bg-purple-50/50 transition-all duration-200 font-medium"
-                    >
-                      {service.name}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )
-        }
-
         if (item.href) {
           return (
             <Link
@@ -122,7 +50,6 @@ export default function Header() {
               href={item.href}
               onClick={() => {
                 setIsSheetOpen(false)
-                setIsServicesOpen(false)
               }}
               className="text-black hover:text-[#cf21c3] transition-all duration-300 font-medium text-[13px] xl:text-[14px] relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#cf21c3] after:transition-all after:duration-300 hover:after:w-full whitespace-nowrap"
             >
@@ -137,7 +64,6 @@ export default function Header() {
               key={i}
               onClick={() => {
                 scrollToSection(item.targetClass!)
-                setIsServicesOpen(false)
               }}
               className="text-black hover:text-[#cf21c3] transition-all duration-300 font-medium text-[13px] xl:text-[14px] relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#cf21c3] after:transition-all after:duration-300 hover:after:w-full whitespace-nowrap"
             >
@@ -152,7 +78,6 @@ export default function Header() {
             href={`/#${item.targetClass?.replace(".", "")}`}
             onClick={() => {
               setIsSheetOpen(false)
-              setIsServicesOpen(false)
             }}
             className="text-black hover:text-[#cf21c3] transition-all duration-300 font-medium text-[13px] xl:text-[14px] relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#cf21c3] after:transition-all after:duration-300 hover:after:w-full whitespace-nowrap"
           >
@@ -177,7 +102,6 @@ export default function Header() {
           <Link 
             href="/" 
             className="flex items-center gap-2"
-            onClick={() => setIsServicesOpen(false)}
           >
             <Image
               src="/images/kayi-logo-white.png"
@@ -202,7 +126,6 @@ export default function Header() {
         <div className="flex items-center gap-2">
           <Link 
             href="/book-call"
-            onClick={() => setIsServicesOpen(false)}
           >
             <Button className="hidden md:block bg-black hover:bg-black/90 text-white px-3.5 py-1 text-[12px] font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
               Book a Call
@@ -216,7 +139,6 @@ export default function Header() {
                 variant="ghost"
                 size="icon"
                 className="transition-all duration-300 h-8 w-8 text-black hover:bg-gray-100"
-                onClick={() => setIsServicesOpen(false)}
               >
                 <Menu className="h-4 w-4" />
                 <span className="sr-only">Toggle Menu</span>
@@ -240,34 +162,6 @@ export default function Header() {
               <nav className="flex-1 overflow-y-auto p-5">
                 <div className="space-y-1">
                   {menuItems.map((item, i) => {
-                    if (item.isDropdown) {
-                      return (
-                        <div key={i} className="border-b border-gray-100/50 pb-3">
-                          <button
-                            onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-                            className="flex items-center justify-between w-full text-black font-medium text-[15px] py-2.5 px-3 rounded-lg hover:text-[#cf21c3]"
-                          >
-                            <span>{item.name}</span>
-                            <ChevronDown 
-                              className={`w-4 h-4 transition-transform duration-200 ${isMobileServicesOpen ? "rotate-180" : ""}`} 
-                            />
-                          </button>
-                          
-                          <div className={`pl-4 mt-1 space-y-1 overflow-hidden transition-all duration-300 ${isMobileServicesOpen ? "max-h-96" : "max-h-0"}`}>
-                            {item.items?.map((service, serviceIndex) => (
-                              <button
-                                key={serviceIndex}
-                                onClick={() => scrollToSection(service.targetClass)}
-                                className="w-full text-left py-2 px-3 text-[14px] text-gray-700 hover:text-[#cf21c3] hover:bg-purple-50/50 transition-all duration-200 rounded-lg"
-                              >
-                                {service.name}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      )
-                    }
-
                     if (item.href) {
                       return (
                         <Link
