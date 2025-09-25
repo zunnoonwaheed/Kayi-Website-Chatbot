@@ -8,17 +8,21 @@ import TechnologiesSection from "./technologies"
 import Footer from "./Footer"
 import { Questions } from "./questions"
 import { FaqsSection } from "./faqs-section"
-import Marquee from "./marquee"   // ✅ Import Marquee
+import Marquee from "./marquee"        
+import { TextSection } from "./text"   
+import AssetHero from "./asset-hero"
 
 export default function EnterprisePage() {
   return (
     <main className="min-h-screen">
       <Header />
       <HeroSection />
-      <Marquee /> {/* ✅ Added Marquee here */}
+      <Marquee />        
       <CardsSection />
       <TechnologiesSection />
       <CgisSection />
+      <TextSection />  
+      <AssetHero />
       <CgisWork />
       <SubscriptionPlans />
       <Questions />

@@ -18,10 +18,9 @@ const reviews = [
     text: "Their team delivers ahead of deadlines, and makes things easy.",
   },
   {
-    name: "Victor, Horizonte",
-    image:
-      "https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    text: "Reliable and super easy to use daily.",
+    name: "Derek F.",
+    video: "/images/derak.mp4",
+    text: "Honestly, having one team for everything has been a lifesaver.",
   },
 ];
 
@@ -45,7 +44,7 @@ export default function ReviewSection() {
     : reviews;
 
   // Get the correct paused state for displayed index
-  const getPausedState = (displayedIndex: number) => {
+  const getPausedState = (displayedIndex) => {
     if (!isMobile) return paused[displayedIndex];
     
     // For mobile, map displayed index to original index
@@ -72,7 +71,7 @@ export default function ReviewSection() {
     }
   }, [isMobile]);
 
-  const scroll = (direction: "left" | "right") => {
+  const scroll = (direction) => {
     if (!scrollRef.current) return;
     const { clientWidth } = scrollRef.current;
     scrollRef.current.scrollBy({
@@ -81,7 +80,7 @@ export default function ReviewSection() {
     });
   };
 
-  const togglePlay = (displayedIndex: number) => {
+  const togglePlay = (displayedIndex) => {
     // Get the original index for the paused state
     let originalIndex = displayedIndex;
     if (isMobile) {
@@ -99,6 +98,21 @@ export default function ReviewSection() {
     } else {
       video.pause();
       setPaused((prev) => prev.map((p, i) => (i === originalIndex ? true : p)));
+    }
+  };
+
+  // Helper function to get card size classes
+  const getCardSizeClasses = (displayedIndex) => {
+    if (isMobile) {
+      return "w-80 sm:w-96 lg:w-auto"; // Same size on mobile
+    }
+    
+    // Desktop sizing
+    const originalIndex = displayedIndex;
+    if (originalIndex === 1) { // Lauren T. video card
+      return "lg:w-auto lg:h-[580px] transform lg:scale-110"; // Larger center card
+    } else { // Sarah and Derek cards
+      return "lg:w-auto lg:h-[480px] transform lg:scale-90"; // Smaller side cards
     }
   };
 
@@ -186,7 +200,7 @@ export default function ReviewSection() {
         <div className="relative">
           <div
             ref={scrollRef}
-            className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-4 sm:px-0 lg:grid lg:grid-cols-3 lg:gap-12 lg:overflow-visible"
+            className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-4 sm:px-0 lg:grid lg:grid-cols-3 lg:gap-8 lg:overflow-visible lg:items-center"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none", WebkitOverflowScrolling: "touch" }}
           >
             {displayedReviews.map((review, displayedIndex) => {
@@ -201,9 +215,7 @@ export default function ReviewSection() {
               return (
                 <div
                   key={displayedIndex}
-                  className={`relative bg-white/80 backdrop-blur-sm rounded-2xl flex-shrink-0 snap-center w-80 sm:w-96 lg:w-auto transition-transform ${
-                    review.video ? "lg:h-[560px] transform lg:scale-105 z-10" : "lg:h-[520px]"
-                  }`}
+                  className={`relative bg-white/80 backdrop-blur-sm rounded-2xl flex-shrink-0 snap-center transition-transform z-10 ${getCardSizeClasses(displayedIndex)}`}
                 >
                   {/* Media */}
                   <div
@@ -219,7 +231,7 @@ export default function ReviewSection() {
                         className="h-full w-full object-cover"
                       />
                     ) : (
-                      <Image src={review.image!} alt={review.name} fill className="object-cover" />
+                      <Image src={review.image} alt={review.name} fill className="object-cover" />
                     )}
 
                     {/* Responsive Play/Pause button */}
