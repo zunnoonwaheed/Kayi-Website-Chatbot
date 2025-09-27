@@ -29,6 +29,7 @@ export default function ReviewSection() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [paused, setPaused] = useState<boolean[]>(reviews.map(() => true));
   const [isMobile, setIsMobile] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   // Detect mobile screen
   useEffect(() => {
@@ -38,9 +39,9 @@ export default function ReviewSection() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Reorder for mobile: video first
+  // Reorder for mobile: video first, then Derek, then Sarah
   const displayedReviews = isMobile
-    ? [reviews[1], reviews[0], reviews[2]]
+    ? [reviews[1], reviews[2], reviews[0]] // Lauren, Derek, Sarah
     : reviews;
 
   // Get the correct paused state for displayed index
@@ -48,9 +49,9 @@ export default function ReviewSection() {
     if (!isMobile) return paused[displayedIndex];
     
     // For mobile, map displayed index to original index
-    if (displayedIndex === 0) return paused[1]; // Video card (original index 1)
-    if (displayedIndex === 1) return paused[0]; // First image card (original index 0)
-    return paused[2]; // Second image card (original index 2)
+    if (displayedIndex === 0) return paused[1]; // Lauren (original index 1)
+    if (displayedIndex === 1) return paused[2]; // Derek (original index 2)
+    return paused[0]; // Sarah (original index 0)
   };
 
   // Scroll to center video by default on desktop
@@ -71,6 +72,24 @@ export default function ReviewSection() {
     }
   }, [isMobile]);
 
+  // Handle scroll events to update current slide indicator
+  useEffect(() => {
+    if (!isMobile) return;
+    
+    const handleScroll = () => {
+      if (!scrollRef.current) return;
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const slideIndex = Math.round(scrollLeft / clientWidth);
+      setCurrentSlide(slideIndex);
+    };
+
+    const scrollElement = scrollRef.current;
+    if (scrollElement) {
+      scrollElement.addEventListener('scroll', handleScroll);
+      return () => scrollElement.removeEventListener('scroll', handleScroll);
+    }
+  }, [isMobile]);
+
   const scroll = (direction) => {
     if (!scrollRef.current) return;
     const { clientWidth } = scrollRef.current;
@@ -84,9 +103,9 @@ export default function ReviewSection() {
     // Get the original index for the paused state
     let originalIndex = displayedIndex;
     if (isMobile) {
-      if (displayedIndex === 0) originalIndex = 1; // Video card
-      else if (displayedIndex === 1) originalIndex = 0; // First image card
-      else originalIndex = 2; // Second image card
+      if (displayedIndex === 0) originalIndex = 1; // Lauren
+      else if (displayedIndex === 1) originalIndex = 2; // Derek
+      else originalIndex = 0; // Sarah
     }
     
     const video = videoRefs.current[originalIndex];
@@ -207,9 +226,9 @@ export default function ReviewSection() {
               // Get the original index for video refs
               let originalIndex = displayedIndex;
               if (isMobile) {
-                if (displayedIndex === 0) originalIndex = 1; // Video card
-                else if (displayedIndex === 1) originalIndex = 0; // First image card
-                else originalIndex = 2; // Second image card
+                if (displayedIndex === 0) originalIndex = 1; // Lauren
+                else if (displayedIndex === 1) originalIndex = 2; // Derek
+                else originalIndex = 0; // Sarah
               }
                 
               return (
@@ -261,25 +280,18 @@ export default function ReviewSection() {
             })}
           </div>
 
-          {/* Navigation arrows - Updated with white background and grey icons */}
-          <button
-            onClick={() => scroll("left")}
-            className="hidden lg:flex absolute -left-12 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-md hover:bg-gray-50 transition-all"
-          >
-            <ChevronLeft className="w-5 h-5 text-[#cf21c3]" />
-          </button>
-          <button
-            onClick={() => scroll("right")}
-            className="hidden lg:flex absolute -right-12 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-md hover:bg-gray-50 transition-all"
-          >
-            <ChevronRight className="w-5 h-5 text-[#cf21c3]" />
-          </button>
+          {/* Navigation arrows - REMOVED */}
         </div>
 
-        {/* Mobile navigation dots */}
+        {/* Mobile navigation dots with proper active state */}
         <div className="flex justify-center mt-6 lg:hidden">
           {displayedReviews.map((_, index) => (
-            <div key={index} className="w-2 h-2 rounded-full bg-[#cf21c3] mx-1" />
+            <div 
+              key={index} 
+              className={`w-2 h-2 rounded-full mx-1 transition-colors ${
+                currentSlide === index ? 'bg-[#cf21c3]' : 'bg-gray-300'
+              }`} 
+            />
           ))}
         </div>
       </div>

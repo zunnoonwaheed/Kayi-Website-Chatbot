@@ -61,7 +61,7 @@ const projects: Project[] = [
       "We built Rejuuv from the ground up, creating everything from their brand identity to their complete e-commerce platform. This included designing their logo and visual identity, developing a custom Shopify store, managing their social media presence, and running targeted marketing campaigns. We also handled product photography and lifestyle content creation to showcase their beauty and wellness products.",
     image: "./images/kayi2.jpeg",
     expandedImage: "./images/kayi-success1.jpeg",
-    categories: ["E-commerce Development", "Mobile App Development", "CRM & Sales Systems"],
+    categories: ["E-commerce Development", "Brand Identity & Design", "Performance Marketing", "CRM & Sales Systems"],
     icon: <ShoppingBag className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
     technologies: ["Shopify Plus", "Adobe Creative Suite", "Instagram & Facebook", "Facebook Ads"],
@@ -85,7 +85,7 @@ const projects: Project[] = [
       "PEL Paints wanted to enhance their social media presence to better showcase their paint brand and products. We created a series of professional social media posts with consistent branding that highlighted their paint solutions and quality. The content helped establish their digital presence and improved engagement with their target customers.",
     image: "./images/kayi3.jpeg",
     expandedImage: "./images/kayi-success2.jpeg",
-    categories: ["Performance Marketing", "Brand Identity & Design"],
+    categories: ["Performance Marketing", "Brand Identity & Design", "SEO & Content Marketing"],
     icon: <Palette className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
     technologies: ["Canva", "Adobe Photoshop", "Instagram", "Facebook"],
@@ -104,7 +104,7 @@ const projects: Project[] = [
       "We built Saint Draper from the ground up as a leather brand specializing in wallets and card holders. Our work included creating their complete brand identity and logo design, developing stunning 3D product models for marketing, and managing their social media presence. We established their brand positioning in the quality leather goods market with sophisticated visual content.",
     image: "./images/kayi4.jpeg",
     expandedImage: "./images/kayi-success4.jpeg",
-    categories: ["Brand Identity & Design", "Custom Software Solutions"],
+    categories: ["Brand Identity & Design", "Performance Marketing", "Custom Software Solutions"],
     icon: <Code className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
     technologies: ["Blender 3D", "Adobe Creative Suite", "Instagram & Facebook", "Brand Design Tools"],
@@ -128,7 +128,7 @@ const projects: Project[] = [
       "We developed Mirakl as a complete skincare and antibacterial towel brand from concept to market. Our comprehensive approach included creating their logo and brand identity, designing product packaging that stands out on shelves, building their e-commerce website, and managing their social media presence. We established their brand positioning in the health and wellness market.",
     image: "./images/kayi-suc5.jpeg",
     expandedImage: "./images/kayi-success3.jpeg",
-    categories: ["E-commerce Development", "Brand Identity & Design", "Performance Marketing"],
+    categories: ["Brand Identity & Design", "Performance Marketing", "Web Development", "E-commerce Development"],
     icon: <Leaf className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
     technologies: ["Adobe Creative Suite", "WordPress", "Instagram & Facebook", "Packaging Design"],
@@ -152,7 +152,7 @@ const projects: Project[] = [
       "We developed a comprehensive Shopify e-commerce store for Cordwood Covers, specializing in waterproof firewood protection solutions. This project involved creating responsive product pages with high-quality imagery, implementing educational content sections with integrated blog functionality, and optimizing the entire user experience for outdoor enthusiasts. We delivered detailed product specifications, instructional content, and seamless navigation designed to drive conversions in the niche outdoor storage market.",
     image: "/images/Cordwood.png",
     expandedImage: "/images/Cardwood.png",
-    categories: ["E-commerce Development", "Web Development", "CRM & Sales Systems"],
+    categories: ["E-commerce Development", "Web Development", "SEO & Content Marketing", "CRM & Sales Systems"],
     icon: <ShoppingBag className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
     technologies: ["Shopify Development", "CMS Framework", "Responsive Design", "Blog Integration"],
@@ -264,7 +264,7 @@ const projects: Project[] = [
       "We developed an elegant, brand-focused e-commerce store for Dawn and Dusk Jewelry, a mother-daughter artisan jewelry business specializing in handcrafted sterling silver and gemstone pieces. The design integrates compelling storytelling elements that highlight the family business heritage, while implementing blog functionality for travel and lifestyle content that connects with their audience. We optimized product galleries to showcase the craftsmanship of each piece and created a seamless shopping experience with promotional features including bulk discounts and free shipping thresholds to drive conversions.",
     image: "/images/dawn.png",
     expandedImage: "/images/dawn.png",
-    categories: ["E-commerce Development", "Brand Identity & Design", "CRM & Sales Systems"],
+    categories: ["E-commerce Development", "Brand Identity & Design", "SEO & Content Marketing", "CRM & Sales Systems"],
     icon: <ShoppingBag className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
     technologies: ["Shopify CMS Development", "UI/UX Prototyping", "E-commerce Optimization", "Blog Integration"],
@@ -289,7 +289,7 @@ const projects: Project[] = [
       "We developed a sophisticated e-commerce platform for Voilà, connecting discerning customers with restaurant-quality frozen meals crafted by international star chefs. The premium German delivery service features advanced scheduled delivery options, comprehensive multi-language support, and a seamless checkout flow optimized for high-end culinary experiences. We implemented dynamic promotional campaigns for seasonal menus, integrated nationwide shipping logistics, and created an elegant user interface that showcases gourmet products with emphasis on convenience and quality assurance for the luxury food market.",
     image: "/images/GETVOILA.png",
     expandedImage: "/images/GETVOILA.png",
-    categories: ["E-commerce Development", "Web Development", "CRM & Sales Systems"],
+    categories: ["E-commerce Development", "Web Development", "Business Automation", "CRM & Sales Systems"],
     icon: <ShoppingBag className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
     technologies: [
@@ -320,7 +320,7 @@ const projects: Project[] = [
       "We designed a comprehensive user interface and experience for WeCare Doctor, a telemedicine platform connecting patients with healthcare professionals. Created intuitive user flows for video consultations, streamlined appointment booking interfaces, and responsive design systems optimized for both patient and doctor experiences. Developed clean, trustworthy visual design with accessibility standards, implemented consistent design patterns across web and mobile platforms, and crafted user-centered interfaces that prioritize ease of use in medical consultation scenarios.",
     image: "/images/doctor.png",
     expandedImage: "/images/doctor.png",
-    categories: ["Web Development", "Mobile App Development", "Brand Identity & Design", "CRM & Sales Systems"],
+    categories: ["Web Development", "Mobile App Development", "Brand Identity & Design", "Business Automation"],
     icon: <Leaf className="w-6 h-6" />,
     color: "from-slate-900 to-gray-800",
     technologies: ["UI/UX Design", "Responsive Design", "Design Systems", "User Research", "Healthcare UX"],
@@ -493,7 +493,7 @@ export default function SuccessStoriesSection() {
             <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
-                className="min-w-[240px] justify-between bg-white/90 backdrop-blur-sm border border-gray-300 hover:border-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl rounded-2xl h-11 md:h-14 font-semibold text-gray-700 hover:text-gray-900"
+                className="min-w-[240px] justify-between bg-white/90 backdrop-blur-sm border border-gray-300 hover:border-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl rounded-2xl h-11 md:h-14 font-semibold text-gray-700"
               >
                 <span className="flex items-center gap-3">
                   <Code className="w-4 h-4" />
@@ -564,7 +564,7 @@ export default function SuccessStoriesSection() {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                       </motion.div>
                       <div className="p-4 md:p-8 flex-1 flex flex-col w-full md:w-3/5">
-                        <h3 className="text-lg md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors duration-300">
+                        <h3 className="text-lg md:text-2xl font-bold text-gray-900 mb-2 transition-colors duration-300">
                           {project.title}
                         </h3>
                         <h4 className="text-sm md:text-lg font-semibold text-gray-600 mb-3 line-clamp-2">
@@ -684,7 +684,7 @@ export default function SuccessStoriesSection() {
                         </motion.div>
                         <div className="p-4 md:p-6 flex-1 flex flex-col w-full">
                           <motion.h3
-                            className="text-base md:text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors duration-300"
+                            className="text-base md:text-xl font-bold text-gray-900 mb-2 transition-colors duration-300"
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
                             transition={{ delay: 0.2 }}
