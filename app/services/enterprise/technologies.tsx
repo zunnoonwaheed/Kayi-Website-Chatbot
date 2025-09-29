@@ -40,62 +40,6 @@ const Technologies = () => {
 
   return (
     <div id="technologies" className="relative overflow-hidden bg-white">
-      {/* Enhanced Gradient Background that flows throughout */}
-      <div className="absolute inset-0">
-        {/* Base gradient layers */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/10 via-pink-500/5 to-[#cf21c3]/8" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#cf21c3]/6 to-transparent" />
-
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-radial from-[#cf21c3]/15 via-pink-500/10 to-transparent rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.4, 1],
-            opacity: [0.5, 0.8, 0.5],
-            x: [0, 60, 0],
-            y: [0, -40, 0],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-[32rem] h-[32rem] bg-gradient-radial from-pink-500/12 via-[#cf21c3]/8 to-transparent rounded-full blur-3xl"
-          animate={{
-            scale: [1.3, 1, 1.3],
-            opacity: [0.4, 0.7, 0.4],
-            x: [0, -80, 0],
-            y: [0, 50, 0],
-            rotate: [0, -180, -360],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 7,
-          }}
-        />
-
-        {/* Flowing wave gradients */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-[#cf21c3]/8 to-transparent"
-          animate={{
-            x: ["-50%", "50%"],
-            opacity: [0.4, 0.8, 0.4],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
-        />
-
-        {/* Subtle mesh gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/3 via-transparent to-pink-500/4 mix-blend-multiply" />
-      </div>
-
       {/* Main Content */}
       <div className="py-20 relative z-10">
         <div className="max-w-7xl mx-auto px-6 mb-16 text-center">

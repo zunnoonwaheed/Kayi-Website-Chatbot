@@ -109,49 +109,8 @@ export default function ContactSection() {
 
       <section
         id="have-a-project-in-mind-section"
-        className="py-8 md:py-16 px-4 bg-white relative overflow-hidden min-h-screen flex items-center"
+        className="py-8 md:py-16 px-4 bg-transparent relative overflow-hidden min-h-screen flex items-center"
       >
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/6 via-pink-500/3 to-[#cf21c3]/8" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#cf21c3]/4 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-bl from-[#cf21c3]/3 via-transparent to-pink-500/6" />
-          <div className="absolute inset-0 bg-gradient-to-tl from-pink-500/4 via-transparent to-[#cf21c3]/5" />
-
-          <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#cf21c3]/12 via-pink-500/6 to-transparent" />
-          <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[#cf21c3]/12 via-pink-500/6 to-transparent" />
-          <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-[#cf21c3]/10 via-pink-500/5 to-transparent" />
-          <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#cf21c3]/10 via-pink-500/5 to-transparent" />
-
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#cf21c3]/8 to-transparent animate-flowing-wave" />
-          <div
-            className="absolute inset-0 bg-gradient-to-l from-transparent via-pink-500/6 to-transparent animate-flowing-wave"
-            style={{ animationDelay: "8s", animationDuration: "30s" }}
-          />
-          <div
-            className="absolute inset-0 bg-gradient-to-b from-transparent via-[#cf21c3]/5 to-transparent animate-flowing-wave-vertical"
-            style={{ animationDelay: "15s" }}
-          />
-
-          <div className="absolute top-1/6 left-1/6 w-96 h-96 bg-gradient-radial from-[#cf21c3]/15 via-pink-500/10 to-transparent rounded-full blur-3xl animate-organic-float" />
-          <div
-            className="absolute bottom-1/6 right-1/6 w-[32rem] h-[32rem] bg-gradient-radial from-pink-500/12 via-[#cf21c3]/8 to-transparent rounded-full blur-3xl animate-organic-float-large"
-            style={{ animationDelay: "7s" }}
-          />
-          <div
-            className="absolute top-1/2 left-1/2 w-[40rem] h-[40rem] bg-gradient-radial from-[#cf21c3]/6 via-pink-500/4 to-transparent rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2 animate-organic-float"
-            style={{ animationDelay: "12s", animationDuration: "40s" }}
-          />
-
-          <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/4 via-transparent to-pink-500/3 animate-seamless-flow" />
-          <div
-            className="absolute inset-0 bg-gradient-to-tl from-pink-500/3 via-transparent to-[#cf21c3]/4 animate-seamless-flow-reverse"
-            style={{ animationDelay: "10s" }}
-          />
-
-          <div className="absolute inset-0 bg-gradient-to-br from-[#cf21c3]/3 via-transparent to-pink-500/4 mix-blend-multiply" />
-          <div className="absolute inset-0 bg-gradient-to-tl from-pink-500/2 via-transparent to-[#cf21c3]/3 mix-blend-screen opacity-50" />
-        </div>
-
         <div className="max-w-7xl mx-auto w-full relative z-10">
           <div className="text-center mb-4 md:mb-8">
             <motion.h2
