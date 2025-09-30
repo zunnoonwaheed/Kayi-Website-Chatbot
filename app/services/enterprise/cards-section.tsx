@@ -56,35 +56,102 @@ export default function CardsSection() {
     setTimeout(() => setIsAutoPlaying(true), 7000)
   }
 
+  // Animation variants for scroll animations
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 40 
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  }
+
+  const wordVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 20 
+    },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.7,
+        ease: "easeOut"
+      }
+    })
+  }
+
+  const headingWords = ["Why", "CGI", "Ads", "Are", "Game-Changers"]
+
   return (
     <section className="py-12 md:py-20 px-6 relative overflow-hidden bg-white">
       <div className="max-w-6xl mx-auto relative z-10 pt-8 md:pt-16">
-        {/* Section Header */}
+        {/* Section Header with Scroll Animations */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={containerVariants}
           className="text-center mb-12 md:mb-16"
         >
+          {/* Animated Heading */}
           <motion.h2
             className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            variants={containerVariants}
           >
-            Why CGI Ads Are Game-Changers
+            {headingWords.map((word, index) => (
+              <motion.span
+                key={index}
+                custom={index}
+                variants={wordVariants}
+                className="inline-block mr-2 last:mr-0"
+              >
+                {word}
+              </motion.span>
+            ))}
           </motion.h2>
-          <motion.p
+
+          {/* Animated Subtitle */}
+          <motion.div
+            variants={itemVariants}
             className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <span className="font-bold">Everything</span> you need to know about CGI advertising and why smart brands are making the switch.
-          </motion.p>
+            <motion.span
+              className="block"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+            >
+              <span className="font-bold">Everything</span> you need to know about CGI advertising
+            </motion.span>
+            <motion.span
+              className="block"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+            >
+              and why smart brands are making the switch.
+            </motion.span>
+          </motion.div>
         </motion.div>
 
         {/* Mobile Carousel */}

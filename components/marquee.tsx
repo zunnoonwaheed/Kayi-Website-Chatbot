@@ -59,7 +59,7 @@ export default function Marquee() {
             {companies.map((company, index) => (
               <div
                 key={`${company.name}-${index}-first`}
-                className="flex-shrink-0 flex items-center justify-center bg-white/5 backdrop-blur-sm rounded-xl p-2 border border-white/10"
+                className="flex-shrink-0 flex items-center justify-center p-2"
                 style={{
                   width: `${company.width + 24}px`,
                   height: `${company.height + 24}px`,
@@ -84,7 +84,7 @@ export default function Marquee() {
             {companies.map((company, index) => (
               <div
                 key={`${company.name}-${index}-second`}
-                className="flex-shrink-0 flex items-center justify-center bg-white/5 backdrop-blur-sm rounded-xl p-2 border border-white/10"
+                className="flex-shrink-0 flex items-center justify-center p-2"
                 style={{
                   width: `${company.width + 24}px`,
                   height: `${company.height + 24}px`,

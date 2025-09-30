@@ -29,7 +29,7 @@ export default function Marquee() {
       children.forEach((child, i) => {
         calculatedWidth += child.offsetWidth
         if (i < children.length - 1) {
-          calculatedWidth += 48
+          calculatedWidth += 48 // gap-12 is 48px
         }
       })
       setWidthOfFirstSet(calculatedWidth)
@@ -39,13 +39,11 @@ export default function Marquee() {
   const animationDuration = widthOfFirstSet > 0 ? widthOfFirstSet / 60 : 5
 
   return (
-    <section className="w-full overflow-hidden py-4 md:py-8 relative bg-white">
-      {/* Removed gradient borders */}
-
+    <section className="w-full overflow-hidden bg-white outline outline-1 outline-white">
       {/* Marquee Content */}
-      <div className="flex overflow-hidden relative z-10 h-14 md:h-28">
+      <div className="flex overflow-hidden">
         <motion.div
-          className="flex items-center gap-8 md:gap-12"
+          className="flex items-center gap-12"
           animate={{ x: widthOfFirstSet ? [0, -widthOfFirstSet] : 0 }}
           transition={{
             x: {
@@ -57,14 +55,16 @@ export default function Marquee() {
           }}
         >
           {/* First set (measured for width) */}
-          <div ref={firstSetRef} className="flex items-center gap-8 md:gap-12 flex-shrink-0">
+          <div ref={firstSetRef} className="flex items-center gap-12 flex-shrink-0">
             {companies.map((company, index) => (
               <div
                 key={`${company.name}-${index}-first`}
-                className="flex-shrink-0 flex items-center justify-center rounded-lg md:rounded-xl p-1 md:p-2"
+                className="flex-shrink-0 flex items-center justify-center"
                 style={{
-                  width: `${company.width + 16}px`,
-                  height: `${company.height + 16}px`,
+                  width: `${company.width}px`,
+                  height: `${company.height}px`,
+                  minWidth: `${company.width}px`,
+                  minHeight: `${company.height}px`,
                 }}
               >
                 <Image
@@ -72,21 +72,27 @@ export default function Marquee() {
                   alt={`${company.name} logo`}
                   width={company.width}
                   height={company.height}
-                  className="object-contain w-full h-full transition-transform duration-300 hover:scale-110"
+                  className="object-contain transition-transform duration-300 hover:scale-110"
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto",
+                  }}
                 />
               </div>
             ))}
           </div>
 
           {/* Second set (for seamless loop) */}
-          <div className="flex items-center gap-8 md:gap-12 flex-shrink-0">
+          <div className="flex items-center gap-12 flex-shrink-0">
             {companies.map((company, index) => (
               <div
                 key={`${company.name}-${index}-second`}
-                className="flex-shrink-0 flex items-center justify-center rounded-lg md:rounded-xl p-1 md:p-2"
+                className="flex-shrink-0 flex items-center justify-center"
                 style={{
-                  width: `${company.width + 16}px`,
-                  height: `${company.height + 16}px`,
+                  width: `${company.width}px`,
+                  height: `${company.height}px`,
+                  minWidth: `${company.width}px`,
+                  minHeight: `${company.height}px`,
                 }}
               >
                 <Image
@@ -94,7 +100,11 @@ export default function Marquee() {
                   alt={`${company.name} logo`}
                   width={company.width}
                   height={company.height}
-                  className="object-contain w-full h-full transition-transform duration-300 hover:scale-110"
+                  className="object-contain transition-transform duration-300 hover:scale-110"
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto",
+                  }}
                 />
               </div>
             ))}
