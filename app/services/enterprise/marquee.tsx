@@ -40,9 +40,7 @@ export default function Marquee() {
 
   return (
     <section className="w-full overflow-hidden py-4 md:py-8 relative bg-white">
-      {/* Subtle gradient borders */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
-      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
+      {/* Removed gradient borders */}
 
       {/* Marquee Content */}
       <div className="flex overflow-hidden relative z-10 h-14 md:h-28">
@@ -63,7 +61,7 @@ export default function Marquee() {
             {companies.map((company, index) => (
               <div
                 key={`${company.name}-${index}-first`}
-                className="flex-shrink-0 flex items-center justify-center bg-white/10 backdrop-blur-sm rounded-lg md:rounded-xl p-1 md:p-2 border border-white/20"
+                className="flex-shrink-0 flex items-center justify-center rounded-lg md:rounded-xl p-1 md:p-2"
                 style={{
                   width: `${company.width + 16}px`,
                   height: `${company.height + 16}px`,
@@ -85,7 +83,7 @@ export default function Marquee() {
             {companies.map((company, index) => (
               <div
                 key={`${company.name}-${index}-second`}
-                className="flex-shrink-0 flex items-center justify-center bg-white/10 backdrop-blur-sm rounded-lg md:rounded-xl p-1 md:p-2 border border-white/20"
+                className="flex-shrink-0 flex items-center justify-center rounded-lg md:rounded-xl p-1 md:p-2"
                 style={{
                   width: `${company.width + 16}px`,
                   height: `${company.height + 16}px`,

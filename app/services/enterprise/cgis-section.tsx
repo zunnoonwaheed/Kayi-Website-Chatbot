@@ -160,6 +160,151 @@ const FinancialPotentialSection = () => {
           </motion.p>
         </div>
 
+        {/* Mobile: Graph at the top */}
+        <div className="lg:hidden mb-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="space-y-6"
+          >
+            {/* Chart Container */}
+            <div className="bg-white rounded-xl shadow-lg p-4 lg:p-6 border border-slate-100">
+              <div className="space-y-4 lg:space-y-6">
+                {/* Chart Header */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <h3 className="text-lg font-semibold text-slate-800">Year</h3>
+                  <div className="flex gap-4 lg:gap-6">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-[#cf21c3]"></div>
+                      <span className="text-xs lg:text-sm text-slate-600 font-medium">Contributions</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-slate-300"></div>
+                      <span className="text-xs lg:text-sm text-slate-600 font-medium">Investment Gains</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Fixed Bar Chart */}
+                <div className="relative h-48 lg:h-64">
+                  {/* Y-axis labels */}
+                  <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-slate-500 font-medium py-2">
+                    {[0, 1, 2, 3, 4].map((i) => (
+                      <span key={i}>{formatLargeCurrency(maxValue * (1 - i * 0.25))}</span>
+                    ))}
+                  </div>
+                  
+                  {/* Chart bars area */}
+                  <div className="ml-8 h-full flex items-end justify-between gap-2 lg:gap-4">
+                    {chartData.map((data, index) => {
+                      const totalHeight = Math.max((data.value / maxValue) * 100, 5);
+                      const contributionsRatio = data.contributions / data.value;
+                      const gainsRatio = data.gains / data.value;
+                      
+                      return (
+                        <div key={index} className="flex flex-col items-center gap-1 flex-1 h-full">
+                          {/* Stacked bars container */}
+                          <div className="relative w-full max-w-8 lg:max-w-12 h-full flex flex-col justify-end">
+                            <motion.div 
+                              className="w-full flex flex-col rounded"
+                              initial={{ scaleY: 0 }}
+                              whileInView={{ scaleY: 1 }}
+                              viewport={{ once: true }}
+                              transition={{
+                                duration: 1.2,
+                                delay: index * 0.1,
+                                ease: "easeOut"
+                              }}
+                              style={{ 
+                                height: `${totalHeight}%`,
+                                transformOrigin: 'bottom'
+                              }}
+                            >
+                              {/* Contributions bar (bottom) */}
+                              <motion.div
+                                className="w-full bg-[#cf21c3]"
+                                initial={{ height: 0 }}
+                                whileInView={{ height: "100%" }}
+                                viewport={{ once: true }}
+                                transition={{
+                                  duration: 0.8,
+                                  delay: index * 0.1 + 0.3,
+                                  ease: "easeOut"
+                                }}
+                                style={{ 
+                                  flex: contributionsRatio,
+                                  minHeight: '4px'
+                                }}
+                              />
+                              
+                              {/* Gains bar (top) */}
+                              <motion.div
+                                className="w-full bg-[#f0d8ef]"
+                                initial={{ height: 0 }}
+                                whileInView={{ height: "100%" }}
+                                viewport={{ once: true }}
+                                transition={{
+                                  duration: 0.8,
+                                  delay: index * 0.1 + 0.5,
+                                  ease: "easeOut"
+                                }}
+                                style={{ 
+                                  flex: gainsRatio,
+                                  minHeight: '4px'
+                                }}
+                              />
+                            </motion.div>
+                          </div>
+                          
+                          {/* X-axis labels */}
+                          <span className="text-xs text-slate-400 font-medium whitespace-nowrap mt-1">
+                            {data.year}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  
+                  {/* Current value indicator */}
+                  <div className="absolute top-4 right-4 bg-slate-800 text-white px-3 py-1 rounded text-sm font-bold">
+                    {formatLargeCurrency(futureValue)}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Results Display */}
+            <motion.div
+              className="text-center space-y-3 lg:space-y-4"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+            >
+              <motion.div
+                className="text-3xl lg:text-6xl font-bold text-slate-800"
+                initial={{ opacity: 0, y: 20, scale: 0.8 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 1.0 }}
+              >
+                {formatCurrency(futureValue)}
+              </motion.div>
+              <motion.p
+                className="text-base lg:text-lg text-slate-600 font-medium"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 1.2 }}
+              >
+                Potential Future Balance at Age 65
+              </motion.p>
+            </motion.div>
+          </motion.div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           
           {/* Left Side - Calculator Form */}
@@ -276,13 +421,13 @@ const FinancialPotentialSection = () => {
             </div>
           </motion.div>
 
-          {/* Right Side - Chart and Results */}
+          {/* Right Side - Chart and Results (Desktop only) */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="space-y-6 lg:space-y-8"
+            className="hidden lg:block space-y-6 lg:space-y-8"
           >
             {/* Chart Container */}
             <div className="bg-white rounded-xl shadow-lg p-4 lg:p-6 border border-slate-100">
@@ -418,9 +563,9 @@ const FinancialPotentialSection = () => {
               </motion.p>
             </motion.div>
 
-            {/* CTA Section - Hidden on mobile */}
+            {/* CTA Section */}
             <motion.div
-              className="hidden lg:block bg-white rounded-xl shadow-lg p-6 border border-slate-100"
+              className="bg-white rounded-xl shadow-lg p-6 border border-slate-100"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -447,25 +592,25 @@ const FinancialPotentialSection = () => {
                 </motion.button>
               </div>
             </motion.div>
-
-            {/* Mobile CTA Button */}
-            <motion.div
-              className="lg:hidden text-center"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 1.4 }}
-            >
-              <motion.button
-                className="px-8 py-3 bg-[#cf21c3] text-white font-semibold rounded-full hover:bg-[#b01da6] transition-colors text-base w-full max-w-xs"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Start Investing Now
-              </motion.button>
-            </motion.div>
           </motion.div>
         </div>
+
+        {/* Mobile CTA Button */}
+        <motion.div
+          className="lg:hidden text-center mt-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 1.4 }}
+        >
+          <motion.button
+            className="px-8 py-3 bg-[#cf21c3] text-white font-semibold rounded-full hover:bg-[#b01da6] transition-colors text-base w-full max-w-xs"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Start Investing Now
+          </motion.button>
+        </motion.div>
       </div>
     </section>
   );

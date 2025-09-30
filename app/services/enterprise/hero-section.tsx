@@ -20,7 +20,7 @@ export default function HeroSection() {
               Film the{" "}
               <span className="relative inline-block">
                 impossible
-                {/* Desktop underline - unchanged */}
+                {/* Desktop underline - Pink color */}
                 <div className="absolute bottom-0 left-0 w-full h-10 md:h-11 lg:h-12 translate-y-3 md:translate-y-4 hidden lg:block">
                   <svg 
                     viewBox="0 0 220 45" 
@@ -29,21 +29,21 @@ export default function HeroSection() {
                   >
                     <path 
                       d="M14,28 Q33,24 54,28" 
-                      stroke="#000" 
+                      stroke="#cf21c3" 
                       strokeWidth="2.5" 
                       fill="none"
                       strokeLinecap="round"
                     />
                     <path 
                       d="M60,28 Q100,22 140,27 Q175,24 210,28" 
-                      stroke="#000" 
+                      stroke="#cf21c3" 
                       strokeWidth="2.6" 
                       fill="none"
                       strokeLinecap="round"
                     />
                     <path 
                       d="M60,32 Q100,26 140,30 Q175,27 210,32" 
-                      stroke="#000" 
+                      stroke="#cf21c3" 
                       strokeWidth="2.3" 
                       fill="none"
                       strokeLinecap="round"
@@ -51,19 +51,29 @@ export default function HeroSection() {
                     />
                   </svg>
                 </div>
-                {/* Mobile underline - improved */}
-                <div className="absolute bottom-0 left-0 w-full h-2 translate-y-1 lg:hidden">
+                {/* Mobile underline - Improved pink design */}
+                <div className="absolute bottom-0 left-0 w-full h-3 translate-y-1 lg:hidden">
                   <svg 
-                    viewBox="0 0 220 15" 
+                    viewBox="0 0 180 12" 
                     className="w-full h-full"
                     preserveAspectRatio="none"
                   >
+                    {/* Main pink line */}
                     <path 
-                      d="M10,5 Q50,2 90,5 Q130,3 170,5 Q190,4 210,5" 
-                      stroke="#000" 
-                      strokeWidth="2.5" 
+                      d="M5,6 Q45,3 85,6 Q125,4 165,6" 
+                      stroke="#cf21c3" 
+                      strokeWidth="3" 
                       fill="none"
                       strokeLinecap="round"
+                    />
+                    {/* Accent line for depth */}
+                    <path 
+                      d="M8,8 Q48,5 88,8 Q128,6 168,8" 
+                      stroke="#cf21c3" 
+                      strokeWidth="1.5" 
+                      fill="none"
+                      strokeLinecap="round"
+                      opacity="0.6"
                     />
                   </svg>
                 </div>
@@ -90,7 +100,7 @@ export default function HeroSection() {
             >
               <a 
                 href="https://calendly.com/saadalii/kayidigital" 
-                className="w-full sm:w-auto inline-flex items-center justify-center px-6 sm:px-8 py-3 text-base sm:text-lg font-semibold text-white bg-black rounded-xl hover:bg-gray-800 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-6 sm:px-8 py-3 text-base sm:text-lg font-semibold text-white rounded-xl transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl bg-gradient-to-r from-[#cf21c3] to-[#a81b9e] hover:from-[#b01da6] hover:to-[#8f1687] shadow-lg"
               >
                 Start Creating Magic
               </a>
