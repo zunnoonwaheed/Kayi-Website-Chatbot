@@ -7,10 +7,9 @@ import { motion } from "framer-motion";
 
 const reviews = [
   {
-    name: "Sarah, Kickflip",
-    image:
-      "https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    text: "Amazing platform that changed how we work.",
+    name: "Vaseline P.",
+    video: "/images/movie1.mov",
+    text: "Working with agencies can be difficult but these guys keep it straight forward",
   },
   {
     name: "Lauren T.",
