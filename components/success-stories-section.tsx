@@ -339,14 +339,11 @@ const projects: Project[] = [
 
 const categories = [
   "Latest Projects",
-  "Business Automation",
   "Performance Marketing",
   "Web Development",
   "Mobile App Development",
-  "Custom Software Solutions",
   "E-commerce Development",
   "AI & Automation Tools",
-  "CRM & Sales Systems",
   "Brand Identity & Design",
   "SEO & Content Marketing",
 ]
