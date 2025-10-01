@@ -10,7 +10,6 @@ import { Questions } from "./questions"
 import { FaqsSection } from "./faqs-section"
 import Marquee from "./marquee"        
 import { TextSection } from "./text"   
-import AssetHero from "./asset-hero"
 import Review from "./review"   // 👈 added
 
 export default function EnterprisePage() {
@@ -45,7 +44,6 @@ export default function EnterprisePage() {
       <TechnologiesSection />
       <CgisSection />
       <TextSection />  
-      <AssetHero />
       <CgisWork />
       <SubscriptionPlans />
       <Questions />
