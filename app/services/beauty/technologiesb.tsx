@@ -3,62 +3,62 @@ import { motion } from "framer-motion"
 import { useState } from "react"
 
 const Technologies = () => {
-  const [activeTab, setActiveTab] = useState("Dental Practices")
+  const [activeTab, setActiveTab] = useState("Skincare")
 
   const categories = {
-    "Dental Practices": [
+    "Skincare": [
       { 
         src: "/images/Perfume-CGI-1.mp4", 
-        alt: "Dental Procedure Animation",
-        result: "340% increase in consultation bookings",
+        alt: "Skincare serum cellular absorption visualization",
+        result: "400% increase in Instagram engagement",
         isVideo: true 
       },
       { 
         src: "/images/Perfume-CGI-2.mp4", 
-        alt: "Dental Treatment Visualization",
-        result: "87% of patients book after watching",
+        alt: "Active ingredient penetration animation",
+        result: "2.3x ROAS improvement in 60 days",
         isVideo: true 
       },
     ],
-    "Medical Devices": [
+    "Supplements & Vitamins": [
       { 
         src: "/images/Skincare-CGI-1.mp4", 
-        alt: "Medical Device Mechanism",
-        result: "340% increase in consultation bookings",
+        alt: "Supplement ingredient animation showing benefits",
+        result: "400% increase in Instagram engagement",
         isVideo: true 
       },
       { 
         src: "/images/Skincare-CGI-2.mp4", 
-        alt: "Device Technology Showcase",
-        result: "87% of patients book after watching",
+        alt: "Vitamin absorption mechanism visualization",
+        result: "2.3x ROAS improvement in 60 days",
         isVideo: true 
       },
     ],
-    "Clinics & Specialists": [
+    "Cosmetics & Makeup": [
       { 
         src: "/images/shoes1.mp4", 
-        alt: "Clinic Procedure Animation",
-        result: "340% increase in consultation bookings",
+        alt: "Makeup application and pigment technology",
+        result: "400% increase in Instagram engagement",
         isVideo: true 
       },
       { 
         src: "/images/shoes2.mp4", 
-        alt: "Specialist Treatment Visual",
-        result: "87% of patients book after watching",
+        alt: "Cosmetics texture and finish visualization",
+        result: "2.3x ROAS improvement in 60 days",
         isVideo: true 
       },
     ],
-    "Pharmaceutical": [
+    "Haircare & Beauty Tools": [
       { 
         src: "/images/bag1.mp4", 
-        alt: "Pharmaceutical Mechanism",
-        result: "340% increase in consultation bookings",
+        alt: "Hair product absorption and repair process",
+        result: "400% increase in Instagram engagement",
         isVideo: true 
       },
       { 
         src: "/images/bag2.mp4", 
-        alt: "Drug Action Visualization",
-        result: "87% of patients book after watching",
+        alt: "Beauty tool technology demonstration",
+        result: "2.3x ROAS improvement in 60 days",
         isVideo: true 
       },
     ],
@@ -78,7 +78,7 @@ const Technologies = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            See CGI Ads From Healthcare Providers Like You
+            See CGI Ads From Beauty Brands Like Yours
           </motion.h1>
           <motion.p 
             className="text-base md:text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed"
@@ -87,7 +87,7 @@ const Technologies = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            See how healthcare providers use CGI to explain complex procedures and help patients understand their services.
+            Discover how beauty brands use CGI to showcase product benefits and drive exceptional results.
           </motion.p>
         </div>
 
@@ -324,7 +324,7 @@ const Technologies = () => {
             viewport={{ once: true, margin: "-50px" }}
             className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
           >
-            Let's bring{" "}
+            Ready to elevate{" "}
             <motion.span
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -336,9 +336,9 @@ const Technologies = () => {
               viewport={{ once: true }}
               className="text-transparent bg-clip-text bg-gradient-to-r from-[#cf21c3] to-pink-500"
             >
-              your vision
+              your brand
             </motion.span>{" "}
-            to life
+            with CGI?
           </motion.h2>
           
           {/* Description */}
@@ -353,7 +353,7 @@ const Technologies = () => {
             viewport={{ once: true }}
             className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto"
           >
-            Ready to take the next step? Let's discuss your project and bring your ideas to reality.
+            Book your free campaign review and discover how CGI can transform your beauty brand's marketing.
           </motion.p>
           
           {/* Rounded CTA Button */}

@@ -29,22 +29,22 @@ export default function HeroSection() {
             className="px-8 py-3 rounded-full text-white font-semibold text-sm md:text-base shadow-lg"
             style={{ backgroundColor: '#CF21C3' }}
           >
-            ✨ TRUSTED BY 135+ CLINICS
+            ✨ TRUSTED BY 135+ BEAUTY & COSMETICS BRANDS
           </div>
         </div>
 
         {/* Main Headline */}
         <div className="text-center mb-8">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-            OVER <span style={{ color: '#CF21C3' }}>135+ HEALTHCARE BRANDS</span> GENERATED{' '}
-            <span style={{ color: '#CF21C3' }}>$22 MILLION</span> WITH OUR CGI CAMPAIGNS
+            OVER <span style={{ color: '#CF21C3' }}>135+ BEAUTY BRANDS</span> GENERATED{' '}
+            <span style={{ color: '#CF21C3' }}>$22 MILLION</span> WITH OUR CGI ADS
           </h1>
         </div>
 
         {/* Subheadline */}
         <div className="text-center mb-8 px-4">
           <p className="text-base sm:text-lg md:text-xl font-medium text-gray-700 max-w-4xl mx-auto leading-relaxed">
-            📞 Book A Free Campaign Review And See How CGI Ads Help Patients Understand Your Services
+            📞 Book A Free Campaign Review And Get The Exact Creative Strategy That's Driving These Results
           </p>
         </div>
 
@@ -59,7 +59,7 @@ export default function HeroSection() {
         {/* Primary CTA Heading */}
         <div className="text-center mb-10">
           <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
-            Ready To Explain Complex Procedures Visually? Schedule A Call Below.
+            Ready To Stand Out From Competitors? Schedule A Call Below.
           </h3>
         </div>
 
