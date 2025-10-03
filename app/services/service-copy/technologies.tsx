@@ -211,9 +211,9 @@ const Technologies = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1, duration: 0.6 }}
-                            className="absolute bottom-16 left-4 right-4"
+                            className="absolute bottom-16 left-4 right-4 flex justify-center"
                           >
-                            <div className="bg-white/95 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-lg">
+                            <div className="bg-white/95 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-lg text-center">
                               <p className="text-sm font-semibold text-[#cf21c3]">
                                 📊 {item.result}
                               </p>
@@ -287,9 +287,9 @@ const Technologies = () => {
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 1, duration: 0.6 }}
-                          className="absolute bottom-16 left-4 right-4"
+                          className="absolute bottom-16 left-4 right-4 flex justify-center"
                         >
-                          <div className="bg-white/95 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-lg">
+                          <div className="bg-white/95 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-lg text-center">
                             <p className="text-sm font-semibold text-[#cf21c3]">
                               📊 {item.result}
                             </p>

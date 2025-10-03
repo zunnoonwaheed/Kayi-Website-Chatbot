@@ -33,13 +33,13 @@ export default function GuaranteeSection() {
   };
 
   return (
-    <section className="flex justify-center items-center py-12 px-4 bg-white">
+    <section className="flex justify-center items-center py-8 md:py-12 px-4 bg-white">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="relative max-w-6xl w-full rounded-3xl shadow-2xl p-8 text-white overflow-hidden"
+        className="relative max-w-7xl w-full rounded-3xl shadow-2xl p-6 md:p-10 text-white overflow-hidden"
       >
         {/* Animated Gradient Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
@@ -163,7 +163,7 @@ export default function GuaranteeSection() {
                 <div 
                   className="calendly-inline-widget" 
                   data-url="https://calendly.com/saadalii/kayidigital?primary_color=cf21c3&hide_gdpr_banner=1&hide_event_type_details=1"
-                  style={{ minWidth: '320px', height: '500px', width: '100%' }}
+                  style={{ minWidth: '320px', height: '480px', width: '100%' }}
                 />
               </div>
             </motion.div>
@@ -235,17 +235,17 @@ export default function GuaranteeSection() {
         /* Desktop adjustments */
         @media (min-width: 769px) {
           .calendly-embed-container {
-            max-height: 480px;
+            max-height: 580px;
             overflow: hidden;
           }
 
           .calendly-embed-container .calendly-inline-widget {
-            height: 550px !important;
+            height: 650px !important;
           }
 
           .calendly-embed-container .calendly-inline-widget iframe {
-            margin-top: -100px !important;
-            margin-bottom: -150px !important;
+            margin-top: -120px !important;
+            margin-bottom: -100px !important;
           }
         }
       `}</style>

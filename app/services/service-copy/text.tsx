@@ -42,20 +42,36 @@ export function TextSection() {
           </motion.span>
         </motion.p>
 
-        {/* Button */}
+        {/* Button - Updated to match SocialProof */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
+          className="text-center"
         >
-          <Button 
-            size="lg" 
-            className="group px-8 py-4 text-lg font-semibold border-0 rounded-full"
-            style={{ backgroundColor: '#cf21c3' }}
+          <motion.a
+            href="#"
+            className="inline-flex items-center px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold text-white 
+                       bg-gradient-to-r from-[#cf21c3] to-pink-500 rounded-full 
+                       hover:from-[#cf21c3]/90 hover:to-pink-500/90 
+                       transition-all duration-300 shadow-lg hover:shadow-xl
+                       transform hover:-translate-y-1"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             Get Started Now
-            <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-          </Button>
+            <motion.svg 
+              className="ml-2 w-4 h-4 md:w-5 md:h-5" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+              initial={{ x: 0 }}
+              whileHover={{ x: 5 }}
+              transition={{ duration: 0.2 }}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </motion.svg>
+          </motion.a>
         </motion.div>
       </div>
     </section>

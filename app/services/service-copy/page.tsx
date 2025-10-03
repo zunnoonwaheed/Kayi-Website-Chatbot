@@ -12,6 +12,7 @@ import AssetHero from "./asset-hero"
 import Review from "./review"
 import SocialProof from "./social-proof"
 import Guarantee from "./guarantee"  
+import VideoReview from "./video-review" // Add this import
 
 export default function EnterprisePage() {
   return (
@@ -44,8 +45,8 @@ export default function EnterprisePage() {
       <SocialProof />
       <CgisWork />
       <Guarantee /> 
-      <Review /> 
-
+      <Review />
+      <VideoReview /> {/* Add VideoReview component here */}
 
       <CardsSection />
       <TextSection />  

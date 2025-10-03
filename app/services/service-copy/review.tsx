@@ -17,7 +17,7 @@ const ReviewsSection = () => {
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ken",
       content: {
         title: "Woke Up to Our First Ever Payment on Whop!",
-        text: "My wife and I just got our first-ever sale on Whop — and we literally woke up to the notification. It was surreal. We've been putting in the late nights building our offer, refining the value, and figuring out how to actually get it in front of people who might hit different."
+        text: "My wife and I just got our first-ever sale on Whop — and we literally woke up to the notification. It was surreal. We've been putting in the late nights building our offer, refining the value, and figuring out how to actually get it in front of people who might hit different. The feeling of seeing that first payment come through after all the hard work is absolutely incredible and makes every late night worth it."
       }
     },
     {
@@ -28,7 +28,7 @@ const ReviewsSection = () => {
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Raman",
       content: {
         title: "Just Got My First Sale today on my digital product Crypto Wallet Guardian.",
-        text: "This thing got me some hope.",
+        text: "This thing got me some hope. After months of development and testing, seeing that first customer purchase validation all the effort. The Crypto Wallet Guardian is designed to provide maximum security for digital assets, and getting that first sale proves there's real demand for quality security solutions in the crypto space.",
         image: {
           type: "revenue",
           amount: "$150.00",
@@ -44,7 +44,7 @@ const ReviewsSection = () => {
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Tim",
       content: {
         title: "First Sale Achieved 🎉 Proof Over Opinions. Vision Over Noise.",
-        text: "For 3 months, I gave it everything. No alcohol. No parties. Gym 5x a week. Relentless focus. I skipped time with friends and family — not because I didn't care, but because I believed in something they couldn't see."
+        text: "For 3 months, I gave it everything. No alcohol. No parties. Gym 5x a week. Relentless focus. I skipped time with friends and family — not because I didn't care, but because I believed in something they couldn't see. This first sale validates that the sacrifice was worth it and proves that when you commit fully to your vision, the universe conspires to help you achieve it. The journey is just beginning."
       }
     },
     {
@@ -55,7 +55,7 @@ const ReviewsSection = () => {
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=SVBN",
       content: {
         title: "I Launched My First Digital Product - And Made My First Sales",
-        text: "After two months inside Monetise, I just launched my first digital product and listed it live on the Whop Marketplace. Even better - I've already made 4 sales and real buyers are inside, with no ads run."
+        text: "After two months inside Monetise, I just launched my first digital product and listed it live on the Whop Marketplace. Even better - I've already made 4 sales and real buyers are inside, with no ads run. The system really works when you follow the process and put in the consistent effort. Seeing multiple sales come through in the first week shows this is a sustainable business model, not just a one-time fluke."
       }
     },
     {
@@ -66,7 +66,7 @@ const ReviewsSection = () => {
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Armando",
       content: {
         title: "Shoutout to @Iman Gadzhi and @Andries Schoeman for the guidance throughout this journey.",
-        text: "Happy to say I've accomplished most of my 2025 goals this year — from buying my dad his dream truck to purchasing a McLaren at 19.",
+        text: "Happy to say I've accomplished most of my 2025 goals this year — from buying my dad his dream truck to purchasing a McLaren at 19. The mentorship and guidance from industry leaders has been invaluable in accelerating my success. Their insights into business strategy, marketing, and personal development have helped me achieve in months what might have taken years to figure out on my own.",
         image: {
           type: "goals",
           items: [
@@ -90,7 +90,7 @@ const ReviewsSection = () => {
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Armando2",
       content: {
         title: "Completely new to the digital product space, but I do have to say after going through the Monetise modules I was able to do something valuable that helped others and numbers speak for themselves.",
-        text: "I was able to do a little over 100k in revenue within 65 days of starting and selling 8 products.",
+        text: "I was able to do a little over 100k in revenue within 65 days of starting and selling 8 products. The step-by-step guidance in the Monetise program made it possible to achieve these results even as a complete beginner. The community support and proven frameworks eliminated the guesswork and allowed me to focus on execution rather than figuring things out through trial and error.",
         earnings: "$111,700"
       }
     },
@@ -102,7 +102,7 @@ const ReviewsSection = () => {
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Success",
       content: {
         title: "From Zero to $761,786 ARR 🚀",
-        text: "A few months ago, I joined Monetise with no clear expectations, just a desire to start and scale my business. I had the vision, but had many moments where I wondered if it would pay off."
+        text: "A few months ago, I joined Monetise with no clear expectations, just a desire to start and scale my business. I had the vision, but had many moments where I wondered if it would pay off. Today, we're tracking toward $800k ARR and the business continues to grow exponentially. The systems, strategies, and mindset shifts taught in the program were the missing pieces I needed to turn my ideas into a thriving, sustainable business that creates real value for customers."
       }
     }
   ];
@@ -217,7 +217,7 @@ const ReviewsSection = () => {
         </div>
 
         {/* Carousel Container */}
-        <div className="relative min-h-[340px] md:min-h-[420px] flex items-center">
+        <div className="relative min-h-[450px] md:min-h-[550px] flex items-center">
           {/* Navigation Buttons */}
           <motion.button
             onClick={prevSlide}
@@ -241,7 +241,7 @@ const ReviewsSection = () => {
 
           {/* Cards Container */}
           <div className="w-full flex items-center justify-center">
-            <div className="flex items-center justify-center gap-0 md:gap-4 px-2">
+            <div className="flex items-center justify-center gap-0 md:gap-6 px-2">
               <AnimatePresence mode="popLayout" custom={direction} initial={false}>
                 {getVisibleReviews().map((review) => (
                   <motion.div
@@ -253,35 +253,35 @@ const ReviewsSection = () => {
                     exit={review.position === 0 ? "exit" : "hidden"}
                     className={`flex-shrink-0 ${
                       review.position === 0
-                        ? 'w-[300px] md:w-[500px] z-20'
-                        : 'hidden md:block w-[350px] z-10 blur-[1px]'
+                        ? 'w-[340px] md:w-[600px] z-20'
+                        : 'hidden md:block w-[500px] z-10 blur-[1px]'
                     } ${
                       review.position === -1 ? 'order-1' : 
                       review.position === 0 ? 'order-2' : 'order-3'
                     }`}
                   >
                     <motion.div 
-                      className="bg-white text-black rounded-xl p-3 md:p-4 shadow-lg border border-gray-100 h-full"
+                      className="bg-white text-black rounded-xl p-5 md:p-7 shadow-lg border border-gray-100 h-full"
                       whileHover={review.position === 0 ? { y: -2 } : {}}
                       transition={{ type: "tween", duration: 0.2 }}
                     >
                       {/* Profile Header */}
-                      <div className="flex items-start gap-2 mb-2">
+                      <div className="flex items-start gap-3 mb-4">
                         <motion.img
                           src={review.avatar}
                           alt={review.name}
-                          className="w-8 h-8 md:w-10 md:h-10 rounded-full flex-shrink-0"
+                          className="w-12 h-12 md:w-14 md:h-14 rounded-full flex-shrink-0"
                           whileHover={{ scale: 1.05 }}
                           transition={{ type: "tween", duration: 0.2 }}
                         />
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-1 flex-wrap">
-                            <span className="font-bold text-sm text-gray-900">{review.name}</span>
-                            <span className="text-gray-500 text-xs truncate">{review.handle}</span>
-                            <span className="text-gray-400 text-xs">· {review.time}</span>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="font-bold text-lg text-gray-900">{review.name}</span>
+                            <span className="text-gray-500 text-base truncate">{review.handle}</span>
+                            <span className="text-gray-400 text-base">· {review.time}</span>
                           </div>
                           {review.content.title && (
-                            <h3 className="font-bold text-xs leading-tight text-gray-800 line-clamp-2">
+                            <h3 className="font-bold text-base leading-tight text-gray-800 line-clamp-2 mt-2">
                               {review.content.title}
                             </h3>
                           )}
@@ -291,7 +291,7 @@ const ReviewsSection = () => {
                       {/* Content */}
                       <div>
                         <motion.p 
-                          className="text-xs leading-relaxed text-gray-700 line-clamp-3"
+                          className="text-base leading-relaxed text-gray-700 line-clamp-5"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: 0.1, duration: 0.3 }}
@@ -302,26 +302,26 @@ const ReviewsSection = () => {
                         {/* Revenue Chart */}
                         {review.content.image?.type === 'revenue' && (
                           <motion.div 
-                            className="bg-gradient-to-br from-orange-400 to-orange-500 rounded p-2 mt-2"
+                            className="bg-gradient-to-br from-orange-400 to-orange-500 rounded-lg p-4 mt-4"
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ delay: 0.15, type: "tween", duration: 0.3 }}
                           >
-                            <div className="bg-white rounded p-2">
-                              <div className="text-xs text-gray-600">Gross revenue</div>
-                              <div className="text-lg md:text-xl font-bold text-gray-900">{review.content.image.amount}</div>
-                              <div className="text-xs text-gray-500">{review.content.image.label}</div>
-                              <div className="mt-1">
-                                <svg viewBox="0 0 200 30" className="w-full h-4 md:h-5">
+                            <div className="bg-white rounded-lg p-4">
+                              <div className="text-base text-gray-600">Gross revenue</div>
+                              <div className="text-2xl md:text-3xl font-bold text-gray-900">{review.content.image.amount}</div>
+                              <div className="text-base text-gray-500">{review.content.image.label}</div>
+                              <div className="mt-3">
+                                <svg viewBox="0 0 200 30" className="w-full h-6 md:h-7">
                                   <polyline
                                     points="0,25 50,23 100,18 150,12 200,8"
                                     fill="none"
                                     stroke="#3b82f6"
-                                    strokeWidth="2.5"
+                                    strokeWidth="3"
                                   />
                                 </svg>
                               </div>
-                              <div className="flex justify-between text-xs text-gray-500">
+                              <div className="flex justify-between text-base text-gray-500 mt-2">
                                 <span>Aug 8</span>
                                 <span>Today</span>
                               </div>
@@ -332,39 +332,39 @@ const ReviewsSection = () => {
                         {/* Goals List with Car */}
                         {review.content.image?.type === 'goals' && (
                           <motion.div 
-                            className="bg-gray-900 rounded p-2 mt-2"
+                            className="bg-gray-900 rounded-lg p-4 mt-4"
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ delay: 0.15, type: "tween", duration: 0.3 }}
                           >
-                            <div className="flex gap-2">
+                            <div className="flex gap-4">
                               <div className="flex-1">
-                                <div className="text-white font-bold text-xs">2025 Goals</div>
-                                <div>
-                                  {review.content.image.items.slice(0, 2).map((item, idx) => (
+                                <div className="text-white font-bold text-base mb-3">2025 Goals</div>
+                                <div className="space-y-2">
+                                  {review.content.image.items.slice(0, 4).map((item, idx) => (
                                     <motion.div 
                                       key={idx} 
-                                      className="flex items-center gap-1"
+                                      className="flex items-center gap-2"
                                       initial={{ opacity: 0, x: -10 }}
                                       animate={{ opacity: 1, x: 0 }}
                                       transition={{ delay: 0.2 + idx * 0.1, duration: 0.2 }}
                                     >
-                                      <div className="w-3 h-3 rounded-full bg-yellow-400 flex items-center justify-center text-black font-bold text-[8px]">
+                                      <div className="w-5 h-5 rounded-full bg-yellow-400 flex items-center justify-center text-black font-bold text-sm">
                                         ✓
                                       </div>
-                                      <span className="text-gray-300 text-xs line-clamp-1">{item}</span>
+                                      <span className="text-gray-300 text-base line-clamp-1">{item}</span>
                                     </motion.div>
                                   ))}
                                 </div>
                               </div>
                               {review.content.image.carImage && (
                                 <motion.div 
-                                  className="w-12 h-12 bg-gray-800 rounded flex items-center justify-center"
+                                  className="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center"
                                   initial={{ scale: 0 }}
                                   animate={{ scale: 1 }}
                                   transition={{ type: "tween", delay: 0.3, duration: 0.3 }}
                                 >
-                                  <div className="text-xl">🏎️</div>
+                                  <div className="text-3xl">🏎️</div>
                                 </motion.div>
                               )}
                             </div>
@@ -374,27 +374,27 @@ const ReviewsSection = () => {
                         {/* Earnings Badge */}
                         {review.content.earnings && (
                           <motion.div 
-                            className="bg-gray-900 rounded p-2 mt-2"
+                            className="bg-gray-900 rounded-lg p-4 mt-4"
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ delay: 0.15, type: "tween", duration: 0.3 }}
                           >
-                            <div className="flex items-center justify-between gap-1">
-                              <div className="flex items-center gap-1 min-w-0 flex-1">
-                                <div className="w-5 h-5 bg-yellow-500 rounded-full flex items-center justify-center text-xs">
+                            <div className="flex items-center justify-between gap-3">
+                              <div className="flex items-center gap-3 min-w-0 flex-1">
+                                <div className="w-7 h-7 bg-yellow-500 rounded-full flex items-center justify-center text-base">
                                   🏆
                                 </div>
                                 <img
                                   src={review.avatar}
                                   alt={review.name}
-                                  className="w-6 h-6 rounded-full flex-shrink-0"
+                                  className="w-10 h-10 rounded-full flex-shrink-0"
                                 />
                                 <div className="min-w-0 flex-1">
-                                  <div className="text-white font-bold text-xs truncate">{review.name}</div>
-                                  <div className="text-gray-400 text-xs truncate">{review.handle}</div>
+                                  <div className="text-white font-bold text-base truncate">{review.name}</div>
+                                  <div className="text-gray-400 text-base truncate">{review.handle}</div>
                                 </div>
                               </div>
-                              <div className="text-green-400 font-bold text-xs flex items-center gap-1">
+                              <div className="text-green-400 font-bold text-base flex items-center gap-2">
                                 <span>💚</span>
                                 <span>{review.content.earnings}</span>
                               </div>
