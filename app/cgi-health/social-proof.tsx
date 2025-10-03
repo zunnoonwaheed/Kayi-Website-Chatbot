@@ -1,7 +1,9 @@
 "use client"
 import { motion } from "framer-motion"
+import { useState, useEffect } from "react"
 
 const SocialProof = () => {
+  const [isDateSelected, setIsDateSelected] = useState(false);
   const clients = [
     {
       rank: 1,
@@ -26,9 +28,34 @@ const SocialProof = () => {
     }
   ]
 
+  useEffect(() => {
+    // Load Calendly widget script
+    const script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    // Listen for Calendly events to detect when date is selected
+    const handleMessage = (event) => {
+      if (event.data.event && event.data.event === 'calendly.event_scheduled') {
+        setIsDateSelected(true);
+      }
+      if (event.data.event && event.data.event === 'calendly.date_and_time_selected') {
+        setIsDateSelected(true);
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+
+    return () => {
+      document.body.removeChild(script);
+      window.removeEventListener('message', handleMessage);
+    };
+  }, []);
+
   return (
     <div className="bg-white py-12 md:py-20 px-4">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         {/* Headline */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
@@ -191,7 +218,7 @@ const SocialProof = () => {
           in under 90 days using CGI ads that help patients understand procedures before booking.
         </motion.p>
 
-        {/* CTA Button */}
+        {/* CTA Button with Calendly */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -199,6 +226,20 @@ const SocialProof = () => {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="text-center mt-8 md:mt-10"
         >
+          {/* Calendly Embed - EXACT same as Hero section */}
+          <div className="max-w-5xl mx-auto mb-6">
+            <div 
+              className={`rounded-3xl overflow-hidden shadow-2xl border-4 calendly-container ${isDateSelected ? 'scrollable' : 'no-scroll'}`}
+              style={{ borderColor: '#CF21C3' }}
+            >
+              <div 
+                className="calendly-inline-widget" 
+                data-url="https://calendly.com/saadalii/kayidigital?primary_color=cf21c3&hide_gdpr_banner=1&hide_event_type_details=1"
+                style={{ minWidth: '320px', height: '700px', width: '100%' }}
+              />
+            </div>
+          </div>
+
           <motion.a
             href="https://calendly.com/saadalii/kayidigital"
             target="_blank"
@@ -225,6 +266,157 @@ const SocialProof = () => {
             </motion.svg>
           </motion.a>
         </motion.div>
+
+        {/* Custom Styling - EXACT same as Hero section */}
+        <style jsx>{`
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+          
+          * {
+            font-family: 'Inter', sans-serif;
+          }
+          
+          .calendly-inline-widget iframe {
+            border-radius: 1.5rem;
+          }
+
+          h1, h2, h3 {
+            letter-spacing: -0.02em;
+          }
+
+          /* Initial state - NO SCROLL - HIDE SCROLLBARS */
+          .calendly-container.no-scroll {
+            overflow: hidden !important;
+          }
+
+          .calendly-container.no-scroll .calendly-inline-widget {
+            overflow: hidden !important;
+          }
+
+          .calendly-container.no-scroll .calendly-inline-widget iframe {
+            overflow: hidden !important;
+            pointer-events: auto !important;
+            -ms-overflow-style: none !important;  /* IE and Edge */
+            scrollbar-width: none !important;     /* Firefox */
+          }
+
+          /* Hide scrollbar for Chrome, Safari and Opera */
+          .calendly-container.no-scroll .calendly-inline-widget iframe::-webkit-scrollbar {
+            display: none !important;
+          }
+
+          /* After date selection - SCROLLABLE */
+          .calendly-container.scrollable {
+            overflow: auto !important;
+          }
+
+          .calendly-container.scrollable .calendly-inline-widget {
+            overflow: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+          }
+
+          .calendly-container.scrollable .calendly-inline-widget iframe {
+            overflow: auto !important;
+            height: auto !important;
+            min-height: 700px !important;
+          }
+
+          /* Remove all internal padding and spacing from Calendly */
+          .calendly-inline-widget {
+            padding: 0 !important;
+            margin: 0 !important;
+            background: white !important;
+          }
+
+          .calendly-inline-widget iframe {
+            padding: 0 !important;
+            margin: 0 !important;
+            display: block !important;
+          }
+
+          .calendly-container {
+            padding-top: 20px;
+          }
+
+          /* Hide the Calendly floating badge from all views */
+          .calendly-badge-widget,
+          .calendly-badge-content,
+          .calendly-overlay,
+          .calendly-popup-content {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+          }
+
+          /* Additional mobile and desktop targeting */
+          @media (max-width: 768px) {
+            .calendly-badge-widget,
+            .calendly-badge-content,
+            .calendly-overlay {
+              display: none !important;
+            }
+
+            /* Mobile - initial no scroll */
+            .calendly-container.no-scroll .calendly-inline-widget {
+              height: 500px !important;
+            }
+
+            .calendly-container.no-scroll .calendly-inline-widget iframe {
+              height: 500px !important;
+            }
+
+            /* Mobile - after selection scrollable */
+            .calendly-container.scrollable .calendly-inline-widget {
+              height: 500px !important;
+              overflow-y: auto !important;
+            }
+
+            .calendly-container.scrollable .calendly-inline-widget iframe {
+              height: 800px !important;
+              min-height: 800px !important;
+            }
+
+            .calendly-container {
+              padding-top: 15px;
+              padding-bottom: 0 !important;
+              max-height: 500px;
+            }
+          }
+
+          @media (min-width: 769px) {
+            .calendly-badge-widget,
+            .calendly-badge-content,
+            .calendly-overlay {
+              display: none !important;
+            }
+
+            /* Desktop - initial no scroll */
+            .calendly-container.no-scroll .calendly-inline-widget {
+              height: 650px !important;
+            }
+
+            .calendly-container.no-scroll .calendly-inline-widget iframe {
+              height: 650px !important;
+            }
+
+            /* Desktop - after selection scrollable */
+            .calendly-container.scrollable .calendly-inline-widget {
+              height: 650px !important;
+              overflow-y: auto !important;
+            }
+
+            .calendly-container.scrollable .calendly-inline-widget iframe {
+              height: 900px !important;
+              min-height: 900px !important;
+            }
+
+            .calendly-container {
+              max-height: 650px;
+              padding-top: 10px;
+              padding-bottom: 0 !important;
+            }
+          }
+        `}</style>
       </div>
     </div>
   )
