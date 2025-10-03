@@ -39,9 +39,9 @@ export default function Marquee() {
   const animationDuration = widthOfFirstSet > 0 ? widthOfFirstSet / 60 : 5
 
   return (
-    <section className="w-full overflow-hidden bg-transparent">
+    <section className="w-full overflow-hidden bg-white py-8">
       {/* Marquee Content */}
-      <div className="flex overflow-hidden">
+      <div className="flex overflow-hidden bg-white">
         <motion.div
           className="flex items-center gap-12"
           animate={{ x: widthOfFirstSet ? [0, -widthOfFirstSet] : 0 }}
@@ -59,7 +59,7 @@ export default function Marquee() {
             {companies.map((company, index) => (
               <div
                 key={`${company.name}-${index}-first`}
-                className="flex-shrink-0 flex items-center justify-center bg-transparent"
+                className="flex-shrink-0 flex items-center justify-center bg-white"
                 style={{
                   width: `${company.width}px`,
                   height: `${company.height}px`,
@@ -72,7 +72,7 @@ export default function Marquee() {
                   alt={`${company.name} logo`}
                   width={company.width}
                   height={company.height}
-                  className="object-contain transition-transform duration-300 hover:scale-110 bg-transparent"
+                  className="object-contain transition-transform duration-300 hover:scale-110"
                   style={{
                     maxWidth: "100%",
                     height: "auto",
@@ -87,7 +87,7 @@ export default function Marquee() {
             {companies.map((company, index) => (
               <div
                 key={`${company.name}-${index}-second`}
-                className="flex-shrink-0 flex items-center justify-center bg-transparent"
+                className="flex-shrink-0 flex items-center justify-center bg-white"
                 style={{
                   width: `${company.width}px`,
                   height: `${company.height}px`,
@@ -100,7 +100,7 @@ export default function Marquee() {
                   alt={`${company.name} logo`}
                   width={company.width}
                   height={company.height}
-                  className="object-contain transition-transform duration-300 hover:scale-110 bg-transparent"
+                  className="object-contain transition-transform duration-300 hover:scale-110"
                   style={{
                     maxWidth: "100%",
                     height: "auto",

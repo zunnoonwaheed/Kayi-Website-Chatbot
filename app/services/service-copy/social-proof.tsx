@@ -42,50 +42,51 @@ const SocialProof = () => {
           <span className="text-gray-900">Generated Last Quarter</span>
         </motion.h2>
 
-        {/* Dashboard Card */}
+        {/* Dashboard Card - White with Pink Border */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="mt-8 md:mt-12 bg-gradient-to-br from-black to-gray-900 rounded-2xl md:rounded-3xl p-4 md:p-8 shadow-2xl"
+          className="mt-8 md:mt-12 bg-white rounded-2xl md:rounded-3xl p-4 md:p-8 shadow-2xl border-4"
+          style={{ borderColor: '#CF21C3' }}
         >
           {/* Dashboard Header */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 md:mb-8 pb-4 md:pb-6 border-b border-gray-700 gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 md:mb-8 pb-4 md:pb-6 border-b border-gray-200 gap-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-[#CF21C3] to-pink-500 rounded-xl flex items-center justify-center flex-shrink-0">
                 <span className="text-white text-lg md:text-xl font-bold">K</span>
               </div>
               <div>
-                <h3 className="text-white font-semibold text-base md:text-lg">Healthcare Results</h3>
-                <p className="text-gray-400 text-xs md:text-sm">Q4 2024 Performance</p>
+                <h3 className="text-gray-900 font-semibold text-base md:text-lg">Healthcare Results</h3>
+                <p className="text-gray-600 text-xs md:text-sm">Q4 2024 Performance</p>
               </div>
             </div>
             <div className="text-left sm:text-right w-full sm:w-auto">
-              <p className="text-gray-400 text-xs md:text-sm">Total Revenue</p>
-              <p className="text-white text-xl md:text-2xl font-bold">$2,417,197.00</p>
+              <p className="text-gray-600 text-xs md:text-sm">Total Revenue</p>
+              <p className="text-gray-900 text-xl md:text-2xl font-bold">$2,417,197.00</p>
             </div>
           </div>
 
           {/* Prize Winners Header */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <h4 className="text-white font-semibold text-base md:text-lg">Top Performers</h4>
-              <span className="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded-full">
+              <h4 className="text-gray-900 font-semibold text-base md:text-lg">Top Performers</h4>
+              <span className="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">
                 {clients.length}
               </span>
             </div>
           </div>
 
           {/* Table Headers - Hidden on Mobile */}
-          <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-3 text-gray-400 text-sm font-medium border-b border-gray-700 mb-2">
+          <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-3 text-gray-600 text-sm font-medium border-b border-gray-200 mb-2">
             <div className="col-span-1">#</div>
             <div className="col-span-4">Client</div>
             <div className="col-span-3">Revenue</div>
             <div className="col-span-4">Campaign Type</div>
           </div>
 
-          {/* Client Rows */}
+          {/* Client Rows - Show all 3 on desktop, only 1 on mobile */}
           <div className="space-y-3 md:space-y-2">
             {clients.map((client, index) => (
               <motion.div
@@ -94,7 +95,7 @@ const SocialProof = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                className="bg-gray-800/50 hover:bg-gray-800 rounded-xl transition-all duration-200"
+                className={`bg-gray-50 hover:bg-gray-100 rounded-xl transition-all duration-200 ${index > 0 ? 'hidden md:block' : ''}`}
               >
                 {/* Mobile Layout */}
                 <div className="md:hidden p-4 space-y-3">
@@ -106,27 +107,27 @@ const SocialProof = () => {
                       >
                         {client.rank}
                       </div>
-                      <div className="w-10 h-10 bg-gradient-to-br from-gray-700 to-gray-600 rounded-full flex items-center justify-center flex-shrink-0">
+                      <div className="w-10 h-10 bg-gradient-to-br from-gray-300 to-gray-400 rounded-full flex items-center justify-center flex-shrink-0">
                         <span className="text-white text-sm font-semibold">
                           {client.name.charAt(0)}
                         </span>
                       </div>
-                      <p className="text-white font-medium text-sm">{client.name}</p>
+                      <p className="text-gray-900 font-medium text-sm">{client.name}</p>
                     </div>
                   </div>
                   
                   <div className="flex items-center gap-2 pl-0">
-                    <span className="text-green-400 text-lg">💵</span>
-                    <span className="text-green-400 font-semibold text-base">{client.earnings}</span>
+                    <span className="text-green-500 text-lg">💵</span>
+                    <span className="text-green-600 font-semibold text-base">{client.earnings}</span>
                   </div>
                   
                   <div className="pl-0">
-                    <p className="text-gray-400 text-xs mb-1">Campaign Type</p>
-                    <p className="text-gray-300 text-sm">{client.campaign}</p>
+                    <p className="text-gray-600 text-xs mb-1">Campaign Type</p>
+                    <p className="text-gray-700 text-sm">{client.campaign}</p>
                   </div>
                 </div>
 
-                {/* Desktop Layout */}
+                {/* Desktop Layout - Only first item shows */}
                 <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-4 items-center">
                   {/* Rank */}
                   <div className="col-span-1">
@@ -141,13 +142,13 @@ const SocialProof = () => {
                   {/* Client Name */}
                   <div className="col-span-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-gray-700 to-gray-600 rounded-full flex items-center justify-center">
+                      <div className="w-10 h-10 bg-gradient-to-br from-gray-300 to-gray-400 rounded-full flex items-center justify-center">
                         <span className="text-white text-sm font-semibold">
                           {client.name.charAt(0)}
                         </span>
                       </div>
                       <div>
-                        <p className="text-white font-medium">{client.name}</p>
+                        <p className="text-gray-900 font-medium">{client.name}</p>
                       </div>
                     </div>
                   </div>
@@ -155,16 +156,16 @@ const SocialProof = () => {
                   {/* Earnings */}
                   <div className="col-span-3">
                     <div className="flex items-center gap-2">
-                      <span className="text-green-400 text-xl">💵</span>
-                      <span className="text-green-400 font-semibold">{client.earnings}</span>
+                      <span className="text-green-500 text-xl">💵</span>
+                      <span className="text-green-600 font-semibold">{client.earnings}</span>
                     </div>
                   </div>
 
                   {/* Campaign Type */}
                   <div className="col-span-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-gray-300 text-sm">{client.campaign}</span>
-                      <button className="text-gray-500 hover:text-white transition-colors">
+                      <span className="text-gray-700 text-sm">{client.campaign}</span>
+                      <button className="text-gray-400 hover:text-gray-600 transition-colors">
                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                         </svg>

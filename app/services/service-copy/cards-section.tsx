@@ -98,7 +98,7 @@ export default function CardsSection() {
     })
   }
 
-  const headingWords = ["Why", "CGI", "Ads", "Are", "Game-Changers"]
+  const headingWords = ["Why", "CGI", "Ads", "Are", "Game-Changers?"]
 
   return (
     <section className="py-12 md:py-20 px-6 relative overflow-hidden bg-white">
@@ -140,16 +140,7 @@ export default function CardsSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              <span className="font-bold">Everything</span> you need to know about CGI advertising
-            </motion.span>
-            <motion.span
-              className="block"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-            >
-              and why smart brands are making the switch.
+              <span className="font-bold">Everything</span> you need to know about CGI advertising and why smart brands are making the switch.
             </motion.span>
           </motion.div>
         </motion.div>

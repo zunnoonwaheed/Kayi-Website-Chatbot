@@ -182,12 +182,12 @@ const ReviewsSection = () => {
   };
 
   return (
-    <div className="bg-white text-black py-12 px-4"> {/* Added top spacing */}
+    <div className="bg-white text-black py-16 md:py-20 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8"> {/* Added spacing above heading */}
+        <div className="text-center mb-12 md:mb-16">
           <motion.h2 
-            className="text-2xl md:text-4xl lg:text-5xl font-bold px-2"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold px-2 mb-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
@@ -197,7 +197,7 @@ const ReviewsSection = () => {
             <span style={{ color: '#cf21c3' }}>Next One</span>
           </motion.h2>
           <motion.p 
-            className="text-sm md:text-lg text-gray-700 px-4"
+            className="text-base md:text-xl font-bold text-gray-900 px-4 mb-3"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.1 }}
@@ -206,7 +206,7 @@ const ReviewsSection = () => {
             From people making their first sale to collecting $111k in 45 days....
           </motion.p>
           <motion.p 
-            className="text-xs md:text-base text-gray-600 px-4"
+            className="text-sm md:text-base text-gray-600 px-4"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.2 }}
@@ -253,8 +253,8 @@ const ReviewsSection = () => {
                     exit={review.position === 0 ? "exit" : "hidden"}
                     className={`flex-shrink-0 ${
                       review.position === 0
-                        ? 'w-[300px] md:w-[500px] z-20' // Center card
-                        : 'hidden md:block w-[350px] z-10 blur-[1px]' // Side cards
+                        ? 'w-[300px] md:w-[500px] z-20'
+                        : 'hidden md:block w-[350px] z-10 blur-[1px]'
                     } ${
                       review.position === -1 ? 'order-1' : 
                       review.position === 0 ? 'order-2' : 'order-3'
@@ -410,9 +410,9 @@ const ReviewsSection = () => {
           </div>
         </div>
 
-        {/* Dots Indicator - No spacing */}
+        {/* Dots Indicator */}
         <motion.div 
-          className="flex justify-center gap-1"
+          className="flex justify-center gap-1 mt-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}

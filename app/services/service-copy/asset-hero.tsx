@@ -22,13 +22,15 @@ export default function AssetHero() {
         </header>
 
         <div className="mt-10 flex flex-col items-center gap-6 sm:flex-row sm:gap-8">
-          <Button size="lg" className="group px-8 py-4 text-lg font-semibold">
+          <Button 
+            size="lg" 
+            className="group px-8 py-4 text-lg font-semibold"
+            style={{ backgroundColor: '#cf21c3' }}
+          >
             Join the waitlist
             <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
           </Button>
-          <button className="text-lg font-medium text-primary underline-offset-4 hover:underline">
-            See how it works
-          </button>
+    
         </div>
 
         {/* Phone Mockup Section - Made smaller for mobile */}
@@ -132,7 +134,10 @@ export default function AssetHero() {
 
                 {/* Action Buttons */}
                 <div className="flex gap-2 lg:gap-3 mt-4 lg:mt-6">
-                  <button className="flex-1 bg-purple-600 text-white rounded-xl py-2 lg:py-3 px-3 lg:px-4 font-semibold text-xs lg:text-sm">
+                  <button 
+                    className="flex-1 text-white rounded-xl py-2 lg:py-3 px-3 lg:px-4 font-semibold text-xs lg:text-sm"
+                    style={{ backgroundColor: '#cf21c3' }}
+                  >
                     Add Funds
                   </button>
                   <button className="flex-1 bg-gray-200 text-gray-700 rounded-xl py-2 lg:py-3 px-3 lg:px-4 font-semibold text-xs lg:text-sm">

@@ -1,5 +1,7 @@
 "use client"
 import { motion } from "framer-motion"
+import { Button } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react"
 
 export function TextSection() {
   return (
@@ -10,55 +12,51 @@ export function TextSection() {
       {/* Text block */}
       <div className="relative z-10 max-w-3xl text-center">
         <motion.p
-          className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-semibold leading-snug md:leading-tight"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-snug md:leading-tight mb-8"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          {/* Line 1 */}
+          {/* Single line with transparent/glow effect */}
           <motion.span
-            className="block text-gray-300 max-w-full sm:max-w-3xl mx-auto"
-            initial={{ opacity: 0.5 }}
-            whileInView={{ opacity: 1, color: "#1f2937" }}
-            transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-            whileHover={{ color: "#000000", scale: 1.02, transition: { duration: 0.3 } }}
+            className="block text-transparent bg-clip-text bg-gradient-to-r from-gray-300 via-gray-600 to-gray-300 max-w-full mx-auto"
+            initial={{ opacity: 0, backgroundPosition: "0% 50%" }}
+            whileInView={{ 
+              opacity: 1, 
+              backgroundPosition: "100% 50%",
+              color: "#1f2937"
+            }}
+            transition={{ 
+              duration: 1.5, 
+              delay: 0.3, 
+              ease: "easeInOut",
+              backgroundPosition: { duration: 2, ease: "easeInOut" }
+            }}
+            whileHover={{ 
+              color: "#000000", 
+              scale: 1.02, 
+              transition: { duration: 0.3 } 
+            }}
           >
-            Create your fund and start investing
-          </motion.span>
-
-          {/* Line 2 */}
-          <motion.span
-            className="block text-gray-300 max-w-full sm:max-w-2xl mx-auto"
-            initial={{ opacity: 0.5 }}
-            whileInView={{ opacity: 1, color: "#1f2937" }}
-            transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
-            whileHover={{ color: "#000000", scale: 1.02, transition: { duration: 0.3 } }}
-          >
-            to secure your child's future  all
-          </motion.span>
-
-          {/* Line 3 */}
-          <motion.span
-            className="block text-gray-300 max-w-full sm:max-w-xl mx-auto"
-            initial={{ opacity: 0.5 }}
-            whileInView={{ opacity: 1, color: "#1f2937" }}
-            transition={{ duration: 1.2, delay: 0.7, ease: "easeOut" }}
-            whileHover={{ color: "#000000", scale: 1.02, transition: { duration: 0.3 } }}
-          >
-            from one easy app. You decide 
-          </motion.span>
-
-          {/* Line 4 */}
-          <motion.span
-            className="block text-gray-300 max-w-full sm:max-w-lg mx-auto"
-            initial={{ opacity: 0.5 }}
-            whileInView={{ opacity: 1, color: "#1f2937" }}
-            transition={{ duration: 1.2, delay: 0.9, ease: "easeOut" }}
-            whileHover={{ color: "#000000", scale: 1.02, transition: { duration: 0.3 } }}
-          >
-        when and how they use their funds.
+            Create your fund and start investing to secure your child's future all from one easy app. You decide when and how they use their funds.
           </motion.span>
         </motion.p>
+
+        {/* Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+        >
+          <Button 
+            size="lg" 
+            className="group px-8 py-4 text-lg font-semibold border-0 rounded-full"
+            style={{ backgroundColor: '#cf21c3' }}
+          >
+            Get Started Now
+            <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+          </Button>
+        </motion.div>
       </div>
     </section>
   )

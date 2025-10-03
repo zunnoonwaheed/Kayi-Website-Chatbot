@@ -177,9 +177,9 @@ const Technologies = () => {
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.4, delay: index * 0.1 }}
                         viewport={{ once: true }}
-                        className="flex-shrink-0 w-80 relative"
+                        className="flex-shrink-0 w-72 relative"
                       >
-                        <div className="relative aspect-[9/16] rounded-xl overflow-hidden">
+                        <div className="relative aspect-[9/14] rounded-xl overflow-hidden">
                           <video
                             src={item.src}
                             autoPlay
@@ -255,7 +255,7 @@ const Technologies = () => {
                       viewport={{ once: true }}
                       className="rounded-2xl overflow-hidden group relative"
                     >
-                      <div className="relative aspect-[9/16] rounded-xl overflow-hidden mx-auto max-w-sm">
+                      <div className="relative aspect-[9/14] rounded-xl overflow-hidden mx-auto max-w-xs">
                         <video
                           src={item.src}
                           autoPlay

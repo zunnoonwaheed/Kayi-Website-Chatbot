@@ -11,20 +11,7 @@ export default function GuaranteeSection() {
     script.async = true;
     document.body.appendChild(script);
 
-    // Initialize Calendly after script loads
-    script.onload = () => {
-      if (window.Calendly) {
-        window.Calendly.initBadgeWidget({
-          url: 'https://calendly.com/saadalii/kayidigital',
-          text: 'Schedule time with me',
-          color: '#cf21c3',
-          textColor: '#ffffff',
-        });
-      }
-    };
-
     return () => {
-      // Clean up
       if (document.body.contains(script)) {
         document.body.removeChild(script);
       }
@@ -34,10 +21,9 @@ export default function GuaranteeSection() {
   const openCalendly = () => {
     if (window.Calendly) {
       window.Calendly.initPopupWidget({
-        url: 'https://calendly.com/saadalii/kayidigital'
+        url: 'https://calendly.com/saadalii/kayidigital?hide_event_type_details=1'
       });
     } else {
-      // Fallback: open in new tab
       window.open('https://calendly.com/saadalii/kayidigital', '_blank');
     }
   };
@@ -172,15 +158,13 @@ export default function GuaranteeSection() {
                 📅 Book Free Strategy Call
               </motion.button>
               
-              {/* Calendly Inline Widget - Fallback */}
-              <div className="mt-4 rounded-xl overflow-hidden border-2 border-[#cf21c3]">
-                <iframe 
-                  src="https://calendly.com/saadalii/kayidigital?embed_domain=localhost&embed_type=Inline"
-                  width="100%" 
-                  height="400" 
-                  frameBorder="0"
-                  title="Schedule a meeting"
-                ></iframe>
+              {/* Calendly Inline Widget */}
+              <div className="mt-4 rounded-xl overflow-hidden border-2 border-[#cf21c3] calendly-embed-container">
+                <div 
+                  className="calendly-inline-widget" 
+                  data-url="https://calendly.com/saadalii/kayidigital?primary_color=cf21c3&hide_gdpr_banner=1&hide_event_type_details=1"
+                  style={{ minWidth: '320px', height: '500px', width: '100%' }}
+                />
               </div>
             </motion.div>
 
@@ -208,6 +192,63 @@ export default function GuaranteeSection() {
           </div>
         </div>
       </motion.div>
+
+      {/* Custom Styling */}
+      <style>{`
+        /* Hide Calendly badge */
+        .calendly-badge-widget,
+        .calendly-badge-content,
+        .calendly-overlay {
+          display: none !important;
+          visibility: hidden !important;
+          opacity: 0 !important;
+        }
+
+        /* Remove spacing and hide event details */
+        .calendly-embed-container .calendly-inline-widget {
+          padding: 0 !important;
+          margin: 0 !important;
+        }
+
+        .calendly-embed-container .calendly-inline-widget iframe {
+          padding: 0 !important;
+          margin: 0 !important;
+          display: block !important;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+          .calendly-embed-container {
+            max-height: 450px;
+            overflow: hidden;
+          }
+
+          .calendly-embed-container .calendly-inline-widget {
+            height: 450px !important;
+          }
+
+          .calendly-embed-container .calendly-inline-widget iframe {
+            margin-bottom: -200px !important;
+          }
+        }
+
+        /* Desktop adjustments */
+        @media (min-width: 769px) {
+          .calendly-embed-container {
+            max-height: 480px;
+            overflow: hidden;
+          }
+
+          .calendly-embed-container .calendly-inline-widget {
+            height: 550px !important;
+          }
+
+          .calendly-embed-container .calendly-inline-widget iframe {
+            margin-top: -100px !important;
+            margin-bottom: -150px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
