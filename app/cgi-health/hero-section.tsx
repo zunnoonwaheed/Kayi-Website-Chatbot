@@ -65,8 +65,8 @@ export default function HeroSection() {
           </h3>
         </div>
 
-        {/* Calendly Embed with Pink Border */}
-        <div className="max-w-5xl mx-auto mb-6">
+        {/* Calendly Embed */}
+        <div className="mb-6">
           <div
             className={`rounded-3xl shadow-2xl border-4 calendly-container ${isDateSelected ? 'scrollable' : 'no-scroll'}`}
             style={{ borderColor: '#CF21C3' }}
@@ -101,12 +101,16 @@ export default function HeroSection() {
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
           * { font-family: 'Inter', sans-serif; }
-
           h1, h2, h3 { letter-spacing: -0.02em; }
-
           .calendly-inline-widget iframe { border-radius: 1.5rem; }
 
-          /* INITIAL STATE - NO SCROLL */
+          /* Hide Calendly badges/popups */
+          .calendly-badge-widget,
+          .calendly-badge-content,
+          .calendly-overlay,
+          .calendly-popup-content { display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; }
+
+          /* Non-scrollable by default */
           .calendly-container.no-scroll {
             overflow: hidden !important;
             max-height: 700px !important;
@@ -118,10 +122,11 @@ export default function HeroSection() {
           .calendly-container.no-scroll .calendly-inline-widget iframe {
             height: 700px !important;
             overflow: hidden !important;
-            pointer-events: auto !important;
+            pointer-events: none !important; /* disables scrolling */
+            width: 100% !important;
           }
 
-          /* AFTER DATE SELECTION - SCROLLABLE */
+          /* Scrollable after date selection */
           .calendly-container.scrollable {
             overflow-y: auto !important;
             max-height: 700px !important;
@@ -136,24 +141,39 @@ export default function HeroSection() {
             height: auto !important;
             min-height: 900px !important;
             overflow: visible !important;
+            pointer-events: auto !important;
+            width: 100% !important;
           }
 
-          /* Remove internal padding/margin from Calendly */
+          /* Remove padding/margin */
           .calendly-inline-widget { padding: 0 !important; margin: 0 !important; background: white !important; }
           .calendly-inline-widget iframe { padding: 0 !important; margin: 0 !important; display: block !important; }
 
-          /* Hide Calendly badges and popups */
-          .calendly-badge-widget,
-          .calendly-badge-content,
-          .calendly-overlay,
-          .calendly-popup-content { display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; }
-
-          /* Mobile adjustments */
+          /* Mobile adjustments - full width & proper non-scroll */
           @media (max-width: 768px) {
-            .calendly-container.no-scroll { max-height: 500px !important; overflow: hidden !important; }
-            .calendly-container.no-scroll .calendly-inline-widget iframe { height: 500px !important; overflow: hidden !important; }
-            .calendly-container.scrollable { max-height: 500px !important; overflow-y: auto !important; }
-            .calendly-container.scrollable .calendly-inline-widget iframe { min-height: 800px !important; height: auto !important; overflow: visible !important; }
+            .calendly-container.no-scroll {
+              max-height: 500px !important;
+              overflow: hidden !important;
+              width: 100vw !important;
+              margin-left: calc(-50vw + 50%) !important;
+            }
+            .calendly-container.no-scroll .calendly-inline-widget iframe {
+              height: 500px !important;
+              pointer-events: none !important;
+              width: 100vw !important;
+            }
+            .calendly-container.scrollable {
+              max-height: 500px !important;
+              overflow-y: auto !important;
+              width: 100vw !important;
+              margin-left: calc(-50vw + 50%) !important;
+            }
+            .calendly-container.scrollable .calendly-inline-widget iframe {
+              height: auto !important;
+              min-height: 800px !important;
+              pointer-events: auto !important;
+              width: 100vw !important;
+            }
           }
 
           /* Desktop adjustments */
