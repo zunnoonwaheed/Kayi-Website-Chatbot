@@ -26,13 +26,16 @@ export default function HeroSection() {
     window.addEventListener('message', handleMessage);
 
     return () => {
-      document.body.removeChild(script);
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
       window.removeEventListener('message', handleMessage);
     };
   }, []);
 
   const handleWhatsAppClick = () => {
-    window.open('https://wa.me/923090613822', '_blank');
+    const message = encodeURIComponent("Hi! I'm interested in your CGI campaigns for healthcare brands and would like to learn more about your services.");
+    window.open(`https://wa.me/923090613822?text=${message}`, '_blank');
   };
 
   return (
@@ -70,7 +73,7 @@ export default function HeroSection() {
         </div>
 
         {/* Calendly Embed with Pink Border - Conditional Scroll */}
-        <div className="max-w-5xl mx-auto mb-6">
+        <div className="max-w-5xl mx-auto mb-6 w-full">
           <div 
             className={`rounded-3xl overflow-hidden shadow-2xl border-4 calendly-container ${isDateSelected ? 'scrollable' : 'no-scroll'}`}
             style={{ borderColor: '#CF21C3' }}
@@ -87,7 +90,7 @@ export default function HeroSection() {
         <div className="text-center mb-6">
           <button
             onClick={handleWhatsAppClick}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full font-semibold text-base shadow-lg transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full font-semibold text-base shadow-lg transition-colors duration-300"
           >
             <span>Prefer to message?</span>
             <span className="text-xl">💬</span>
@@ -102,7 +105,7 @@ export default function HeroSection() {
         </div>
 
         {/* Custom Styling */}
-        <style>{`
+        <style jsx>{`
           @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
           
           * {
@@ -115,6 +118,38 @@ export default function HeroSection() {
 
           h1, h2, h3 {
             letter-spacing: -0.02em;
+          }
+
+          /* Base container styles */
+          .calendly-container {
+            padding-top: 20px;
+            width: 100% !important;
+          }
+
+          /* Remove all internal padding and spacing from Calendly */
+          .calendly-inline-widget {
+            padding: 0 !important;
+            margin: 0 !important;
+            background: white !important;
+            width: 100% !important;
+          }
+
+          .calendly-inline-widget iframe {
+            padding: 0 !important;
+            margin: 0 !important;
+            display: block !important;
+            width: 100% !important;
+          }
+
+          /* Hide the Calendly floating badge from all views */
+          .calendly-badge-widget,
+          .calendly-badge-content,
+          .calendly-overlay,
+          .calendly-popup-content {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
           }
 
           /* Initial state - NO SCROLL on ALL devices */
@@ -153,40 +188,28 @@ export default function HeroSection() {
             min-height: 1200px !important;
           }
 
-          /* Remove all internal padding and spacing from Calendly */
-          .calendly-inline-widget {
-            padding: 0 !important;
-            margin: 0 !important;
-            background: white !important;
-          }
-
-          .calendly-inline-widget iframe {
-            padding: 0 !important;
-            margin: 0 !important;
-            display: block !important;
-          }
-
-          .calendly-container {
-            padding-top: 20px;
-          }
-
-          /* Hide the Calendly floating badge from all views */
-          .calendly-badge-widget,
-          .calendly-badge-content,
-          .calendly-overlay,
-          .calendly-popup-content {
-            display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-          }
-
           /* Mobile specific adjustments */
           @media (max-width: 768px) {
-            .calendly-badge-widget,
-            .calendly-badge-content,
-            .calendly-overlay {
-              display: none !important;
+            /* Ensure full width on mobile */
+            .calendly-container {
+              width: 100vw !important;
+              max-width: 100vw !important;
+              margin-left: calc(-50vw + 50%) !important;
+              margin-right: calc(-50vw + 50%) !important;
+              padding-left: 1rem !important;
+              padding-right: 1rem !important;
+            }
+
+            .calendly-inline-widget {
+              width: 100% !important;
+              max-width: 100% !important;
+            }
+
+            .calendly-inline-widget iframe {
+              width: 100% !important;
+              max-width: 100% !important;
+              left: 0 !important;
+              right: 0 !important;
             }
 
             /* Mobile - initial no scroll */
@@ -216,12 +239,6 @@ export default function HeroSection() {
 
           /* Desktop specific adjustments */
           @media (min-width: 769px) {
-            .calendly-badge-widget,
-            .calendly-badge-content,
-            .calendly-overlay {
-              display: none !important;
-            }
-
             /* Desktop - initial no scroll */
             .calendly-container.no-scroll {
               max-height: 700px !important;
@@ -244,6 +261,13 @@ export default function HeroSection() {
             .calendly-container.scrollable .calendly-inline-widget iframe {
               height: 1200px !important;
               min-height: 1200px !important;
+            }
+          }
+
+          /* Large desktop adjustments */
+          @media (min-width: 1024px) {
+            .calendly-container {
+              max-width: 100% !important;
             }
           }
         `}</style>
