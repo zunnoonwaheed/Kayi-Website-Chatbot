@@ -73,7 +73,7 @@ export default function HeroSection() {
         </div>
 
         {/* Calendly Embed with Pink Border - Conditional Scroll */}
-        <div className="max-w-5xl mx-auto mb-4 w-full px-4 md:px-0">
+        <div className="max-w-5xl mx-auto mb-4 w-full">
           <div 
             className={`rounded-3xl overflow-hidden shadow-2xl border-4 calendly-container ${isDateSelected ? 'scrollable' : 'no-scroll'}`}
             style={{ borderColor: '#CF21C3' }}
@@ -190,12 +190,12 @@ export default function HeroSection() {
 
           /* Mobile specific adjustments */
           @media (max-width: 768px) {
-            /* Mobile container with proper left-right spacing */
+            /* Ensure full width on mobile */
             .calendly-container {
-              width: 100% !important;
-              max-width: 100% !important;
-              margin-left: 0 !important;
-              margin-right: 0 !important;
+              width: 100vw !important;
+              max-width: 100vw !important;
+              margin-left: calc(-50vw + 50%) !important;
+              margin-right: calc(-50vw + 50%) !important;
               padding-left: 1rem !important;
               padding-right: 1rem !important;
             }
