@@ -26,21 +26,24 @@ export default function HeroSection() {
     window.addEventListener('message', handleMessage);
 
     return () => {
-      document.body.removeChild(script);
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
       window.removeEventListener('message', handleMessage);
     };
   }, []);
 
   const handleWhatsAppClick = () => {
-    window.open('https://wa.me/923090613822', '_blank');
+    const message = encodeURIComponent("Hi! I'm interested in your CGI campaigns for healthcare brands and would like to learn more about your services.");
+    window.open(`https://wa.me/923090613822?text=${message}`, '_blank');
   };
 
   return (
-    <div className="min-h-screen bg-white pt-8 pb-8 px-4">
+    <div className="min-h-screen bg-white pt-6 pb-6 px-4">
       <div className="max-w-7xl mx-auto">
 
         {/* Main Headline */}
-        <div className="text-center mb-6 mt-4 md:mt-12">
+        <div className="text-center mb-4 mt-2 md:mt-8">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
             OVER <span style={{ color: '#CF21C3' }}>135+ HEALTHCARE BRANDS</span> GENERATED{' '}
             <span style={{ color: '#CF21C3' }}>$22 MILLION</span> WITH OUR CGI CAMPAIGNS
@@ -48,14 +51,14 @@ export default function HeroSection() {
         </div>
 
         {/* Subheadline */}
-        <div className="text-center mb-6 px-4">
+        <div className="text-center mb-4 px-4">
           <p className="text-base sm:text-lg md:text-xl font-medium text-gray-700 max-w-4xl mx-auto leading-relaxed">
             📞 Book A Free Campaign Review And See How CGI Ads Help Patients Understand Your Services
           </p>
         </div>
 
         {/* Divider Line */}
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-4">
           <div 
             className="h-1 w-32 rounded-full"
             style={{ backgroundColor: '#CF21C3' }}
@@ -63,14 +66,14 @@ export default function HeroSection() {
         </div>
 
         {/* Primary CTA Heading */}
-        <div className="text-center mb-6">
+        <div className="text-center mb-4">
           <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
             Ready To Explain Complex Procedures Visually? Schedule A Call Below.
           </h3>
         </div>
 
         {/* Calendly Embed with Pink Border - Conditional Scroll */}
-        <div className="max-w-5xl mx-auto mb-6">
+        <div className="max-w-5xl mx-auto mb-4 w-full px-4 md:px-0">
           <div 
             className={`rounded-3xl overflow-hidden shadow-2xl border-4 calendly-container ${isDateSelected ? 'scrollable' : 'no-scroll'}`}
             style={{ borderColor: '#CF21C3' }}
@@ -78,16 +81,16 @@ export default function HeroSection() {
             <div 
               className="calendly-inline-widget" 
               data-url="https://calendly.com/saadalii/kayidigital?primary_color=cf21c3&hide_gdpr_banner=1&hide_event_type_details=1"
-              style={{ minWidth: '320px', height: '700px', width: '100%' }}
+              style={{ minWidth: '320px', height: '500px', width: '100%' }}
             />
           </div>
         </div>
 
         {/* Secondary CTA - WhatsApp Button */}
-        <div className="text-center mb-6">
+        <div className="text-center mb-4">
           <button
             onClick={handleWhatsAppClick}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full font-semibold text-base shadow-lg transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full font-semibold text-base shadow-lg transition-colors duration-300"
           >
             <span>Prefer to message?</span>
             <span className="text-xl">💬</span>
@@ -102,7 +105,7 @@ export default function HeroSection() {
         </div>
 
         {/* Custom Styling */}
-        <style>{`
+        <style jsx>{`
           @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
           
           * {
@@ -117,40 +120,10 @@ export default function HeroSection() {
             letter-spacing: -0.02em;
           }
 
-          /* Initial state - NO SCROLL on ALL devices */
-          .calendly-container.no-scroll {
-            overflow: hidden !important;
-            max-height: 700px !important;
-          }
-
-          .calendly-container.no-scroll .calendly-inline-widget {
-            overflow: hidden !important;
-            height: 700px !important;
-          }
-
-          .calendly-container.no-scroll .calendly-inline-widget iframe {
-            overflow: hidden !important;
-            height: 700px !important;
-            pointer-events: auto !important;
-          }
-
-          /* After date selection - SCROLLABLE on ALL devices */
-          .calendly-container.scrollable {
-            overflow-y: auto !important;
-            max-height: 700px !important;
-            -webkit-overflow-scrolling: touch !important;
-          }
-
-          .calendly-container.scrollable .calendly-inline-widget {
-            overflow: visible !important;
-            height: auto !important;
-            min-height: 700px !important;
-          }
-
-          .calendly-container.scrollable .calendly-inline-widget iframe {
-            overflow: visible !important;
-            height: 1200px !important;
-            min-height: 1200px !important;
+          /* Base container styles */
+          .calendly-container {
+            padding-top: 10px;
+            width: 100% !important;
           }
 
           /* Remove all internal padding and spacing from Calendly */
@@ -158,16 +131,14 @@ export default function HeroSection() {
             padding: 0 !important;
             margin: 0 !important;
             background: white !important;
+            width: 100% !important;
           }
 
           .calendly-inline-widget iframe {
             padding: 0 !important;
             margin: 0 !important;
             display: block !important;
-          }
-
-          .calendly-container {
-            padding-top: 20px;
+            width: 100% !important;
           }
 
           /* Hide the Calendly floating badge from all views */
@@ -181,69 +152,122 @@ export default function HeroSection() {
             pointer-events: none !important;
           }
 
+          /* Initial state - NO SCROLL on ALL devices */
+          .calendly-container.no-scroll {
+            overflow: hidden !important;
+            max-height: 500px !important;
+          }
+
+          .calendly-container.no-scroll .calendly-inline-widget {
+            overflow: hidden !important;
+            height: 500px !important;
+          }
+
+          .calendly-container.no-scroll .calendly-inline-widget iframe {
+            overflow: hidden !important;
+            height: 500px !important;
+            pointer-events: auto !important;
+          }
+
+          /* After date selection - SCROLLABLE on ALL devices */
+          .calendly-container.scrollable {
+            overflow-y: auto !important;
+            max-height: 500px !important;
+            -webkit-overflow-scrolling: touch !important;
+          }
+
+          .calendly-container.scrollable .calendly-inline-widget {
+            overflow: visible !important;
+            height: auto !important;
+            min-height: 500px !important;
+          }
+
+          .calendly-container.scrollable .calendly-inline-widget iframe {
+            overflow: visible !important;
+            height: 800px !important;
+            min-height: 800px !important;
+          }
+
           /* Mobile specific adjustments */
           @media (max-width: 768px) {
-            .calendly-badge-widget,
-            .calendly-badge-content,
-            .calendly-overlay {
-              display: none !important;
+            /* Mobile container with proper left-right spacing */
+            .calendly-container {
+              width: 100% !important;
+              max-width: 100% !important;
+              margin-left: 0 !important;
+              margin-right: 0 !important;
+              padding-left: 1rem !important;
+              padding-right: 1rem !important;
+            }
+
+            .calendly-inline-widget {
+              width: 100% !important;
+              max-width: 100% !important;
+            }
+
+            .calendly-inline-widget iframe {
+              width: 100% !important;
+              max-width: 100% !important;
+              left: 0 !important;
+              right: 0 !important;
             }
 
             /* Mobile - initial no scroll */
             .calendly-container.no-scroll {
-              max-height: 600px !important;
+              max-height: 450px !important;
             }
 
             .calendly-container.no-scroll .calendly-inline-widget {
-              height: 600px !important;
+              height: 450px !important;
             }
 
             .calendly-container.no-scroll .calendly-inline-widget iframe {
-              height: 600px !important;
+              height: 450px !important;
             }
 
             /* Mobile - after selection scrollable */
             .calendly-container.scrollable {
-              max-height: 600px !important;
+              max-height: 450px !important;
               overflow-y: auto !important;
             }
 
             .calendly-container.scrollable .calendly-inline-widget iframe {
-              height: 1000px !important;
-              min-height: 1000px !important;
+              height: 700px !important;
+              min-height: 700px !important;
             }
           }
 
           /* Desktop specific adjustments */
           @media (min-width: 769px) {
-            .calendly-badge-widget,
-            .calendly-badge-content,
-            .calendly-overlay {
-              display: none !important;
-            }
-
             /* Desktop - initial no scroll */
             .calendly-container.no-scroll {
-              max-height: 700px !important;
+              max-height: 500px !important;
             }
 
             .calendly-container.no-scroll .calendly-inline-widget {
-              height: 700px !important;
+              height: 500px !important;
             }
 
             .calendly-container.no-scroll .calendly-inline-widget iframe {
-              height: 700px !important;
+              height: 500px !important;
             }
 
             /* Desktop - after selection scrollable */
             .calendly-container.scrollable {
-              max-height: 700px !important;
+              max-height: 500px !important;
               overflow-y: auto !important;
             }
 
             .calendly-container.scrollable .calendly-inline-widget iframe {
-              height: 1200px !important;
-              min-height: 1200px !important;
+              height: 800px !important;
+              min-height: 800px !important;
+            }
+          }
+
+          /* Large desktop adjustments */
+          @media (min-width: 1024px) {
+            .calendly-container {
+              max-width: 100% !important;
             }
           }
         `}</style>

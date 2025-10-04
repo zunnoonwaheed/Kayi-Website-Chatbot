@@ -42,7 +42,8 @@ export default function GuaranteeSection() {
   };
 
   const handleWhatsAppClick = () => {
-    window.open('https://wa.me/923090613822', '_blank');
+    const message = encodeURIComponent("Hi! I'm interested in your 4x ROAS guarantee and would like to learn more about your services. I saw you have offices in Canada, UK, USA (Fremont, California), and Pakistan.");
+    window.open(`https://wa.me/923090613822?text=${message}`, '_blank');
   };
 
   return (
