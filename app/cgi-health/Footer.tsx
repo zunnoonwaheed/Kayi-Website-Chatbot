@@ -65,7 +65,7 @@ export default function Footer() {
         {/* Where to Find Us Section */}
         <div className="mb-6">
           <h4 className="text-white font-semibold mb-4 text-lg uppercase tracking-wide text-center">Where to Find Us?</h4>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div>
               <p className="font-medium text-white">Canada</p>
               <p className="text-gray-300 text-sm">140 Doubtfire Cres, Markham, ON, Canada</p>
@@ -73,6 +73,10 @@ export default function Footer() {
             <div>
               <p className="font-medium text-white">United Kingdom</p>
               <p className="text-gray-300 text-sm">International House, 12 Constance St, London E16 2DQ, United Kingdom</p>
+            </div>
+            <div>
+              <p className="font-medium text-white">United States</p>
+              <p className="text-gray-300 text-sm">43555 Grimmer Blvd, Fremont, California, USA</p>
             </div>
             <div>
               <p className="font-medium text-white">Pakistan</p>

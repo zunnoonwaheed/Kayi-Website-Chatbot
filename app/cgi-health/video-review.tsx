@@ -29,6 +29,44 @@ export default function ReviewSection() {
   const [paused, setPaused] = useState<boolean[]>(reviews.map(() => true));
   const [isMobile, setIsMobile] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [videosLoaded, setVideosLoaded] = useState<boolean[]>(reviews.map(() => false));
+  const [videoErrors, setVideoErrors] = useState<boolean[]>(reviews.map(() => false));
+
+  // Preload videos on component mount
+  useEffect(() => {
+    const preloadVideos = async () => {
+      const loadPromises = reviews.map((review, index) => {
+        return new Promise<void>((resolve) => {
+          if (!review.video) {
+            resolve();
+            return;
+          }
+
+          const video = document.createElement('video');
+          video.preload = 'auto';
+          video.src = review.video;
+          
+          video.onloadeddata = () => {
+            setVideosLoaded(prev => prev.map((loaded, i) => i === index ? true : loaded));
+            resolve();
+          };
+          
+          video.onerror = () => {
+            console.warn(`Failed to load video: ${review.video}`);
+            setVideoErrors(prev => prev.map((error, i) => i === index ? true : error));
+            resolve();
+          };
+
+          // Force load by setting currentTime (triggers loading)
+          video.currentTime = 0.1;
+        });
+      });
+
+      await Promise.all(loadPromises);
+    };
+
+    preloadVideos();
+  }, []);
 
   // Detect mobile screen
   useEffect(() => {
@@ -44,13 +82,22 @@ export default function ReviewSection() {
     : reviews;
 
   // Get the correct paused state for displayed index
-  const getPausedState = (displayedIndex) => {
+  const getPausedState = (displayedIndex: number) => {
     if (!isMobile) return paused[displayedIndex];
     
     // For mobile, map displayed index to original index
     if (displayedIndex === 0) return paused[1]; // Lauren (original index 1)
     if (displayedIndex === 1) return paused[2]; // Derek (original index 2)
     return paused[0]; // Sarah (original index 0)
+  };
+
+  // Get the correct loaded state for displayed index
+  const getLoadedState = (displayedIndex: number) => {
+    if (!isMobile) return videosLoaded[displayedIndex];
+    
+    if (displayedIndex === 0) return videosLoaded[1]; // Lauren
+    if (displayedIndex === 1) return videosLoaded[2]; // Derek
+    return videosLoaded[0]; // Sarah
   };
 
   // Scroll to center video by default on desktop
@@ -89,7 +136,7 @@ export default function ReviewSection() {
     }
   }, [isMobile]);
 
-  const scroll = (direction) => {
+  const scroll = (direction: "left" | "right") => {
     if (!scrollRef.current) return;
     const { clientWidth } = scrollRef.current;
     scrollRef.current.scrollBy({
@@ -98,7 +145,7 @@ export default function ReviewSection() {
     });
   };
 
-  const togglePlay = (displayedIndex) => {
+  const togglePlay = (displayedIndex: number) => {
     // Get the original index for the paused state
     let originalIndex = displayedIndex;
     if (isMobile) {
@@ -111,7 +158,7 @@ export default function ReviewSection() {
     if (!video) return;
 
     if (video.paused) {
-      video.play();
+      video.play().catch(console.error);
       setPaused((prev) => prev.map((p, i) => (i === originalIndex ? false : p)));
     } else {
       video.pause();
@@ -120,7 +167,7 @@ export default function ReviewSection() {
   };
 
   // Helper function to get card size classes
-  const getCardSizeClasses = (displayedIndex) => {
+  const getCardSizeClasses = (displayedIndex: number) => {
     if (isMobile) {
       return "w-80 sm:w-96 lg:w-auto"; // Same size on mobile
     }
@@ -164,19 +211,42 @@ export default function ReviewSection() {
                     onClick={() => review.video && togglePlay(displayedIndex)}
                   >
                     {review.video ? (
-                      <video
-                        ref={(el) => (videoRefs.current[originalIndex] = el)}
-                        src={review.video}
-                        loop
-                        playsInline
-                        className="h-full w-full object-cover"
-                      />
+                      <>
+                        <video
+                          ref={(el) => (videoRefs.current[originalIndex] = el)}
+                          src={review.video}
+                          loop
+                          playsInline
+                          preload="auto"
+                          muted
+                          className="h-full w-full object-cover"
+                          onLoadedData={() => {
+                            setVideosLoaded(prev => prev.map((loaded, i) => i === originalIndex ? true : loaded));
+                          }}
+                          onError={() => {
+                            setVideoErrors(prev => prev.map((error, i) => i === originalIndex ? true : error));
+                          }}
+                        />
+                        
+                        {/* Loading skeleton */}
+                        {!getLoadedState(displayedIndex) && (
+                          <div className="absolute inset-0 bg-gray-200 dark:bg-gray-200 animate-pulse flex items-center justify-center">
+                            <div className="text-gray-400">Loading video...</div>
+                          </div>
+                        )}
+                      </>
                     ) : (
-                      <Image src={review.image} alt={review.name} fill className="object-cover" />
+                      <Image 
+                        src={review.image} 
+                        alt={review.name} 
+                        fill 
+                        className="object-cover"
+                        priority={displayedIndex === 0} // Prioritize first image
+                      />
                     )}
 
                     {/* Smaller, more transparent Play/Pause button */}
-                    {review.video && (
+                    {review.video && getLoadedState(displayedIndex) && (
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="bg-white/70 dark:bg-white/70 rounded-full p-2 sm:p-3 shadow-sm backdrop-blur-sm">
                           {getPausedState(displayedIndex) ? (
@@ -216,6 +286,20 @@ export default function ReviewSection() {
             />
           ))}
         </div>
+      </div>
+
+      {/* Hidden preload videos */}
+      <div className="hidden">
+        {reviews.map((review, index) => (
+          review.video && (
+            <video
+              key={index}
+              preload="auto"
+              src={review.video}
+              muted
+            />
+          )
+        ))}
       </div>
 
       <style jsx>{`
