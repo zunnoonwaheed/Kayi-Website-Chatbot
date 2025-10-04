@@ -71,11 +71,14 @@ export default function HeroSection() {
             className={`rounded-3xl shadow-2xl border-4 calendly-container ${isDateSelected ? 'scrollable' : 'no-scroll'}`}
             style={{ borderColor: '#CF21C3' }}
           >
-            <div
-              className="calendly-inline-widget"
-              data-url="https://calendly.com/saadalii/kayidigital?primary_color=cf21c3&hide_gdpr_banner=1&hide_event_type_details=1"
-              style={{ minWidth: '320px', height: '700px', width: '100%' }}
-            />
+            {/* Wrapping div to prevent touch scroll */}
+            <div className={isDateSelected ? '' : 'block-touch'}>
+              <div
+                className="calendly-inline-widget"
+                data-url="https://calendly.com/saadalii/kayidigital?primary_color=cf21c3&hide_gdpr_banner=1&hide_event_type_details=1"
+                style={{ minWidth: '320px', height: '700px', width: '100%' }}
+              />
+            </div>
           </div>
         </div>
 
@@ -110,6 +113,11 @@ export default function HeroSection() {
           .calendly-overlay,
           .calendly-popup-content { display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; }
 
+          /* Prevent touch scroll wrapper */
+          .block-touch {
+            pointer-events: none; /* blocks all interaction */
+          }
+
           /* Non-scrollable by default */
           .calendly-container.no-scroll {
             overflow: hidden !important;
@@ -118,12 +126,6 @@ export default function HeroSection() {
           .calendly-container.no-scroll .calendly-inline-widget {
             height: 700px !important;
             overflow: hidden !important;
-          }
-          .calendly-container.no-scroll .calendly-inline-widget iframe {
-            height: 700px !important;
-            overflow: hidden !important;
-            pointer-events: none !important; /* disables scrolling */
-            width: 100% !important;
           }
 
           /* Scrollable after date selection */
@@ -137,50 +139,22 @@ export default function HeroSection() {
             overflow: visible !important;
             -webkit-overflow-scrolling: touch !important;
           }
-          .calendly-container.scrollable .calendly-inline-widget iframe {
-            height: auto !important;
-            min-height: 900px !important;
-            overflow: visible !important;
-            pointer-events: auto !important;
-            width: 100% !important;
-          }
 
           /* Remove padding/margin */
           .calendly-inline-widget { padding: 0 !important; margin: 0 !important; background: white !important; }
-          .calendly-inline-widget iframe { padding: 0 !important; margin: 0 !important; display: block !important; }
+          .calendly-inline-widget iframe { padding: 0 !important; margin: 0 !important; display: block !important; width: 100% !important; }
 
-          /* Mobile adjustments - full width & proper non-scroll */
+          /* Mobile adjustments - full width */
           @media (max-width: 768px) {
-            .calendly-container.no-scroll {
-              max-height: 500px !important;
-              overflow: hidden !important;
-              width: 100vw !important;
-              margin-left: calc(-50vw + 50%) !important;
-            }
-            .calendly-container.no-scroll .calendly-inline-widget iframe {
-              height: 500px !important;
-              pointer-events: none !important;
-              width: 100vw !important;
-            }
-            .calendly-container.scrollable {
-              max-height: 500px !important;
-              overflow-y: auto !important;
-              width: 100vw !important;
-              margin-left: calc(-50vw + 50%) !important;
-            }
-            .calendly-container.scrollable .calendly-inline-widget iframe {
-              height: auto !important;
-              min-height: 800px !important;
-              pointer-events: auto !important;
-              width: 100vw !important;
-            }
+            .calendly-container { width: 100vw !important; margin-left: calc(-50vw + 50%) !important; }
+            .calendly-container.no-scroll { max-height: 500px !important; }
+            .calendly-container.no-scroll .calendly-inline-widget iframe { height: 500px !important; }
+            .calendly-container.scrollable .calendly-inline-widget iframe { min-height: 800px !important; height: auto !important; }
           }
 
           /* Desktop adjustments */
           @media (min-width: 769px) {
             .calendly-container.no-scroll { max-height: 700px !important; }
-            .calendly-container.no-scroll .calendly-inline-widget iframe { height: 700px !important; }
-            .calendly-container.scrollable { max-height: 700px !important; }
             .calendly-container.scrollable .calendly-inline-widget iframe { min-height: 1000px !important; height: auto !important; }
           }
         `}</style>
