@@ -12,7 +12,7 @@ import AssetHero from "./asset-herob"
 import Review from "./reviewb"
 import SocialProof from "./social-proofb"
 import Guarantee from "./guaranteeb"  
-
+import VideoReviewb from "./video-reviewb" 
 export default function EnterprisePage() {
   return (
     <main className="min-h-screen">
@@ -45,7 +45,7 @@ export default function EnterprisePage() {
       <CgisWork />
       <Guarantee /> 
       <Review /> 
-
+<VideoReviewb/> 
 
       <CardsSection />
       <TextSection />  

@@ -1,6 +1,8 @@
+"use client"
 import type React from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, TrendingUp, Gift, PiggyBank, Target } from "lucide-react"
+import { motion } from "framer-motion"
 
 const chartBars = [24, 32, 36, 44, 52, 64, 72, 84, 96]
 
@@ -22,15 +24,32 @@ export default function AssetHero() {
         </header>
 
         <div className="mt-10 flex flex-col items-center gap-6 sm:flex-row sm:gap-8">
-          <Button size="lg" className="group px-8 py-4 text-lg font-semibold">
-            Join the waitlist
-            <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-          </Button>
-          <button className="text-lg font-medium text-primary underline-offset-4 hover:underline">
-            See how it works
-          </button>
+          <motion.a
+            href="#"
+            className="inline-flex items-center px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold text-white 
+                       bg-gradient-to-r from-[#cf21c3] to-pink-500 rounded-full 
+                       hover:from-[#cf21c3]/90 hover:to-pink-500/90 
+                       transition-all duration-300 shadow-lg hover:shadow-xl
+                       transform hover:-translate-y-1"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Join the wishlist
+            <motion.svg 
+              className="ml-2 w-4 h-4 md:w-5 md:h-5" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+              initial={{ x: 0 }}
+              whileHover={{ x: 5 }}
+              transition={{ duration: 0.2 }}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </motion.svg>
+          </motion.a>
         </div>
 
+        {/* Rest of your component remains the same */}
         {/* Phone Mockup Section - Made smaller for mobile */}
         <div className="relative mt-12 lg:mt-20 w-full flex justify-center">
           <div className="relative flex justify-center">
@@ -132,7 +151,10 @@ export default function AssetHero() {
 
                 {/* Action Buttons */}
                 <div className="flex gap-2 lg:gap-3 mt-4 lg:mt-6">
-                  <button className="flex-1 bg-purple-600 text-white rounded-xl py-2 lg:py-3 px-3 lg:px-4 font-semibold text-xs lg:text-sm">
+                  <button 
+                    className="flex-1 text-white rounded-xl py-2 lg:py-3 px-3 lg:px-4 font-semibold text-xs lg:text-sm"
+                    style={{ backgroundColor: '#cf21c3' }}
+                  >
                     Add Funds
                   </button>
                   <button className="flex-1 bg-gray-200 text-gray-700 rounded-xl py-2 lg:py-3 px-3 lg:px-4 font-semibold text-xs lg:text-sm">

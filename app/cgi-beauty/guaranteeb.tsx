@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 export default function GuaranteeSection() {
+  const [isDateSelected, setIsDateSelected] = useState(false);
+
   useEffect(() => {
     // Load Calendly widget script
     const script = document.createElement('script');
@@ -11,51 +13,49 @@ export default function GuaranteeSection() {
     script.async = true;
     document.body.appendChild(script);
 
-    // Initialize Calendly after script loads
-    script.onload = () => {
-      if (window.Calendly) {
-        window.Calendly.initBadgeWidget({
-          url: 'https://calendly.com/saadalii/kayidigital',
-          text: 'Schedule time with me',
-          color: '#cf21c3',
-          textColor: '#ffffff',
-        });
+    // Listen for Calendly events
+    const handleMessage = (event) => {
+      if (event.data.event && (
+        event.data.event === 'calendly.event_scheduled' || 
+        event.data.event === 'calendly.date_and_time_selected'
+      )) {
+        setIsDateSelected(true);
       }
     };
 
+    window.addEventListener('message', handleMessage);
+
     return () => {
-      // Clean up
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
+      if (document.body.contains(script)) document.body.removeChild(script);
+      window.removeEventListener('message', handleMessage);
     };
   }, []);
 
   const openCalendly = () => {
     if (window.Calendly) {
       window.Calendly.initPopupWidget({
-        url: 'https://calendly.com/saadalii/kayidigital'
+        url: 'https://calendly.com/saadalii/kayidigital?hide_event_type_details=1'
       });
     } else {
-      // Fallback: open in new tab
       window.open('https://calendly.com/saadalii/kayidigital', '_blank');
     }
   };
 
   const handleWhatsAppClick = () => {
-    window.open('https://wa.me/923090613822', '_blank');
+    const message = encodeURIComponent("Hi! I'm interested in your 4x ROAS guarantee and would like to learn more about your services. I saw you have offices in Canada, UK, USA (Fremont, California), and Pakistan.");
+    window.open(`https://wa.me/923090613822?text=${message}`, '_blank');
   };
 
   return (
-    <section className="flex justify-center items-center py-12 px-4 bg-white">
+    <section className="flex justify-center items-center py-8 md:py-12 px-4 bg-white">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="relative max-w-6xl w-full rounded-3xl shadow-2xl p-8 text-white overflow-hidden"
+        className="relative max-w-7xl w-full rounded-3xl shadow-2xl p-6 md:p-10 text-white overflow-hidden"
       >
-        {/* Animated Gradient Background */}
+        {/* Animated Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
           <motion.div
             className="absolute inset-0 opacity-40"
@@ -68,82 +68,57 @@ export default function GuaranteeSection() {
                 'radial-gradient(circle at 0% 0%, #cf21c3 0%, transparent 50%)',
               ],
             }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "linear"
-            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
           />
         </div>
 
-        {/* Content - Horizontal Layout */}
+        {/* Content */}
         <div className="relative z-10 flex flex-col lg:flex-row items-center gap-8">
-          {/* Left Side - Revenue Dashboard */}
+          {/* Left Side */}
           <div className="flex-1 text-center lg:text-left">
-            {/* Headline */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="flex justify-center lg:justify-start mb-6"
+            >
+              <div className="w-32 h-32 bg-gradient-to-br from-[#cf21c3] to-pink-500 rounded-full flex items-center justify-center shadow-2xl border-4 border-white/20">
+                <div className="text-center text-white">
+                  <div className="text-2xl font-bold">4x</div>
+                  <div className="text-sm font-bold">ROAS</div>
+                  <div className="text-xs font-bold mt-1">GUARANTEE</div>
+                </div>
+              </div>
+            </motion.div>
+
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-2xl md:text-3xl font-bold mb-6"
+              className="text-2xl md:text-3xl font-bold mb-4"
             >
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#cf21c3] to-pink-400">
-                $2.4M
-              </span>{' '}
-              <span className="text-white">In Brand Revenue Generated Last Quarter</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#cf21c3] to-pink-400">4x ROAS</span>{' '}
+              <span className="text-white">Or We Work Until You Hit It</span>
             </motion.h2>
 
-            {/* Revenue Dashboard */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="space-y-4 mb-6"
-            >
-              {/* Dashboard Item 1 */}
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-bold text-white">GlowLab Skincare</span>
-                  <span className="font-bold text-green-400">$876,427</span>
-                </div>
-                <p className="text-gray-300 text-sm">"Product Launch Campaign"</p>
-              </div>
-
-              {/* Dashboard Item 2 */}
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-bold text-white">VitaBoost Supplements</span>
-                  <span className="font-bold text-green-400">$643,089</span>
-                </div>
-                <p className="text-gray-300 text-sm">"Educational Series Campaign"</p>
-              </div>
-
-              {/* Dashboard Item 3 */}
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-bold text-white">LuxeBeauty Co</span>
-                  <span className="font-bold text-green-400">$297,681</span>
-                </div>
-                <p className="text-gray-300 text-sm">"Brand Awareness Campaign"</p>
-              </div>
-            </motion.div>
-
-            {/* Caption */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
               className="space-y-3 mb-6"
             >
               <p className="text-gray-200 text-sm leading-relaxed">
-                These beauty brands partnered with us and generated over <span className="font-bold text-white">$2.4 million</span> in tracked sales in under 90 days using CGI ads that make products look premium and convert impulse browsers into buyers.
+                We guarantee you'll achieve at least <span className="font-bold text-white">4x return on ad spend</span> within 90 days.
               </p>
+              <p className="text-gray-200 text-sm leading-relaxed">
+                If you don't hit this benchmark, we continue working at no extra cost until you do.
+              </p>
+              <p className="text-lg font-bold text-white">The risk is entirely on us. You only win.</p>
             </motion.div>
 
-            {/* Trust Indicators */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -151,30 +126,20 @@ export default function GuaranteeSection() {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="flex flex-col sm:flex-row gap-4 text-gray-300 text-sm"
             >
-              <div className="flex items-center gap-2">
-                <span className="text-[#cf21c3]">🔒</span>
-                <span>Confidential</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-[#cf21c3]">⚡</span>
-                <span>2h response</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-[#cf21c3]">✅</span>
-                <span>No pressure</span>
-              </div>
+              <div className="flex items-center gap-2"><span className="text-[#cf21c3]">🔒</span>Confidential</div>
+              <div className="flex items-center gap-2"><span className="text-[#cf21c3]">⚡</span>2h response</div>
+              <div className="flex items-center gap-2"><span className="text-[#cf21c3]">✅</span>No pressure</div>
             </motion.div>
           </div>
 
-          {/* Right Side - Calendly and WhatsApp */}
-          <div className="flex-1">
-            {/* Calendly Button */}
+          {/* Right Side */}
+          <div className="flex-1 w-full">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.4 }}
-              className="mb-6 text-center"
+              className="mb-6 text-center w-full"
             >
               <motion.button
                 onClick={openCalendly}
@@ -182,22 +147,18 @@ export default function GuaranteeSection() {
                 whileTap={{ scale: 0.95 }}
                 className="w-full bg-gradient-to-r from-[#cf21c3] to-pink-500 hover:from-[#cf21c3] hover:to-pink-600 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition-all duration-300 text-lg"
               >
-                Book Your Free Review
+                📅 Book Free Strategy Call
               </motion.button>
-              
-              {/* Calendly Inline Widget - Fallback */}
-              <div className="mt-4 rounded-xl overflow-hidden border-2 border-[#cf21c3]">
-                <iframe 
-                  src="https://calendly.com/saadalii/kayidigital?embed_domain=localhost&embed_type=Inline"
-                  width="100%" 
-                  height="400" 
-                  frameBorder="0"
-                  title="Schedule a meeting"
-                ></iframe>
+
+              <div className={`mt-4 rounded-xl border-2 border-[#cf21c3] w-full ${isDateSelected ? 'scrollable' : 'no-scroll'}`}>
+                <div 
+                  className="calendly-inline-widget w-full" 
+                  data-url="https://calendly.com/saadalii/kayidigital?primary_color=cf21c3&hide_gdpr_banner=1&hide_event_type_details=1"
+                  style={{ minWidth: '320px', height: '480px', width: '100%' }}
+                />
               </div>
             </motion.div>
 
-            {/* WhatsApp Alternative */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -221,6 +182,75 @@ export default function GuaranteeSection() {
           </div>
         </div>
       </motion.div>
+
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        * { font-family: 'Inter', sans-serif; }
+
+        /* Hide Calendly badges and popups */
+        .calendly-badge-widget,
+        .calendly-badge-content,
+        .calendly-overlay,
+        .calendly-popup-content { display: none !important; }
+
+        /* INITIAL STATE - no scroll */
+        .no-scroll {
+          overflow: hidden !important;
+        }
+        .no-scroll .calendly-inline-widget iframe {
+          pointer-events: none !important;
+          height: 480px !important;
+        }
+
+        /* AFTER DATE SELECTION - scrollable */
+        .scrollable {
+          overflow: auto !important;
+        }
+        .scrollable .calendly-inline-widget iframe {
+          pointer-events: auto !important;
+          height: auto !important;
+          min-height: 480px !important;
+          overflow-y: auto !important;
+          -webkit-overflow-scrolling: touch !important;
+        }
+
+        /* Remove padding/margin and ensure full width */
+        .calendly-inline-widget { 
+          padding: 0 !important; 
+          margin: 0 !important; 
+          background: white !important; 
+          width: 100% !important;
+        }
+        .calendly-inline-widget iframe { 
+          padding: 0 !important; 
+          margin: 0 !important; 
+          display: block !important; 
+          width: 100% !important;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+          .no-scroll .calendly-inline-widget iframe { height: 450px !important; }
+          .scrollable .calendly-inline-widget iframe { min-height: 450px !important; }
+        }
+
+        /* Desktop adjustments - Make calendar take full available width */
+        @media (min-width: 769px) {
+          .no-scroll .calendly-inline-widget iframe { 
+            height: 480px !important; 
+            width: 100% !important;
+          }
+          .scrollable .calendly-inline-widget iframe { 
+            min-height: 480px !important; 
+            width: 100% !important;
+          }
+          
+          /* Make the right side container wider */
+          .flex-1.w-full {
+            flex: 1.2 !important; /* Slightly wider than left side */
+          }
+        }
+      `}</style>
     </section>
   );
 }
