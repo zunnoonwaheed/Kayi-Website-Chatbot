@@ -197,7 +197,9 @@ export default function ReviewSection() {
                         ref={(el) => (videoRefs.current[originalIndex] = el)}
                         src={review.video}
                         loop
+                        muted
                         playsInline
+                        preload="metadata"
                         className="h-full w-full object-cover"
                       />
                     ) : (
