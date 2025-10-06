@@ -154,7 +154,7 @@ export default function GuaranteeSection() {
               {/* EXACT CALENDLY STRUCTURE FROM HERO */}
               <div 
                 className={`rounded-3xl overflow-hidden shadow-2xl border-4 calendly-container ${isDateSelected ? 'scrollable' : 'no-scroll'}`}
-                style={{ borderColor: '#CF21C3' }}
+                style={{ borderColor: '#CF21C3', paddingTop: 0 }}
               >
                 <div 
                   className="calendly-inline-widget" 
@@ -254,7 +254,7 @@ export default function GuaranteeSection() {
         }
 
         .calendly-container {
-          padding-top: 20px;
+          padding-top: 0px;
         }
 
         /* Hide the Calendly floating badge from all views */
