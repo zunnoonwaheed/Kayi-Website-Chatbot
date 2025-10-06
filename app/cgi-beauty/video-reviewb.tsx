@@ -135,8 +135,37 @@ export default function ReviewSection() {
   };
 
   return (
-    <section className="py-20 px-4 sm:px-6 relative overflow-hidden bg-white dark:bg-white">
+    <section className="py-20 px-4 sm:px-6 relative overflow-hidden !bg-white">
       <div className="max-w-7xl mx-auto relative z-10">
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center mb-16"
+        >
+          <motion.h2
+            className="text-4xl lg:text-5xl font-bold mb-4 !text-black"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            Success In Action
+          </motion.h2>
+          <motion.p
+            className="text-lg !text-slate-600 max-w-2xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            Meet the clients who <span className="font-bold">stopped</span> worrying about their digital projects and
+            started focusing on what matters most - <span className="font-bold">growing their business</span>
+          </motion.p>
+        </motion.div>
+
         {/* Scrollable row */}
         <div className="relative">
           <div
@@ -156,7 +185,7 @@ export default function ReviewSection() {
               return (
                 <div
                   key={displayedIndex}
-                  className={`relative bg-white dark:bg-white backdrop-blur-sm rounded-2xl flex-shrink-0 snap-center transition-transform z-10 ${getCardSizeClasses(displayedIndex)}`}
+                  className={`relative !bg-white/80 backdrop-blur-sm rounded-2xl flex-shrink-0 snap-center transition-transform z-10 ${getCardSizeClasses(displayedIndex)}`}
                 >
                   {/* Media */}
                   <div
@@ -178,31 +207,29 @@ export default function ReviewSection() {
                     {/* Smaller, more transparent Play/Pause button */}
                     {review.video && (
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="bg-white/70 dark:bg-white/70 rounded-full p-2 sm:p-3 shadow-sm backdrop-blur-sm">
+                        <div className="!bg-white/70 rounded-full p-2 sm:p-3 shadow-sm backdrop-blur-sm">
                           {getPausedState(displayedIndex) ? (
-                            <Play className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 dark:text-gray-700 fill-gray-700 dark:fill-gray-700 ml-0.5" />
+                            <Play className="w-4 h-4 sm:w-5 sm:h-5 !text-gray-700 !fill-gray-700 ml-0.5" />
                           ) : (
-                            <Pause className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 dark:text-gray-700 fill-gray-700 dark:fill-gray-700" />
+                            <Pause className="w-4 h-4 sm:w-5 sm:h-5 !text-gray-700 !fill-gray-700" />
                           )}
                         </div>
                       </div>
                     )}
 
                     {/* White gradient overlay at the bottom */}
-                    <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-white dark:from-white via-white/90 dark:via-white/90 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t !from-white !via-white/90 to-transparent" />
                   </div>
 
                   {/* Text & name */}
                   <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col justify-end rounded-2xl">
-                    <p className="text-base text-black dark:text-black leading-snug mb-2 text-left font-normal not-italic">{review.text}</p>
-                    <span className="text-sm text-gray-600 dark:text-gray-600 self-end font-normal not-italic">— {review.name}</span>
+                    <p className="text-base !text-black leading-snug mb-2 text-left font-normal not-italic">{review.text}</p>
+                    <span className="text-sm !text-gray-600 self-end font-normal not-italic">— {review.name}</span>
                   </div>
                 </div>
               );
             })}
           </div>
-
-          {/* Navigation arrows - REMOVED */}
         </div>
 
         {/* Mobile navigation dots with proper active state */}
@@ -211,7 +238,7 @@ export default function ReviewSection() {
             <div 
               key={index} 
               className={`w-2 h-2 rounded-full mx-1 transition-colors ${
-                currentSlide === index ? 'bg-[#cf21c3]' : 'bg-gray-300 dark:bg-gray-300'
+                currentSlide === index ? '!bg-[#cf21c3]' : '!bg-gray-300'
               }`} 
             />
           ))}
