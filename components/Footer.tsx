@@ -3,15 +3,6 @@ import Image from "next/image"
 import { Facebook, Instagram, Linkedin } from "lucide-react"
 
 export default function Footer() {
-  // Keeping only the first 5 services as requested
-  const servicesCategories = [
-    "Business Automation",
-    "Performance Marketing",
-    "Web Development",
-    "Mobile App Development",
-    "Custom Software Solutions",
-  ]
-
   return (
     <footer className="bg-black text-white relative overflow-hidden -mt-8 block" style={{marginTop: '-2rem'}}>
       {/* Enhanced Eye-Catching Background Effects */}
@@ -59,105 +50,51 @@ export default function Footer() {
             Stop googling 'how to grow my business at 3am' and just talk to us instead.
           </p>
           <Link
-              href="https://calendly.com/saadalii/kayidigital"
+              href="https://wa.me/15104036381"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white 
                          bg-gradient-to-r from-[#cf21c3] to-[#e879f9] rounded-full 
                          hover:from-[#a21caf] hover:to-[#cf21c3] transition-all duration-300 
                          shadow-lg hover:shadow-xl transform hover:-translate-y-1"
             >
              Need Help?
-            </Link>
+          </Link>
         </div>
         {/* Animated Pink Gradient Dividers */}
         <div className="h-1 bg-gradient-to-r from-transparent via-pink-400 to-transparent mb-6 animate-pulse shadow-lg shadow-pink-500/30"></div>
-        {/* Links Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-          {/* Company */}
-          <div>
-            <h4 className="text-white font-semibold mb-3 text-sm uppercase tracking-wide">Our Company</h4>
-            <ul className="space-y-1.5 text-white text-sm">
-              <li>
-                <Link href="#our-process-section" className="hover:text-[#cf21c3] transition-colors">
-                  Our Process
-                </Link>
-              </li>
-              <li>
-                <Link href="#services-section" className="hover:text-[#cf21c3] transition-colors">
-                  Services We Offer
-                </Link>
-              </li>
-              <li>
-                <Link href="#success-stories-section" className="hover:text-[#cf21c3] transition-colors">
-                  Our Success Stories
-                </Link>
-              </li>
-              <li>
-                <Link href="#why-teams-choose-us-section" className="hover:text-[#cf21c3] transition-colors">
-                  Why Teams Choose Us
-                </Link>
-              </li>
-              <li>
-                <Link href="#have-a-project-in-mind-section" className="hover:text-[#cf21c3] transition-colors">
-                  Have A Project In Mind?
-                </Link>
-              </li>
-           
-              {/* Added Contact Page Link */}
-              <li>
-                <Link href="/contact" className="hover:text-[#cf21c3] transition-colors">
-                  Contact Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/admin/dashboard"
-                  className="hover:text-[#cf21c3] transition-colors opacity-70 hover:opacity-100"
-                >
-                Admin
-                </Link>
-              </li>
-            </ul>
-          </div>
-          {/* Services */}
-          <div>
-            <h4 className="text-white font-semibold mb-3 text-sm uppercase tracking-wide">Our Services</h4>
-            <ul className="space-y-1.5 text-white text-sm">
-              {servicesCategories.map((service) => (
-                <li key={service}>
-                  <Link href="#success-stories-section" className="hover:text-[#cf21c3] transition-colors">
-                    {service}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          {/* Addresses */}
-          <div>
-            <h4 className="text-white font-semibold mb-3 text-sm uppercase tracking-wide">Addresses</h4>
-            <ul className="space-y-1.5 text-white text-sm">
-              <li>
-                <p className="font-medium">Canada</p>
-                <p className="text-gray-300">140 Doubtfire Cres, Markham, ON, Canada</p>
-              </li>
-              <li>
-                <p className="font-medium">United Kingdom</p>
-                <p className="text-gray-300">International House, 12 Constance St, London E16 2DQ, United Kingdom</p>
-              </li>
-              <li>
-                <p className="font-medium">Pakistan</p>
-                <p className="text-gray-300">
-                  Suite 33-35, 7th Floor, Plot Nos. 68 & 69, Kayani Shaheed Road, Karachi, Pakistan.
-                </p>
-              </li>
-            </ul>
+        
+        {/* Where to Find Us Section */}
+        <div className="mb-6">
+          <h4 className="text-white font-semibold mb-4 text-lg uppercase tracking-wide text-center">Where to Find Us?</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div>
+              <p className="font-medium text-white">Canada</p>
+              <p className="text-gray-300 text-sm">140 Doubtfire Cres, Markham, ON, Canada</p>
+            </div>
+            <div>
+              <p className="font-medium text-white">United Kingdom</p>
+              <p className="text-gray-300 text-sm">International House, 12 Constance St, London E16 2DQ, United Kingdom</p>
+            </div>
+            <div>
+              <p className="font-medium text-white">United States</p>
+              <p className="text-gray-300 text-sm">43555 Grimmer Blvd, Fremont, California, USA</p>
+            </div>
+            <div>
+              <p className="font-medium text-white">Pakistan</p>
+              <p className="text-gray-300 text-sm">
+                Suite 33-35, 7th Floor, Plot Nos. 68 & 69, Kayani Shaheed Road, Karachi, Pakistan.
+              </p>
+            </div>
           </div>
         </div>
+
         {/* Second Animated Pink Gradient Divider */}
         <div className="h-1 bg-gradient-to-r from-transparent via-[#cf21c3] to-transparent mb-5 animate-pulse shadow-lg shadow-pink-500/30"></div>
-        {/* Social and Location Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-5">
-          {/* Enhanced Social Icons */}
-          <div className="flex space-x-6 mb-4 md:mb-0">
+        
+        {/* Social Icons Section */}
+        <div className="flex justify-center mb-5">
+          <div className="flex space-x-6">
             <Link
               href="https://www.facebook.com/people/The-Kayi-Digital/61565056286873/"
               target="_blank"
@@ -183,8 +120,8 @@ export default function Footer() {
               <Linkedin size={20} />
             </Link>
           </div>
-          {/* Location Info - Removed as new Addresses section is added */}
         </div>
+
         {/* Company Logo Section */}
         <div className="relative mb-3">
           <div className="text-center relative z-10">
@@ -198,6 +135,7 @@ export default function Footer() {
             />
           </div>
         </div>
+
         {/* Copyright */}
         <div className="text-center text-white text-xs border-t border-gray-700 pt-3">
           <p>© 2024 Kayi Digital. All Rights Reserved.</p>

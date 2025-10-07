@@ -65,9 +65,9 @@ const services = [
 ]
 
 export default function ServicesSection() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [hoveredIndex, setHoveredIndex] = useState(null)
   const [currentSlide, setCurrentSlide] = useState(0)
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const scrollContainerRef = useRef(null)
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -81,12 +81,10 @@ export default function ServicesSection() {
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
-  const scrollToSlide = (index: number) => {
+  const scrollToSlide = (index) => {
     if (scrollContainerRef.current) {
-      // Clamp the index to valid range
       const targetIndex = Math.max(0, Math.min(index, services.length - 1))
       
-      // Immediately update the current slide state BEFORE scrolling
       setCurrentSlide(targetIndex)
       
       const scrollPosition = targetIndex * scrollContainerRef.current.offsetWidth
@@ -104,18 +102,14 @@ export default function ServicesSection() {
       const slideWidth = scrollContainerRef.current.offsetWidth
       const maxScroll = scrollContainerRef.current.scrollWidth - slideWidth
       
-      // More accurate slide detection
       let newSlide = Math.round(scrollPosition / slideWidth)
       
-      // Ensure we don't exceed bounds
       newSlide = Math.max(0, Math.min(newSlide, services.length - 1))
       
-      // If we're at the very end of scroll, ensure we're on the last slide
       if (scrollPosition >= maxScroll - 10) {
         newSlide = services.length - 1
       }
       
-      // Only update if the slide has actually changed to prevent unnecessary re-renders
       setCurrentSlide(prevSlide => {
         if (prevSlide !== newSlide) {
           return newSlide
@@ -128,7 +122,6 @@ export default function ServicesSection() {
   return (
     <section className="py-12 md:py-16 px-4 relative overflow-hidden bg-transparent">
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header - Reduced height for mobile */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -157,9 +150,7 @@ export default function ServicesSection() {
           </motion.p>
         </motion.div>
 
-        {/* Services Grid - Fixed to prevent vertical movement */}
         <div className="relative">
-          {/* Desktop Grid - Left aligned content */}
           <div className="hidden lg:grid grid-cols-4 gap-4">
             {services.map((service, index) => {
               const Icon = service.icon
@@ -191,10 +182,9 @@ export default function ServicesSection() {
                       isHovered ? "border-[#cf21c3]/40 shadow-lg" : "border-gray-200/60 hover:border-gray-300"
                     }`}
                     style={{ 
-                      minHeight: "380px", // Reduced height for better mobile view
+                      minHeight: "380px",
                     }}
                   >
-                    {/* Rounded top section with gradient background */}
                     <motion.div
                       initial={{ scale: 0.8, rotate: -10 }}
                       whileInView={{ scale: 1, rotate: 0 }}
@@ -209,7 +199,7 @@ export default function ServicesSection() {
                         stiffness: 300
                       }}
                       viewport={{ once: true }}
-                      className="mb-4 flex-shrink-0 flex justify-start" // Changed to justify-start for left alignment
+                      className="mb-4 flex-shrink-0 flex justify-start"
                     >
                       <div
                         className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 transform ${
@@ -222,7 +212,6 @@ export default function ServicesSection() {
                       </div>
                     </motion.div>
 
-                    {/* Content section - Left aligned */}
                     <motion.div
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
@@ -242,7 +231,6 @@ export default function ServicesSection() {
                       </p>
                     </motion.div>
 
-                    {/* Subtle hover glow effect */}
                     <motion.div
                       className="absolute inset-0 pointer-events-none"
                       animate={{
@@ -260,11 +248,8 @@ export default function ServicesSection() {
             })}
           </div>
 
-          {/* Mobile Carousel */}
           <div className="lg:hidden relative">
-            {/* Navigation arrows with strict visibility control */}
             <div className="absolute left-0 right-0 top-1/2 transform -translate-y-1/2 z-20 flex justify-between items-center px-2 pointer-events-none">
-              {/* Left arrow - strictly only shows when currentSlide > 0 */}
               <div className="flex-shrink-0">
                 {currentSlide > 0 ? (
                   <button 
@@ -284,7 +269,6 @@ export default function ServicesSection() {
                 )}
               </div>
               
-              {/* Right arrow - strictly only shows when currentSlide < services.length - 1 */}
               <div className="flex-shrink-0">
                 {currentSlide < services.length - 1 ? (
                   <button 
@@ -313,7 +297,6 @@ export default function ServicesSection() {
                 scrollBehavior: "smooth",
               }}
             >
-              {/* Add padding to ensure first and last cards are centered */}
               <div className="flex-shrink-0 w-[calc((100vw-320px)/2)]" />
               
               {services.map((service, index) => {
@@ -338,10 +321,9 @@ export default function ServicesSection() {
                         isHovered ? "border-[#cf21c3]/40 shadow-lg" : "border-gray-200/60 hover:border-gray-300"
                       }`}
                       style={{ 
-                        minHeight: "360px", // Reduced height for mobile
+                        minHeight: "360px",
                       }}
                     >
-                      {/* Rounded top section with gradient background */}
                       <div className="mb-4 flex-shrink-0 flex justify-center">
                         <div
                           className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 transform ${
@@ -354,7 +336,6 @@ export default function ServicesSection() {
                         </div>
                       </div>
 
-                      {/* Content section - Centered for mobile */}
                       <div className="flex-grow flex flex-col text-center lg:text-left">
                         <h3
                           className={`text-lg font-bold mb-3 leading-tight flex-shrink-0 transition-colors duration-300 ${
@@ -372,11 +353,9 @@ export default function ServicesSection() {
                 )
               })}
               
-              {/* Add padding to ensure first and last cards are centered */}
               <div className="flex-shrink-0 w-[calc((100vw-320px)/2)]" />
             </div>
 
-            {/* Mobile pagination dots */}
             <div className="flex justify-center space-x-2 mt-6">
               {services.map((_, index) => (
                 <button
@@ -400,7 +379,7 @@ export default function ServicesSection() {
           className="text-center px-4 mt-8"
         >
           <motion.a
-            href="https://calendly.com/saadalii/kayidigital"
+            href="https://wa.me/15104036381"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{

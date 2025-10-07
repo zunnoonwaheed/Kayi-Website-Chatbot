@@ -48,9 +48,9 @@ const faqData = [
 ]
 
 export default function FaqsSection() {
-  const [openItems, setOpenItems] = useState<string[]>([])
+  const [openItems, setOpenItems] = useState([])
 
-  const toggleItem = (id: string) => {
+  const toggleItem = (id) => {
     if (openItems.includes(id)) {
       setOpenItems(openItems.filter(item => item !== id))
     } else {
@@ -87,8 +87,8 @@ export default function FaqsSection() {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             Everything you need to know about our services and processes. Can't find an answer?{" "}
-            <a href="https://calendly.com/saadalii/kayidigital" className="text-[#cf21c3] font-semibold hover:underline">
-            We typically respond back in an hour!
+            <a href="https://wa.me/15104036381" target="_blank" rel="noopener noreferrer" className="text-[#cf21c3] font-semibold hover:underline">
+            We typically respond back within an hour!
             </a>
           </motion.p>
         </motion.div>
@@ -141,7 +141,7 @@ export default function FaqsSection() {
           className="text-center mt-6 px-4"
         >
           <motion.a
-            href="https://calendly.com/saadalii/kayidigital"
+            href="https://wa.me/15104036381"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{
