@@ -37,6 +37,7 @@ export default function Footer() {
         {/* Gradient mesh overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-transparent via-pink-900/5 to-[#cf21c3]/10"></div>
       </div>
+      
       <div className="max-w-6xl mx-auto px-4 py-8 relative">
         {/* Enhanced Header Section */}
         <div className="text-center mb-8 relative z-10">
@@ -50,40 +51,79 @@ export default function Footer() {
             Stop googling 'how to grow my business at 3am' and just talk to us instead.
           </p>
           <Link
-              href="https://wa.me/15104036381"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white 
-                         bg-gradient-to-r from-[#cf21c3] to-[#e879f9] rounded-full 
-                         hover:from-[#a21caf] hover:to-[#cf21c3] transition-all duration-300 
-                         shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-            >
-             Need Help?
+            href="https://wa.me/15104036381"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white 
+                       bg-gradient-to-r from-[#cf21c3] to-[#e879f9] rounded-full 
+                       hover:from-[#a21caf] hover:to-[#cf21c3] transition-all duration-300 
+                       shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+          >
+            Need Help?
           </Link>
         </div>
+        
         {/* Animated Pink Gradient Dividers */}
         <div className="h-1 bg-gradient-to-r from-transparent via-pink-400 to-transparent mb-6 animate-pulse shadow-lg shadow-pink-500/30"></div>
         
+        {/* Contact Information */}
+        <div className="text-center mb-6 relative z-10">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-3 md:gap-8">
+            <a 
+              href="mailto:thekayidigital@gmail.com"
+              className="text-white hover:text-[#cf21c3] transition-all duration-300 group"
+            >
+              <span className="text-sm md:text-base font-medium group-hover:scale-105 inline-block transition-transform">
+                thekayidigital@gmail.com
+              </span>
+            </a>
+            <span className="hidden md:inline text-gray-500 text-lg">|</span>
+            <a 
+              href="tel:+15104036381"
+              className="text-white hover:text-[#cf21c3] transition-all duration-300 group"
+            >
+              <span className="text-sm md:text-base font-medium group-hover:scale-105 inline-block transition-transform">
+                +1 (510) 403-6381
+              </span>
+            </a>
+          </div>
+        </div>
+
         {/* Where to Find Us Section */}
-        <div className="mb-6">
-          <h4 className="text-white font-semibold mb-4 text-lg uppercase tracking-wide text-center">Where to Find Us?</h4>
+        <div className="mb-6 relative z-10">
+          <h4 className="text-white font-semibold mb-5 text-lg uppercase tracking-wide text-center">
+            Where to Find Us?
+          </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Canada */}
             <div>
-              <p className="font-medium text-white">Canada</p>
-              <p className="text-gray-300 text-sm">140 Doubtfire Cres, Markham, ON, Canada</p>
+              <p className="font-semibold text-white text-base mb-1.5">Canada</p>
+              <p className="text-gray-300 text-sm leading-snug">
+                140 Doubtfire Cres, Markham, ON, Canada
+              </p>
             </div>
+            
+            {/* United Kingdom */}
             <div>
-              <p className="font-medium text-white">United Kingdom</p>
-              <p className="text-gray-300 text-sm">International House, 12 Constance St, London E16 2DQ, United Kingdom</p>
+              <p className="font-semibold text-white text-base mb-1.5">United Kingdom</p>
+              <p className="text-gray-300 text-sm leading-snug">
+                International House, 12 Constance St, London E16 2DQ, United Kingdom
+              </p>
             </div>
+            
+            {/* United States */}
             <div>
-              <p className="font-medium text-white">United States</p>
-              <p className="text-gray-300 text-sm">43555 Grimmer Blvd, Fremont, California, USA</p>
+              <p className="font-semibold text-white text-base mb-1.5">United States</p>
+              <p className="text-gray-300 text-sm leading-snug">
+                43555 Grimmer Blvd, Fremont, California, USA
+              </p>
             </div>
+            
+            {/* Pakistan */}
             <div>
-              <p className="font-medium text-white">Pakistan</p>
-              <p className="text-gray-300 text-sm">
-                Suite 33-35, 7th Floor, Plot Nos. 68 & 69, Kayani Shaheed Road, Karachi, Pakistan.
+              <p className="font-semibold text-white text-base mb-1.5">Pakistan</p>
+              <p className="text-gray-300 text-sm leading-snug">
+                Suite 33-35, 7th Floor, Plot Nos. 68 & 69, Kayani Shaheed Road, Karachi, Pakistan
               </p>
             </div>
           </div>
@@ -93,13 +133,14 @@ export default function Footer() {
         <div className="h-1 bg-gradient-to-r from-transparent via-[#cf21c3] to-transparent mb-5 animate-pulse shadow-lg shadow-pink-500/30"></div>
         
         {/* Social Icons Section */}
-        <div className="flex justify-center mb-5">
+        <div className="flex justify-center mb-5 relative z-10">
           <div className="flex space-x-6">
             <Link
               href="https://www.facebook.com/people/The-Kayi-Digital/61565056286873/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-[#cf21c3] transition-all duration-300 transform hover:scale-125 hover:rotate-12 drop-shadow-lg"
+              aria-label="Facebook"
             >
               <Facebook size={20} />
             </Link>
@@ -108,6 +149,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-[#cf21c3] transition-all duration-300 transform hover:scale-125 hover:rotate-12 drop-shadow-lg"
+              aria-label="Instagram"
             >
               <Instagram size={20} />
             </Link>
@@ -116,6 +158,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-[#cf21c3] transition-all duration-300 transform hover:scale-125 hover:rotate-12 drop-shadow-lg"
+              aria-label="LinkedIn"
             >
               <Linkedin size={20} />
             </Link>
